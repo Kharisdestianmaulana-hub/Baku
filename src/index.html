@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baku PDF Editor</title>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    
+    <script src="i18n.js"></script>
+    <script src="tooltip.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- MODAL HAPUS GAMBAR -->
+        <div id="modal-delete-image" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000;">
+            <div class="modal" style="width: 350px;">
+                <h3 style="margin-bottom: 12px; font-weight: 600; font-size: 14pt; color: #D32F2F;" data-i18n="Hapus Gambar">Hapus Gambar</h3>
+                <p style="margin-bottom: 24px; color: #5A6072; font-size: 10pt;" data-i18n="Apakah Anda yakin ingin menghapus gambar ini dari dokumen?">Apakah Anda yakin ingin menghapus gambar ini dari dokumen?</p>
+                <div class="modal-actions" style="display: flex; gap: 8px; justify-content: flex-end;">
+                    <button id="btn-cancel-del-img" class="btn-secondary" data-i18n="Batal">Batal</button>
+                    <button id="btn-confirm-del-img" class="btn-primary" style="background: #D32F2F; border-color: #D32F2F;" data-i18n="Hapus">Hapus</button>
+                </div>
+            </div>
+        </div>
+        <!-- SIDEBAR -->
+        <div id="sidebar">
+            <div class="logo-container" id="btn-toggle-sidebar" style="user-select: none; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 24px 20px; margin-bottom: 12px;">
+                <div class="logo-icon" style="background: transparent; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <img src="logo.png" alt="Logo" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                <h1 class="logo-text" style="font-size: 16pt; margin: 0; color: #1E2022; white-space: nowrap;">Baku PDF</h1>
+            </div>
+            <div class="menu" style="user-select: none;">
+                <div class="menu-item active" id="menu-home" title="Beranda">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <span class="menu-text">Beranda</span>
+                </div>
+                <div class="menu-item" title="Templat">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line></svg>
+                    <span class="menu-text">Templat</span>
+                </div>
+                <div class="menu-item" title="Alat Ekstra">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                    <span class="menu-text">Alat Ekstra</span>
+                </div>
+                <div class="menu-item" id="menu-settings" title="Pengaturan">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <span class="menu-text">Pengaturan</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT (BERANDA) -->
+        <div id="view-home" class="view active">
+            <div class="home-container">
+                <div class="section">
+                    <h2>Mulai Dokumen Baru</h2>
+                                        <div style="display: flex; gap: 32px;">
+                        <div>
+                            <div class="paper-box" id="btn-new-doc"></div>
+                            <div style="margin-top: 12px; font-size: 11pt; color: #2D3142; font-weight: 500; text-align: center;">Dokumen Kosong</div>
+                        </div>
+                        <div>
+                            <div class="paper-box" id="btn-open-doc" style="display: flex; justify-content: center; align-items: center; border-style: dashed;">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8C92A4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-6l-2-2H5a2 2 0 0 0-2 2z"></path>
+                                </svg>
+                            </div>
+                            <div style="margin-top: 12px; font-size: 11pt; color: #2D3142; font-weight: 500; text-align: center;">Buka (.baku)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Dokumen Terakhir</h2>
+                    <div class="table">
+                        <div class="table-header">
+                            <div class="col-4">NAMA FILE</div>
+                            <div class="col-4">LOKASI PATH</div>
+                            <div class="col-2">TERAKHIR DIBUKA</div>
+                        </div>
+                        <div id="recent-docs-list">
+                            <!-- Daftar dokumen akan diisi secara dinamis oleh JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT (EDITOR) -->
+        <div id="view-editor" class="view">
+            <!-- Native-like Menu Bar -->
+            <div id="menu-bar">
+                <div class="menu-dropdown">
+                    <span class="menu-title">File</span>
+                    <div class="menu-content">
+                        <div class="menu-action" id="action-home"><span>Beranda</span> <span class="shortcut">Esc</span></div>
+                        <div class="menu-action" id="action-new"><span>Baru...</span> <span class="shortcut">Ctrl+N</span></div>
+                        <div class="menu-action" id="action-open"><span>Buka...</span> <span class="shortcut">Ctrl+O</span></div>
+                        <div class="menu-divider"></div>
+                        <div class="menu-action" id="action-page-setup"><span>Pengaturan Halaman...</span> <span class="shortcut">Ctrl+Shift+P</span></div>
+                        <div class="menu-action" id="action-save"><span>Simpan</span> <span class="shortcut">Ctrl+S</span></div>
+                        <div class="menu-action" id="action-export"><span>Ekspor ke PDF...</span> <span class="shortcut">Ctrl+P</span></div>
+                        <div class="menu-divider"></div>
+                        <div class="menu-action" id="action-exit"><span>Keluar</span> <span class="shortcut">Alt+F4</span></div>
+                    </div>
+                </div>
+                <div class="menu-dropdown">
+                    <span class="menu-title">Edit</span>
+                    <div class="menu-content">
+                        <div class="menu-action" id="action-undo"><span>Urungkan</span> <span class="shortcut">Ctrl+Z</span></div>
+                        <div class="menu-action" id="action-redo"><span>Ulangi</span> <span class="shortcut">Ctrl+Y</span></div>
+                        <div class="menu-divider"></div>
+                        <div class="menu-action" id="action-cut"><span>Potong</span> <span class="shortcut">Ctrl+X</span></div>
+                        <div class="menu-action" id="action-copy"><span>Salin</span> <span class="shortcut">Ctrl+C</span></div>
+                        <div class="menu-action" id="action-paste"><span>Tempel</span> <span class="shortcut">Ctrl+V</span></div>
+                    </div>
+                </div>
+                <div class="menu-dropdown">
+                    <span class="menu-title">Sisipkan</span>
+                    <div class="menu-content">
+                        <div class="menu-action" id="action-insert-image"><span>Gambar...</span> <span class="shortcut">Ctrl+Shift+I</span></div>
+                        <div class="menu-action"><span>Tabel...</span> <span class="shortcut">Ctrl+Shift+T</span></div>
+                        <div class="menu-action" id="action-insert-link"><span>Tautan...</span> <span class="shortcut">Ctrl+K</span></div>
+                    </div>
+                </div>
+                <div class="menu-dropdown">
+                    <span class="menu-title">Tampilan</span>
+                    <div class="menu-content">
+                        <div class="menu-action" id="action-zoom-in"><span>Perbesar</span> <span class="shortcut">Ctrl++</span></div>
+                        <div class="menu-action" id="action-zoom-out"><span>Perkecil</span> <span class="shortcut">Ctrl+-</span></div>
+                        <div class="menu-action" id="action-zoom-reset"><span>Kembalikan Zoom 100%</span> <span class="shortcut">Ctrl+0</span></div>
+                    </div>
+                </div>
+                <div class="menu-dropdown">
+                    <span class="menu-title">Bantuan</span>
+                    <div class="menu-content">
+                        <div class="menu-action" id="action-about"><span>Tentang Baku PDF</span> <span class="shortcut">F1</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Toolbar Tabbed (Ribbon UI) -->
+            <div id="ribbon-toolbar">
+                <div class="ribbon-tabs">
+                    <div class="ribbon-tab active" data-target="tab-home">Beranda</div>
+                    <div class="ribbon-tab" data-target="tab-insert">Sisipkan</div>
+                    <div class="ribbon-tab" data-target="tab-layout">Tata Letak</div>
+                    <div class="ribbon-tab" data-target="tab-tools">Alat</div>
+                </div>
+                
+                <!-- Agar Quill mendeteksi ini sebagai toolbar, kita jadikan wadah ini id="custom-toolbar" -->
+                <div id="custom-toolbar" class="ribbon-content">
+                    
+                    <!-- TAB BERANDA -->
+                    <div id="tab-home" class="ribbon-pane active">
+                        
+                        <!-- KELOMPOK FONT -->
+                        <div class="ribbon-group">
+                            <div class="ribbon-row">
+                                <span class="ql-formats">
+                                    <select class="ql-font" title="Ganti Font"></select>
+                                </span>
+                                <span class="ql-formats">
+                                    <select class="ql-size" title="Ukuran Font" style="height: 24px; padding: 0 4px; width: 50px; font-size: 9pt; border: 1px solid #D1D5DB; border-radius: 2px;">
+                                        <option value="8pt">8</option>
+                                        <option value="9pt">9</option>
+                                        <option value="10pt">10</option>
+                                        <option value="11pt" selected>11</option>
+                                        <option value="12pt">12</option>
+                                        <option value="14pt">14</option>
+                                        <option value="16pt">16</option>
+                                        <option value="18pt">18</option>
+                                        <option value="20pt">20</option>
+                                        <option value="22pt">22</option>
+                                        <option value="24pt">24</option>
+                                        <option value="28pt">28</option>
+                                        <option value="36pt">36</option>
+                                        <option value="48pt">48</option>
+                                        <option value="72pt">72</option>
+                                    </select>
+                                    <button id="custom-btn-size-up" title="Perbesar Ukuran">A+</button>
+                                    <button id="custom-btn-size-down" title="Perkecil Ukuran">A-</button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button id="btn-uppercase" title="HURUF BESAR" style="float: left; width: 28px; height: 24px; padding: 0; line-height: 24px; text-align: center; font-weight: bold; font-family: 'Times New Roman', serif; font-size: 13px; border: none; background: none; cursor: pointer;">AA</button>
+                                    <button id="btn-lowercase" title="huruf kecil" style="float: left; width: 28px; height: 24px; padding: 0; line-height: 24px; text-align: center; font-weight: bold; font-family: 'Times New Roman', serif; font-size: 14px; border: none; background: none; cursor: pointer;">aa</button>
+                                </span>
+                            </div>
+                            <div class="ribbon-row">
+                                <span class="ql-formats">
+                                    <button class="ql-bold"></button>
+                                    <button class="ql-italic"></button>
+                                    <button class="ql-underline"></button>
+                                    <button class="ql-strike"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-script" value="sub"></button>
+                                    <button class="ql-script" value="super"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <select class="ql-color"></select>
+                                    <select class="ql-background"></select>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-clean"></button>
+                                    <button id="btn-format-painter" title="Kuas Format" style="float: left; width: 28px; height: 24px; padding: 3px 5px; border: none; background: none; cursor: pointer;">
+                                        <svg viewBox="0 0 18 18">
+                                            <path class="ql-fill" d="M13,3H9A2,2,0,0,0,7,5V9A2,2,0,0,0,9,11h1V15a1,1,0,0,1-2,0V14H6v1a3,3,0,0,0,6,0V11h1a2,2,0,0,0,2-2V5A2,2,0,0,0,13,3ZM13,9H9V5h4Z"></path>
+                                        </svg>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="ribbon-divider"></div>
+
+                        <!-- KELOMPOK PARAGRAF -->
+                        <div class="ribbon-group">
+                            <div class="ribbon-row">
+                                <span class="ql-formats">
+                                    <button class="ql-list" value="ordered"></button>
+                                    <button class="ql-list" value="bullet"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-indent" value="-1"></button>
+                                    <button class="ql-indent" value="+1"></button>
+                                </span>
+                            </div>
+                            <div class="ribbon-row">
+                                <span class="ql-formats">
+                                    <button class="ql-align" value=""></button>
+                                    <button class="ql-align" value="center"></button>
+                                    <button class="ql-align" value="right"></button>
+                                    <button class="ql-align" value="justify"></button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="ribbon-divider"></div>
+
+                        <!-- KELOMPOK GAYA / HEADING -->
+                        <div class="ribbon-group">
+                            <div class="ribbon-row">
+                                <span class="ql-formats">
+                                    <select class="ql-header">
+                                        <option value="1"></option>
+                                        <option value="2"></option>
+                                        <option selected></option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- TAB SISIPKAN -->
+                    <div id="tab-insert" class="ribbon-pane">
+                        <div style="display: flex; flex-direction: row; align-items: center; gap: 4px; height: 100%;">
+                            <!-- Karena image, link, blockquote bawaan quill ukurannya kecil, kita buat grup tersendiri -->
+                            <span class="ql-formats" style="margin-right: 8px;">
+                                <button class="ql-image" title="Sisipkan Gambar Secara Luring (Offline)"></button>
+                                <button class="ql-link" title="Sisipkan Tautan (Link)"></button>
+                                <button class="ql-blockquote" title="Kutipan Blok"></button>
+                            </span>
+                            
+                            <div class="ribbon-divider"></div>
+                            
+                            <!-- Tombol Besar Baku PDF (Tabel, Simbol, Tanggal) -->
+                            <button class="ribbon-btn" id="btn-insert-table" title="Tabel">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line><line x1="9" y1="9" x2="9" y2="21"></line><line x1="15" y1="9" x2="15" y2="21"></line></svg>
+                                <span data-i18n="Tabel">Tabel</span>
+                            </button>
+                            <div style="position: relative; display: inline-block;">
+                                <button class="ribbon-btn" id="btn-insert-page" title="Halaman (Page)">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v4"></path><path d="M4 18v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M20 12v-4"></path><line x1="3" y1="14" x2="21" y2="14" stroke-dasharray="4 4"></line></svg>
+                                    <span data-i18n="Halaman">Halaman</span>
+                                </button>
+                                <div id="dropdown-page-menu" style="display: none; flex-direction: column; position: absolute; top: 100%; left: 0; background: white; border: 1px solid #E1DFDD; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; border-radius: 4px; padding: 4px 0; min-width: 170px;">
+                                    <button id="btn-insert-pagebreak-menu" class="dropdown-menu-btn" style="width: 100%; text-align: left; padding: 8px 12px; background: transparent; border: none; cursor: pointer; color: #2D3142; font-size: 9pt; display: flex; align-items: center; gap: 8px;">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12" stroke-dasharray="4 4"></line><path d="M14 2H6a2 2 0 0 0-2 2v5"></path><path d="M4 15v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                                        <span data-i18n="Halaman Baru">Halaman Baru</span>
+                                    </button>
+                                    <button id="btn-insert-sectionbreak-menu" class="dropdown-menu-btn" style="width: 100%; text-align: left; padding: 8px 12px; background: transparent; border: none; cursor: pointer; color: #2D3142; font-size: 9pt; display: flex; align-items: center; gap: 8px;">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12" stroke-width="4"></line><path d="M14 2H6a2 2 0 0 0-2 2v5"></path><path d="M4 15v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                                        <span data-i18n="Pemisah Bagian">Pemisah Bagian</span>
+                                    </button>
+                                    <div style="height: 1px; background: #E1DFDD; margin: 4px 0;"></div>
+                                    <button id="btn-page-number-settings-menu" class="dropdown-menu-btn" style="width: 100%; text-align: left; padding: 8px 12px; background: transparent; border: none; cursor: pointer; color: #2D3142; font-size: 9pt; display: flex; align-items: center; gap: 8px;">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><path d="M13 14v-4l-2 1"></path></svg>
+                                        <span data-i18n="Pengaturan Nomor Halaman">Pengaturan Nomor Halaman</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <button class="ribbon-btn" id="btn-insert-symbol" title="Karakter Spesial">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>
+                                <span>Simbol</span>
+                            </button>
+                            <button class="ribbon-btn" id="btn-insert-date" title="Tanggal Hari Ini">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                <span>Tanggal</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- TAB TATA LETAK -->
+                    <div id="tab-layout" class="ribbon-pane">
+                        <!-- Spasi Paragraf dipindah ke sini -->
+                        <span class="ql-formats">
+                            <select class="ql-lineheight" title="Spasi Baris">
+                                <option value="1">Spasi 1.0</option>
+                                <option value="1.15" selected>Spasi 1.15</option>
+                                <option value="1.5">Spasi 1.5</option>
+                                <option value="2">Spasi 2.0</option>
+                            </select>
+                        </span>
+                        <div class="ribbon-divider"></div>
+                        <button class="ribbon-btn" id="ribbon-btn-page-setup">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 4px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                            <span>Pengaturan<br>Halaman</span>
+                        </button>
+                    </div>
+
+                    <!-- TAB ALAT -->
+                    <div id="tab-tools" class="ribbon-pane">
+                        <button class="ribbon-btn" id="ribbon-btn-find">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 4px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <span>Cari<br>Kata</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <div id="canvas-area" style="position: relative;">
+                <!-- KOTAK STABILO PENCARIAN (Ilusi Optik) -->
+                <div id="search-highlight-box" style="position: absolute; background: rgba(255, 235, 59, 0.5); border: 1px solid #FBC02D; border-radius: 2px; pointer-events: none; z-index: 50; display: none; transition: top 0.1s, left 0.1s, width 0.1s, height 0.1s;"></div>
+                
+                <!-- ALAT TABEL (Tampil Otomatis Saat Klik Tabel) -->
+                <div id="table-mini-btn" title="Alat Tabel" style="display: none; position: absolute; background: #FFFFFF; border: 1px solid #0078D4; box-shadow: 0 2px 6px rgba(0,0,0,0.2); z-index: 100; border-radius: 4px; padding: 4px; cursor: pointer; color: #0078D4;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line></svg>
+                </div>
+                
+                <div id="table-floating-toolbar" style="display: none; position: absolute; background: #FFFFFF; border: 1px solid #D1D5DB; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 101; border-radius: 4px; padding: 4px 0; user-select: none; flex-direction: column; min-width: 170px;">
+                    <div style="font-size: 8pt; font-weight: bold; color: #5A6072; text-align: left; margin: 4px 12px 8px 12px; border-bottom: 1px solid #F3F2F1; padding-bottom: 4px;" class="t-table-tools-title">Alat Tabel</div>
+                    <button class="dropdown-menu-btn" id="tbl-row-above" style="width: 100%; text-align: left; padding: 8px 12px; display: flex; align-items: center; flex-direction: row; justify-content: flex-start; font-size: 9pt; background: transparent; border: none; cursor: pointer; color: #2D3142;">
+                        <span data-i18n="Tambah Baris Atas">Tambah Baris Atas</span>
+                    </button>
+                    <button class="dropdown-menu-btn" id="tbl-row-below" style="width: 100%; text-align: left; padding: 8px 12px; display: flex; align-items: center; flex-direction: row; justify-content: flex-start; font-size: 9pt; background: transparent; border: none; cursor: pointer; color: #2D3142;">
+                        <span data-i18n="Tambah Baris Bawah">Tambah Baris Bawah</span>
+                    </button>
+                    <button class="dropdown-menu-btn" id="tbl-col-left" style="width: 100%; text-align: left; padding: 8px 12px; display: flex; align-items: center; flex-direction: row; justify-content: flex-start; font-size: 9pt; background: transparent; border: none; cursor: pointer; color: #2D3142;">
+                        <span data-i18n="Tambah Kolom Kiri">Tambah Kolom Kiri</span>
+                    </button>
+                    <button class="dropdown-menu-btn" id="tbl-col-right" style="width: 100%; text-align: left; padding: 8px 12px; display: flex; align-items: center; flex-direction: row; justify-content: flex-start; font-size: 9pt; background: transparent; border: none; cursor: pointer; color: #2D3142;">
+                        <span data-i18n="Tambah Kolom Kanan">Tambah Kolom Kanan</span>
+                    </button>
+                    <div style="width: 100%; border-top: 1px solid #E1DFDD; margin: 4px 0;"></div>
+                    <button class="dropdown-menu-btn" id="tbl-del-row" style="width: 100%; text-align: left; padding: 8px 12px; display: flex; align-items: center; flex-direction: row; justify-content: flex-start; font-size: 9pt; background: transparent; border: none; cursor: pointer; color: #D32F2F;">
+                        <span data-i18n="Hapus Baris">Hapus Baris</span>
+                    </button>
+                    <button class="dropdown-menu-btn" id="tbl-del-col" style="width: 100%; text-align: left; padding: 8px 12px; display: flex; align-items: center; flex-direction: row; justify-content: flex-start; font-size: 9pt; background: transparent; border: none; cursor: pointer; color: #D32F2F;">
+                        <span data-i18n="Hapus Kolom">Hapus Kolom</span>
+                    </button>
+                </div>
+                <!-- Wrapper Khusus untuk Export PDF agar overlay ikut tercetak -->
+                <div id="export-wrapper" style="position: relative; margin: 0 auto;">
+                    <!-- Quill Editor -->
+                    <div id="quill-container"></div>
+                    <!-- OVERLAY NOMOR HALAMAN & HEADER/FOOTER -->
+                    <div id="page-numbers-overlay" style="position: absolute; top: 0; left: 0; right: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5;"></div>
+                    
+                    <!-- EDITOR HEADER/FOOTER (MUNCUL SAAT KLIK GANDA) -->
+                    <div id="hf-editor-container" style="position: absolute; display: none; z-index: 10; width: 100%; pointer-events: none;">
+                        <!-- Wrapper melayang yang tepat berada di tengah margin -->
+                        <div style="position: absolute; width: 100%; top: 0; left: 0; transform: translateY(-50%); pointer-events: auto;">
+                            <!-- Toolbar (Melayang di atas input) -->
+                            <div id="hf-toolbar" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: white; border: 1px solid #D1D5DB; border-radius: 6px; padding: 6px 12px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin-bottom: 8px; width: max-content;">
+                                <span id="hf-label" style="font-weight: 600; font-size: 12px; color: #005A9E; text-transform: uppercase; letter-spacing: 0.5px;">Header</span>
+                                <div style="height: 16px; border-left: 1px solid #E5E7EB;"></div>
+                                <label style="font-size: 12px; display: flex; align-items: center; gap: 6px; cursor: pointer; margin: 0; color: #374151;">
+                                    <input type="checkbox" id="hf-diff-first" style="margin: 0;"> <span data-i18n="Berbeda di Halaman Pertama">Berbeda di Halaman Pertama</span>
+                                </label>
+                                <div style="height: 16px; border-left: 1px solid #E5E7EB;"></div>
+                                <div style="display: flex; gap: 4px;">
+                                    <button id="hf-align-left" class="ribbon-btn" style="padding: 4px; min-width: unset; height: unset; display: flex; align-items: center; justify-content: center; border-radius: 4px;" title="Align Left">
+                                        <svg viewBox="0 0 18 18" fill="none" stroke="#374151" stroke-width="1.5" width="16" height="16"><line x1="3" y1="5" x2="15" y2="5"></line><line x1="3" y1="9" x2="11" y2="9"></line><line x1="3" y1="13" x2="15" y2="13"></line></svg>
+                                    </button>
+                                    <button id="hf-align-center" class="ribbon-btn" style="padding: 4px; min-width: unset; height: unset; display: flex; align-items: center; justify-content: center; border-radius: 4px;" title="Align Center">
+                                        <svg viewBox="0 0 18 18" fill="none" stroke="#374151" stroke-width="1.5" width="16" height="16"><line x1="3" y1="5" x2="15" y2="5"></line><line x1="5" y1="9" x2="13" y2="9"></line><line x1="3" y1="13" x2="15" y2="13"></line></svg>
+                                    </button>
+                                    <button id="hf-align-right" class="ribbon-btn" style="padding: 4px; min-width: unset; height: unset; display: flex; align-items: center; justify-content: center; border-radius: 4px;" title="Align Right">
+                                        <svg viewBox="0 0 18 18" fill="none" stroke="#374151" stroke-width="1.5" width="16" height="16"><line x1="3" y1="5" x2="15" y2="5"></line><line x1="7" y1="9" x2="15" y2="9"></line><line x1="3" y1="13" x2="15" y2="13"></line></svg>
+                                    </button>
+                                </div>
+                                <div style="height: 16px; border-left: 1px solid #E5E7EB;"></div>
+                                <button id="btn-close-hf" style="background: #F3F4F6; color: #374151; border: 1px solid #D1D5DB; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 500; transition: all 0.2s;" onmouseover="this.style.background='#E5E7EB'" onmouseout="this.style.background='#F3F4F6'" data-i18n="Tutup">Tutup</button>
+                            </div>
+                            <!-- Input -->
+                            <input type="text" id="hf-input" style="width: calc(100% - 50mm); display: block; margin: 0 auto; border: 1px dashed #005A9E; background: rgba(255,255,255,0.9); padding: 0; font-family: 'Times New Roman', serif; font-size: 11pt; outline: none; box-sizing: border-box; background: transparent;" placeholder="Ketik di sini...">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- OVERLAY GAMBAR PINTAR (RESIZER & WRAPPER) -->
+                <div id="image-resizer-overlay" class="hidden">
+                    <button id="image-mini-btn" style="position: absolute; top: 0; left: calc(100% + 8px); background: #FFFFFF; border: 1px solid #E1DFDD; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-radius: 2px; padding: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 60; color: #2D3142; pointer-events: auto;" title="Alat Gambar">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </button>
+                    <div id="image-context-menu" class="resizer-toolbar" style="display: none; flex-direction: column; top: 0; left: calc(100% + 42px); transform: none; padding: 4px 0; border-radius: 4px; min-width: 170px; z-index: 61; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                        <div style="font-size: 8pt; font-weight: bold; color: #5A6072; text-align: left; margin: 4px 12px 8px 12px; border-bottom: 1px solid #F3F2F1; padding-bottom: 4px;" data-i18n="Alat Gambar">Alat Gambar</div>
+                        <button id="btn-img-inline" class="dropdown-menu-btn" style="width: 100%; height: auto; text-align: left; padding: 6px 12px; background: transparent; border: none; cursor: pointer; color: #2D3142; font-weight: normal; font-size: 9pt; display: flex;"><span data-i18n="Sejalan Teks (Inline)">Sejalan Teks (Inline)</span></button>
+                        <button id="btn-img-center" class="dropdown-menu-btn" style="width: 100%; height: auto; text-align: left; padding: 6px 12px; background: transparent; border: none; cursor: pointer; color: #2D3142; font-weight: normal; font-size: 9pt; display: flex;"><span data-i18n="Rata Tengah">Rata Tengah</span></button>
+                        <button id="btn-img-wrap-left" class="dropdown-menu-btn" style="width: 100%; height: auto; text-align: left; padding: 6px 12px; background: transparent; border: none; cursor: pointer; color: #2D3142; font-weight: normal; font-size: 9pt; display: flex;"><span data-i18n="Teks Mengelilingi Kiri">Teks Mengelilingi Kiri</span></button>
+                        <button id="btn-img-wrap-right" class="dropdown-menu-btn" style="width: 100%; height: auto; text-align: left; padding: 6px 12px; background: transparent; border: none; cursor: pointer; color: #2D3142; font-weight: normal; font-size: 9pt; display: flex;"><span data-i18n="Teks Mengelilingi Kanan">Teks Mengelilingi Kanan</span></button>
+                        <div style="width: 100%; border-top: 1px solid #E1DFDD; margin: 4px 0;"></div>
+                        <button id="btn-img-free" class="dropdown-menu-btn" style="width: 100%; height: auto; text-align: left; padding: 6px 12px; background: transparent; border: none; cursor: pointer; color: #2D3142; font-weight: normal; font-size: 9pt; display: flex;"><span data-i18n="Melayang Bebas">Melayang Bebas</span></button>
+                    </div>
+                    <div class="resizer-handle top-left"></div>
+                    <div class="resizer-handle top-right"></div>
+                    <div class="resizer-handle bottom-left"></div>
+                    <div class="resizer-handle bottom-right"></div>
+                </div>
+            </div>
+
+            <!-- BILAH STATUS (STATUS BAR) -->
+            <div id="status-bar" style="height: 28px; background: #F3F2F1; border-top: 1px solid #E1DFDD; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; font-size: 9pt; color: #3B3A39; user-select: none;">
+                <!-- Kiri: Informasi Dokumen -->
+                <div style="display: flex; gap: 16px; align-items: center;">
+                    <div id="status-page" style="cursor: pointer;" title="Pergi ke halaman..." class="t-status-page">Halaman 1 dari 1</div>
+                    <div id="status-word-count" style="cursor: pointer;" title="Statistik Kata" class="t-status-words">0 Kata</div>
+                </div>
+                
+                <!-- Kanan: Tampilan & Zoom -->
+                <div style="display: flex; gap: 16px; align-items: center;">
+                    <div id="status-save-state" style="display: none; align-items: center; gap: 6px; color: #605E5C;">
+                        <div id="status-save-icon" style="display: flex; align-items: center; justify-content: center;"></div>
+                        <span id="status-save-text">Menyimpan...</span>
+                        <div style="width: 1px; height: 14px; background: #C8C6C4; margin-left: 8px;"></div>
+                    </div>
+                    <div id="status-lang" style="cursor: pointer; position: relative;" title="Bahasa Antarmuka">
+                        <span id="status-lang-text" class="t-status-lang">Bahasa Indonesia</span>
+                        <!-- Popup Menu Bahasa -->
+                        <div id="lang-context-menu" class="no-translate" style="display: none; flex-direction: column; position: absolute; bottom: 100%; right: 0; margin-bottom: 8px; padding: 4px 0; border-radius: 4px; min-width: 150px; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: white; border: 1px solid #E1DFDD;">
+                            <button id="btn-lang-id" class="dropdown-menu-btn" style="width: 100%; height: auto; text-align: left; padding: 6px 12px; background: transparent; border: none; cursor: pointer; color: #2D3142; font-size: 9pt;">Bahasa Indonesia</button>
+                            <button id="btn-lang-en" class="dropdown-menu-btn" style="width: 100%; height: auto; text-align: left; padding: 6px 12px; background: transparent; border: none; cursor: pointer; color: #2D3142; font-size: 9pt;">English (US)</button>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span id="btn-zoom-out" style="cursor: pointer; padding: 0 4px; font-weight: bold;" title="Perkecil">−</span>
+                        <span id="status-zoom-val" style="width: 40px; text-align: center; cursor: pointer;" title="Tingkat Pembesaran">100%</span>
+                        <span id="btn-zoom-in" style="cursor: pointer; padding: 0 4px; font-weight: bold;" title="Perbesar">+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                <!-- MODAL POPUP (Buat Dokumen Baru) -->
+        <div id="modal-overlay" class="hidden">
+            <div class="modal">
+                <h2>Buat Dokumen Baru</h2>
+                
+                <div class="form-group">
+                    <label>Nama File</label>
+                    <input type="text" id="input-doc-name" value="Dokumen_Baru">
+                </div>
+
+                <div class="form-group">
+                    <label>Lokasi Penyimpanan (.baku)</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="input-folder-path" readonly style="flex: 1; background-color: #f3f4f6; color: #6b7280; cursor: not-allowed;" data-i18n="Baku Workspace">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Ukuran Kertas</label>
+                    <select id="input-new-paper-size" style="height: 36px; border: 1px solid #D1D5DB; border-radius: 0; padding: 0 12px; font-size: 11pt;">
+                        <option value="A4" selected>A4 (210 x 297 mm)</option>
+                        <option value="Letter">Letter (215.9 x 279.4 mm)</option>
+                        <option value="Legal">Legal (215.9 x 355.6 mm)</option>
+                        <option value="F4">F4 / Folio (210 x 330 mm)</option>
+                    </select>
+                </div>
+
+                <div class="modal-actions">
+                    <button id="btn-cancel-modal" class="btn-secondary">Batal</button>
+                    <button id="btn-create-modal" class="btn-primary">Buat Dokumen</button>
+                </div>
+            </div>
+        </div>
+
+                <!-- MODAL PENGATURAN HALAMAN -->
+        <div id="modal-page-setup" class="hidden" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); display: none; justify-content: center; align-items: center; z-index: 1000;">
+            <div class="modal">
+                <h2>Pengaturan Halaman</h2>
+                
+                <div class="form-group">
+                    <label>Ukuran Kertas</label>
+                    <select id="input-paper-size" style="height: 36px; border: 1px solid #D1D5DB; border-radius: 0; padding: 0 12px; font-size: 11pt; margin-bottom: 12px;">
+                        <option value="A4" selected>A4 (210 x 297 mm)</option>
+                        <option value="Letter">Letter (215.9 x 279.4 mm)</option>
+                        <option value="Legal">Legal (215.9 x 355.6 mm)</option>
+                        <option value="F4">F4 / Folio (210 x 330 mm)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label data-i18n="Margin Preset">Margin Preset</label>
+                    <select id="input-margin-preset" style="height: 36px; border: 1px solid #D1D5DB; border-radius: 0; padding: 0 12px; font-size: 11pt; margin-bottom: 12px;">
+                        <option value="normal" selected data-i18n="Normal (25mm)">Normal (25mm)</option>
+                        <option value="narrow" data-i18n="Sempit (12.7mm)">Sempit (12.7mm)</option>
+                        <option value="academic" data-i18n="Akademis (Kiri 40, lainnya 30)">Akademis (Kiri 40, lainnya 30)</option>
+                        <option value="custom" data-i18n="Kustom...">Kustom...</option>
+                    </select>
+                </div>
+
+                <div id="custom-margin-fields" style="opacity: 0.5;">                <div style="display: flex; gap: 16px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label>Margin Atas (mm)</label>
+                        <input type="number" id="margin-top" value="25.4">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>Margin Bawah (mm)</label>
+                        <input type="number" id="margin-bottom" value="25.4">
+                    </div>
+                </div>
+                <div style="display: flex; gap: 16px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label>Margin Kiri (mm)</label>
+                        <input type="number" id="margin-left" value="25.4">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>Margin Kanan (mm)</label>
+                        <input type="number" id="margin-right" value="25.4">
+                    </div>
+                </div>
+                </div> <!-- End of custom-margin-fields -->
+
+                <div class="modal-actions">
+                    <button id="btn-cancel-page-setup" class="btn-secondary">Batal</button>
+                    <button id="btn-apply-page-setup" class="btn-primary">Terapkan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL KONFIRMASI KELUAR (UNSAVED CHANGES) -->
+        <div id="modal-unsaved" class="hidden" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); display: none; justify-content: center; align-items: center; z-index: 2000;">
+            <div class="modal" style="width: 400px;">
+                <h2 style="margin-bottom: 8px;">Simpan Perubahan?</h2>
+                <p style="color: #2D3142; font-size: 11pt; line-height: 1.5; margin-bottom: 24px;">
+                    Anda memiliki perubahan yang belum disimpan pada dokumen ini. Apakah Anda ingin menyimpannya sebelum keluar?
+                </p>
+                <div style="display: flex; justify-content: flex-end; gap: 8px;">
+                    <button id="btn-unsaved-cancel" class="btn-secondary" style="border: 1px solid #D1D5DB; background: transparent; color: #2D3142;">Batal</button>
+                    <button id="btn-unsaved-discard" class="btn-secondary" style="background: #E53E3E; color: white; border: none;">Jangan Simpan</button>
+                    <button id="btn-unsaved-save" class="btn-primary">Simpan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT (PENGATURAN) -->
+        <div id="view-settings" class="view" style="flex-direction: row; height: 100vh;">
+            
+            <!-- LEFT PANE: Kategori Menu -->
+            <div style="width: 220px; background: #F9FAFB; border-right: 1px solid #D1D5DB; padding: 24px 0; flex-shrink: 0;">
+                <h2 style="font-size: 10pt; font-weight: 600; color: #8C92A4; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 16px 12px 16px;">Kategori</h2>
+                <div class="flat-menu-item active" id="tab-set-general">Umum</div>
+                <div class="flat-menu-item" id="tab-set-editor">Editor & Teks</div>
+                <div class="flat-menu-item" id="tab-set-export">Ekspor & Simpan</div>
+                <div class="flat-menu-item" id="tab-set-advanced">Lanjutan</div>
+            </div>
+
+            <!-- RIGHT PANE: Konten Detail -->
+            <div style="flex: 1; background: #FFFFFF; padding: 32px 48px; overflow-y: auto;">
+                
+                <!-- PANE UMUM -->
+                <div id="pane-set-general" class="settings-pane">
+                    <h2 class="pane-title">Pengaturan Umum</h2>
+                    
+                    <div class="flat-setting-row">
+                        <div class="info">
+                            <div class="label">Bahasa Antarmuka</div>
+                            <div class="desc">Bahasa utama untuk menu dan tombol sistem</div>
+                        </div>
+                        <div class="control">
+                            <select class="flat-select" id="setting-lang">
+                                <option value="id">Bahasa Indonesia</option>
+                                <option value="en">English</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flat-setting-row">
+                        <div class="info">
+                            <div class="label">Tema Tampilan</div>
+                            <div class="desc">Mengubah corak warna antarmuka (Segera Hadir)</div>
+                        </div>
+                        <div class="control">
+                            <select class="flat-select" disabled><option>Terang (Light)</option></select>
+                        </div>
+                    </div>
+                    
+                    <div class="flat-setting-row">
+                        <div class="info">
+                            <div class="label">Periksa Ejaan (Spell Check)</div>
+                            <div class="desc">Tandai garis merah untuk deteksi salah ketik bawaan OS</div>
+                        </div>
+                        <div class="control">
+                            <input type="checkbox" class="flat-checkbox" checked>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANE EDITOR -->
+                <div id="pane-set-editor" class="settings-pane" style="display: none;">
+                    <h2 class="pane-title">Editor & Teks</h2>
+
+                    <div class="flat-setting-row">
+                        <div class="info">
+                            <div class="label">Ukuran Kertas Bawaan</div>
+                            <div class="desc">Standar dimensi kertas setiap memulai dokumen kosong</div>
+                        </div>
+                        <div class="control">
+                            <select class="flat-select">
+                                <option>A4 (210 x 297 mm)</option>
+                                <option>F4 / Folio (215 x 330 mm)</option>
+                                <option>Letter (216 x 279 mm)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flat-setting-row">
+                        <div class="info">
+                            <div class="label">Margin Bawaan (Batas Tepi)</div>
+                            <div class="desc">Aturan margin standar Skripsi (Kiri 4cm, Atas 4cm, Kanan 3cm, Bawah 3cm)</div>
+                        </div>
+                        <div class="control">
+                            <button class="flat-button">Atur Margin</button>
+                        </div>
+                    </div>
+
+                    <div class="flat-setting-row">
+                        <div class="info">
+                            <div class="label">Font Bawaan</div>
+                            <div class="desc">Jenis aksara standar untuk teks dokumen</div>
+                        </div>
+                        <div class="control">
+                            <select class="flat-select">
+                                <option>Times New Roman</option>
+                                <option>Arial</option>
+                                <option>Calibri</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANE EKSPOR -->
+                <div id="pane-set-export" class="settings-pane" style="display: none;">
+                    <h2 class="pane-title">Ekspor & Simpan</h2>
+
+                    <div class="flat-setting-row">
+                        <div class="info">
+                            <div class="label">Simpan Otomatis (Auto-Save)</div>
+                            <div class="desc">Interval penyimpanan otomatis di latar belakang untuk mencegah hilang data</div>
+                        </div>
+                        <div class="control">
+                            <select class="flat-select">
+                                <option>Setiap 1 Menit</option>
+                                <option selected>Setiap 3 Menit</option>
+                                <option>Setiap 5 Menit</option>
+                                <option>Matikan</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flat-setting-row">
+                        <div class="info">
+                            <div class="label">Folder Penyimpanan Utama</div>
+                            <div class="desc">Lokasi default saat mengeklik Simpan Dokumen</div>
+                        </div>
+                        <div class="control" style="display: flex; gap: 8px;">
+                            <input type="text" id="input-default-storage" readonly style="width: 250px; padding: 6px 12px; background-color: #f3f4f6; border: 1px solid #d1d5db; color: #6b7280; font-size: 13px; cursor: not-allowed;" value="...">
+                            <button class="flat-button" id="btn-open-workspace" data-i18n="Buka Folder">Buka Folder</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANE LANJUTAN -->
+                <div id="pane-set-advanced" class="settings-pane" style="display: none;">
+                    <h2 class="pane-title">Pengaturan Lanjutan</h2>
+
+                    <div class="flat-setting-row">
+                        <div class="info">
+                            <div class="label">Kosongkan Riwayat Dokumen Terakhir</div>
+                            <div class="desc">Menghapus seluruh jejak riwayat buka dokumen di layar Beranda. (File asli tidak disentuh)</div>
+                        </div>
+                        <div class="control">
+                            <button class="flat-button danger" id="btn-clear-history-2">Bersihkan Riwayat</button>
+                        </div>
+                    </div>
+
+                    <div class="flat-setting-row">
+                        <div class="info">
+                            <div class="label">Reset Aplikasi ke Pabrik</div>
+                            <div class="desc">Mengembalikan seluruh pengaturan Baku PDF ke kondisi mula-mula instalasi</div>
+                        </div>
+                        <div class="control">
+                            <button class="flat-button danger">Mulai Ulang Pabrik</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- MODAL FIND & REPLACE -->
+        <div id="modal-find-replace" class="hidden" style="position: fixed; top: 80px; right: 40px; background: white; border: 1px solid #D1D5DB; box-shadow: 0 4px 12px rgba(0,0,0,0.15); padding: 16px; z-index: 100; width: 300px; display: none; flex-direction: column; gap: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #E1E4E8; padding-bottom: 8px;">
+                <div style="display: flex; gap: 12px;">
+                    <button id="tab-find-only" style="background: transparent; border: none; font-weight: 600; font-size: 10pt; color: #0078D4; border-bottom: 2px solid #0078D4; cursor: pointer; padding: 0 4px 4px 4px;">Cari</button>
+                    <button id="tab-replace-mode" style="background: transparent; border: none; font-weight: normal; font-size: 10pt; color: #5A6072; cursor: pointer; padding: 0 4px 4px 4px;">Ganti</button>
+                </div>
+                <span id="btn-close-find" style="cursor: pointer; font-weight: bold; color: #888; margin-top: -2px;">X</span>
+            </div>
+            
+            <!-- Area Cari -->
+            <input type="text" id="input-find" placeholder="Cari kata..." style="height: 28px; padding: 0 8px; border: 1px solid #D1D5DB;">
+            <div style="display: flex; gap: 8px;">
+                <button id="btn-find-prev" class="btn-secondary" style="flex: 1; height: 28px; font-size: 9pt;">Sebelumnya</button>
+                <button id="btn-find-next" class="btn-secondary" style="flex: 1; height: 28px; font-size: 9pt;">Selanjutnya</button>
+            </div>
+            
+            <!-- Area Ganti (Bisa disembunyikan) -->
+            <div id="replace-fields-container" style="display: flex; flex-direction: column; gap: 12px;">
+                <hr style="border: none; border-top: 1px solid #E1E4E8; margin: 0;">
+                <input type="text" id="input-replace" placeholder="Ganti menjadi..." style="height: 28px; padding: 0 8px; border: 1px solid #D1D5DB;">
+                <div style="display: flex; gap: 8px;">
+                    <button id="btn-replace" class="btn-primary" style="flex: 1; height: 28px; font-size: 9pt;">Ganti</button>
+                    <button id="btn-replace-all" class="btn-primary" style="flex: 1; height: 28px; font-size: 9pt;">Ganti Semua</button>
+                </div>
+            </div>
+            <div id="find-status" style="font-size: 9pt; color: #888; text-align: center;"></div>
+        </div>
+
+        <!-- MODAL ERROR KUSTOM -->
+        <div id="modal-error" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000;">
+            <div class="modal" style="border-top: 4px solid #D32F2F;">
+                <h2 style="color: #D32F2F; margin-top: 0;">Terjadi Kesalahan</h2>
+                <p id="modal-error-message" style="margin-bottom: 24px;">Pesan error akan muncul di sini.</p>
+                <div class="modal-buttons" style="justify-content: flex-end;">
+                    <button class="btn-primary" id="btn-error-close" style="background: #D32F2F;">Tutup</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- DROPDOWN TABEL (GRID VISUAL) -->
+        <div id="dropdown-table" class="hidden" style="position: absolute; background: #FFFFFF; border: 1px solid #C8C6C4; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; padding: 12px; display: none; flex-direction: column; align-items: center; user-select: none;">
+            <div id="table-grid-label" style="text-align: center; font-weight: bold; margin-bottom: 8px; color: #0078D4; font-size: 9pt;">3x3 Tabel</div>
+            <div id="table-grid-selector" style="display: grid; grid-template-columns: repeat(10, 16px); grid-template-rows: repeat(8, 16px); gap: 2px; margin-bottom: 12px; cursor: pointer;">
+                <!-- Kotak-kotak akan dicetak dengan JavaScript -->
+            </div>
+            <div style="width: 100%; border-top: 1px solid #E1DFDD; margin-bottom: 8px;"></div>
+            <button id="btn-custom-table" class="dropdown-menu-btn" style="width: 100%; background: transparent; border: none; text-align: left; padding: 6px 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 9pt; color: #2D3142;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                <span class="t-custom-table" data-i18n="Tabel Kustom...">Tabel Kustom...</span>
+            </button>
+        </div>
+
+        <!-- MODAL TABEL KUSTOM (ISIAN ANGKA) -->
+        <div id="modal-table-overlay" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000;">
+            <div class="modal" style="width: 300px;">
+                <h2 style="margin-top: 0;" class="t-table-title">Sisipkan Tabel</h2>
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label class="t-table-col">Jumlah Kolom:</label>
+                    <input type="number" id="input-table-cols" value="3" min="1" max="50" style="width: 100%; padding: 6px; box-sizing: border-box; border: 1px solid #8A8886;">
+                </div>
+                <div class="form-group" style="margin-bottom: 24px;">
+                    <label class="t-table-row">Jumlah Baris:</label>
+                    <input type="number" id="input-table-rows" value="3" min="1" max="50" style="width: 100%; padding: 6px; box-sizing: border-box; border: 1px solid #8A8886;">
+                </div>
+                <div class="modal-actions" style="display: flex; gap: 8px; justify-content: flex-end;">
+                    <button class="btn-secondary t-table-cancel" id="btn-cancel-table">Batal</button>
+                    <button class="btn-primary t-table-insert" id="btn-confirm-table">Sisipkan</button>
+                </div>
+            </div>
+        </div>
+        <!-- MODAL KARAKTER SPESIAL / SIMBOL -->
+        <div id="modal-symbol-overlay" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000;">
+            <div class="modal" style="width: 500px;">
+                <h2 style="margin-top: 0;" class="t-symbol-title">Sisipkan Simbol</h2>
+                <p style="font-size: 10pt; color: #5A6072; margin-top: -12px; margin-bottom: 16px;" class="t-symbol-desc">Klik pada simbol untuk menyisipkannya ke dalam dokumen.</p>
+                
+                <div id="symbol-grid" style="display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; max-height: 200px; overflow-y: auto; padding-right: 8px;">
+                    <!-- Simbol akan di-generate via JavaScript -->
+                </div>
+                
+                <div class="modal-actions" style="margin-top: 20px;">
+                    <button class="btn-secondary" id="btn-close-symbol">Tutup</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL EKSPOR SUKSES KUSTOM -->
+        <div id="modal-export-success" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000;">
+            <div class="modal" style="width: 450px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#4F83CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <h2 style="color: #2D3142; margin: 0; font-size: 14pt;" class="t-export-title">Ekspor Berhasil!</h2>
+                </div>
+                <p style="margin: 0 0 8px 0; font-size: 10pt; color: #3B3A39;" class="t-export-desc">Dokumen PDF Anda telah berhasil dibuat dan disimpan di lokasi berikut:</p>
+                <div style="background: #F3F2F1; border: 1px solid #E1DFDD; padding: 10px; font-family: monospace; font-size: 9pt; color: #201F1E; margin-bottom: 24px; word-break: break-all; user-select: text;" id="modal-export-path">
+                    C:\Path\To\File.pdf
+                </div>
+                <div class="modal-actions" style="display: flex; justify-content: flex-end; gap: 8px;">
+                    <button class="btn-secondary" id="btn-export-folder" style="font-size: 9pt; display: flex; align-items: center; gap: 6px;">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        Buka Folder
+                    </button>
+                    <button class="btn-primary" id="btn-export-open" style="font-size: 9pt; display: flex; align-items: center; gap: 6px;">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                        Buka PDF
+                    </button>
+                    <button class="btn-secondary" id="btn-export-close" style="font-size: 9pt;">Tutup</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- MODAL PENGATURAN NOMOR HALAMAN -->
+        <div id="modal-page-number" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 2000;">
+            <div class="modal" style="width: 400px;">
+                <h2 style="margin-top: 0;" class="t-pn-title">Pengaturan Nomor Halaman</h2>
+                <p style="font-size: 10pt; color: #5A6072; margin-bottom: 16px;" id="pn-desc-text">Pengaturan ini berlaku untuk seluruh dokumen atau bagian terkait.</p>
+                
+                <input type="hidden" id="pn-config-id" value="">
+
+                <div class="form-group" style="margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                    <input type="checkbox" id="pn-show" style="width: 16px; height: 16px; cursor: pointer;">
+                    <label for="pn-show" class="t-pn-show" style="cursor: pointer; user-select: none;">Tampilkan Nomor Halaman</label>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label class="t-pn-format">Format Angka:</label>
+                    <select id="pn-format" style="width: 100%; padding: 6px; box-sizing: border-box; border: 1px solid #8A8886;">
+                        <option value="arabic">1, 2, 3, ...</option>
+                        <option value="roman">i, ii, iii, ...</option>
+                        <option value="roman_upper">I, II, III, ...</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 12px; display: flex; gap: 8px;">
+                    <div style="flex: 1;">
+                        <label class="t-pn-prefix">Teks Awalan:</label>
+                        <input type="text" id="pn-prefix" placeholder="Hal. " style="width: 100%; padding: 6px; box-sizing: border-box; border: 1px solid #8A8886;">
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="t-pn-suffix">Teks Akhiran:</label>
+                        <input type="text" id="pn-suffix" placeholder="-" style="width: 100%; padding: 6px; box-sizing: border-box; border: 1px solid #8A8886;">
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 12px; display: flex; gap: 8px;">
+                    <div style="flex: 1;">
+                        <label class="t-pn-align">Posisi (Align):</label>
+                        <select id="pn-align" style="width: 100%; padding: 6px; box-sizing: border-box; border: 1px solid #8A8886;">
+                            <option value="left" class="t-pn-left">Kiri</option>
+                            <option value="center" class="t-pn-center">Tengah</option>
+                            <option value="right" class="t-pn-right">Kanan</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="t-pn-start">Mulai dari angka:</label>
+                        <input type="number" id="pn-start" value="1" min="1" max="9999" style="width: 100%; padding: 6px; box-sizing: border-box; border: 1px solid #8A8886;">
+                    </div>
+                </div>
+
+                <div class="modal-actions" style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 24px;">
+                    <button class="btn-secondary t-pn-cancel" id="btn-pn-cancel">Batal</button>
+                    <button class="btn-primary t-pn-save" id="btn-pn-save">Simpan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL TENTANG BAKU PDF -->
+        <div id="modal-about" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 2000;">
+            <div class="modal" style="width: 380px; text-align: center;">
+                <img src="logo.png" alt="Baku PDF Logo" style="width: 64px; height: 64px; object-fit: contain; margin-bottom: 16px;">
+                <h2 style="margin: 0 0 8px 0; color: #2D3142;">Baku PDF Editor</h2>
+                <p style="margin: 0 0 16px 0; color: #5A6072; font-size: 10pt;">Versi 1.0.0-beta</p>
+                
+                <p style="margin: 0 0 24px 0; color: #3B3A39; font-size: 10pt; line-height: 1.5;">Baku PDF adalah aplikasi pembuat dan penyunting dokumen ringan yang berfokus pada efisiensi. Dikembangkan untuk memenuhi standar format penulisan baku (seperti skripsi, laporan, makalah) dengan proses ekspor PDF secara *WYSIWYG* yang akurat tanpa server.</p>
+
+                <div style="border-top: 1px solid #E1DFDD; padding-top: 16px; margin-bottom: 24px; text-align: left; font-size: 9pt; color: #5A6072;">
+                    <strong>Ditenagai oleh:</strong>
+                    <ul style="margin: 4px 0 0 0; padding-left: 20px;">
+                        <li>Tauri Framework</li>
+                        <li>Quill.js 2.0 (Custom Build)</li>
+                        <li>html2pdf.js</li>
+                    </ul>
+                </div>
+
+                <div class="modal-actions" style="justify-content: center;">
+                    <button class="btn-primary" id="btn-about-close" style="min-width: 120px;">Tutup</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- html2pdf.js Core -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Quill.js Core (V2.0) -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <!-- Tauri API -->
+    <script>
+        const { invoke } = window.__TAURI__ ? window.__TAURI__.tauri : { invoke: async () => console.log("Tauri not injected") };
+    </script>
+    <script src="workspace.js"></script>
+    <script src="main.js"></script>
+    <div id="rich-tooltip" class="rich-tooltip">
+        <div class="tt-header">
+            <span class="tt-title"></span>
+            <span class="tt-shortcut"></span>
+        </div>
+        <div class="tt-desc"></div>
+    </div>
+</body>
+</html>
+
+
+

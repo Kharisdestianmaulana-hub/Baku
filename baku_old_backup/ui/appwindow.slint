@@ -1,0 +1,244 @@
+export component AppWindow inherits Window {
+    title: "Baku PDF Editor";
+    icon: @image-url("../LogoBaku.png");
+    preferred-width: 1024px;
+    preferred-height: 768px;
+    background: #F4F5F7;
+
+    // State: 0 = Home, 1 = Editor, 2 = Templates, etc.
+    in-out property <int> active-view: 0;
+
+    callback create_new_document(string);
+    callback export-pdf();
+
+    // Tambahan state untuk pop-up
+    property <bool> show-new-doc-popup: false;
+
+    // KONTEN UTAMA
+    Rectangle {
+        background: #F4F5F7;
+
+        // ==========================================
+        // VIEW 0: BERANDA (Terdapat Sidebar & Konten)
+        // ==========================================
+        if root.active-view == 0 : HorizontalLayout {
+            width: parent.width;
+            height: parent.height;
+            
+            // SIDEBAR
+            Rectangle {
+                width: 240px;
+                background: #F4F5F7;
+                
+                Rectangle { width: 1px; height: parent.height; x: parent.width - 1px; background: #D1D5DB; }
+
+                VerticalLayout {
+                    padding: 24px; padding-top: 32px; alignment: start; spacing: 8px;
+
+                    Text { text: "Baku PDF"; font-size: 18pt; font-weight: 700; color: #2D3142; }
+                    Rectangle { height: 24px; } // Spacer
+
+                    Rectangle {
+                        height: 36px; border-radius: 4px; background: root.active-view == 0 ? #E1E4E8 : transparent;
+                        TouchArea { clicked => { root.active-view = 0; } }
+                        HorizontalLayout { padding-left: 12px; Text { text: "Beranda"; font-size: 11pt; color: #2D3142; vertical-alignment: center; } }
+                    }
+                    Rectangle {
+                        height: 36px; border-radius: 4px; background: root.active-view == 2 ? #E1E4E8 : transparent;
+                        TouchArea { clicked => { root.active-view = 2; } }
+                        HorizontalLayout { padding-left: 12px; Text { text: "Templat"; font-size: 11pt; color: #2D3142; vertical-alignment: center; } }
+                    }
+                    Rectangle {
+                        height: 36px; border-radius: 4px; background: root.active-view == 3 ? #E1E4E8 : transparent;
+                        TouchArea { clicked => { root.active-view = 3; } }
+                        HorizontalLayout { padding-left: 12px; Text { text: "Alat Ekstra"; font-size: 11pt; color: #2D3142; vertical-alignment: center; } }
+                    }
+                    Rectangle {
+                        height: 36px; border-radius: 4px; background: root.active-view == 4 ? #E1E4E8 : transparent;
+                        TouchArea { clicked => { root.active-view = 4; } }
+                        HorizontalLayout { padding-left: 12px; Text { text: "Pengaturan"; font-size: 11pt; color: #2D3142; vertical-alignment: center; } }
+                    }
+                }
+            }
+
+            // AREA KONTEN BERANDA
+            Rectangle {
+                background: #FFFFFF;
+                width: parent.width - 240px;
+                
+                VerticalLayout {
+                    padding: 40px; alignment: start; spacing: 48px;
+
+                    // Bagian Atas: Mulai Dokumen Baru
+                    VerticalLayout {
+                        spacing: 24px;
+                        Text { text: "Mulai Dokumen Baru"; font-size: 14pt; font-weight: 500; color: #2D3142; }
+
+                        // Kertas Kosong Tunggal dengan Hover
+                        Rectangle {
+                            width: 140px;
+                            height: 180px;
+                            background: paper-touch.has-hover ? #F9FAFC : #FFFFFF;
+                            border-color: paper-touch.has-hover ? #4F83CC : #D1D5DB;
+                            border-width: 1px;
+                            border-radius: 4px;
+                            
+                            paper-touch := TouchArea { 
+                                clicked => { root.show-new-doc-popup = true; } 
+                            }
+                            
+                            // Kotak putih bersih, tanpa teks di dalamnya
+                        }
+                    }
+
+                    // Bagian Bawah: Dokumen Terakhir
+                    VerticalLayout {
+                        spacing: 16px;
+                        Text { text: "Dokumen Terakhir"; font-size: 14pt; font-weight: 500; color: #2D3142; }
+
+                        Rectangle {
+                            height: 32px; background: #FFFFFF;
+                            Rectangle { height: 1px; width: parent.width; y: parent.height - 1px; background: #D1D5DB; }
+                            HorizontalLayout {
+                                padding-left: 8px; padding-right: 8px;
+                                Text { text: "NAMA FILE"; color: #5A6072; font-size: 10pt; width: 40%; vertical-alignment: center; }
+                                Text { text: "LOKASI PATH"; color: #5A6072; font-size: 10pt; width: 40%; vertical-alignment: center; }
+                                Text { text: "TERAKHIR DIBUKA"; color: #5A6072; font-size: 10pt; width: 20%; vertical-alignment: center; }
+                            }
+                        }
+
+                        Rectangle {
+                            height: 40px;
+                            Rectangle { height: 1px; width: parent.width; y: parent.height - 1px; background: #E1E4E8; }
+                            HorizontalLayout {
+                                padding-left: 8px; padding-right: 8px;
+                                Text { text: "Laporan_Bulan_Ini.pdf"; color: #2D3142; font-size: 11pt; font-weight: 500; width: 40%; vertical-alignment: center; }
+                                Text { text: "C:/Users/riray/Documents/Laporan_Bulan_Ini.pdf"; color: #5A6072; font-size: 11pt; width: 40%; vertical-alignment: center; overflow: elide; }
+                                Text { text: "Hari ini, 09:14"; color: #5A6072; font-size: 11pt; width: 20%; vertical-alignment: center; }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // ==========================================
+        // VIEW 1: EDITOR KANVAS FULL WORKSPACE
+        // ==========================================
+        if root.active-view == 1 : VerticalLayout {
+            width: parent.width;
+            height: parent.height;
+            // Toolbar Editor (Full Width)
+            Rectangle {
+                height: 48px;
+                background: #F4F5F7;
+                Rectangle { height: 1px; width: parent.width; y: parent.height - 1px; background: #D1D5DB; }
+                
+                HorizontalLayout {
+                    padding-left: 16px; padding-right: 16px; alignment: space-between;
+                    
+                    HorizontalLayout {
+                        spacing: 16px;
+                        Rectangle {
+                            width: 32px; height: 32px; border-radius: 4px;
+                            y: (parent.height - self.height) / 2;
+                            background: back-touch.pressed ? #E1E4E8 : transparent;
+                            back-touch := TouchArea { clicked => { root.active-view = 0; } }
+                            Text { text: "<"; font-size: 14pt; font-weight: 700; color: #2D3142; x: (parent.width - self.width)/2; y: (parent.height - self.height)/2; }
+                        }
+                        Text { text: "Dokumen_Baru.pdf"; font-size: 12pt; font-weight: 500; color: #2D3142; vertical-alignment: center; }
+                    }
+
+                    Rectangle {
+                        width: 100px; height: 32px; background: #4F83CC; border-radius: 4px;
+                        y: (parent.height - self.height) / 2;
+                        TouchArea { clicked => { root.export-pdf(); } }
+                        Text { text: "Ekspor PDF"; color: #FFFFFF; font-size: 11pt; font-weight: 500; x: (parent.width - self.width) / 2; y: (parent.height - self.height) / 2; }
+                    }
+                }
+            }
+
+            // Kanvas Area
+            Rectangle {
+                background: #F4F5F7;
+                clip: true;
+                Rectangle {
+                    width: 595px; height: 842px; background: #FFFFFF; border-color: #B0B3B8; border-width: 1px;
+                    x: (parent.width - self.width) / 2; y: 40px;
+                    Text { text: "Kertas Kosong (Siap Diedit)"; color: #5A6072; font-size: 11pt; x: (parent.width - self.width) / 2; y: (parent.height - self.height) / 2; }
+                }
+            }
+        }
+
+        // ==========================================
+        // POP-UP / MODAL DOKUMEN BARU
+        // ==========================================
+        if root.show-new-doc-popup : Rectangle {
+            width: parent.width;
+            height: parent.height;
+            background: rgba(0, 0, 0, 0.4); // Overlay gelap
+            TouchArea {} // Menahan klik agar tidak tembus ke belakang
+            
+            Rectangle {
+                width: 480px;
+                height: 320px;
+                background: #FFFFFF;
+                border-radius: 6px;
+                border-color: #D1D5DB;
+                border-width: 1px;
+                
+                VerticalLayout {
+                    padding: 24px;
+                    spacing: 20px;
+                    
+                    Text { text: "Buat Dokumen Baru"; font-size: 14pt; font-weight: 600; color: #2D3142; }
+
+                    VerticalLayout {
+                        spacing: 8px;
+                        Text { text: "Nama File"; font-size: 11pt; color: #5A6072; }
+                        Rectangle {
+                            height: 36px; border-width: 1px; border-color: #D1D5DB; border-radius: 4px; background: #FFFFFF;
+                            HorizontalLayout { padding-left: 12px; Text { text: "Dokumen_Baru.pdf"; color: #2D3142; vertical-alignment: center; } }
+                        }
+                    }
+
+                    VerticalLayout {
+                        spacing: 8px;
+                        Text { text: "Ukuran Kertas"; font-size: 11pt; color: #5A6072; }
+                        Rectangle {
+                            height: 36px; border-width: 1px; border-color: #D1D5DB; border-radius: 4px; background: #FFFFFF;
+                            HorizontalLayout { padding-left: 12px; Text { text: "A4 (210 x 297 mm)"; color: #2D3142; vertical-alignment: center; } }
+                        }
+                    }
+
+                    Rectangle { height: 8px; } // spacer
+
+                    HorizontalLayout {
+                        alignment: end;
+                        spacing: 16px;
+                        
+                        Rectangle {
+                            width: 100px; height: 36px; border-color: #D1D5DB; border-width: 1px; border-radius: 4px;
+                            background: cancel-touch.has-hover ? #F4F5F7 : #FFFFFF;
+                            cancel-touch := TouchArea { clicked => { root.show-new-doc-popup = false; } }
+                            Text { text: "Batal"; color: #2D3142; font-size: 11pt; x: (parent.width - self.width)/2; y: (parent.height - self.height)/2; }
+                        }
+
+                        Rectangle {
+                            width: 140px; height: 36px; border-radius: 4px;
+                            background: create-touch.has-hover ? #3B6BB0 : #4F83CC;
+                            create-touch := TouchArea { 
+                                clicked => { 
+                                    root.show-new-doc-popup = false; 
+                                    root.active-view = 1; 
+                                    root.create_new_document("A4"); 
+                                } 
+                            }
+                            Text { text: "Buat Dokumen"; color: #FFFFFF; font-size: 11pt; font-weight: 500; x: (parent.width - self.width)/2; y: (parent.height - self.height)/2; }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

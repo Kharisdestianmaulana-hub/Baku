@@ -1,0 +1,486 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+body { background: #F4F5F7; overflow: hidden; user-select: none; }
+input, textarea, .ql-editor { user-select: text; }
+
+#app { display: flex; height: 100vh; width: 100vw; }
+
+/* SIDEBAR */
+#sidebar {
+    width: 240px;
+    background: #F4F5F7;
+    border-right: 1px solid #D1D5DB;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.logo { font-size: 18pt; font-weight: 700; color: #2D3142; }
+.menu { display: flex; flex-direction: column; gap: 8px; }
+.menu-item {
+    height: 36px;
+    border-radius: 0;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    font-size: 11pt;
+    color: #2D3142;
+    cursor: pointer;
+}
+.menu-item:hover { background: #E1E4E8; }
+.menu-item.active { background: #E1E4E8; }
+
+/* VIEWS */
+.view {
+    flex: 1;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -1;
+}
+.view.active { 
+    opacity: 1; 
+    pointer-events: auto; 
+    position: relative; 
+    z-index: 1; 
+}
+
+/* BERANDA */
+.home-container { padding: 40px; display: flex; flex-direction: column; gap: 48px; }
+.section h2 { font-size: 14pt; font-weight: 500; color: #2D3142; margin-bottom: 24px; }
+.paper-box {
+    width: 140px; height: 180px;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.paper-box:hover { background: #F9FAFC; border-color: #4F83CC; }
+
+/* TABLE */
+.table { display: flex; flex-direction: column; }
+.table-header { display: flex; height: 32px; border-bottom: 1px solid #D1D5DB; padding: 0 8px; }
+.table-row { display: flex; height: 40px; border-bottom: 1px solid #E1E4E8; padding: 0 8px; }
+.col-4 { flex: 4; display: flex; align-items: center; font-size: 10pt; color: #5A6072; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.col-2 { flex: 2; display: flex; align-items: center; font-size: 10pt; color: #5A6072; }
+.table-row .title { font-size: 11pt; font-weight: 500; color: #2D3142; }
+.table-row .path { font-size: 11pt; }
+.table-row .date { font-size: 11pt; }
+
+/* EDITOR */
+#view-editor { background: #F4F5F7; }
+
+/* TOMBOL GLOBAL */
+.btn-primary { background: #4F83CC; color: white; border: none; border-radius: 0; padding: 0 16px; height: 32px; font-size: 11pt; font-weight: 500; cursor: pointer; }
+.btn-primary:hover { background: #3B6BB0; }
+.btn-secondary { background: white; color: #2D3142; border: 1px solid #D1D5DB; border-radius: 0; padding: 0 16px; height: 32px; font-size: 11pt; cursor: pointer; }
+.btn-secondary:hover { background: #F4F5F7; }
+
+/* MENU BAR DESKTOP */
+#menu-bar {
+    height: 32px;
+    background: #FFFFFF;
+    border-bottom: 1px solid #D1D5DB;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    gap: 4px;
+}
+.menu-dropdown {
+    position: relative;
+    display: inline-block;
+}
+.menu-title {
+    font-size: 10pt;
+    color: #2D3142;
+    padding: 4px 10px;
+    cursor: default;
+    user-select: none;
+}
+.menu-dropdown:hover .menu-title {
+    background: #E1E4E8;
+}
+.menu-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #FFFFFF;
+    min-width: 180px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.15); /* Pengecualian shadow ringan untuk menu melayang */
+    border: 1px solid #D1D5DB;
+    z-index: 100;
+    padding: 4px 0;
+}
+.menu-dropdown:hover .menu-content {
+    display: block;
+}
+.menu-action {
+    color: #2D3142;
+    padding: 6px 16px;
+    font-size: 10pt;
+    cursor: default;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+}
+.menu-action .shortcut {
+    color: #8C92A4;
+    font-size: 9pt;
+}
+.menu-action:hover {
+    background-color: #E1E4E8;
+}
+.menu-divider {
+    height: 1px;
+    background-color: #E1E4E8;
+    margin: 4px 0;
+}
+#canvas-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 40px;
+}
+#quill-container {
+    position: relative;
+    width: 595px;
+    min-height: 842px;
+    margin: 0 auto;
+    overflow: hidden !important;
+}
+/* RIBBON TOOLBAR */
+#ribbon-toolbar {
+    background: #F3F2F1;
+    border-bottom: 1px solid #D1D5DB;
+    display: flex;
+    flex-direction: column;
+}
+.ribbon-tabs {
+    display: flex;
+    gap: 2px;
+    padding: 4px 16px 0 16px;
+}
+.ribbon-tab {
+    padding: 6px 16px;
+    font-size: 10pt;
+    color: #2D3142;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid transparent;
+    border-bottom: none;
+    margin-bottom: -1px; /* Overlap border bottom */
+}
+.ribbon-tab:hover {
+    background: #E1E4E8;
+}
+.ribbon-tab.active {
+    background: #FFFFFF;
+    border-color: #D1D5DB;
+    font-weight: 600;
+    border-bottom: 1px solid #FFFFFF;
+}
+.ribbon-content {
+    background: #FFFFFF;
+    padding: 6px 16px;
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #D1D5DB;
+}
+.ribbon-pane {
+    display: none;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.ribbon-pane.active {
+    display: flex;
+}
+
+/* KELOMPOK ALAT 2 BARIS (GROUP & ROW) */
+.ribbon-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    height: 100%;
+}
+.ribbon-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.ribbon-divider {
+    width: 1px;
+    height: 48px;
+    background: #D1D5DB;
+    margin: 0 16px;
+}
+
+/* TOMBOL BESAR RIBBON (Ikon Atas, Teks Bawah) */
+#custom-toolbar button.ribbon-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 6px 8px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 8pt !important;
+    color: #2D3142;
+    cursor: pointer;
+    min-width: 64px !important;
+    height: auto !important;
+    text-align: center;
+    border-radius: 2px;
+    float: none !important;
+}
+#custom-toolbar button.ribbon-btn svg {
+    margin-bottom: 6px;
+}
+#custom-toolbar button.ribbon-btn:hover {
+    background: #E1E4E8;
+    border-color: #D1D5DB;
+}
+
+.ql-formats {
+    display: flex;
+    align-items: center;
+}
+/* Menetralkan styling aneh dari Quill untuk tombol A+ A- */
+#custom-btn-size-up, #custom-btn-size-down {
+    height: 24px;
+    width: 28px;
+    font-size: 11pt;
+    font-weight: 600;
+    color: #444;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+#custom-btn-size-up:hover, #custom-btn-size-down:hover {
+    color: #06c;
+}
+#custom-toolbar button, #custom-toolbar .ql-picker {
+    border-radius: 0 !important;
+}
+#custom-toolbar button:hover, #custom-toolbar .ql-picker-label:hover {
+    background: #E1E4E8 !important;
+}
+.ql-container { 
+    border: none !important; 
+    font-size: 12pt; 
+    font-family: 'Segoe UI', sans-serif;
+    height: auto !important;
+    overflow: visible !important;
+}
+.ql-editor { 
+    position: relative;
+    padding: 48px; 
+    min-height: 842px; 
+    height: auto !important;
+    overflow-y: visible !important;
+}
+
+/* MODAL */
+#modal-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 1000;
+}
+#modal-overlay.hidden { display: none; }
+.modal {
+    width: 480px; background: #FFFFFF; border-radius: 0; border: 1px solid #D1D5DB; padding: 24px;
+    display: flex; flex-direction: column; gap: 20px;
+}
+.modal h2 { font-size: 14pt; font-weight: 600; color: #2D3142; }
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-group label { font-size: 11pt; color: #5A6072; }
+.form-group input { height: 36px; border: 1px solid #D1D5DB; border-radius: 4px; padding: 0 12px; font-size: 11pt; color: #2D3142; outline: none; }
+.form-group input:focus { border-color: #4F83CC; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 16px; margin-top: 8px; }
+
+/* OVERLAY GAMBAR (RESIZER & WRAPPER) */
+#image-resizer-overlay {
+    position: absolute;
+    border: 2px dashed #4F83CC;
+    pointer-events: none; /* Biarkan klik tembus kecuali pada handle/toolbar */
+    z-index: 50;
+}
+#image-resizer-overlay.hidden {
+    display: none;
+}
+.resizer-toolbar {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    pointer-events: auto;
+}
+.resizer-toolbar button {
+    width: 28px;
+    height: 28px;
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    font-weight: 600;
+    color: #2D3142;
+}
+.resizer-toolbar button:hover {
+    background: #E1E4E8;
+    border-color: #D1D5DB;
+}
+.resizer-handle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #FFFFFF;
+    border: 2px solid #4F83CC;
+    pointer-events: auto;
+}
+.resizer-handle.top-left { top: -6px; left: -6px; cursor: nwse-resize; }
+.resizer-handle.top-right { top: -6px; right: -6px; cursor: nesw-resize; }
+.resizer-handle.bottom-left { bottom: -6px; left: -6px; cursor: nesw-resize; }
+.resizer-handle.bottom-right { bottom: -6px; right: -6px; cursor: nwse-resize; }
+
+/* Styling Picker Spasi Baris (Line Height) Custom Quill */
+.ql-snow .ql-picker.ql-lineheight {
+    width: 90px;
+}
+.ql-snow .ql-picker.ql-lineheight .ql-picker-label::before { content: 'Spasi 1.15'; }
+.ql-snow .ql-picker.ql-lineheight .ql-picker-label[data-value="1"]::before { content: 'Spasi 1.0'; }
+.ql-snow .ql-picker.ql-lineheight .ql-picker-label[data-value="1.15"]::before { content: 'Spasi 1.15'; }
+.ql-snow .ql-picker.ql-lineheight .ql-picker-label[data-value="1.5"]::before { content: 'Spasi 1.5'; }
+.ql-snow .ql-picker.ql-lineheight .ql-picker-label[data-value="2"]::before { content: 'Spasi 2.0'; }
+
+.ql-snow .ql-picker.ql-lineheight .ql-picker-item[data-value="1"]::before { content: 'Spasi 1.0'; }
+.ql-snow .ql-picker.ql-lineheight .ql-picker-item[data-value="1.15"]::before { content: 'Spasi 1.15'; }
+.ql-snow .ql-picker.ql-lineheight .ql-picker-item[data-value="1.5"]::before { content: 'Spasi 1.5'; }
+.ql-snow .ql-picker.ql-lineheight .ql-picker-item[data-value="2"]::before { content: 'Spasi 2.0'; }
+
+/* LOGIKA SIDEBAR COLLAPSIBLE */
+#sidebar {
+    transition: width 0.3s ease;
+    overflow: hidden;
+    white-space: nowrap;
+}
+#sidebar.collapsed {
+    width: 72px; /* Cukup untuk ikon B dan ikon menu */
+}
+#sidebar.collapsed .logo-text {
+    display: none;
+}
+#sidebar.collapsed .menu-text {
+    display: none;
+}
+#sidebar.collapsed .logo-container {
+    padding: 24px 0 !important;
+    justify-content: center !important;
+}
+#sidebar.collapsed .menu-item {
+    padding: 0 !important;
+    justify-content: center !important;
+}
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.menu-icon {
+    flex-shrink: 0;
+}
+
+/* FLAT UI SETTINGS */
+.flat-menu-item {
+    padding: 10px 16px;
+    font-size: 10pt;
+    color: #4B5563;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: background 0.1s;
+}
+.flat-menu-item:hover { background: #E5E7EB; color: #1E2022; }
+.flat-menu-item.active { background: #E5E7EB; color: #1E2022; border-left-color: #D32F2F; font-weight: 600; }
+
+.pane-title { font-size: 16pt; font-weight: 500; color: #1E2022; margin-bottom: 24px; }
+
+.flat-setting-row {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 16px 0; border-bottom: 1px solid #E1E4E8;
+}
+.flat-setting-row:last-child { border-bottom: none; }
+.flat-setting-row .label { font-size: 10pt; font-weight: 600; color: #1E2022; margin-bottom: 4px; }
+.flat-setting-row .desc { font-size: 9pt; color: #6B7280; }
+
+.flat-select {
+    background: transparent; border: 1px solid #D1D5DB; padding: 6px 8px; font-size: 10pt;
+    color: #1E2022; border-radius: 0; outline: none; width: 180px;
+}
+.flat-select:focus { border-color: #D32F2F; }
+.flat-select:disabled { background: #F3F4F6; color: #9CA3AF; cursor: not-allowed; }
+
+.flat-button {
+    background: #F3F4F6; border: 1px solid #D1D5DB; padding: 6px 12px; font-size: 10pt;
+    color: #1E2022; border-radius: 0; cursor: pointer; transition: 0.1s;
+}
+.flat-button:hover { background: #E5E7EB; }
+.flat-button.danger { background: #FEF2F2; color: #D32F2F; border-color: #FCA5A5; }
+.flat-button.danger:hover { background: #FEE2E2; }
+
+.flat-checkbox {
+    width: 16px; height: 16px; margin: 0; border-radius: 0; cursor: pointer; accent-color: #D32F2F;
+}
+
+/* RICH TOOLTIP (KOTAK INFO MELAYANG) */
+.rich-tooltip {
+    position: fixed;
+    background: #FFFFFF;
+    border: 1px solid #C8C6C4;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    padding: 10px 14px;
+    z-index: 10000;
+    display: none;
+    flex-direction: column;
+    max-width: 260px;
+    pointer-events: none;
+    border-radius: 2px;
+}
+.rich-tooltip .tt-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 6px; }
+.rich-tooltip .tt-title { font-weight: 600; font-size: 10pt; color: #1E2022; }
+.rich-tooltip .tt-shortcut { color: #605E5C; font-weight: 400; font-size: 9pt; margin-left: 12px; }
+.rich-tooltip .tt-desc { font-size: 9pt; color: #3B3A39; line-height: 1.4; }
+
+/* Animasi Loading Status Bar */
+@keyframes sb-spin { 100% { transform: rotate(360deg); } }
+.sb-spinner { animation: sb-spin 1s linear infinite; }
+
+
+/* GAYA TABEL QUILL 2.0 */
+.ql-editor table { border-collapse: collapse; width: 100%; margin-bottom: 1em; }
+.ql-editor td { border: 1px solid #000000; padding: 8px; }
+
+
+.tbl-tool-btn { background: transparent; border: 1px solid transparent; padding: 4px 6px; display: flex; flex-direction: column; align-items: center; font-size: 7pt; color: #2D3142; cursor: pointer; border-radius: 2px; } .tbl-tool-btn:hover { background: #E1E4E8; border-color: #D1D5DB; } .tbl-tool-btn svg { margin-bottom: 2px; }
+
+
+.dropdown-menu-btn:hover { background: #E1E4E8 !important; }
+
+
+/* GAYA HIGHLIGHT PENCARIAN KUNING */
+.search-active .ql-editor ::selection { background: #FFEB3B !important; color: #000000 !important; }
+

@@ -1,0 +1,82 @@
+{
+    "build": {
+        "beforeDevCommand": "",
+        "beforeBuildCommand": "",
+        "devPath": "../src",
+        "distDir": "../src",
+        "withGlobalTauri": true
+    },
+    "package": {
+        "productName": "Baku",
+        "version": "0.1.0"
+    },
+    "tauri": {
+        "allowlist": {
+            "all": false,
+            "fs": {
+                "all": true,
+                "scope": [
+                    "$DOCUMENT/**",
+                    "$DOWNLOAD/**",
+                    "$DESKTOP/**",
+                    "$HOME/**"
+                ]
+            },
+            "dialog": {
+                "all": true
+            },
+            "path": {
+                "all": true
+            },
+            "shell": {
+                "all": true,
+                "open": true
+            }
+        },
+        "bundle": {
+            "icon": [
+                "icons/icon.icns",
+                "icons/icon.ico"
+            ],
+            "active": true,
+            "category": "Office",
+            "copyright": "",
+            "deb": {
+                "depends": []
+            },
+            "identifier": "com.baku.dev",
+            "longDescription": "",
+            "macOS": {
+                "entitlements": null,
+                "exceptionDomain": "",
+                "frameworks": [],
+                "providerShortName": null,
+                "signingIdentity": null
+            },
+            "resources": [],
+            "shortDescription": "",
+            "targets": "all",
+            "windows": {
+                "certificateThumbprint": null,
+                "digestAlgorithm": "sha256",
+                "timestampUrl": ""
+            }
+        },
+        "security": {
+            "csp": "default-src 'self'; img-src 'self' data: asset: tauri:; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data:; script-src 'self' 'unsafe-inline';"
+        },
+        "updater": {
+            "active": false
+        },
+        "windows": [
+            {
+                "fullscreen": false,
+                "height": 768,
+                "resizable": true,
+                "title": "Baku PDF Editor",
+                "width": 1024,
+                "url": "index.html"
+            }
+        ]
+    }
+}
