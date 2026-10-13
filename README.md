@@ -31,6 +31,7 @@
   - [Built-In Standard Templates](#built-in-standard-templates)
   - [Architecture & Tech Stack](#architecture--tech-stack)
   - [System Requirements & Installation](#system-requirements--installation)
+- [Kontribusi / Contributing](#kontribusi--contributing)
 - [Lisensi / License](#lisensi--license)
 
 ---
@@ -250,6 +251,13 @@ Baku PDF includes standalone PDF utility tools running entirely on your machine 
    ```bash
    npm run tauri build
    ```
+
+---
+
+## Kontribusi / Contributing
+Kontribusi terbuka untuk siapa saja! Silakan baca panduan lengkap pada [CONTRIBUTING.md](CONTRIBUTING.md) sebelum mengirimkan *Pull Request* atau membuka *Issue*.
+
+Contributions are welcome! Please read the complete guidelines in [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a Pull Request or opening an Issue.
 
 ---
 
