@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Kebijakan Keamanan (Security Policy)
+    url: https://github.com/Kharisdestianmaulana-hub/Baku/security/policy
+    about: Silakan baca panduan pelaporan kerentanan keamanan secara privat.
+  - name: Panduan Kontribusi (Contributing Guide)
+    url: https://github.com/Kharisdestianmaulana-hub/Baku/blob/main/CONTRIBUTING.md
+    about: Pelajari alur pengembangan dan tata cara berkontribusi kode.

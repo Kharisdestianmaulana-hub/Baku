@@ -31,7 +31,7 @@
   - [Built-In Standard Templates](#built-in-standard-templates)
   - [Architecture & Tech Stack](#architecture--tech-stack)
   - [System Requirements & Installation](#system-requirements--installation)
-- [Kontribusi / Contributing](#kontribusi--contributing)
+- [Dokumentasi Lengkap / Documentation](#dokumentasi-lengkap--documentation)
 - [Lisensi / License](#lisensi--license)
 
 ---
@@ -254,10 +254,19 @@ Baku PDF includes standalone PDF utility tools running entirely on your machine 
 
 ---
 
-## Kontribusi / Contributing
-Kontribusi terbuka untuk siapa saja! Silakan baca panduan lengkap pada [CONTRIBUTING.md](CONTRIBUTING.md) sebelum mengirimkan *Pull Request* atau membuka *Issue*.
+## Dokumentasi Lengkap / Documentation
 
-Contributions are welcome! Please read the complete guidelines in [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a Pull Request or opening an Issue.
+Kami menyediakan dokumentasi teknis dan panduan komunitas lengkap untuk mendukung transparansi serta kolaborasi sumber terbuka:
+
+We provide comprehensive technical documentation and community guidelines to support open-source collaboration and transparency:
+
+| Dokumen / Document | Bahasa Indonesia | English |
+| :--- | :--- | :--- |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Panduan kontribusi, alur kerja Git, dan standar kode. | Contribution guidelines, Git workflow, and code standards. |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Spesifikasi teknis, alur IPC Tauri, dan format `.baku`. | Technical specifications, Tauri IPC flow, and `.baku` format. |
+| [CHANGELOG.md](CHANGELOG.md) | Riwayat pembaruan dan catatan rilis versi. | Version release notes and update history. |
+| [SECURITY.md](SECURITY.md) | Kebijakan keamanan dan pelaporan celah kerentanan. | Security policy and vulnerability reporting. |
+| [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Norma komunitas dan standar interaksi kontributor. | Community standards and contributor code of conduct. |
 
 ---
 
