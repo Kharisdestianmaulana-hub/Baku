@@ -742,7 +742,65 @@ fn show_in_folder(path: String) -> Result<(), String> {
     Ok(())
 }
 
+#[cfg(target_os = "macos")]
+fn check_running_from_dmg() {
+    if let Ok(exe_path) = std::env::current_exe() {
+        let exe_str = exe_path.to_string_lossy();
+        if exe_str.starts_with("/Volumes/") {
+            let mut app_bundle: Option<std::path::PathBuf> = None;
+            let mut cur = exe_path.clone();
+            while let Some(parent) = cur.parent() {
+                if parent.extension().and_then(|s| s.to_str()) == Some("app") {
+                    app_bundle = Some(parent.to_path_buf());
+                    break;
+                }
+                cur = parent.to_path_buf();
+            }
+
+            if let Some(src_app) = app_bundle {
+                let src_str = src_app.to_string_lossy().to_string();
+                let script = format!(
+                    r#"
+                    tell application "System Events"
+                        activate
+                    end tell
+                    set dialogChoice to button returned of (display alert "Instalasi Baku PDF Diperlukan" message "Baku PDF tidak dapat dijalankan langsung dari disk installer DMG.\n\nSilakan pasang aplikasi ke folder Applications terlebih dahulu untuk menggunakannya." as critical buttons {{"Batal", "Pasang ke Applications"}} default button "Pasang ke Applications")
+                    if dialogChoice is "Pasang ke Applications" then
+                        try
+                            do shell script "rm -rf /Applications/Baku.app && ditto " & quoted form of "{}" & " /Applications/Baku.app"
+                            tell application "Finder" to open POSIX file "/Applications/Baku.app"
+                        on error
+                            try
+                                do shell script "rm -rf /Applications/Baku.app && ditto " & quoted form of "{}" & " /Applications/Baku.app" with administrator privileges
+                                tell application "Finder" to open POSIX file "/Applications/Baku.app"
+                            on error
+                                tell application "Finder"
+                                    activate
+                                    open POSIX file "/Applications"
+                                    reveal POSIX file "{}"
+                                end tell
+                            end try
+                        end try
+                    end if
+                    "#,
+                    src_str, src_str, src_str
+                );
+
+                let _ = std::process::Command::new("osascript")
+                    .arg("-e")
+                    .arg(script)
+                    .output();
+
+                std::process::exit(0);
+            }
+        }
+    }
+}
+
 fn main() {
+    #[cfg(target_os = "macos")]
+    check_running_from_dmg();
+
     #[allow(unused_mut)]
     let mut builder = tauri::Builder::default();
 

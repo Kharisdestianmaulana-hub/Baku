@@ -53,7 +53,7 @@
                 "icons/icon.ico"
             ],
             "active": true,
-            "category": "Office",
+            "category": "Productivity",
             "copyright": "",
             "deb": {
                 "depends": []
@@ -66,6 +66,25 @@
                 "frameworks": [],
                 "providerShortName": null,
                 "signingIdentity": null
+            },
+            "dmg": {
+                "background": "icons/dmg-background.png",
+                "windowPosition": {
+                    "x": 400,
+                    "y": 400
+                },
+                "windowSize": {
+                    "width": 660,
+                    "height": 400
+                },
+                "appPosition": {
+                    "x": 180,
+                    "y": 190
+                },
+                "applicationFolderPosition": {
+                    "x": 480,
+                    "y": 190
+                }
             },
             "resources": [],
             "shortDescription": "",
