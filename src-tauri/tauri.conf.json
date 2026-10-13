@@ -8,7 +8,7 @@
     },
     "package": {
         "productName": "Baku",
-        "version": "0.1.0"
+        "version": "1.0.0"
     },
     "tauri": {
         "allowlist": {
@@ -25,12 +25,26 @@
             "dialog": {
                 "all": true
             },
+            "clipboard": {
+                "all": true,
+                "readText": true,
+                "writeText": true
+            },
             "path": {
                 "all": true
             },
             "shell": {
                 "all": true,
-                "open": true
+                "open": "^.*"
+            },
+            "window": {
+                "all": true
+            },
+            "process": {
+                "all": true
+            },
+            "app": {
+                "all": true
             }
         },
         "bundle": {

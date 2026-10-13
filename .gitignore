@@ -3,3 +3,9 @@ target/
 src-tauri/target/
 .DS_Store
 *.log
+.baku_lang
+**/.baku_lang
+*.pdf
+.workbuddy-ai/
+
+

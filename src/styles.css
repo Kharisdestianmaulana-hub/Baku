@@ -1,9 +1,47 @@
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
 
-body { background: #F4F5F7; overflow: hidden; user-select: none; }
-input, textarea, .ql-editor { user-select: text; }
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none;
+    user-select: none;
+}
 
-#app { display: flex; height: 100vh; width: 100vw; }
+body {
+    background: #F4F5F7;
+    overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Hanya izinkan seleksi dan interaksi teks pada area input dan editor dokumen */
+input, textarea, select, [contenteditable="true"], .ql-editor, .ql-editor * {
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+    -webkit-user-drag: auto;
+}
+
+#app {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    max-width: 100vw;
+    overflow: hidden;
+}
 
 /* SIDEBAR */
 #sidebar {
@@ -36,6 +74,11 @@ input, textarea, .ql-editor { user-select: text; }
     background: #FFFFFF;
     display: flex;
     flex-direction: column;
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
     opacity: 0;
     pointer-events: none;
     position: absolute;
@@ -46,7 +89,12 @@ input, textarea, .ql-editor { user-select: text; }
     opacity: 1; 
     pointer-events: auto; 
     position: relative; 
-    z-index: 1; 
+    z-index: 1;
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 /* BERANDA */
@@ -62,10 +110,39 @@ input, textarea, .ql-editor { user-select: text; }
 }
 .paper-box:hover { background: #F9FAFC; border-color: #4F83CC; }
 
+.home-paper-template {
+    position: relative;
+    padding: 14px 12px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.home-paper-template:hover {
+    background: #FFFFFF;
+    border-color: #2563EB;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+}
+.home-tpl-pill {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    font-size: 7.5pt;
+    font-weight: 600;
+    padding: 2px 5px;
+    border-radius: 2px;
+    background: #EFF6FF;
+    color: #2563EB;
+    line-height: 1;
+    pointer-events: none;
+    letter-spacing: 0.2px;
+}
+
 /* TABLE */
 .table { display: flex; flex-direction: column; }
 .table-header { display: flex; height: 32px; border-bottom: 1px solid #D1D5DB; padding: 0 8px; }
-.table-row { display: flex; height: 40px; border-bottom: 1px solid #E1E4E8; padding: 0 8px; }
+.table-row { display: flex; height: 40px; border-bottom: 1px solid #E1E4E8; padding: 0 8px; transition: background-color 0.15s; }
+.table-row:hover { background-color: #F3F4F6; }
 .col-4 { flex: 4; display: flex; align-items: center; font-size: 10pt; color: #5A6072; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .col-2 { flex: 2; display: flex; align-items: center; font-size: 10pt; color: #5A6072; }
 .table-row .title { font-size: 11pt; font-weight: 500; color: #2D3142; }
@@ -73,7 +150,14 @@ input, textarea, .ql-editor { user-select: text; }
 .table-row .date { font-size: 11pt; }
 
 /* EDITOR */
-#view-editor { background: #F4F5F7; }
+#view-editor {
+    background: #F4F5F7;
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
 
 /* TOMBOL GLOBAL */
 .btn-primary { background: #4F83CC; color: white; border: none; border-radius: 0; padding: 0 16px; height: 32px; font-size: 11pt; font-weight: 500; cursor: pointer; }
@@ -90,6 +174,11 @@ input, textarea, .ql-editor { user-select: text; }
     align-items: center;
     padding: 0 8px;
     gap: 4px;
+}
+
+/* Pada macOS, sembunyikan menu-bar di dalam jendela karena sudah aktif di Menu Bar Sistem (Status Bar macOS) */
+body.is-mac #menu-bar {
+    display: none !important;
 }
 .menu-dropdown {
     position: relative;
@@ -144,16 +233,53 @@ input, textarea, .ql-editor { user-select: text; }
     margin: 4px 0;
 }
 #canvas-area {
-    flex: 1;
+    flex: 1 1 0%;
+    min-height: 0;
+    overflow-x: auto;
     overflow-y: auto;
     padding: 40px;
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+#status-bar {
+    width: 100%;
+    max-width: 100%;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+#export-wrapper {
+    position: relative;
+    margin: 0 auto;
+    box-sizing: border-box;
+    cursor: text;
+}
+/* Lembar kertas: div putih polos jauh lebih murah digambar WebKit dibanding background SVG berulang */
+#page-sheets-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+#page-sheets-layer .page-sheet {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    box-sizing: border-box;
 }
 #quill-container {
     position: relative;
-    width: 595px;
-    min-height: 842px;
+    z-index: 1;
+    width: 100%;
     margin: 0 auto;
     overflow: hidden !important;
+    cursor: text;
 }
 /* RIBBON TOOLBAR */
 #ribbon-toolbar {
@@ -209,20 +335,84 @@ input, textarea, .ql-editor { user-select: text; }
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 6px;
+    gap: 4px;
     height: 100%;
+    flex-shrink: 0;
 }
 .ribbon-row {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
+    min-height: 26px;
 }
 
 .ribbon-divider {
     width: 1px;
-    height: 48px;
+    height: 44px;
     background: #D1D5DB;
-    margin: 0 16px;
+    margin: 0 14px;
+    flex-shrink: 0;
+}
+
+/* TOMBOL KOMPAK RIBBON 2 BARIS (SEPERTI MS WORD WINDOWS) */
+#custom-toolbar button.ribbon-btn-compact {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    height: 26px !important;
+    padding: 2px 8px !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: 3px !important;
+    font-size: 8.5pt !important;
+    color: #2D3142 !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
+    min-width: unset !important;
+    width: auto !important;
+    float: none !important;
+    transition: background-color 0.1s, border-color 0.1s;
+    box-sizing: border-box !important;
+}
+#custom-toolbar button.ribbon-btn-compact:hover {
+    background: #E1E4E8 !important;
+    border-color: #D1D5DB !important;
+}
+#custom-toolbar button.ribbon-btn-compact:active {
+    background: #D5D9E0 !important;
+}
+#custom-toolbar button.ribbon-btn-compact svg {
+    flex-shrink: 0;
+    margin: 0 !important;
+    float: none !important;
+}
+#custom-toolbar select.ribbon-select {
+    height: 26px;
+    padding: 0 6px;
+    font-size: 8.5pt;
+    border: 1px solid #D1D5DB;
+    border-radius: 3px;
+    background: #FFFFFF;
+    color: #2D3142;
+    cursor: pointer;
+    box-sizing: border-box;
+    outline: none;
+}
+#custom-toolbar select.ribbon-select:hover {
+    border-color: #0078D4;
+}
+.ribbon-btn-text {
+    font-size: 8.5pt;
+    color: #2D3142;
+    cursor: pointer;
+    user-select: none;
+    line-height: 24px;
+}
+.ribbon-btn-text:hover {
+    color: #0078D4;
 }
 
 /* TOMBOL BESAR RIBBON (Ikon Atas, Teks Bawah) */
@@ -270,15 +460,77 @@ input, textarea, .ql-editor { user-select: text; }
     color: #06c;
 }
 #custom-toolbar button, #custom-toolbar .ql-picker {
-    border-radius: 0 !important;
+    border-radius: 2px !important;
 }
 #custom-toolbar button:hover, #custom-toolbar .ql-picker-label:hover {
     background: #E1E4E8 !important;
 }
+
+/* Styling Font Picker di Toolbar Ribbon */
+#custom-toolbar .ql-picker.ql-font {
+    width: 150px;
+    min-width: 150px;
+    height: 26px;
+    border: 1px solid #D1D5DB;
+    border-radius: 2px !important;
+    background: #FFFFFF;
+    margin-right: 4px;
+}
+#custom-toolbar .ql-picker.ql-font .ql-picker-label {
+    padding: 2px 24px 2px 8px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+    border: none;
+}
+#custom-toolbar .ql-picker.ql-font .ql-picker-label::before {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 115px;
+    line-height: 20px;
+    vertical-align: middle;
+}
+#custom-toolbar .ql-picker.ql-font .ql-picker-options {
+    min-width: 170px;
+    max-height: 240px;
+    overflow-y: auto;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 2px;
+    z-index: 100;
+    padding: 4px 0;
+}
+#custom-toolbar .ql-picker.ql-font .ql-picker-item {
+    padding: 4px 12px;
+    font-size: 10pt;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#custom-toolbar .ql-picker.ql-font .ql-picker-item::before {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    line-height: 20px;
+}
+#custom-toolbar .ql-picker.ql-font .ql-picker-item:hover {
+    background-color: #EBF3FB !important;
+    color: #005A9E !important;
+}
+
 .ql-container { 
     border: none !important; 
-    font-size: 12pt; 
-    font-family: 'Segoe UI', sans-serif;
+    font-size: 11pt; 
+    font-family: 'Times New Roman', Times, serif;
     height: auto !important;
     overflow: visible !important;
 }
@@ -288,6 +540,15 @@ input, textarea, .ql-editor { user-select: text; }
     min-height: 842px; 
     height: auto !important;
     overflow-y: visible !important;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 11pt;
+    cursor: text;
+}
+
+.page-break-element {
+    pointer-events: auto;
+    user-select: none;
+    cursor: text;
 }
 
 /* MODAL */
@@ -297,7 +558,8 @@ input, textarea, .ql-editor { user-select: text; }
     display: flex; justify-content: center; align-items: center;
     z-index: 1000;
 }
-#modal-overlay.hidden { display: none; }
+#modal-overlay.hidden { display: none !important; }
+.hidden { display: none !important; }
 .modal {
     width: 480px; background: #FFFFFF; border-radius: 0; border: 1px solid #D1D5DB; padding: 24px;
     display: flex; flex-direction: column; gap: 20px;
@@ -308,6 +570,50 @@ input, textarea, .ql-editor { user-select: text; }
 .form-group input { height: 36px; border: 1px solid #D1D5DB; border-radius: 4px; padding: 0 12px; font-size: 11pt; color: #2D3142; outline: none; }
 .form-group input:focus { border-color: #4F83CC; }
 .modal-actions { display: flex; justify-content: flex-end; gap: 16px; margin-top: 8px; }
+
+/* GAYA DAN TATA LETAK GAMBAR (IMAGE WRAPPING & ALIGNMENT) */
+.ql-editor img {
+    max-width: 100%;
+    cursor: pointer;
+    border-radius: 2px;
+    vertical-align: middle;
+}
+
+.ql-editor img:hover {
+    outline: 1px dashed rgba(79, 131, 204, 0.6);
+}
+
+.ql-editor img[data-align="center"] {
+    display: block;
+    margin: 14px auto;
+    clear: both;
+}
+
+.ql-editor img[data-align="left"] {
+    float: left;
+    margin: 6px 18px 12px 0;
+    clear: none;
+}
+
+.ql-editor img[data-align="right"] {
+    float: right;
+    margin: 6px 0 12px 18px;
+    clear: none;
+}
+
+.ql-editor img:not([data-align]),
+.ql-editor img[data-align=""],
+.ql-editor img[data-align="inline"] {
+    display: inline-block;
+    vertical-align: baseline;
+    margin: 4px 8px;
+    clear: none;
+}
+
+.ql-editor img[data-align="free"] {
+    display: block;
+    clear: none;
+}
 
 /* OVERLAY GAMBAR (RESIZER & WRAPPER) */
 #image-resizer-overlay {
@@ -483,4 +789,3722 @@ input, textarea, .ql-editor { user-select: text; }
 
 /* GAYA HIGHLIGHT PENCARIAN KUNING */
 .search-active .ql-editor ::selection { background: #FFEB3B !important; color: #000000 !important; }
+
+/* ============================================================
+   ATURAN CETAK LANGSUNG KE PRINTER (DIRECT PRINT VIA WINDOW.PRINT)
+   ============================================================ */
+@media print {
+    @page {
+        margin: 0;
+        size: auto;
+    }
+    
+    html, body {
+        width: 100% !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+        overflow: visible !important;
+        zoom: 1 !important;
+    }
+
+    #app {
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        display: block !important;
+    }
+
+    /* Sembunyikan seluruh kontrol antarmuka dan panel luar */
+    #sidebar, #titlebar, #menu-bar, #ribbon-container, #status-bar, #view-print,
+    .view:not(#view-editor), #search-highlight-box, #table-mini-btn,
+    #table-floating-toolbar, #image-resizer-overlay, #hf-editor-container,
+    .resizer-handle, #modal-overlay, #modal-export-success, #modal-find,
+    #modal-symbol-overlay, #modal-table-overlay, #modal-page-number,
+    #modal-about, #modal-unsaved, .tooltip-container, #popover-doc-stats,
+    #baku-file-input-image, #modal-stats, .flat-header, #ruler-bar-container, #visual-ruler, #ruler-guideline,
+    #pane-set-general, #pane-set-workspace, #pane-set-about, #page-sheets-layer {
+        display: none !important;
+    }
+
+    /* Buka wadah kanvas agar mengalir secara alami */
+    #view-editor, #canvas-area {
+        display: block !important;
+        position: static !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+    }
+
+    #export-wrapper {
+        position: relative !important;
+        margin: 0 auto !important;
+        box-shadow: none !important;
+        border: none !important;
+        zoom: 1 !important;
+    }
+
+    .ql-editor {
+        background-image: none !important;
+        background-color: #ffffff !important;
+        box-shadow: none !important;
+        min-height: 0 !important;
+    }
+}
+
+/* PUSAT CETAK (PRINT HUB) */
+.printer-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.dot-ready {
+    background-color: #10B981;
+}
+.dot-offline {
+    background-color: #9CA3AF;
+}
+
+.print-paper-sheet {
+    background: #FFFFFF;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+    transform-origin: top center;
+    box-sizing: border-box;
+}
+
+.preview-grayscale {
+    filter: grayscale(100%) !important;
+}
+
+.print-nav-btn {
+    background: #43474B;
+    border: none;
+    color: #F1F1F1;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+.print-nav-btn:hover {
+    background: #525659;
+}
+
+/* SIMULASI MESIN PRINTER & ANIMASI */
+#printer-simulation-slot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 44px;
+    background: linear-gradient(180deg, #2A2C2E 0%, #383B3E 100%);
+    border-bottom: 2px solid #1E2022;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.printer-slot-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-100%);
+}
+.printer-slot-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+.printer-slot-bezel {
+    width: 65%;
+    max-width: 600px;
+    height: 14px;
+    background: #111213;
+    border-radius: 4px;
+    position: relative;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+}
+.printer-slot-mouth {
+    flex: 1;
+    height: 3px;
+    background: #000000;
+    border-radius: 2px;
+}
+.printer-slot-led {
+    width: 6px;
+    height: 6px;
+    background: #3B82F6;
+    border-radius: 50%;
+    margin-left: 8px;
+    animation: printerLedBlink 0.6s infinite alternate;
+}
+@keyframes printerLedBlink {
+    from { opacity: 0.3; }
+    to { opacity: 1; box-shadow: 0 0 6px #60A5FA; }
+}
+
+/* Efek Kertas Keluar dari Slot Printer */
+.animating-paper-feed {
+    animation: paperFeedAnimation 2.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+@keyframes paperFeedAnimation {
+    0% {
+        clip-path: inset(0 0 100% 0);
+        transform: translateY(-40px);
+    }
+    100% {
+        clip-path: inset(0 0 0 0);
+        transform: translateY(0);
+    }
+}
+
+/* Sinar Laser Kepala Cetak (Print Head Beam) */
+#print-head-beam {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, #38BDF8 50%, transparent 100%);
+    box-shadow: 0 0 10px #38BDF8, 0 0 4px #0284C7;
+    pointer-events: none;
+    z-index: 10;
+}
+.print-beam-hidden {
+    display: none;
+}
+.print-beam-active {
+    display: block;
+    animation: printBeamSweep 2.4s linear forwards;
+}
+@keyframes printBeamSweep {
+    0% {
+        top: 0%;
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
+}
+
+/* ============================================================
+   PENGGARIS HORISONTAL VISUAL (VISUAL RULER)
+   ============================================================ */
+#ruler-bar-container {
+    width: 100%;
+    max-width: 100%;
+    height: 26px;
+    background: #F3F2F1;
+    border-bottom: 1px solid #D1D5DB;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.visual-ruler {
+    position: absolute;
+    top: 0;
+    height: 26px;
+    background: #F3F2F1;
+    user-select: none;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.ruler-marker {
+    transition: background-color 0.1s;
+}
+.ruler-marker:hover .ruler-marker-indicator {
+    border-top-color: #0078D4 !important;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
+}
+.ruler-marker.dragging .ruler-marker-indicator {
+    border-top-color: #D32F2F !important;
+}
+
+.ruler-ticks-svg text {
+    font-size: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    fill: #5A6072;
+    user-select: none;
+}
+
+.ruler-ticks-svg line {
+    stroke: #8A8886;
+    stroke-width: 0.75;
+}
+
+#ribbon-btn-toggle-ruler.active {
+    background-color: #E1DFDD;
+    border-color: #C8C6C4;
+}
+
+/* ============================================================
+   KONTROL PEWARNAAN TEKS & STABILO (FONT & HIGHLIGHT COLOR)
+   ============================================================ */
+.color-split-container {
+    height: 26px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    transition: background 0.1s, border-color 0.1s;
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+.color-split-container:hover {
+    background: #EDEBE9;
+    border-color: #D1D5DB;
+}
+
+.color-split-main {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+    padding: 0 4px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #2D3142;
+    height: 24px;
+    box-sizing: border-box;
+}
+.color-split-main:hover {
+    background: rgba(0,0,0,0.06);
+    border-radius: 2px 0 0 2px;
+}
+
+.color-split-arrow {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+    padding: 0 3px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #5A6072;
+    height: 24px;
+    box-sizing: border-box;
+}
+.color-split-arrow:hover {
+    background: rgba(0,0,0,0.08);
+    border-radius: 0 2px 2px 0;
+}
+
+.color-indicator-bar {
+    width: 15px;
+    height: 4px;
+    min-height: 4px;
+    max-height: 4px;
+    flex-shrink: 0;
+    border-radius: 1px;
+    margin-top: 2px;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    display: block;
+}
+
+.color-palette-popover {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    border-radius: 4px;
+    padding: 8px;
+    z-index: 250;
+    width: 176px;
+    user-select: none;
+    flex-direction: column;
+}
+.color-palette-popover:not(.hidden) {
+    display: flex;
+}
+.color-palette-popover.hidden {
+    display: none;
+}
+
+.palette-header {
+    font-size: 8pt;
+    font-weight: 700;
+    color: #5A6072;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.palette-section-title {
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: #605E5C;
+    margin: 6px 0 4px 0;
+}
+
+.palette-auto-btn, .palette-no-color-btn, .palette-custom-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    padding: 5px 8px;
+    font-size: 9pt;
+    color: #2D3142;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.1s;
+}
+.palette-auto-btn:hover, .palette-no-color-btn:hover, .palette-custom-btn:hover {
+    background: #F3F2F1;
+    border-color: #E1DFDD;
+}
+
+.auto-color-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid #C8C6C4;
+}
+
+.palette-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    margin: 4px 0;
+}
+
+.color-swatch {
+    width: 24px;
+    height: 24px;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    box-sizing: border-box;
+}
+.color-swatch:hover {
+    transform: scale(1.18);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    z-index: 2;
+    border-color: #000000;
+}
+
+.palette-divider {
+    height: 1px;
+    background: #EDEBE9;
+    margin: 6px 0;
+}
+
+/* ============================================================
+   KELOMPOK PAPAN KLIP (CLIPBOARD) & DAFTAR CENTANG (CHECKLIST)
+   ============================================================ */
+.clipboard-group {
+    justify-content: center;
+}
+
+.clipboard-layout {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 100%;
+}
+
+.clipboard-paste-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    transition: background 0.1s, border-color 0.1s;
+    height: 52px;
+    width: 48px;
+    box-sizing: border-box;
+}
+
+.clipboard-paste-container:hover {
+    background: #EDEBE9;
+    border-color: #D1D5DB;
+}
+
+.ribbon-paste-btn {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+    padding: 2px 0 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #2D3142;
+    width: 100%;
+    height: 32px;
+    box-sizing: border-box;
+    border-radius: 2px 2px 0 0;
+}
+
+.ribbon-paste-btn:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.ribbon-paste-btn svg {
+    display: block;
+    color: #2D3142;
+}
+
+.ribbon-paste-arrow {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+    padding: 0 2px;
+    width: 100%;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    cursor: pointer;
+    color: #2D3142;
+    border-radius: 0 0 2px 2px;
+    box-sizing: border-box;
+}
+
+.ribbon-paste-arrow:hover {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.paste-btn-text {
+    font-size: 7.5pt;
+    font-weight: 500;
+    line-height: 1;
+    color: #2D3142;
+    white-space: nowrap;
+}
+
+.paste-palette-popover {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    border-radius: 4px;
+    padding: 6px;
+    z-index: 250;
+    width: max-content;
+    min-width: 230px;
+    user-select: none;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.paste-palette-popover:not(.hidden) {
+    display: flex !important;
+}
+
+.paste-palette-popover.hidden {
+    display: none !important;
+}
+
+.paste-palette-popover .palette-header {
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #8C92A4;
+    padding: 4px 8px 6px 8px;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #EDEBE9;
+    margin-bottom: 4px;
+}
+
+.ql-snow .ql-toolbar .paste-popover-item,
+.paste-palette-popover .paste-popover-item,
+button.paste-popover-item {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    float: none !important;
+    width: 100% !important;
+    height: 32px !important;
+    padding: 6px 10px !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: 3px !important;
+    font-size: 8.5pt !important;
+    color: #2D3142 !important;
+    cursor: pointer !important;
+    text-align: left !important;
+    transition: background 0.1s, border-color 0.1s !important;
+    box-sizing: border-box !important;
+    gap: 10px !important;
+    white-space: nowrap !important;
+}
+
+.ql-snow .ql-toolbar .paste-popover-item:hover,
+.paste-palette-popover .paste-popover-item:hover,
+button.paste-popover-item:hover {
+    background: #E1E4E8 !important;
+    border-color: #D1D5DB !important;
+}
+
+.ql-snow .ql-toolbar .paste-popover-item svg,
+.paste-palette-popover .paste-popover-item svg,
+button.paste-popover-item svg {
+    float: none !important;
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    flex-shrink: 0 !important;
+    color: #5A6072 !important;
+    margin: 0 !important;
+}
+
+.ql-snow .ql-toolbar .paste-popover-item span,
+.paste-palette-popover .paste-popover-item span,
+button.paste-popover-item span {
+    display: inline-block !important;
+    font-size: 8.5pt !important;
+    font-weight: 500 !important;
+    color: #2D3142 !important;
+    white-space: nowrap !important;
+    line-height: 1.2 !important;
+    flex-grow: 1 !important;
+    text-align: left !important;
+}
+
+.clipboard-mini-stack {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    height: 100%;
+}
+
+.clipboard-mini-row {
+    min-height: 25px;
+    gap: 3px;
+}
+
+/* ============================================================
+   KOTAK COMBOBOX UKURAN FONT (EDITABLE INPUT + DROPDOWN POPOVER)
+   ============================================================ */
+.font-size-combobox {
+    height: 24px;
+}
+
+.font-size-combobox:hover input,
+.font-size-combobox:hover button {
+    border-color: #0078D4 !important;
+}
+
+.font-size-popover {
+    position: absolute;
+    top: calc(100% + 3px);
+    left: 0;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    border-radius: 3px;
+    padding: 2px 0;
+    max-height: 220px;
+    overflow-y: auto;
+    width: 50px;
+    z-index: 300;
+    user-select: none;
+}
+
+.font-size-popover.hidden {
+    display: none;
+}
+
+.font-size-item {
+    padding: 3px 6px;
+    font-size: 8.5pt;
+    color: #2D3142;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.1s;
+}
+
+.font-size-item:hover {
+    background: #0078D4;
+    color: #FFFFFF;
+}
+
+.font-size-item.selected {
+    background: #EDEBE9;
+    font-weight: 700;
+}
+
+/* ============================================================
+   KONTROL SPASI BARIS PARAGRAF (LINE SPACING DROPDOWN POPOVER)
+   ============================================================ */
+.lineheight-popover {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    border-radius: 4px;
+    padding: 4px;
+    z-index: 250;
+    width: 105px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    user-select: none;
+}
+
+.lineheight-popover.hidden {
+    display: none;
+}
+
+.ql-snow .ql-toolbar .lineheight-item,
+.lineheight-popover .lineheight-item,
+button.lineheight-item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    float: none !important;
+    padding: 5px 8px !important;
+    font-size: 8.5pt !important;
+    color: #2D3142 !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: 2px !important;
+    cursor: pointer !important;
+    text-align: left !important;
+    transition: background 0.1s, border-color 0.1s !important;
+    width: 100% !important;
+    height: 26px !important;
+    box-sizing: border-box !important;
+}
+
+.lineheight-item:hover {
+    background: #E1E4E8;
+    border-color: #D1D5DB;
+}
+
+.lineheight-item.active {
+    font-weight: 700;
+    background: #EDEBE9;
+}
+
+.lineheight-item.active::after {
+    content: "✓";
+    font-size: 8.5pt;
+    color: #0078D4;
+}
+
+/* Tombol Checklist di Quill Toolbar */
+#custom-toolbar button.ql-list[value="check"] {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+#custom-toolbar button.ql-list[value="check"] svg {
+    width: 15px;
+    height: 15px;
+}
+
+/* Styling Dropdown Header di Toolbar agar Sejajar */
+#custom-toolbar .ql-picker.ql-header {
+    width: 105px;
+    height: 26px;
+    border: 1px solid #D1D5DB;
+    border-radius: 2px !important;
+    background: #FFFFFF;
+}
+
+#custom-toolbar .ql-picker.ql-header .ql-picker-label {
+    padding: 2px 20px 2px 8px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    border: none;
+    font-size: 8.5pt;
+    color: #2D3142;
+}
+
+/* ============================================================
+   DROPDOWN UBAH KAPITALISASI (CHANGE CASE Aa)
+   ============================================================ */
+.change-case-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.ql-snow .ql-toolbar .change-case-btn,
+.change-case-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    float: none !important;
+    height: 24px !important;
+    width: auto !important;
+    padding: 2px 6px !important;
+    gap: 3px !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: 2px !important;
+    cursor: pointer !important;
+    color: #2D3142 !important;
+    box-sizing: border-box !important;
+}
+
+.ql-snow .ql-toolbar .change-case-btn:hover,
+.change-case-btn:hover {
+    background: #EDEBE9 !important;
+    border-color: #D1D5DB !important;
+}
+
+.change-case-text {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: #2D3142;
+    line-height: 1;
+}
+
+.change-case-popover {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    border-radius: 4px;
+    padding: 4px;
+    z-index: 300;
+    width: max-content;
+    min-width: 225px;
+    user-select: none;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.change-case-popover:not(.hidden) {
+    display: flex !important;
+}
+
+.change-case-popover.hidden {
+    display: none !important;
+}
+
+.ql-snow .ql-toolbar .change-case-item,
+.change-case-popover .change-case-item,
+button.change-case-item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    float: none !important;
+    width: 100% !important;
+    height: 28px !important;
+    padding: 4px 8px !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: 3px !important;
+    font-size: 8.5pt !important;
+    color: #2D3142 !important;
+    cursor: pointer !important;
+    text-align: left !important;
+    transition: background 0.1s, border-color 0.1s !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    gap: 8px !important;
+}
+
+.ql-snow .ql-toolbar .change-case-item:hover,
+.change-case-popover .change-case-item:hover,
+button.change-case-item:hover {
+    background: #E1E4E8 !important;
+    border-color: #D1D5DB !important;
+}
+
+.ql-snow .ql-toolbar .change-case-item svg,
+.change-case-popover .change-case-item svg,
+.change-case-item svg.change-case-item-icon,
+svg.change-case-item-icon {
+    display: inline-block !important;
+    width: 15px !important;
+    height: 15px !important;
+    float: none !important;
+    flex-shrink: 0 !important;
+    color: #5A6072 !important;
+    stroke: currentColor !important;
+    margin: 0 !important;
+    transition: color 0.1s !important;
+}
+
+.ql-snow .ql-toolbar .change-case-item:hover svg,
+.change-case-popover .change-case-item:hover svg,
+.change-case-item:hover svg.change-case-item-icon {
+    color: #0078D4 !important;
+}
+
+.ql-snow .ql-toolbar .change-case-item span,
+.change-case-popover .change-case-item span,
+button.change-case-item span {
+    display: inline-block !important;
+    font-size: 8.5pt !important;
+    color: #2D3142 !important;
+    white-space: nowrap !important;
+}
+
+/* ============================================================
+   TOMBOL TANDA PARAGRAF (PILCROW ¶)
+   ============================================================ */
+.ql-snow .ql-toolbar .btn-pilcrow,
+.btn-pilcrow {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    float: none !important;
+    width: 26px !important;
+    height: 24px !important;
+    padding: 2px !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: 2px !important;
+    cursor: pointer !important;
+    color: #2D3142 !important;
+    box-sizing: border-box !important;
+}
+
+.ql-snow .ql-toolbar .btn-pilcrow:hover,
+.btn-pilcrow:hover {
+    background: #EDEBE9 !important;
+    border-color: #D1D5DB !important;
+}
+
+.ql-snow .ql-toolbar .btn-pilcrow.active,
+.btn-pilcrow.active {
+    background: #CCE4F7 !important;
+    border-color: #0078D4 !important;
+    color: #005A9E !important;
+}
+
+.btn-pilcrow svg {
+    float: none !important;
+    width: 14px !important;
+    height: 14px !important;
+}
+
+/* ============================================================
+   TAMPILAN TANDA FORMAT PARAGRAF VISUAL (NON-DESTRUKTIF)
+   ============================================================ */
+.show-formatting-marks p::after,
+.show-formatting-marks h1::after,
+.show-formatting-marks h2::after,
+.show-formatting-marks h3::after,
+.show-formatting-marks h4::after,
+.show-formatting-marks h5::after,
+.show-formatting-marks h6::after,
+.show-formatting-marks li::after,
+.show-formatting-marks blockquote::after {
+    content: " ¶";
+    color: #A0A5B5;
+    font-size: 0.85em;
+    font-weight: normal;
+    user-select: none;
+    pointer-events: none;
+    opacity: 0.75;
+}
+
+@media print {
+    .show-formatting-marks p::after,
+    .show-formatting-marks h1::after,
+    .show-formatting-marks h2::after,
+    .show-formatting-marks h3::after,
+    .show-formatting-marks h4::after,
+    .show-formatting-marks h5::after,
+    .show-formatting-marks h6::after,
+    .show-formatting-marks li::after,
+    .show-formatting-marks blockquote::after {
+        display: none !important;
+    }
+}
+
+/* ============================================================
+   GALERI GAYA TEKS VISUAL (QUICK STYLES GALLERY ALA WORD 365)
+   ============================================================ */
+.styles-group {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.styles-gallery-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 52px;
+    background: #FAFAFA;
+    border: 1px solid #E1DFDD;
+    border-radius: 4px;
+    padding: 2px 3px;
+    box-sizing: border-box;
+    gap: 3px;
+}
+
+.styles-gallery-scroll {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    max-width: 345px;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    padding: 1px;
+}
+
+/* Override aturan tombol toolbar Quill untuk kartu gaya */
+.ql-snow .ql-toolbar .style-card,
+.style-card,
+button.style-card {
+    display: inline-flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    float: none !important;
+    width: 64px !important;
+    height: 44px !important;
+    padding: 2px 3px !important;
+    background: #FFFFFF !important;
+    border: 1px solid #E1DFDD !important;
+    border-radius: 3px !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+    transition: background 0.1s, border-color 0.1s, box-shadow 0.1s !important;
+    text-align: center !important;
+    line-height: 1 !important;
+}
+
+.ql-snow .ql-toolbar .style-card:hover,
+.style-card:hover {
+    background: #F3F2F1 !important;
+    border-color: #0078D4 !important;
+}
+
+.ql-snow .ql-toolbar .style-card.active,
+.style-card.active {
+    background: #EFF6FC !important;
+    border: 1.5px solid #0078D4 !important;
+    box-shadow: 0 0 0 1px #0078D4 !important;
+}
+
+.style-card .style-card-preview,
+.style-more-card .style-card-preview {
+    width: 100% !important;
+    height: 22px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    user-select: none !important;
+    margin-bottom: 2px !important;
+    box-sizing: border-box !important;
+}
+
+.style-card .style-card-name,
+.style-more-card .style-card-name {
+    font-size: 7.5pt !important;
+    font-weight: 500 !important;
+    color: #5A6072 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+    user-select: none !important;
+}
+
+.style-card.active .style-card-name,
+.style-more-card.active .style-card-name {
+    font-weight: 700 !important;
+    color: #0078D4 !important;
+}
+
+/* Desain Tipografi Pratinjau Setiap Gaya */
+.style-preview-normal {
+    font-size: 9.5pt !important;
+    font-weight: normal !important;
+    color: #2D3142 !important;
+}
+
+.style-preview-no-spacing {
+    font-size: 9pt !important;
+    font-weight: normal !important;
+    color: #2D3142 !important;
+    letter-spacing: -0.4px !important;
+}
+
+.style-preview-title {
+    font-size: 11pt !important;
+    font-weight: 700 !important;
+    color: #1E3A8A !important;
+    letter-spacing: -0.5px !important;
+}
+
+.style-preview-subtitle {
+    font-size: 8.5pt !important;
+    font-weight: 500 !important;
+    color: #5A6072 !important;
+}
+
+.style-preview-h1 {
+    font-size: 11pt !important;
+    font-weight: 700 !important;
+    color: #1E3A8A !important;
+}
+
+.style-preview-h2 {
+    font-size: 10pt !important;
+    font-weight: 600 !important;
+    color: #2B579A !important;
+}
+
+.style-preview-h3 {
+    font-size: 9pt !important;
+    font-weight: 600 !important;
+    color: #3B82F6 !important;
+}
+
+.style-preview-h4 {
+    font-size: 8.5pt !important;
+    font-weight: 600 !important;
+    font-style: italic !important;
+    color: #2B579A !important;
+}
+
+.style-preview-quote {
+    font-size: 8.5pt !important;
+    font-style: italic !important;
+    color: #5A6072 !important;
+    border-left: 2px solid #0078D4 !important;
+    padding-left: 2px !important;
+}
+
+.style-preview-intense-quote {
+    font-size: 8pt !important;
+    font-style: italic !important;
+    color: #0078D4 !important;
+    border-top: 1px solid #0078D4 !important;
+    border-bottom: 1px solid #0078D4 !important;
+    padding: 1px 2px !important;
+}
+
+.style-preview-code {
+    font-size: 8pt !important;
+    font-family: Consolas, 'Courier New', monospace !important;
+    color: #D32F2F !important;
+    background: #F3F4F6 !important;
+    border-radius: 2px !important;
+    padding: 0 3px !important;
+}
+
+/* Kolom Kontrol Navigasi Gulir & More */
+.styles-gallery-controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 44px;
+    gap: 1px;
+    flex-shrink: 0;
+}
+
+.ql-snow .ql-toolbar .styles-nav-btn,
+.styles-nav-btn,
+button.styles-nav-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    float: none !important;
+    width: 15px !important;
+    height: 13px !important;
+    padding: 0 !important;
+    background: #FFFFFF !important;
+    border: 1px solid #D1D5DB !important;
+    border-radius: 2px !important;
+    cursor: pointer !important;
+    color: #5A6072 !important;
+    box-sizing: border-box !important;
+}
+
+.styles-nav-btn:hover {
+    background: #EDEBE9 !important;
+    color: #0078D4 !important;
+    border-color: #0078D4 !important;
+}
+
+.styles-nav-btn svg {
+    width: 7px !important;
+    height: 7px !important;
+    float: none !important;
+    stroke: currentColor !important;
+}
+
+/* Popover Galeri Gaya Lengkap (More) */
+.styles-more-popover {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    border-radius: 4px;
+    padding: 8px;
+    z-index: 300;
+    width: 330px;
+    max-height: 400px;
+    overflow-y: auto;
+    user-select: none;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.styles-more-popover:not(.hidden) {
+    display: flex !important;
+}
+
+.styles-more-popover.hidden {
+    display: none !important;
+}
+
+.styles-more-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+}
+
+.ql-snow .ql-toolbar .style-more-card,
+.style-more-card,
+button.style-more-card {
+    display: inline-flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    float: none !important;
+    width: 100% !important;
+    height: 52px !important;
+    padding: 3px 4px !important;
+    background: #FAFAFA !important;
+    border: 1px solid #E1DFDD !important;
+    border-radius: 3px !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    transition: background 0.1s, border-color 0.1s !important;
+    text-align: center !important;
+    line-height: 1 !important;
+}
+
+.ql-snow .ql-toolbar .style-more-card:hover,
+.style-more-card:hover {
+    background: #F3F2F1 !important;
+    border-color: #0078D4 !important;
+}
+
+.ql-snow .ql-toolbar .style-more-card.active,
+.style-more-card.active {
+    background: #EFF6FC !important;
+    border: 1.5px solid #0078D4 !important;
+}
+
+/* Tombol Bersihkan Format di Popover Gaya */
+.ql-snow .ql-toolbar .styles-clear-btn,
+.styles-clear-btn,
+#btn-styles-clear-format {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    float: none !important;
+    width: 100% !important;
+    height: 32px !important;
+    padding: 6px 10px !important;
+    font-size: 8.5pt !important;
+    color: #2D3142 !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: 3px !important;
+    cursor: pointer !important;
+    text-align: left !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    gap: 8px !important;
+    transition: background 0.1s, border-color 0.1s !important;
+}
+
+.ql-snow .ql-toolbar .styles-clear-btn:hover,
+.styles-clear-btn:hover,
+#btn-styles-clear-format:hover {
+    background: #F3F2F1 !important;
+    border-color: #E1DFDD !important;
+    color: #D32F2F !important;
+}
+
+.styles-clear-btn svg {
+    width: 15px !important;
+    height: 15px !important;
+    flex-shrink: 0 !important;
+    color: #5A6072 !important;
+    stroke: currentColor !important;
+    float: none !important;
+    margin: 0 !important;
+}
+
+.styles-clear-btn:hover svg {
+    color: #D32F2F !important;
+}
+
+.styles-clear-btn span {
+    display: inline-block !important;
+    font-size: 8.5pt !important;
+    color: inherit !important;
+    white-space: nowrap !important;
+}
+
+/* ============================================================
+   TIPOGRAFI HEADINGS & KUTIPAN PADA LEMBAR KERJA (.ql-editor)
+   ============================================================ */
+.ql-editor h1 {
+    font-size: 18pt !important;
+    font-weight: 700 !important;
+    color: #1E3A8A !important;
+    margin-top: 14pt !important;
+    margin-bottom: 6pt !important;
+    line-height: 1.25 !important;
+}
+
+.ql-editor h2 {
+    font-size: 14pt !important;
+    font-weight: 600 !important;
+    color: #2B579A !important;
+    margin-top: 12pt !important;
+    margin-bottom: 4pt !important;
+    line-height: 1.3 !important;
+}
+
+.ql-editor h3 {
+    font-size: 12pt !important;
+    font-weight: 600 !important;
+    color: #3B82F6 !important;
+    margin-top: 10pt !important;
+    margin-bottom: 3pt !important;
+    line-height: 1.35 !important;
+}
+
+.ql-editor h4 {
+    font-size: 11pt !important;
+    font-weight: 600 !important;
+    font-style: italic !important;
+    color: #2B579A !important;
+    margin-top: 8pt !important;
+    margin-bottom: 2pt !important;
+    line-height: 1.4 !important;
+}
+
+.ql-editor p.ql-style-title {
+    font-size: 24pt !important;
+    font-weight: 700 !important;
+    color: #1E3A8A !important;
+    line-height: 1.2 !important;
+    margin-top: 16pt !important;
+    margin-bottom: 6pt !important;
+    letter-spacing: -0.5px !important;
+}
+
+.ql-editor p.ql-style-subtitle {
+    font-size: 13pt !important;
+    font-weight: 400 !important;
+    color: #5A6072 !important;
+    line-height: 1.3 !important;
+    margin-top: 2pt !important;
+    margin-bottom: 12pt !important;
+}
+
+.ql-editor p.ql-style-intense-quote {
+    font-size: 11pt !important;
+    font-style: italic !important;
+    font-weight: 500 !important;
+    color: #0078D4 !important;
+    border-top: 1.5px solid #0078D4 !important;
+    border-bottom: 1.5px solid #0078D4 !important;
+    padding: 8px 16px !important;
+    margin: 12pt 20pt !important;
+    text-align: center !important;
+    background: #F0F6FC !important;
+    border-radius: 2px !important;
+}
+
+.ql-editor blockquote {
+    border-left: 3px solid #0078D4 !important;
+    padding-left: 14px !important;
+    color: #5A6072 !important;
+    font-style: italic !important;
+    margin-top: 8pt !important;
+    margin-bottom: 8pt !important;
+}
+
+/* ============================================================
+   HALAMAN ALAT EKSTRA PDF (FLAT DESIGN SYSTEM)
+   ============================================================ */
+#view-extra-tools {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    background: #F9FAFB;
+    box-sizing: border-box;
+}
+
+#view-extra-tools.active {
+    display: flex !important;
+}
+
+.extra-tools-container {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 32px 32px 48px 32px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.extra-tools-header {
+    margin-bottom: 24px;
+}
+
+.extra-tools-badge {
+    display: inline-flex;
+    align-items: center;
+    background: #DCFCE7;
+    color: #15803D;
+    border: 1px solid #BBF7D0;
+    font-size: 8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.extra-tools-title {
+    font-size: 18pt;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 4px 0;
+    letter-spacing: -0.3px;
+}
+
+.extra-tools-subtitle {
+    font-size: 9.5pt;
+    color: #4B5563;
+    margin: 0;
+    line-height: 1.45;
+}
+
+.pdf-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 16px;
+}
+
+.pdf-tool-card {
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    padding: 20px 18px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: none;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.pdf-tool-card:hover {
+    border-color: #111827;
+    background-color: #FFFFFF;
+}
+
+.pdf-tool-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+    flex-shrink: 0;
+    border: 1px solid transparent;
+}
+
+.pdf-tool-icon-box.bg-red {
+    background: #FEE2E2;
+    color: #DC2626;
+    border-color: #FECACA;
+}
+
+.pdf-tool-icon-box.bg-blue {
+    background: #E0F2FE;
+    color: #0284C7;
+    border-color: #BAE6FD;
+}
+
+.pdf-tool-icon-box.bg-purple {
+    background: #F3E8FF;
+    color: #9333EA;
+    border-color: #E9D5FF;
+}
+
+.pdf-tool-icon-box.bg-green {
+    background: #DCFCE7;
+    color: #16A34A;
+    border-color: #BBF7D0;
+}
+
+.pdf-tool-card-title {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 6px 0;
+}
+
+.pdf-tool-card-desc {
+    font-size: 8.5pt;
+    color: #4B5563;
+    line-height: 1.45;
+    flex-grow: 1;
+    margin: 0 0 16px 0;
+}
+
+.pdf-tool-action-btn {
+    width: 100%;
+    padding: 8px 12px;
+    background: #F3F4F6;
+    color: #111827;
+    border: 1px solid #E5E7EB;
+    border-radius: 4px;
+    font-size: 8.5pt;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+    text-align: center;
+}
+
+.pdf-tool-card:hover .pdf-tool-action-btn {
+    background: #111827;
+    color: #FFFFFF;
+    border-color: #111827;
+}
+
+/* Modal Workspace Alat Ekstra (Flat Design) */
+.pdf-tool-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(17, 24, 39, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.pdf-tool-modal-overlay.hidden {
+    display: none !important;
+}
+
+.pdf-tool-modal-content {
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+    width: 560px;
+    max-width: 92vw;
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: none;
+    overflow: hidden;
+}
+
+.pdf-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #E5E7EB;
+    background: #FFFFFF;
+}
+
+.pdf-modal-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pdf-modal-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid transparent;
+}
+
+.pdf-modal-badge.bg-red { background: #FEE2E2; color: #DC2626; border-color: #FECACA; }
+.pdf-modal-badge.bg-blue { background: #E0F2FE; color: #0284C7; border-color: #BAE6FD; }
+.pdf-modal-badge.bg-purple { background: #F3E8FF; color: #9333EA; border-color: #E9D5FF; }
+.pdf-modal-badge.bg-green { background: #DCFCE7; color: #16A34A; border-color: #BBF7D0; }
+
+.pdf-modal-title {
+    font-size: 12pt;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+}
+
+.pdf-modal-desc {
+    font-size: 8.5pt;
+    color: #4B5563;
+    margin: 2px 0 0 0;
+}
+
+.pdf-modal-close-btn {
+    background: #F3F4F6;
+    border: 1px solid #E5E7EB;
+    color: #4B5563;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.pdf-modal-close-btn:hover {
+    background: #E5E7EB;
+    color: #111827;
+    border-color: #D1D5DB;
+}
+
+.pdf-modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: calc(88vh - 140px);
+}
+
+.pdf-dropzone {
+    border: 2px dashed #9CA3AF;
+    border-radius: 6px;
+    background: #F9FAFB;
+    padding: 26px 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.12s ease, border-color 0.12s ease;
+    user-select: none;
+}
+
+.pdf-dropzone.dragover {
+    background: #EFF6FC;
+    border-color: #0078D4;
+}
+
+.pdf-dropzone-main-text {
+    font-size: 10pt;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+}
+
+.pdf-dropzone-sub-text {
+    font-size: 8.5pt;
+    color: #6B7280;
+    display: block;
+    margin-top: 2px;
+}
+
+.pdf-browse-btn {
+    background: #111827;
+    color: #FFFFFF;
+    border: 1px solid #111827;
+    border-radius: 4px;
+    padding: 6px 16px;
+    font-size: 9pt;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.pdf-browse-btn:hover {
+    background: #1F2937;
+    border-color: #1F2937;
+}
+
+.pdf-queue-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pdf-queue-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pdf-queue-count {
+    font-size: 9pt;
+    font-weight: 600;
+    color: #374151;
+}
+
+.pdf-add-more-btn {
+    background: #F3F4F6;
+    border: 1px solid #E5E7EB;
+    color: #111827;
+    font-size: 8.5pt;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 3px 8px;
+    border-radius: 4px;
+    transition: background 0.12s, border-color 0.12s;
+}
+
+.pdf-add-more-btn:hover {
+    background: #E5E7EB;
+    border-color: #D1D5DB;
+}
+
+.pdf-queue-list {
+    max-height: 160px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border: 1px solid #E5E7EB;
+    border-radius: 4px;
+    padding: 6px;
+    background: #F9FAFB;
+}
+
+.pdf-queue-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background: #FFFFFF;
+    border-radius: 4px;
+    border: 1px solid #E5E7EB;
+    font-size: 8.5pt;
+    gap: 10px;
+}
+
+.pdf-queue-item-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+    flex: 1;
+}
+
+.pdf-queue-item-name {
+    font-weight: 600;
+    color: #111827;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pdf-queue-item-size {
+    color: #6B7280;
+    font-size: 7.5pt;
+    flex-shrink: 0;
+}
+
+.pdf-queue-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.pdf-queue-btn {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #4B5563;
+    padding: 0;
+    transition: all 0.1s;
+}
+
+.pdf-queue-btn:hover {
+    background: #F3F4F6;
+    color: #111827;
+    border-color: #9CA3AF;
+}
+
+.pdf-queue-btn.btn-remove:hover {
+    color: #DC2626;
+    border-color: #DC2626;
+    background: #FEE2E2;
+}
+
+.pdf-tool-options {
+    border-top: 1px solid #E5E7EB;
+    padding-top: 14px;
+}
+
+.tool-options-pane {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tool-option-label {
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #111827;
+}
+
+.tool-radio-group {
+    display: flex;
+    gap: 18px;
+    margin-top: 4px;
+}
+
+.tool-radio-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 8.5pt;
+    color: #111827;
+    cursor: pointer;
+}
+
+.tool-text-input {
+    width: 100%;
+    height: 32px;
+    border: 1px solid #D1D5DB;
+    border-radius: 4px;
+    padding: 0 10px;
+    font-size: 9pt;
+    color: #111827;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    outline: none;
+    transition: border-color 0.12s;
+}
+
+.tool-text-input:focus {
+    border-color: #111827;
+    border-width: 2px;
+    padding: 0 9px;
+}
+
+.tool-select-input {
+    width: 100%;
+    height: 32px;
+    border: 1px solid #D1D5DB;
+    border-radius: 4px;
+    padding: 0 8px;
+    font-size: 9pt;
+    color: #111827;
+    background: #FFFFFF;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.12s;
+}
+
+.tool-select-input:focus {
+    border-color: #111827;
+    border-width: 2px;
+}
+
+.pdf-status-banner {
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 8.5pt;
+    line-height: 1.45;
+}
+
+.pdf-status-banner.success {
+    background: #DCFCE7;
+    color: #15803D;
+    border: 1px solid #BBF7D0;
+}
+
+.pdf-status-banner.error {
+    background: #FEE2E2;
+    color: #B91C1C;
+    border: 1px solid #FECACA;
+}
+
+.pdf-status-banner.info {
+    background: #EFF6FC;
+    color: #0078D4;
+    border: 1px solid #C7E0F4;
+}
+
+.pdf-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 14px 20px;
+    border-top: 1px solid #E5E7EB;
+    background: #F9FAFB;
+}
+
+.pdf-modal-btn-secondary {
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    border-radius: 4px;
+    padding: 7px 16px;
+    font-size: 9pt;
+    font-weight: 600;
+    color: #374151;
+    cursor: pointer;
+    transition: background-color 0.12s, border-color 0.12s;
+}
+
+.pdf-modal-btn-secondary:hover {
+    background: #F3F4F6;
+    border-color: #9CA3AF;
+}
+
+.pdf-modal-btn-primary {
+    background: #111827;
+    border: 1px solid #111827;
+    border-radius: 4px;
+    padding: 7px 18px;
+    font-size: 9pt;
+    font-weight: 600;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: background-color 0.12s, border-color 0.12s;
+}
+
+.pdf-modal-btn-primary:hover {
+    background: #1F2937;
+    border-color: #1F2937;
+}
+
+.pdf-modal-btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #9CA3AF;
+    border-color: #9CA3AF;
+}
+
+/* ============================================================
+   HALAMAN TEMPLAT DOKUMEN (FLAT DESIGN SYSTEM)
+   ============================================================ */
+#view-templates {
+    background: #F9FAFB;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.templates-container {
+    padding: 32px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.templates-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.templates-badge {
+    display: inline-block;
+    background: #EFF6FC;
+    color: #0078D4;
+    border: 1px solid #C7E0F4;
+    font-size: 8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+}
+
+.templates-title {
+    font-size: 18pt;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 4px 0;
+}
+
+.templates-subtitle {
+    font-size: 9.5pt;
+    color: #4B5563;
+    margin: 0;
+    max-width: 600px;
+    line-height: 1.45;
+}
+
+.templates-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.templates-search-box {
+    display: flex;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    border-radius: 4px;
+    padding: 6px 10px;
+    gap: 8px;
+    width: 220px;
+    transition: border-color 0.12s ease;
+}
+
+.templates-search-box:focus-within {
+    border-color: #111827;
+    border-width: 2px;
+    padding: 5px 9px;
+}
+
+.templates-search-box input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 9pt;
+    color: #111827;
+    width: 100%;
+}
+
+.btn-clear-search {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6B7280;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.btn-clear-search:hover {
+    color: #111827;
+}
+
+.btn-template-header-action {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border-radius: 4px;
+    font-size: 9pt;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.btn-template-header-action.primary {
+    background: #111827;
+    color: #FFFFFF;
+    border: 1px solid #111827;
+}
+
+.btn-template-header-action.primary:hover {
+    background: #1F2937;
+    border-color: #1F2937;
+}
+
+.btn-template-header-action.secondary {
+    background: #FFFFFF;
+    color: #111827;
+    border: 1px solid #D1D5DB;
+}
+
+.btn-template-header-action.secondary:hover {
+    background: #F3F4F6;
+    border-color: #9CA3AF;
+}
+
+/* Bilah Tab Kategori (Flat Segmented Chips) */
+.templates-filter-pills {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.template-pill {
+    background: #FFFFFF;
+    color: #374151;
+    border: 1px solid #E5E7EB;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 8.5pt;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.12s ease, border-color 0.12s ease;
+    white-space: nowrap;
+}
+
+.template-pill:hover {
+    background: #F3F4F6;
+    border-color: #D1D5DB;
+}
+
+.template-pill.active {
+    background: #111827;
+    color: #FFFFFF;
+    border-color: #111827;
+}
+
+.template-pill .pill-count {
+    background: #F3F4F6;
+    color: #4B5563;
+    font-size: 7.5pt;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-weight: 700;
+}
+
+.template-pill.active .pill-count {
+    background: rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+}
+
+/* Grid Kartu Templat (Flat 2D Grid) */
+.templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+.template-card {
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: none;
+}
+
+.template-card:hover {
+    border-color: #111827;
+}
+
+.template-card-preview-area {
+    background: #F3F4F6;
+    height: 165px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+/* Miniatur Kertas Dokumen pada Kartu (Flat 2D) */
+.card-mini-paper {
+    width: 105px;
+    height: 142px;
+    background: #FFFFFF;
+    box-shadow: none;
+    border: 1px solid #D1D5DB;
+    border-radius: 2px;
+    padding: 10px 8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-mini-paper.landscape {
+    width: 142px;
+    height: 105px;
+}
+
+.mini-line {
+    height: 3px;
+    border-radius: 0;
+    background: #E5E7EB;
+    margin-bottom: 4px;
+}
+
+.mini-line.line-title {
+    width: 75%;
+    height: 5px;
+    background: #2563EB;
+    margin-bottom: 5px;
+}
+
+.mini-line.line-subtitle {
+    width: 50%;
+    height: 3px;
+    background: #9CA3AF;
+    margin-bottom: 8px;
+}
+
+.mini-line.line-h2 {
+    width: 55%;
+    height: 4px;
+    background: #3B82F6;
+    margin-bottom: 4px;
+}
+
+.mini-line.line-para {
+    width: 100%;
+    height: 2.5px;
+    background: #E5E7EB;
+    margin-bottom: 3px;
+}
+
+.mini-line.line-para.short {
+    width: 60%;
+}
+
+.mini-line-spacer {
+    height: 6px;
+}
+
+/* Badan Kartu (Flat 2D) */
+.template-card-body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.template-card-tags {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+}
+
+.card-tag {
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid transparent;
+}
+
+.tag-academic {
+    background: #EFF6FC;
+    color: #0078D4;
+    border-color: #C7E0F4;
+}
+
+.tag-letter {
+    background: #DCFCE7;
+    color: #15803D;
+    border-color: #BBF7D0;
+}
+
+.tag-office {
+    background: #F3E8FF;
+    color: #7E22CE;
+    border-color: #E9D5FF;
+}
+
+.tag-user {
+    background: #FEF3C7;
+    color: #B45309;
+    border-color: #FDE68A;
+}
+
+.card-tag-badge {
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: #374151;
+    background: #F3F4F6;
+    border: 1px solid #E5E7EB;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+.template-card-title {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 4px 0;
+    line-height: 1.3;
+}
+
+.template-card-desc {
+    font-size: 8.5pt;
+    color: #4B5563;
+    margin: 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.template-card-footer {
+    margin-top: auto;
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 8pt;
+    color: #6B7280;
+    border-top: 1px solid #E5E7EB;
+}
+
+/* Empty State (Flat) */
+.templates-empty-state {
+    padding: 48px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    border: 1px dashed #D1D5DB;
+    border-radius: 6px;
+}
+
+.templates-empty-state.hidden {
+    display: none !important;
+}
+
+.empty-state-icon {
+    margin-bottom: 12px;
+}
+
+.empty-state-title {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 6px 0;
+}
+
+.empty-state-desc {
+    font-size: 9.5pt;
+    color: #4B5563;
+    margin: 0 0 16px 0;
+    max-width: 400px;
+    line-height: 1.45;
+}
+
+/* ============================================================
+   MODAL PRATINJAU TEMPLAT (FLAT DESIGN SPLIT VIEW)
+   ============================================================ */
+.template-preview-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(17, 24, 39, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1500;
+}
+
+.template-preview-modal-overlay.hidden {
+    display: none !important;
+}
+
+.template-preview-modal-content {
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+    width: 820px;
+    max-width: 94vw;
+    height: 540px;
+    max-height: 92vh;
+    display: flex;
+    box-shadow: none;
+    overflow: hidden;
+}
+
+.preview-paper-side {
+    width: 340px;
+    background: #F3F4F6;
+    border-right: 1px solid #E5E7EB;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.mini-paper-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.mini-paper-sheet {
+    background: #FFFFFF;
+    box-shadow: none;
+    border: 1px solid #D1D5DB;
+    border-radius: 2px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.mini-paper-sheet.portrait {
+    width: 195px;
+    height: 275px;
+}
+
+.mini-paper-sheet.landscape {
+    width: 275px;
+    height: 195px;
+}
+
+.mini-paper-margin-guide {
+    position: absolute;
+    inset: 20px 16px;
+    border: 1px dashed #9CA3AF;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 6px;
+}
+
+.mini-paper-info-caption {
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #4B5563;
+    margin-top: 12px;
+}
+
+/* Sisi Kanan: Detail & Pengaturan (Flat Design) */
+.preview-details-side {
+    flex: 1;
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    box-sizing: border-box;
+    background: #FFFFFF;
+}
+
+.preview-details-header {
+    margin-bottom: 16px;
+}
+
+.preview-meta-tags {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.tag-strictness {
+    font-size: 8pt;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 3px;
+    background: #F3F4F6;
+    color: #374151;
+    border: 1px solid #E5E7EB;
+}
+
+.tag-strictness.locked {
+    background: #FEE2E2;
+    color: #B91C1C;
+    border-color: #FECACA;
+}
+
+.preview-template-title {
+    font-size: 14pt;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 6px 0;
+}
+
+.preview-template-desc {
+    font-size: 9pt;
+    color: #4B5563;
+    line-height: 1.45;
+    margin: 0;
+}
+
+.preview-config-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.config-section-title {
+    font-size: 9pt;
+    font-weight: 700;
+    color: #111827;
+    margin-top: 4px;
+}
+
+.preview-form-row {
+    display: flex;
+    gap: 12px;
+}
+
+.preview-form-col {
+    flex: 1;
+}
+
+.preview-label {
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.preview-select,
+.preview-input {
+    width: 100%;
+    padding: 6px 8px;
+    box-sizing: border-box;
+    border: 1px solid #D1D5DB;
+    border-radius: 4px;
+    font-size: 9pt;
+    background: #FFFFFF;
+    color: #111827;
+    outline: none;
+    transition: border-color 0.12s ease;
+}
+
+.preview-select:focus,
+.preview-input:focus {
+    border-color: #111827;
+    border-width: 2px;
+}
+
+.preview-strict-notice {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #FEF3C7;
+    border: 1px solid #FDE68A;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 8pt;
+    color: #92400E;
+}
+
+.preview-strict-notice.hidden {
+    display: none !important;
+}
+
+.preview-spec-box {
+    background: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    border-radius: 4px;
+    padding: 10px 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.spec-item .spec-label {
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: #6B7280;
+    display: block;
+}
+
+.spec-item .spec-value {
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #111827;
+    display: block;
+    margin-top: 1px;
+}
+
+.preview-modal-footer {
+    margin-top: auto;
+    padding-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-top: 1px solid #E5E7EB;
+    background: #FFFFFF;
+}
+
+.btn-preview-cancel {
+    padding: 8px 16px;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    border-radius: 4px;
+    font-size: 9pt;
+    font-weight: 600;
+    color: #374151;
+    cursor: pointer;
+    transition: background-color 0.12s, border-color 0.12s;
+}
+
+.btn-preview-cancel:hover {
+    background: #F3F4F6;
+    border-color: #9CA3AF;
+}
+
+.btn-preview-use {
+    padding: 8px 18px;
+    background: #111827;
+    border: 1px solid #111827;
+    border-radius: 4px;
+    font-size: 9pt;
+    font-weight: 600;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.12s, border-color 0.12s;
+}
+
+.btn-preview-use:hover {
+    background: #1F2937;
+    border-color: #1F2937;
+}
+
+.btn-delete-template {
+    padding: 7px 12px;
+    background: #FEE2E2;
+    border: 1px solid #FECACA;
+    border-radius: 4px;
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #DC2626;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.12s;
+}
+
+.btn-delete-template:hover {
+    background: #FCA5A5;
+    color: #991B1B;
+}
+
+.btn-delete-template.hidden {
+    display: none !important;
+}
+
+/* ============================================================
+   MODAL SIMPAN SEBAGAI TEMPLAT (FLAT DESIGN)
+   ============================================================ */
+.modal-save-as-template-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(17, 24, 39, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.modal-save-template-card {
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+    width: 440px;
+    padding: 24px;
+    box-sizing: border-box;
+    box-shadow: none;
+}
+
+.modal-save-template-title {
+    margin: 0 0 4px 0;
+    color: #111827;
+    font-size: 13pt;
+    font-weight: 700;
+}
+
+.modal-save-template-subtitle {
+    font-size: 9pt;
+    color: #4B5563;
+    margin: 0 0 16px 0;
+    line-height: 1.45;
+}
+
+.modal-save-template-label {
+    display: block;
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 4px;
+}
+
+.modal-save-template-input,
+.modal-save-template-select,
+.modal-save-template-textarea {
+    width: 100%;
+    padding: 7px 10px;
+    box-sizing: border-box;
+    border: 1px solid #D1D5DB;
+    border-radius: 4px;
+    font-size: 9pt;
+    color: #111827;
+    background: #FFFFFF;
+    outline: none;
+    transition: border-color 0.12s ease;
+}
+
+.modal-save-template-input:focus,
+.modal-save-template-select:focus,
+.modal-save-template-textarea:focus {
+    border-color: #111827;
+    border-width: 2px;
+}
+
+.modal-save-template-textarea {
+    height: 64px;
+    resize: none;
+    font-family: inherit;
+}
+
+.modal-save-template-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.modal-save-template-btn-cancel {
+    padding: 7px 16px;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    border-radius: 4px;
+    font-size: 9pt;
+    font-weight: 600;
+    color: #374151;
+    cursor: pointer;
+    transition: background-color 0.12s, border-color 0.12s;
+}
+
+.modal-save-template-btn-cancel:hover {
+    background: #F3F4F6;
+    border-color: #9CA3AF;
+}
+
+.modal-save-template-btn-submit {
+    padding: 7px 18px;
+    background: #111827;
+    border: 1px solid #111827;
+    border-radius: 4px;
+    font-size: 9pt;
+    font-weight: 600;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: background-color 0.12s, border-color 0.12s;
+}
+
+.modal-save-template-btn-submit:hover {
+    background: #1F2937;
+    border-color: #1F2937;
+}
+
+/* === TEMPLATE SPEC SUMMARY CARD (FLAT DESIGN 2D) === */
+.template-spec-summary-card {
+    background: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    box-sizing: border-box;
+}
+
+.spec-summary-header {
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6B7280;
+    margin-bottom: 8px;
+}
+
+.spec-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.spec-summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.spec-item-label {
+    font-size: 7.5pt;
+    color: #9CA3AF;
+    font-weight: 500;
+}
+
+.spec-item-val {
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* === MODAL CHECKBOX LABEL (FLAT DESIGN) === */
+.modal-checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 9pt;
+    color: #374151;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+}
+
+.modal-checkbox-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #111827;
+    cursor: pointer;
+}
+
+/* === BANNER MODE PENYUSUNAN TEMPLAT (FLAT DESIGN) === */
+.banner-template-authoring {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #EFF6FF;
+    border-bottom: 1px solid #BFDBFE;
+    padding: 8px 16px;
+    box-sizing: border-box;
+    width: 100%;
+    flex-shrink: 0;
+    z-index: 80;
+}
+
+.banner-authoring-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.banner-authoring-badge {
+    background: #1D4ED8;
+    color: #FFFFFF;
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 3px 8px;
+    border-radius: 2px;
+    white-space: nowrap;
+}
+
+.banner-authoring-info {
+    font-size: 9pt;
+    color: #1E3A8A;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.banner-authoring-info strong {
+    font-weight: 600;
+    color: #172554;
+}
+
+.banner-authoring-sep {
+    color: #93C5FD;
+}
+
+.banner-authoring-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.banner-authoring-btn {
+    padding: 5px 14px;
+    font-size: 8.5pt;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background-color 0.12s, border-color 0.12s;
+}
+
+.banner-authoring-btn.primary {
+    background: #1D4ED8;
+    border-color: #1D4ED8;
+    color: #FFFFFF;
+}
+
+.banner-authoring-btn.primary:hover {
+    background: #1E40AF;
+    border-color: #1E40AF;
+}
+
+.banner-authoring-btn.secondary {
+    background: #FFFFFF;
+    border-color: #D1D5DB;
+    color: #374151;
+}
+
+.banner-authoring-btn.secondary:hover {
+    background: #F3F4F6;
+    border-color: #9CA3AF;
+}
+
+/* ============================================================
+   ONBOARDING 5 LANGKAH INTERAKTIF (FLAT UI & DWIBHASA)
+   ============================================================ */
+.onboarding-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5000;
+}
+
+.onboarding-modal-card {
+    width: 720px;
+    max-width: 92vw;
+    max-height: 88vh;
+    background: #FFFFFF;
+    border-radius: 8px;
+    border: 1px solid #E1DFDD;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.onboarding-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    border-bottom: 1px solid #EDEBE9;
+    background: #FAF9F8;
+}
+
+.onboarding-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.onboarding-brand-logo {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.onboarding-app-name {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #201F1E;
+    letter-spacing: -0.2px;
+}
+
+.onboarding-header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.onboarding-step-badge {
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #605E5C;
+    background: #EDEBE9;
+    padding: 3px 9px;
+    border-radius: 12px;
+}
+
+.onboarding-btn-skip {
+    background: transparent;
+    border: none;
+    font-size: 9pt;
+    color: #605E5C;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 4px;
+    transition: color 0.15s, background-color 0.15s;
+}
+
+.onboarding-btn-skip:hover {
+    color: #0078D4;
+    background: #EDEBE9;
+}
+
+.onboarding-body {
+    flex: 1;
+    padding: 24px 32px;
+    overflow-y: auto;
+}
+
+.onboarding-slide {
+    display: none;
+}
+
+.onboarding-slide.active {
+    display: block;
+    animation: obFadeIn 0.22s ease-out;
+}
+
+@keyframes obFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.onboarding-hero {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.onboarding-hero-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-bottom: 12px;
+    display: inline-block;
+}
+
+.onboarding-title {
+    font-size: 16pt;
+    font-weight: 700;
+    color: #201F1E;
+    margin: 0 0 6px 0;
+    letter-spacing: -0.3px;
+}
+
+.onboarding-subtitle {
+    font-size: 10pt;
+    color: #605E5C;
+    margin: 0;
+    line-height: 1.45;
+}
+
+/* Slide 1: Cards */
+.onboarding-cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.onboarding-feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 16px;
+    background: #FAF9F8;
+    border: 1px solid #EDEBE9;
+    border-radius: 6px;
+    transition: border-color 0.15s, background-color 0.15s;
+}
+
+.onboarding-feature-item:hover {
+    border-color: #D1D5DB;
+    background: #F3F2F1;
+}
+
+.onboarding-item-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.onboarding-item-icon.icon-offline {
+    background: #EBF3FC;
+    color: #0078D4;
+}
+
+.onboarding-item-icon.icon-standard {
+    background: #E6F4EA;
+    color: #107C41;
+}
+
+.onboarding-item-icon.icon-tools {
+    background: #FDF3EB;
+    color: #D83B01;
+}
+
+.onboarding-item-content h4 {
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: #201F1E;
+    margin: 0 0 3px 0;
+}
+
+.onboarding-item-content p {
+    font-size: 9pt;
+    color: #605E5C;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Slide 2: Preferences */
+.onboarding-section {
+    margin-bottom: 18px;
+}
+
+.onboarding-section-label {
+    display: block;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #605E5C;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 8px;
+}
+
+.onboarding-lang-toggles {
+    display: flex;
+    gap: 12px;
+}
+
+.onboarding-toggle-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 14px;
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+    background: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.onboarding-toggle-btn:hover {
+    border-color: #0078D4;
+    background: #FAFAFA;
+}
+
+.onboarding-toggle-btn.active {
+    border-color: #0078D4;
+    background: #F3F9FE;
+    box-shadow: 0 0 0 1px #0078D4;
+}
+
+.onboarding-toggle-btn .toggle-name {
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: #201F1E;
+}
+
+.onboarding-toggle-btn .toggle-sub {
+    font-size: 8.5pt;
+    color: #605E5C;
+    margin-top: 2px;
+}
+
+.onboarding-choice-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+    background: #FFFFFF;
+    cursor: pointer;
+    margin-bottom: 8px;
+    transition: all 0.15s;
+}
+
+.onboarding-choice-card:hover {
+    border-color: #0078D4;
+    background: #FAFAFA;
+}
+
+.onboarding-choice-card.active {
+    border-color: #0078D4;
+    background: #F3F9FE;
+    box-shadow: 0 0 0 1px #0078D4;
+}
+
+.choice-radio {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #9CA3AF;
+    background: #FFFFFF;
+    flex-shrink: 0;
+    transition: all 0.15s;
+}
+
+.onboarding-choice-card.active .choice-radio {
+    border-color: #0078D4;
+    background: #0078D4;
+    box-shadow: inset 0 0 0 3px #FFFFFF;
+}
+
+.choice-body {
+    flex: 1;
+}
+
+.choice-title {
+    font-size: 10pt;
+    font-weight: 600;
+    color: #201F1E;
+}
+
+.choice-desc {
+    font-size: 8.5pt;
+    color: #605E5C;
+    margin-top: 2px;
+}
+
+/* Slide 3: Storage */
+.onboarding-folders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.onboarding-folder-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: #FAF9F8;
+    border: 1px solid #EDEBE9;
+    border-radius: 6px;
+}
+
+.folder-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 8pt;
+    font-weight: 700;
+    font-family: monospace;
+    flex-shrink: 0;
+}
+
+.folder-badge.badge-blue { background: #0078D4; color: #FFFFFF; }
+.folder-badge.badge-green { background: #107C41; color: #FFFFFF; }
+.folder-badge.badge-amber { background: #D83B01; color: #FFFFFF; }
+
+.folder-info .folder-name {
+    font-size: 9.5pt;
+    font-weight: 600;
+    color: #201F1E;
+}
+
+.folder-info .folder-desc {
+    font-size: 8.5pt;
+    color: #605E5C;
+}
+
+.onboarding-path-box {
+    padding: 12px 14px;
+    background: #F3F2F1;
+    border: 1px solid #EDEBE9;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+.path-label {
+    display: block;
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #323130;
+    margin-bottom: 6px;
+}
+
+.path-input-group {
+    display: flex;
+    gap: 8px;
+}
+
+.path-input-group input {
+    flex: 1;
+    padding: 6px 10px;
+    font-size: 8.5pt;
+    font-family: monospace;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    border-radius: 4px;
+    color: #201F1E;
+    outline: none;
+}
+
+.ob-btn-change-folder {
+    padding: 6px 14px;
+    font-size: 8.5pt;
+    font-weight: 600;
+    background: #FFFFFF;
+    border: 1px solid #0078D4;
+    color: #0078D4;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+}
+
+.ob-btn-change-folder:hover {
+    background: #0078D4;
+    color: #FFFFFF;
+}
+
+.onboarding-privacy-note {
+    font-size: 8.5pt;
+    color: #107C41;
+    text-align: center;
+    margin: 8px 0 0 0;
+    font-weight: 500;
+}
+
+/* Slide 4: Showcase & Positioning */
+.onboarding-positioning-pill {
+    display: inline-block;
+    font-size: 8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #0078D4;
+    background: #EBF3FC;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+}
+
+.onboarding-showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.onboarding-showcase-card {
+    padding: 12px 14px;
+    background: #FAF9F8;
+    border: 1px solid #EDEBE9;
+    border-radius: 6px;
+    text-align: left;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    transition: all 0.15s;
+}
+
+.onboarding-showcase-card:hover {
+    border-color: #0078D4;
+    background: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.showcase-icon-box {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+.icon-box-blue { background: #EBF3FC; }
+.icon-box-green { background: #E6F4EA; }
+.icon-box-orange { background: #FDF3EB; }
+.icon-box-purple { background: #F3E8FD; }
+
+.showcase-card-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.onboarding-showcase-card h4 {
+    font-size: 9.5pt;
+    font-weight: 600;
+    color: #201F1E;
+    margin: 0 0 3px 0;
+}
+
+.onboarding-showcase-card p {
+    font-size: 8.2pt;
+    color: #605E5C;
+    margin: 0;
+    line-height: 1.35;
+}
+
+/* Slide 5: Action Launch */
+.onboarding-action-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.onboarding-action-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+    background: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.onboarding-action-card:hover {
+    border-color: #0078D4;
+    background: #F3F9FE;
+    transform: translateY(-1px);
+}
+
+.onboarding-action-card.primary {
+    border-color: #0078D4;
+    background: #F3F9FE;
+    box-shadow: 0 0 0 1px #0078D4;
+}
+
+.action-card-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.icon-home { background: #EBF3FC; color: #0078D4; }
+.icon-blank { background: #0078D4; color: #FFFFFF; }
+.icon-tpl { background: #E6F4EA; color: #107C41; }
+
+.action-card-text h4 {
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: #201F1E;
+    margin: 0 0 2px 0;
+}
+
+.action-card-text p {
+    font-size: 8.5pt;
+    color: #605E5C;
+    margin: 0;
+}
+
+.onboarding-checkbox-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.onboarding-checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 8.5pt;
+    color: #605E5C;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Footer & Stepper */
+.onboarding-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    border-top: 1px solid #EDEBE9;
+    background: #FAF9F8;
+}
+
+.onboarding-stepper-dots {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ob-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #C8C6C4;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ob-dot:hover {
+    background: #9CA3AF;
+}
+
+.ob-dot.active {
+    width: 22px;
+    border-radius: 4px;
+    background: #0078D4;
+}
+
+.onboarding-nav-btn {
+    padding: 7px 20px;
+    font-size: 9.5pt;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.onboarding-nav-btn.btn-back {
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    color: #323130;
+}
+
+.onboarding-nav-btn.btn-back:hover {
+    background: #F3F4F6;
+    border-color: #9CA3AF;
+}
+
+.onboarding-nav-btn.btn-next {
+    background: #0078D4;
+    border: 1px solid #0078D4;
+    color: #FFFFFF;
+}
+
+.onboarding-nav-btn.btn-next:hover {
+    background: #106EBE;
+    border-color: #106EBE;
+}
+
+.onboarding-nav-btn.disabled,
+.onboarding-nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #E5E7EB !important;
+    border-color: #D1D5DB !important;
+    color: #9CA3AF !important;
+    pointer-events: none;
+}
+
+/* SLIDE 5: Ketentuan Layanan & Kebijakan Privasi */
+.onboarding-legal-highlights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.legal-highlight-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    background: #FAF9F8;
+    transition: all 0.15s;
+}
+
+.legal-highlight-card:hover {
+    border-color: #0078D4;
+    background: #F3F9FE;
+}
+
+.legal-highlight-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.legal-highlight-text h4 {
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #201F1E;
+    margin: 0 0 2px 0;
+}
+
+.legal-highlight-text p {
+    font-size: 7.5pt;
+    color: #605E5C;
+    margin: 0;
+    line-height: 1.35;
+}
+
+.onboarding-legal-nav {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.legal-tab-btn {
+    padding: 6px 14px;
+    font-size: 8.5pt;
+    font-weight: 600;
+    border: 1px solid #D1D5DB;
+    border-radius: 4px;
+    background: #F3F4F6;
+    color: #4B5563;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.legal-tab-btn:hover {
+    background: #E5E7EB;
+    color: #1F2937;
+}
+
+.legal-tab-btn.active {
+    background: #0078D4;
+    border-color: #0078D4;
+    color: #FFFFFF;
+}
+
+.onboarding-legal-scrollbox {
+    max-height: 160px;
+    overflow-y: auto;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    padding: 12px 14px;
+    background: #FFFFFF;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.legal-tab-pane {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.legal-clause {
+    margin-bottom: 2px;
+}
+
+.legal-clause h5 {
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 3px 0;
+}
+
+.legal-clause p {
+    font-size: 8pt;
+    color: #4B5563;
+    line-height: 1.45;
+    margin: 0;
+}
+
+.onboarding-consent-row {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.onboarding-consent-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #1F2937;
+    cursor: pointer;
+    user-select: none;
+}
+
+.onboarding-consent-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #0078D4;
+    cursor: pointer;
+}
 
