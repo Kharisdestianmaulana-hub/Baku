@@ -1897,6 +1897,26 @@
             </div>
         </div>
 
+        <!-- MODAL SISIPKAN / EDIT TAUTAN (LINK) -->
+        <div id="modal-link-overlay" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000;">
+            <div class="modal" style="width: 400px; box-sizing: border-box;">
+                <h2 style="margin-top: 0; margin-bottom: 4px;" id="modal-link-title" data-i18n="Sisipkan Tautan">Sisipkan Tautan</h2>
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label style="font-size: 10pt; color: #5A6072; margin-bottom: 4px;" data-i18n="Teks Tampilan:">Teks Tampilan:</label>
+                    <input type="text" id="input-link-text" placeholder="Teks tautan..." style="width: 100%; height: 34px; padding: 6px 10px; box-sizing: border-box; border: 1px solid #8A8886; font-size: 10pt; border-radius: 0;">
+                </div>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="font-size: 10pt; color: #5A6072; margin-bottom: 4px;" data-i18n="Alamat URL:">Alamat URL:</label>
+                    <input type="text" id="input-link-url" placeholder="https://example.com" style="width: 100%; height: 34px; padding: 6px 10px; box-sizing: border-box; border: 1px solid #8A8886; font-size: 10pt; border-radius: 0;">
+                </div>
+                <div class="modal-actions" style="display: flex; gap: 8px; justify-content: flex-end; align-items: center;">
+                    <button class="btn-secondary" id="btn-remove-link" style="margin-right: auto; color: #D32F2F; border-color: #EF9A9A; display: none;" data-i18n="Hapus Tautan">Hapus Tautan</button>
+                    <button class="btn-secondary" id="btn-cancel-link" data-i18n="Batal">Batal</button>
+                    <button class="btn-primary" id="btn-confirm-link" data-i18n="Terapkan">Terapkan</button>
+                </div>
+            </div>
+        </div>
+
         <!-- MODAL EKSPOR SUKSES KUSTOM -->
         <div id="modal-export-success" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000;">
             <div class="modal" style="width: 450px;">

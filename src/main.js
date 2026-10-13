@@ -2201,30 +2201,179 @@ function triggerImageUpload() {
     imageFileInput.click();
 }
 
+let currentLinkRange = { index: 0, length: 0 };
+
 function triggerInsertLink() {
     let range = quill.getSelection();
     if (!range) {
         range = lastSelection || { index: Math.max(0, quill.getLength() - 1), length: 0 };
-        quill.setSelection(range.index, range.length);
     }
-    const currentLink = quill.getFormat(range).link;
-    const url = prompt(window.t('Masukkan URL Tautan:') || 'Masukkan URL Tautan:', currentLink || 'https://');
-    if (url !== null) {
-        const trimmed = url.trim();
-        if (trimmed === '') {
-            quill.format('link', false, 'user');
-        } else {
-            if (range.length === 0) {
-                quill.insertText(range.index, trimmed, 'link', trimmed, 'user');
-                quill.setSelection(range.index + trimmed.length, 0);
-            } else {
-                quill.format('link', trimmed, 'user');
+    currentLinkRange = { index: range.index, length: range.length };
+
+    const modalLink = document.getElementById('modal-link-overlay');
+    const inputUrl = document.getElementById('input-link-url');
+    const inputText = document.getElementById('input-link-text');
+    const titleEl = document.getElementById('modal-link-title');
+    const btnRemove = document.getElementById('btn-remove-link');
+
+    if (!modalLink || !inputUrl || !inputText) return;
+
+    // Ambil format link saat ini jika ada
+    const formats = quill.getFormat(range);
+    const existingLink = formats.link || '';
+    
+    // Ambil teks yang sedang diseleksi jika ada
+    let selectedText = '';
+    if (range.length > 0) {
+        selectedText = quill.getText(range.index, range.length).replace(/\n/g, ' ').trim();
+    } else if (existingLink) {
+        // Jika kursor berada di dalam tautan tanpa seleksi, deteksi keseluruhan tautan
+        try {
+            const [leaf] = quill.getLeaf(range.index);
+            if (leaf) {
+                const leafIndex = quill.getIndex(leaf);
+                const leafLength = leaf.length();
+                currentLinkRange = { index: leafIndex, length: leafLength };
+                selectedText = quill.getText(leafIndex, leafLength).replace(/\n/g, ' ').trim();
             }
+        } catch (e) {
+            console.warn("Gagal mendeteksi batas tautan:", e);
         }
+    }
+
+    if (existingLink) {
+        if (titleEl) titleEl.textContent = window.t('Edit Tautan') || 'Edit Tautan';
+        if (btnRemove) btnRemove.style.display = 'inline-block';
+        inputUrl.value = existingLink;
+        inputText.value = selectedText || existingLink;
+    } else {
+        if (titleEl) titleEl.textContent = window.t('Sisipkan Tautan') || 'Sisipkan Tautan';
+        if (btnRemove) btnRemove.style.display = 'none';
+        inputUrl.value = 'https://';
+        inputText.value = selectedText;
+    }
+
+    modalLink.classList.remove('hidden');
+    modalLink.style.display = 'flex';
+
+    setTimeout(() => {
+        if (selectedText) {
+            inputUrl.focus();
+            inputUrl.select();
+        } else {
+            inputText.focus();
+            inputText.select();
+        }
+    }, 50);
+}
+
+function closeLinkModal() {
+    const modalLink = document.getElementById('modal-link-overlay');
+    if (modalLink) {
+        modalLink.style.display = 'none';
+        modalLink.classList.add('hidden');
+    }
+}
+
+function applyLinkModal() {
+    const inputUrl = document.getElementById('input-link-url');
+    const inputText = document.getElementById('input-link-text');
+    if (!inputUrl || !inputText) return;
+
+    let rawUrl = (inputUrl.value || '').trim();
+    const rawText = (inputText.value || '').trim();
+
+    closeLinkModal();
+
+    if (!rawUrl || rawUrl === 'https://' || rawUrl === 'http://') {
+        if (currentLinkRange.length > 0) {
+            quill.setSelection(currentLinkRange.index, currentLinkRange.length);
+            quill.format('link', false, 'user');
+            setDirty(true);
+        }
+        quill.focus();
+        return;
+    }
+
+    // Normalisasi awalan skema URL
+    if (!/^https?:\/\//i.test(rawUrl) && !/^mailto:/i.test(rawUrl) && !/^tel:/i.test(rawUrl) && !/^#/i.test(rawUrl)) {
+        rawUrl = 'https://' + rawUrl;
+    }
+
+    quill.focus();
+
+    if (currentLinkRange.length > 0) {
+        const originalText = quill.getText(currentLinkRange.index, currentLinkRange.length);
+        if (rawText && rawText !== originalText) {
+            quill.deleteText(currentLinkRange.index, currentLinkRange.length, 'user');
+            quill.insertText(currentLinkRange.index, rawText, 'link', rawUrl, 'user');
+            quill.setSelection(currentLinkRange.index + rawText.length, 0);
+        } else {
+            quill.setSelection(currentLinkRange.index, currentLinkRange.length);
+            quill.format('link', rawUrl, 'user');
+        }
+    } else {
+        const textToInsert = rawText || rawUrl;
+        quill.insertText(currentLinkRange.index, textToInsert, 'link', rawUrl, 'user');
+        quill.setSelection(currentLinkRange.index + textToInsert.length, 0);
+    }
+
+    setDirty(true);
+    quill.focus();
+}
+
+function removeLinkModal() {
+    closeLinkModal();
+    if (currentLinkRange.length > 0) {
+        quill.setSelection(currentLinkRange.index, currentLinkRange.length);
+        quill.format('link', false, 'user');
         setDirty(true);
     }
     quill.focus();
 }
+
+// Pasang event listener modal tautan
+document.getElementById('btn-confirm-link')?.addEventListener('click', applyLinkModal);
+document.getElementById('btn-cancel-link')?.addEventListener('click', closeLinkModal);
+document.getElementById('btn-remove-link')?.addEventListener('click', removeLinkModal);
+
+document.getElementById('input-link-url')?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        applyLinkModal();
+    }
+});
+
+document.getElementById('input-link-text')?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        applyLinkModal();
+    }
+});
+
+document.getElementById('modal-link-overlay')?.addEventListener('click', (e) => {
+    if (e.target === document.getElementById('modal-link-overlay')) {
+        closeLinkModal();
+    }
+});
+
+// Izinkan membuka tautan eksternal dengan menahan tombol Ctrl/Cmd saat mengeklik link di naskah
+quill.root.addEventListener('click', (e) => {
+    const linkEl = e.target.closest('a');
+    if (linkEl && linkEl.href) {
+        if (e.ctrlKey || e.metaKey) {
+            e.preventDefault();
+            const href = linkEl.getAttribute('href');
+            if (href) {
+                if (window.__TAURI__?.shell?.open) {
+                    window.__TAURI__.shell.open(href);
+                } else {
+                    window.open(href, '_blank');
+                }
+            }
+        }
+    }
+});
 
 function triggerToggleQuote() {
     let range = quill.getSelection();
@@ -2916,7 +3065,7 @@ window.addEventListener('keydown', (e) => {
                 actionNew();
             } else if (keyLower === 'k') {
                 e.preventDefault();
-                document.querySelector('.ql-link')?.click();
+                triggerInsertLink();
             } else if (keyLower === 'y') { // Redo (Ctrl+Y di Windows / Cmd+Y)
                 e.preventDefault();
                 quill.history.redo();
@@ -3017,6 +3166,7 @@ window.addEventListener('keydown', (e) => {
             document.getElementById('modal-export-success'),
             document.getElementById('modal-pdf-tool'),
             document.getElementById('modal-table-overlay'),
+            document.getElementById('modal-link-overlay'),
             document.getElementById('modal-symbol-overlay'),
             document.getElementById('modal-delete-image'),
             document.getElementById('modal-page-number'),

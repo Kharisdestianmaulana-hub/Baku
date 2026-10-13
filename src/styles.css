@@ -571,6 +571,19 @@ body.is-mac #menu-bar {
 .form-group input:focus { border-color: #4F83CC; }
 .modal-actions { display: flex; justify-content: flex-end; gap: 16px; margin-top: 8px; }
 
+/* GAYA TAUTAN (LINK) DALAM EDITOR */
+.ql-editor a {
+    color: #2563EB;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+    transition: color 0.15s ease;
+}
+
+.ql-editor a:hover {
+    color: #1D4ED8;
+}
+
 /* GAYA DAN TATA LETAK GAMBAR (IMAGE WRAPPING & ALIGNMENT) */
 .ql-editor img {
     max-width: 100%;
