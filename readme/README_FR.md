@@ -116,7 +116,6 @@ Consultez les spécifications complètes de la feuille de route :
 - [Feuille de Route en Français (../Update/Update_Baku_fr.md)](../Update/Update_Baku_fr.md)
 - [English Roadmap (../Update/Update_Baku_en.md)](../Update/Update_Baku_en.md)
 - [Répertoire des Feuilles de Route Multilingues (../Update/)](../Update/)
-- [Document d'Origine (../Update_v1.5_baku.md)](../Update_v1.5_baku.md)
 
 ---
 

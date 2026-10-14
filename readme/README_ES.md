@@ -118,7 +118,6 @@ Consulte la documentación completa de la hoja de ruta:
 - [Hoja de Ruta en Español (../Update/Update_Baku_es.md)](../Update/Update_Baku_es.md)
 - [English Roadmap (../Update/Update_Baku_en.md)](../Update/Update_Baku_en.md)
 - [Directorio Completo de Hojas de Ruta (../Update/)](../Update/)
-- [Línea Base Histórica (../Update_v1.5_baku.md)](../Update_v1.5_baku.md)
 
 ---
 

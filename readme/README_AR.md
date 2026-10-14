@@ -117,7 +117,6 @@
 - [خارطة الطريق باللغة العربية (../Update/Update_Baku_ar.md)](../Update/Update_Baku_ar.md)
 - [English Roadmap (../Update/Update_Baku_en.md)](../Update/Update_Baku_en.md)
 - [دليل خرائط الطريق متعدد اللغات (../Update/)](../Update/)
-- [الوثيقة المرجعية السابقة (../Update_v1.5_baku.md)](../Update_v1.5_baku.md)
 
 ---
 

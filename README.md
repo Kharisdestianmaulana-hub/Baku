@@ -131,11 +131,22 @@ We maintain a transparent, community-driven development roadmap detailing upcomi
 - **Dual-Positioning Academic Page Numbers**: Automatic chapter opening page numbers at bottom-center and continuing pages at top-right.
 - **Offline Scientific Tools**: KaTeX offline formulas, advanced booktabs tables, visual page organizer, and digital signatures.
 
-Read the complete roadmap specifications:
-- [English Roadmap (Update/Update_Baku_en.md)](Update/Update_Baku_en.md)
-- [Peta Jalan Versi Bahasa Indonesia (Update/Update_Baku_id.md)](Update/Update_Baku_id.md)
-- [Multi-Language Roadmap Directory (Update/)](Update/)
-- [Historical Baseline (Update_v1.5_baku.md)](Update_v1.5_baku.md)
+### Future Release Documentation by Language
+
+All upcoming feature plans, technical roadmaps, and version updates are maintained across dedicated language files in the [`Update/`](Update/) directory:
+
+| Language | Document Link | Description / Scope |
+| :--- | :--- | :--- |
+| **English** | [Update_Baku_en.md](Update/Update_Baku_en.md) | Official English release roadmap and feature specifications. |
+| **Bahasa Indonesia** | [Update_Baku_id.md](Update/Update_Baku_id.md) | Rencana pembaruan resmi dan spesifikasi fitur Bahasa Indonesia. |
+| **Español** | [Update_Baku_es.md](Update/Update_Baku_es.md) | Hoja de ruta oficial y especificaciones de funciones en español. |
+| **Français** | [Update_Baku_fr.md](Update/Update_Baku_fr.md) | Feuille de route officielle et spécifications des fonctionnalités en français. |
+| **Deutsch** | [Update_Baku_de.md](Update/Update_Baku_de.md) | Offizielle Roadmap und Funktionsspezifikationen auf Deutsch. |
+| **日本語** | [Update_Baku_ja.md](Update/Update_Baku_ja.md) | 日本語公式リリースロードマップおよび機能仕様書。 |
+| **简体中文** | [Update_Baku_zh.md](Update/Update_Baku_zh.md) | 官方简体中文版本路线图及规划功能规范。 |
+| **Português** | [Update_Baku_pt.md](Update/Update_Baku_pt.md) | Roteiro oficial de lançamentos e especificações em português. |
+| **Русский** | [Update_Baku_ru.md](Update/Update_Baku_ru.md) | Официальный план развития и спецификации функций на русском языке. |
+| **العربية** | [Update_Baku_ar.md](Update/Update_Baku_ar.md) | خارطة طريق الإصدارات الرسمية والمواصفات باللغة العربية. |
 
 ---
 

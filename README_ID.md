@@ -131,11 +131,22 @@ Kami memelihara dokumen rencana kerja pengembangan terbuka yang merinci fitur-fi
 - **Aturan Penomoran Halaman Skripsi Baku**: Penomoran halaman otomatis di tengah bawah untuk lembar judul bab dan sudut kanan atas untuk halaman lanjutan.
 - **Fitur Ilmiah Luring Lanjutan**: Notasi matematika KaTeX luring, tabel ilmiah gaya booktabs, penyusun urutan halaman visual, dan tanda tangan digital luring.
 
-Pelajari spesifikasi teknis lengkap rencana pembaruan:
-- [Peta Jalan Versi Bahasa Indonesia (Update/Update_Baku_id.md)](Update/Update_Baku_id.md)
-- [English Roadmap (Update/Update_Baku_en.md)](Update/Update_Baku_en.md)
-- [Direktori Lengkap Peta Jalan Multi-Bahasa (Update/)](Update/)
-- [Dokumen Rencana Baseline Awal (Update_v1.5_baku.md)](Update_v1.5_baku.md)
+### Dokumentasi Rencana Pembaruan Berdasarkan Bahasa
+
+Seluruh perencanaan fitur baru, peta jalan teknis, dan catatan versi masa depan dipelihara dalam berkas terpisah sesuai bahasa di dalam direktori [`Update/`](Update/):
+
+| Bahasa | Tautan Berkas | Keterangan / Cakupan |
+| :--- | :--- | :--- |
+| **Bahasa Indonesia** | [Update_Baku_id.md](Update/Update_Baku_id.md) | Rencana pembaruan resmi dan spesifikasi fitur Bahasa Indonesia. |
+| **English** | [Update_Baku_en.md](Update/Update_Baku_en.md) | Official English release roadmap and feature specifications. |
+| **Español** | [Update_Baku_es.md](Update/Update_Baku_es.md) | Hoja de ruta oficial y especificaciones de funciones en español. |
+| **Français** | [Update_Baku_fr.md](Update/Update_Baku_fr.md) | Feuille de route officielle et spécifications des fonctionnalités en français. |
+| **Deutsch** | [Update_Baku_de.md](Update/Update_Baku_de.md) | Offizielle Roadmap und Funktionsspezifikationen auf Deutsch. |
+| **日本語** | [Update_Baku_ja.md](Update/Update_Baku_ja.md) | 日本語公式リリースロードマップおよび機能仕様書。 |
+| **简体中文** | [Update_Baku_zh.md](Update/Update_Baku_zh.md) | 官方简体中文版本路线图及规划功能规范。 |
+| **Português** | [Update_Baku_pt.md](Update/Update_Baku_pt.md) | Roteiro oficial de lançamentos e especificações em português. |
+| **Русский** | [Update_Baku_ru.md](Update/Update_Baku_ru.md) | Официальный план развития и спецификации функций на русском языке. |
+| **العربية** | [Update_Baku_ar.md](Update/Update_Baku_ar.md) | خارطة طريق الإصدارات الرسمية والمواصفات باللغة العربية. |
 
 ---
 

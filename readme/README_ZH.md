@@ -117,7 +117,6 @@ Baku PDF 是一款专为学术论文、学位毕业论文、科研报告及正�
 - [简体中文路线图 (../Update/Update_Baku_zh.md)](../Update/Update_Baku_zh.md)
 - [English Roadmap (../Update/Update_Baku_en.md)](../Update/Update_Baku_en.md)
 - [多语言路线图目录 (../Update/)](../Update/)
-- [历史基线规划文档 (../Update_v1.5_baku.md)](../Update_v1.5_baku.md)
 
 ---
 

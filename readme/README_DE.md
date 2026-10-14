@@ -116,7 +116,6 @@ Detaillierte Roadmap-Spezifikationen einsehen:
 - [Roadmap auf Deutsch (../Update/Update_Baku_de.md)](../Update/Update_Baku_de.md)
 - [English Roadmap (../Update/Update_Baku_en.md)](../Update/Update_Baku_en.md)
 - [Verzeichnis aller Roadmap-Sprachen (../Update/)](../Update/)
-- [Ursprüngliche Baseline (../Update_v1.5_baku.md)](../Update_v1.5_baku.md)
 
 ---
 

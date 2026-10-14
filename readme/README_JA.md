@@ -117,7 +117,6 @@ Baku PDF は、学術論文、卒業論文、修士論文、公的公文書の�
 - [日本語ロードマップ (../Update/Update_Baku_ja.md)](../Update/Update_Baku_ja.md)
 - [English Roadmap (../Update/Update_Baku_en.md)](../Update/Update_Baku_en.md)
 - [多言語ロードマップディレクトリ (../Update/)](../Update/)
-- [初期ベースライン仕様書 (../Update_v1.5_baku.md)](../Update_v1.5_baku.md)
 
 ---
 

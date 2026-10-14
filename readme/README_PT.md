@@ -117,7 +117,6 @@ Acesse as especificações completas do roteiro:
 - [Roteiro em Português (../Update/Update_Baku_pt.md)](../Update/Update_Baku_pt.md)
 - [English Roadmap (../Update/Update_Baku_en.md)](../Update/Update_Baku_en.md)
 - [Diretório Completo de Roteiros (../Update/)](../Update/)
-- [Linha de Base Inicial (../Update_v1.5_baku.md)](../Update_v1.5_baku.md)
 
 ---
 

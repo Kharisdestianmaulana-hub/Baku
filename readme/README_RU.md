@@ -116,7 +116,6 @@ Baku PDF содержит автономные модули для работы 
 - [План на Русском Языке (../Update/Update_Baku_ru.md)](../Update/Update_Baku_ru.md)
 - [English Roadmap (../Update/Update_Baku_en.md)](../Update/Update_Baku_en.md)
 - [Каталог Планов Развития (../Update/)](../Update/)
-- [Исходный Базовый План (../Update_v1.5_baku.md)](../Update_v1.5_baku.md)
 
 ---
 
