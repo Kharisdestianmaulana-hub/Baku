@@ -262,6 +262,37 @@ Melengkapi 8 templat yang sudah tersedia pada v1.0.0, v1.5 menghadirkan templat 
 - **Tampilan Berdampingan (*Two-Page Spread View*)**: Menampilkan dua halaman lembar kertas berdampingan secara horizontal pada monitor layar lebar.
 - **Opsi Skala Lanjutan**: Opsi *Fit to Width* (Sesuaikan Lebar Jendela) dan *Fit to Page* (Sesuaikan Satu Halaman Penuh) yang melengkapi kontrol zoom persentase yang sudah ada.
 
+### 8.5. Bilah Tab Multi-Dokumen (Multi-Document Tab Bar)
+- **Tujuan & Manfaat Kerja**:
+  - Mengeliminasi kebutuhan berganti jendela sistem operasi (Alt+Tab / Cmd+`) saat menyusun naskah yang membutuhkan banyak dokumen rujukan sekaligus (misal: draf Bab I, catatan revisi pembimbing, dan dokumen templat panduan).
+  - Membuka dan mengedit hingga banyak dokumen `.baku` secara bersamaan dalam satu jendela aplikasi yang terintegrasi.
+- **Posisi Peletakan Ergonomis**:
+  - Diletakkan secara strategis di **bawah Ribbon Toolbar dan tepat di atas Penggaris/Kanvas Editor**.
+  - Mengikuti hierarki alami alur kerja pengguna (*top-to-bottom workflow*): memilih alat pemformatan di Ribbon -> memilih konteks berkas di Bilah Tab -> menyunting lembar kerja di Kanvas.
+  - Memanfaatkan 100% lebar jendela aplikasi secara lega tanpa memadati area status bar bawah yang sudah memuat informasi halaman, jumlah kata, bahasa, dan slider perbesaran.
+- **Tampilan Visual & Gaya Desain Flat 2D**:
+  - Bilah tab ramping (*compact slim tab bar*, tinggi 30–32 px) yang hemat ruang vertikal.
+  - **Tab Aktif**: Berlatar putih bersih (`#FFFFFF`) menyatu mulus dengan penggaris dan lembar kerja, beraksen garis biru presisi (`#2563EB`) pada sisi atas tab, teks judul tebal, tombol tutup `x`, dan indikator status belum disimpan.
+  - **Tab Tidak Aktif**: Berlatar abu-abu netral (`#F3F2F1`) dengan batas pemisah tipis dan transisi hover yang halus.
+  - Batas lebar maksimal tab dengan pemendekan elipsis (`text-overflow: ellipsis`) agar nama berkas yang panjang tetap rapi dan terbaca.
+  - Tombol aksi cepat tambah tab `+` di sisi kanan bilah tab untuk membuat dokumen baru atau membuka dokumen dari repositori kerja.
+- **Mekanisme Navigasi & Pengguliran Horizontal (Horizontal Scroll)**:
+  - **Tampilan Proporsional**: Jika pengguna membuka 1 hingga 5 berkas, seluruh tab ditampilkan berdampingan secara proporsional.
+  - **Pengguliran Adaptif (> 5 Dokumen)**: Jika dokumen yang dibuka melebihi 5 berkas, bilah tab dapat digeser horizontal secara halus (*smooth horizontal scroll*) menggunakan trackpad atau scroll wheel mouse.
+  - **Tombol Pemandu Navigasi**: Tombol panah navigasi `<` dan `>` muncul otomatis di tepi kiri dan kanan bilah tab saat isi tab meluap (*overflow*) untuk mempermudah pergeseran dengan klik mouse.
+- **Pengelolaan State & Keamanan Data (Session Persistence)**:
+  - **Isolasi State Tiap Dokumen**: Setiap tab menyimpan dokumen dalam bentuk Delta JSON independen, lengkap dengan posisi pengguliran layar (*scroll position*) dan koordinat seleksi kursor terakhir. Pengguna tidak akan terlempar kembali ke halaman 1 saat berganti tab.
+  - **Isolasi Riwayat Undo/Redo**: Tumpukan riwayat Undo (`Ctrl/Cmd+Z`) dan Redo (`Ctrl+Y` / `Cmd+Shift+Z`) terisolasi per tab, mencegah pembatalan ketikan tak disengaja pada dokumen lain.
+  - **Indikator Dokumen Belum Disimpan (*Unsaved Dot*)**: Titik aksen biru atau tanda bintang `*` otomatis muncul pada tab saat ada perubahan naskah yang belum tersimpan ke media penyimpanan fisik.
+  - **Dialog Konfirmasi Penutupan Aman**: Mengeklik tombol `x` pada tab yang sedang berstatus belum disimpan (*dirty*) memicu dialog konfirmasi simpan sebelum tab ditutup.
+- **Efisiensi Memori (Local-First RAM Optimization)**:
+  - Menerapkan virtualisasi tab: tab yang sedang tidak aktif di layar hanya disimpan dalam bentuk struktur data JSON/Delta ringan di memori RAM tanpa merender pohon elemen lembar kertas DOM.
+  - Hanya dokumen pada tab yang sedang aktif yang dipasangkan ke kanvas editor Quill, memastikan konsumsi RAM Baku PDF tetap sangat hemat (~50-80 MB) dan bebas dari kelambatan (*zero lag*).
+- **Pintasan Papan Ketik Cepat**:
+  - `Ctrl+Tab` / `Cmd+Option+Right`: Berpindah ke tab dokumen berikutnya.
+  - `Ctrl+Shift+Tab` / `Cmd+Option+Left`: Berpindah ke tab dokumen sebelumnya.
+  - `Ctrl+W` / `Cmd+W`: Menutup tab aktif dengan pengaman konfirmasi simpan.
+
 ---
 
 ## 9. Interoperabilitas Format & Kompatibilitas Berkas
@@ -299,6 +330,7 @@ Melengkapi 8 templat yang sudah tersedia pada v1.0.0, v1.5 menghadirkan templat 
 
 | Modul Fitur | Target Komponen | Prioritas | Estimasi Kompleksitas |
 | :--- | :--- | :--- | :--- |
+| Bilah Tab Multi-Dokumen (Multi-Document Tabs) | Frontend Editor & State Engine | Sangat Tinggi | Menengah |
 | Kompresor Ukuran Berkas PDF | Rust Backend (`lopdf` / `image`) | Sangat Tinggi | Menengah |
 | Installer Windows (.exe) & Linux (AppImage) | Tauri Bundler & CI Workflow | Sangat Tinggi | Menengah |
 | Aturan Posisi Nomor Halaman Bab Baku | Frontend Sheet Engine | Tinggi | Menengah |
