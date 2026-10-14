@@ -3096,7 +3096,10 @@ window.addEventListener('keydown', (e) => {
             } else if (keyLower === 'j' && !isInputFocused) { // Rata Kiri-Kanan (Align Justify)
                 e.preventDefault();
                 quill.format('align', 'justify');
-            } else if (keyLower === 'q' || keyLower === 'w') { // Cmd+Q / Cmd+W (Keluar di macOS)
+            } else if (keyLower === 'q') { // Cmd+Q (macOS) / Ctrl+Q (Linux & Windows)
+                e.preventDefault();
+                actionExit?.click();
+            } else if (keyLower === 'w') { // Cmd+W (macOS)
                 if (e.metaKey) {
                     e.preventDefault();
                     actionExit?.click();

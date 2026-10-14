@@ -49,6 +49,7 @@ const TOOLTIP_DB = {
 
     // === LAYOUT & TOOLS ===
     "Pengaturan Halaman": { desc: "Atur ukuran kertas (A4, F4, Letter), orientasi, dan margin dokumen.", shortcut: "Ctrl+Shift+P" },
+    "Pengaturan Halaman...": { desc: "Atur ukuran kertas (A4, F4, Letter), orientasi, dan margin dokumen.", shortcut: "Ctrl+Shift+P" },
     "Cari Kata": { desc: "Temukan teks spesifik atau ganti kata di dalam dokumen.", shortcut: "Ctrl+F" },
     "Statistik Dokumen": { desc: "Lihat rincian jumlah kata, karakter, paragraf, dan waktu baca.", shortcut: "" },
 
@@ -57,6 +58,7 @@ const TOOLTIP_DB = {
     "Baru...": { desc: "Mulai membuat lembar dokumen baru.", shortcut: "Ctrl+N" },
     "Buka...": { desc: "Buka berkas dokumen (.baku) dari penyimpanan komputer.", shortcut: "Ctrl+O" },
     "Simpan": { desc: "Simpan isi dokumen saat ini ke berkas .baku.", shortcut: "Ctrl+S" },
+    "Simpan Sebagai...": { desc: "Simpan dokumen dengan nama berkas atau lokasi baru.", shortcut: "Ctrl+Shift+S" },
     "Cetak...": { desc: "Cetak dokumen secara langsung ke printer fisik Anda.", shortcut: "Ctrl+P" },
     "Ekspor ke PDF...": { desc: "Ekspor dokumen ke format PDF sesuai tampilan layar (WYSIWYG).", shortcut: "Ctrl+Shift+E" },
     "Keluar": { desc: "Tutup aplikasi Baku PDF Editor.", shortcut: "Alt+F4" },
@@ -114,10 +116,15 @@ const TOOLTIP_DB = {
     "Tanggal": { desc: "Sisipkan tanggal hari ini secara otomatis sesuai bahasa aktif.", shortcut: "Alt+Shift+D" },
     "Halaman": { desc: "Sisipkan pemisah halaman, pemisah bagian, atau kelola nomor halaman.", shortcut: "Ctrl+Enter" },
     "Gambar": { desc: "Tambahkan gambar dari komputer Anda ke dalam dokumen.", shortcut: "Ctrl+Shift+I" },
-    "Tautan": { desc: "Tambahkan tautan web agar teks dapat diklik.", shortcut: "Ctrl+K" },
     "Kutipan": { desc: "Format teks menjorok sebagai kutipan panjang.", shortcut: "" },
     "Kode": { desc: "Format teks dalam kotak blok kode pemrograman.", shortcut: "" },
-    "Indens": { desc: "Atur jarak indentasi paragraf ke kiri atau kanan.", shortcut: "" }
+    "Indens": { desc: "Atur jarak indentasi paragraf ke kiri atau kanan.", shortcut: "" },
+    "Ubah Kapitalisasi": { desc: "Ubah kapitalisasi teks yang dipilih (huruf besar di awal, huruf kecil, HURUF BESAR).", shortcut: "Shift+F3" },
+    "Tampilkan Tanda Paragraf": { desc: "Tampilkan atau sembunyikan tanda paragraf dan simbol format tersembunyi lainnya.", shortcut: "Ctrl+Shift+8" },
+    "Kembalikan Zoom 100%": { desc: "Atur ulang skala pembesaran tampilan lembar kerja ke 100%.", shortcut: "Ctrl+0" },
+    "Gambar...": { desc: "Tambahkan gambar dari komputer Anda ke dalam dokumen.", shortcut: "Ctrl+Shift+I" },
+    "Tabel...": { desc: "Sisipkan tabel baris dan kolom ke dalam lembar dokumen.", shortcut: "Ctrl+Shift+T" },
+    "Tautan...": { desc: "Tambahkan tautan web agar teks dapat diklik.", shortcut: "Ctrl+K" }
 };
 
 // Dictionary untuk Tooltip saat mode English
@@ -231,32 +238,73 @@ const TOOLTIP_EN = {
     "Temukan teks dan ganti dengan kata baru di dalam dokumen.": "Find text and replace with new words in the document.",
     "Ubah orientasi kertas antara Potret dan Lanskap.": "Change paper orientation between Portrait and Landscape.",
     "Format teks dalam kotak blok kode pemrograman.": "Format text in a programming code block.",
-    "Atur jarak indentasi paragraf ke kiri atau kanan.": "Adjust paragraph indent to the left or right."
+    "Atur jarak indentasi paragraf ke kiri atau kanan.": "Adjust paragraph indent to the left or right.",
+    "Simpan dokumen dengan nama berkas atau lokasi baru.": "Save the document with a new file name or location.",
+    "Ubah kapitalisasi teks yang dipilih (huruf besar di awal, huruf kecil, HURUF BESAR).": "Change capitalization of selected text (sentence case, lowercase, UPPERCASE).",
+    "Tampilkan atau sembunyikan tanda paragraf dan simbol format tersembunyi lainnya.": "Show or hide paragraph marks and other hidden formatting symbols."
 };
 
-// Deteksi sistem operasi (macOS / OS X)
-const isMacPlatform = typeof navigator !== 'undefined' && (
-    (navigator.userAgentData && navigator.userAgentData.platform === 'macOS') ||
-    /Mac|iPod|iPhone|iPad/.test(navigator.platform || navigator.userAgent)
-);
+// Deteksi sistem operasi (macOS, Linux, Windows)
+function getOperatingSystem() {
+    if (typeof window !== 'undefined' && window.__BAKU_FORCE_OS) {
+        return window.__BAKU_FORCE_OS;
+    }
+    if (typeof navigator === 'undefined') return 'windows';
+
+    // 1. Cek navigator.userAgentData (browser modern)
+    if (navigator.userAgentData && navigator.userAgentData.platform) {
+        const p = navigator.userAgentData.platform.toLowerCase();
+        if (p.includes('mac')) return 'macos';
+        if (p.includes('linux')) return 'linux';
+        if (p.includes('win')) return 'windows';
+    }
+
+    // 2. Cek navigator.platform dan navigator.userAgent (WebKit / Tauri / browser standar)
+    const platform = (navigator.platform || '').toLowerCase();
+    const ua = (navigator.userAgent || '').toLowerCase();
+
+    if (platform.includes('mac') || ua.includes('macintosh') || ua.includes('mac os x')) {
+        return 'macos';
+    }
+    if (platform.includes('linux') || ua.includes('linux') || ua.includes('x11')) {
+        return 'linux';
+    }
+    if (platform.includes('win') || ua.includes('windows')) {
+        return 'windows';
+    }
+
+    return 'windows';
+}
+
+const isMacPlatform = (getOperatingSystem() === 'macos');
 
 function formatShortcutForOS(shortcut) {
     if (!shortcut) return '';
-    if (!isMacPlatform) return shortcut;
+    const os = getOperatingSystem();
 
-    // Pemetaan khusus kombinasi macOS
-    if (shortcut === 'Alt+F4') return '⌘Q';
-    if (shortcut === 'Ctrl+Y') return '⌘⇧Z';
+    if (os === 'macos') {
+        if (shortcut === 'Alt+F4') return '⌘Q';
+        if (shortcut === 'Ctrl+Y') return '⌘⇧Z';
 
-    return shortcut
-        .replace(/Ctrl\+Shift\+/g, '⌘⇧')
-        .replace(/Ctrl\+Alt\+/g, '⌘⌥')
-        .replace(/Ctrl\+/g, '⌘')
-        .replace(/Alt\+Shift\+/g, '⌥⇧')
-        .replace(/Alt\+/g, '⌥')
-        .replace(/Shift\+/g, '⇧');
+        return shortcut
+            .replace(/Ctrl\+Shift\+/g, '⌘⇧')
+            .replace(/Ctrl\+Alt\+/g, '⌘⌥')
+            .replace(/Ctrl\+/g, '⌘')
+            .replace(/Alt\+Shift\+/g, '⌥⇧')
+            .replace(/Alt\+/g, '⌥')
+            .replace(/Shift\+/g, '⇧');
+    }
+
+    if (os === 'linux') {
+        if (shortcut === 'Alt+F4') return 'Ctrl+Q';
+        return shortcut;
+    }
+
+    // Windows (default)
+    return shortcut;
 }
 
+window.getOperatingSystem = getOperatingSystem;
 window.isMacPlatform = isMacPlatform;
 window.formatShortcutForOS = formatShortcutForOS;
 
@@ -390,10 +438,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Perbarui teks shortcut pada Dropdown Menu Bar agar sesuai OS (⌘ pada macOS, Ctrl pada Windows/Linux)
+    // Perbarui teks shortcut pada Dropdown Menu Bar agar sesuai OS (⌘ pada macOS, Ctrl+Q pada Linux, Alt+F4 pada Windows)
     function updateMenuBarShortcuts() {
         document.querySelectorAll('.menu-action .shortcut').forEach(el => {
-            el.textContent = formatShortcutForOS(el.textContent.trim());
+            if (!el.hasAttribute('data-orig-shortcut')) {
+                el.setAttribute('data-orig-shortcut', el.textContent.trim());
+            }
+            const orig = el.getAttribute('data-orig-shortcut');
+            el.textContent = formatShortcutForOS(orig);
         });
     }
     window.updateMenuBarShortcuts = updateMenuBarShortcuts;

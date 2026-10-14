@@ -827,6 +827,7 @@ function applyLang(lang) {
     if (typeof updateWindowTitle === 'function') updateWindowTitle();
     if (typeof updateStatusBar === 'function') updateStatusBar();
     if (typeof window.reloadTemplatesGallery === 'function') window.reloadTemplatesGallery();
+    if (typeof window.updateMenuBarShortcuts === 'function') window.updateMenuBarShortcuts();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
