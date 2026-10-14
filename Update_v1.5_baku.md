@@ -1,3 +1,21 @@
+<div align="center">
+  <p>
+    <strong>Bahasa Peta Jalan / Roadmap Languages (Evergreen in Update/):</strong><br />
+    <a href="Update/Update_Baku_en.md">English</a> |
+    <strong>Bahasa Indonesia</strong> |
+    <a href="Update/Update_Baku_es.md">Español</a> |
+    <a href="Update/Update_Baku_fr.md">Français</a> |
+    <a href="Update/Update_Baku_de.md">Deutsch</a> |
+    <a href="Update/Update_Baku_ja.md">日本語</a> |
+    <a href="Update/Update_Baku_zh.md">简体中文</a> |
+    <a href="Update/Update_Baku_pt.md">Português</a> |
+    <a href="Update/Update_Baku_ru.md">Русский</a> |
+    <a href="Update/Update_Baku_ar.md">العربية</a>
+  </p>
+  <p><a href="README_ID.md">Kembali ke README Utama</a> | <a href="Update/">Buka Direktori Peta Jalan Lengkap (Update/)</a></p>
+  <hr />
+</div>
+
 # Rencana Pembaruan Baku PDF Versi 1.5 (Roadmap & Feature List)
 
 Dokumen ini memuat analisis status fitur saat ini pada rilis **Baku PDF v1.0.0** serta daftar rencana fitur baru, peningkatan performa, dan ekspansi modul untuk rilis **Baku PDF v1.5**. Pembaruan ini difokuskan pada penyempurnaan ekosistem penulisan akademik lanjutan, penambahan alat manipulasi PDF luring tingkat lanjut, dukungan multi-platform penuh (Windows, macOS, Linux), serta efisiensi perenderan dokumen naskah tebal.

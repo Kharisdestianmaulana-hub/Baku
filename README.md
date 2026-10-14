@@ -34,6 +34,7 @@
 - [Key Features](#key-features)
 - [Offline PDF Extra Tools (100% Local)](#offline-pdf-extra-tools-100-local)
 - [Built-In Standard Templates](#built-in-standard-templates)
+- [Upcoming Release Roadmap (v1.5 & Beyond)](#upcoming-release-roadmap-v15--beyond)
 - [Architecture & Tech Stack](#architecture--tech-stack)
 - [System Requirements & Installation](#system-requirements--installation)
 - [Complete Documentation](#complete-documentation)
@@ -120,6 +121,24 @@ Baku PDF includes standalone PDF utility tools running entirely on your machine 
 
 ---
 
+## Upcoming Release Roadmap (v1.5 & Beyond)
+
+We maintain a transparent, community-driven development roadmap detailing upcoming features, technical expansions, and platform releases for version 1.5 and future milestones:
+
+- **Multi-Document Tab Bar**: Open, edit, and switch between multiple `.baku` documents in one window with isolated state and smooth horizontal scrolling.
+- **Offline PDF Compressor**: Preset targets (<500 KB, <1 MB, <2 MB) and customizable image DPI downsampling without server uploads.
+- **Cross-Platform Installers**: Windows NSIS installer (`.exe`), standalone portable edition, and Linux universal `AppImage` / Debian `.deb`.
+- **Dual-Positioning Academic Page Numbers**: Automatic chapter opening page numbers at bottom-center and continuing pages at top-right.
+- **Offline Scientific Tools**: KaTeX offline formulas, advanced booktabs tables, visual page organizer, and digital signatures.
+
+Read the complete roadmap specifications:
+- [English Roadmap (Update/Update_Baku_en.md)](Update/Update_Baku_en.md)
+- [Peta Jalan Versi Bahasa Indonesia (Update/Update_Baku_id.md)](Update/Update_Baku_id.md)
+- [Multi-Language Roadmap Directory (Update/)](Update/)
+- [Historical Baseline (Update_v1.5_baku.md)](Update_v1.5_baku.md)
+
+---
+
 ## Architecture & Tech Stack
 
 - **Backend**: Rust 2021 with Tauri Framework v1.6.
@@ -173,6 +192,7 @@ We provide comprehensive technical documentation and community guidelines to sup
 | [CHANGELOG.md](CHANGELOG.md) | Version release notes and update history. |
 | [SECURITY.md](SECURITY.md) | Security policy and vulnerability reporting. |
 | [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Community standards and contributor code of conduct. |
+| [Update Roadmap (v1.5+)](Update/Update_Baku_en.md) | Multi-language roadmap and planned feature specifications for future versions. |
 
 ---
 

@@ -33,7 +33,7 @@
 - [Über Baku PDF](#über-baku-pdf)
 - [Hauptfunktionen](#hauptfunktionen)
 - [PDF-Zusatzwerkzeuge (100% Offline)](#pdf-zusatzwerkzeuge-100-offline)
-- [Integrierte Standardvorlagen](#integrierte-standardvorlagen)
+- [Roadmap Zukünftiger Veröffentlichungen (v1.5 & Zukünftige)](#roadmap-zukünftiger-veröffentlichungen-v15--zukünftige)
 - [Architektur und Technologie-Stack](#architektur-und-technologie-stack)
 - [Systemvoraussetzungen und Installation](#systemvoraussetzungen-und-installation)
 - [Vollständige Dokumentation](#vollständige-dokumentation)
@@ -102,6 +102,24 @@ Baku PDF beinhaltet autarke Werkzeuge zur PDF-Bearbeitung ohne Internetverbindun
 
 ---
 
+## Roadmap Zukünftiger Veröffentlichungen (v1.5 & Zukünftige)
+
+Wir pflegen eine transparente, öffentlich einsehbare Entwicklungs-Roadmap mit allen geplanten Funktionen, Leistungsoptimierungen und Plattformversionen:
+
+- **Multi-Dokument-Tab-Leiste**: Gleichzeitiges Öffnen, Bearbeiten und Umschalten mehrerer `.baku`-Dokumente in einem Anwendungsfenster mit getrenntem Status und horizontalem Scrollen.
+- **Offline-PDF-Kompressor**: Voreinstellungen (<500 KB, <1 MB, <2 MB) und anpassbare DPI-Werte ohne Serververbindung.
+- **Plattformübergreifende Installer**: Windows NSIS-Installer (`.exe`), eigenständige portable Version sowie Linux `AppImage` und Debian `.deb`.
+- **Duale Seitennummerierung für Abschlussarbeiten**: Automatische Platzierung unten mittig für Kapiteleröffnungsseiten und oben rechts für Folgeseiten.
+- **Erweiterte wissenschaftliche Offline-Tools**: KaTeX-Formeln, Tabellen im Booktabs-Stil, visuelle Seitensortierung und digitale Signaturen.
+
+Detaillierte Roadmap-Spezifikationen einsehen:
+- [Roadmap auf Deutsch (../Update/Update_Baku_de.md)](../Update/Update_Baku_de.md)
+- [English Roadmap (../Update/Update_Baku_en.md)](../Update/Update_Baku_en.md)
+- [Verzeichnis aller Roadmap-Sprachen (../Update/)](../Update/)
+- [Ursprüngliche Baseline (../Update_v1.5_baku.md)](../Update_v1.5_baku.md)
+
+---
+
 ## Architektur und Technologie-Stack
 
 - **Backend**: Rust 2021 mit Tauri Framework v1.6.
@@ -155,6 +173,7 @@ Zur Unterstützung offener Zusammenarbeit bieten wir eine ausführliche Dokument
 | [CHANGELOG.md](../CHANGELOG.md) | Versionsverlauf und Veröffentlichungshinweise. |
 | [SECURITY.md](../SECURITY.md) | Sicherheitsrichtlinie und vertrauliche Meldung von Sicherheitslücken. |
 | [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md) | Verhaltenskodex und Standards der Entwickler-Community. |
+| [Roadmap (v1.5+)](../Update/Update_Baku_de.md) | Mehrsprachige Roadmap und geplante Funktionsspezifikationen zukünftiger Versionen. |
 
 ---
 

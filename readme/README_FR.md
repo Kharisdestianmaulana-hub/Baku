@@ -33,7 +33,7 @@
 - [À Propos de Baku PDF](#à-propos-de-baku-pdf)
 - [Fonctionnalités Principales](#fonctionnalités-principales)
 - [Outils PDF Additionnels (100% Hors Ligne)](#outils-pdf-additionnels-100-hors-ligne)
-- [Modèles Standards Intégrés](#modèles-standards-intégrés)
+- [Feuille de Route des Prochaines Versions (v1.5 et Ultérieures)](#feuille-de-route-des-prochaines-versions-v15-et-ultérieures)
 - [Architecture et Pile Technologique](#architecture-et-pile-technologique)
 - [Prérequis et Installation](#prérequis-et-installation)
 - [Documentation Complète](#documentation-complète)
@@ -102,6 +102,24 @@ Baku PDF comprend des utilitaires autonomes pour traiter vos fichiers PDF sans r
 
 ---
 
+## Feuille de Route des Prochaines Versions (v1.5 et Ultérieures)
+
+Nous maintenons une feuille de route de développement transparente détaillant les fonctionnalités planifiées, les optimisations de performances et les déploiements multiplateformes :
+
+- **Barre d'Onglets Multi-Documents** : Ouvrez, éditez et basculez entre plusieurs documents `.baku` dans une fenêtre unique avec isolation des états et défilement horizontal fluide.
+- **Compresseur de Fichiers PDF Hors Ligne** : Préréglages (<500 Ko, <1 Mo, <2 Mo) et ajustement personnalisé de la résolution DPI sans envoi sur serveur distant.
+- **Installateurs Multiplateformes** : Installateur NSIS pour Windows (`.exe`), version portable autonome, et paquets Linux `AppImage` et Debian `.deb`.
+- **Double Numérotation des Pages de Thèse** : Numérotation automatique en bas au centre pour la première page d'un chapitre et en haut à droite pour les pages suivantes.
+- **Outils Scientifiques Hors Ligne** : Formules KaTeX intégrées, tableaux académiques de style booktabs, réorganisation visuelle des pages et signatures numériques.
+
+Consultez les spécifications complètes de la feuille de route :
+- [Feuille de Route en Français (../Update/Update_Baku_fr.md)](../Update/Update_Baku_fr.md)
+- [English Roadmap (../Update/Update_Baku_en.md)](../Update/Update_Baku_en.md)
+- [Répertoire des Feuilles de Route Multilingues (../Update/)](../Update/)
+- [Document d'Origine (../Update_v1.5_baku.md)](../Update_v1.5_baku.md)
+
+---
+
 ## Architecture et Pile Technologique
 
 - **Backend** : Rust 2021 avec le cadriciel Tauri v1.6.
@@ -155,6 +173,7 @@ Nous mettons à disposition une suite documentaire complète pour accompagner la
 | [CHANGELOG.md](../CHANGELOG.md) | Historique des modifications et notes de version. |
 | [SECURITY.md](../SECURITY.md) | Politique de sécurité et signalement des vulnérabilités. |
 | [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md) | Règles de vie communautaire et code de conduite. |
+| [Feuille de Route (v1.5+)](../Update/Update_Baku_fr.md) | Feuille de route multilingue et spécifications des futures fonctionnalités. |
 
 ---
 

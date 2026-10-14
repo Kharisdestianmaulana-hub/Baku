@@ -34,6 +34,7 @@
 - [Fitur Utama](#fitur-utama)
 - [Alat Ekstra PDF (100% Luring)](#alat-ekstra-pdf-100-luring)
 - [Daftar Templat Baku Bawaan](#daftar-templat-baku-bawaan)
+- [Peta Jalan Pembaruan Mendatang (v1.5 & Selanjutnya)](#peta-jalan-pembaruan-mendatang-v15--selanjutnya)
 - [Arsitektur & Spesifikasi Teknis](#arsitektur--spesifikasi-teknis)
 - [Persyaratan Sistem & Instalasi](#persyaratan-sistem--instalasi)
 - [Dokumentasi Lengkap](#dokumentasi-lengkap)
@@ -120,6 +121,24 @@ Baku PDF menyediakan utilitas pengolahan PDF mandiri langsung di perangkat Anda 
 
 ---
 
+## Peta Jalan Pembaruan Mendatang (v1.5 & Selanjutnya)
+
+Kami memelihara dokumen rencana kerja pengembangan terbuka yang merinci fitur-fitur baru, peningkatan arsitektur, dan rilis multi-platform untuk versi 1.5 serta pembaruan selanjutnya:
+
+- **Bilah Tab Multi-Dokumen**: Buka, sunting, dan beralih di antara banyak dokumen `.baku` dalam satu jendela aplikasi dengan isolasi status pengetikan dan pengguliran horizontal halus.
+- **Kompresor Ukuran Berkas PDF Luring**: Preset target instan (<500 KB, <1 MB, <2 MB) dan setelan resolusi DPI gambar tanpa server awan.
+- **Paket Distribusi Windows & Linux**: Installer NSIS Windows (`.exe`), edisi portabel tanpa instalasi, serta paket Linux `AppImage` dan Debian `.deb`.
+- **Aturan Penomoran Halaman Skripsi Baku**: Penomoran halaman otomatis di tengah bawah untuk lembar judul bab dan sudut kanan atas untuk halaman lanjutan.
+- **Fitur Ilmiah Luring Lanjutan**: Notasi matematika KaTeX luring, tabel ilmiah gaya booktabs, penyusun urutan halaman visual, dan tanda tangan digital luring.
+
+Pelajari spesifikasi teknis lengkap rencana pembaruan:
+- [Peta Jalan Versi Bahasa Indonesia (Update/Update_Baku_id.md)](Update/Update_Baku_id.md)
+- [English Roadmap (Update/Update_Baku_en.md)](Update/Update_Baku_en.md)
+- [Direktori Lengkap Peta Jalan Multi-Bahasa (Update/)](Update/)
+- [Dokumen Rencana Baseline Awal (Update_v1.5_baku.md)](Update_v1.5_baku.md)
+
+---
+
 ## Arsitektur & Spesifikasi Teknis
 
 - **Backend**: Rust 2021 dengan Tauri Framework v1.6.
@@ -173,6 +192,7 @@ Kami menyediakan dokumentasi teknis dan panduan komunitas lengkap untuk mendukun
 | [CHANGELOG.md](CHANGELOG.md) | Riwayat pembaruan dan catatan rilis versi. |
 | [SECURITY.md](SECURITY.md) | Kebijakan keamanan dan pelaporan celah kerentanan. |
 | [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Norma komunitas dan standar interaksi kontributor. |
+| [Peta Jalan Pembaruan (v1.5+)](Update/Update_Baku_id.md) | Peta jalan multi-bahasa dan daftar rencana fitur untuk versi pembaruan mendatang. |
 
 ---
 

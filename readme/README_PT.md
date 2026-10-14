@@ -34,6 +34,7 @@
 - [Principais Funcionalidades](#principais-funcionalidades)
 - [Ferramentas Extras de PDF (100% Offline)](#ferramentas-extras-de-pdf-100-offline)
 - [Modelos Padronizados Integrados](#modelos-padronizados-integrados)
+- [Roteiro de Próximos Lançamentos (v1.5 e Posteriores)](#roteiro-de-próximos-lançamentos-v15-e-posteriores)
 - [Arquitetura e Tecnologias](#arquitetura-e-tecnologias)
 - [Requisitos e Instalação](#requisitos-e-instalação)
 - [Documentação Completa](#documentação-completa)
@@ -102,6 +103,24 @@ O Baku PDF inclui ferramentas complementares para manipular arquivos PDF localme
 
 ---
 
+## Roteiro de Próximos Lançamentos (v1.5 e Posteriores)
+
+Mantemos um roteiro público e transparente detalhando as novas funcionalidades planejadas, melhorias de desempenho e pacotes de distribuição para a versão 1.5 e lançamentos futuros:
+
+- **Barra de Abas Multidocumento**: Abra, edite e alterne entre múltiplos documentos `.baku` em uma única janela integrada com isolamento de estado e rolagem horizontal suave.
+- **Compressor de Arquivos PDF Offline**: Alvos predefinidos (<500 KB, <1 MB, <2 MB) e resolução DPI personalizável sem envio para a nuvem.
+- **Instaladores Multiplataforma**: Instalador NSIS para Windows (`.exe`), edição portátil independente e pacotes Linux `AppImage` e Debian `.deb`.
+- **Numeração Dupla de Páginas para Teses**: Numeração automática no centro inferior na página inicial de cada capítulo e no canto superior direito nas páginas seguintes.
+- **Recursos Científicos Offline**: Fórmulas KaTeX offline, tabelas no estilo booktabs, organizador visual de páginas e assinaturas digitais.
+
+Acesse as especificações completas do roteiro:
+- [Roteiro em Português (../Update/Update_Baku_pt.md)](../Update/Update_Baku_pt.md)
+- [English Roadmap (../Update/Update_Baku_en.md)](../Update/Update_Baku_en.md)
+- [Diretório Completo de Roteiros (../Update/)](../Update/)
+- [Linha de Base Inicial (../Update_v1.5_baku.md)](../Update_v1.5_baku.md)
+
+---
+
 ## Arquitetura e Tecnologias
 
 - **Backend**: Rust 2021 com o framework Tauri v1.6.
@@ -155,6 +174,7 @@ Disponibilizamos documentação técnica e diretrizes comunitárias para apoiar 
 | [CHANGELOG.md](../CHANGELOG.md) | Histórico de versões e notas de lançamento. |
 | [SECURITY.md](../SECURITY.md) | Política de segurança e canal de divulgação responsável de falhas. |
 | [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md) | Código de conduta e diretrizes da comunidade. |
+| [Roteiro de Versões (v1.5+)](../Update/Update_Baku_pt.md) | Roteiro multilíngue e especificações de recursos futuros. |
 
 ---
 
