@@ -1,8 +1,21 @@
 <div align="center">
+  <p>
+    <strong>Languages / Bahasa:</strong><br />
+    <strong>English</strong> |
+    <a href="README_ID.md">Bahasa Indonesia</a> |
+    <a href="readme/README_ES.md">Español</a> |
+    <a href="readme/README_FR.md">Français</a> |
+    <a href="readme/README_DE.md">Deutsch</a> |
+    <a href="readme/README_JA.md">日本語</a> |
+    <a href="readme/README_ZH.md">简体中文</a> |
+    <a href="readme/README_PT.md">Português</a> |
+    <a href="readme/README_RU.md">Русский</a> |
+    <a href="readme/README_AR.md">العربية</a>
+  </p>
+  <hr />
   <img src="src/logo.png" alt="Baku PDF Logo" width="128" height="128" />
   <h1>Baku PDF</h1>
-  <p><strong>Pengolah Kata Desktop Berstandar Baku, Super Ringan, dan 100% Privat</strong></p>
-  <p><em>Lightweight, Local-First Standardized Desktop Word Processor for Academic, Official, and Formal Documents</em></p>
+  <p><strong>Lightweight, Local-First Standardized Desktop Word Processor for Academic, Official, and Formal Documents</strong></p>
 
   <p>
     <a href="https://tauri.app"><img src="https://img.shields.io/badge/Tauri-v1.6-24C8D8?style=flat&logo=tauri&logoColor=white" alt="Tauri" /></a>
@@ -16,143 +29,27 @@
 
 ---
 
-## Daftar Isi / Table of Contents
-- [Bahasa Indonesia](#bahasa-indonesia)
-  - [Tentang Baku PDF](#tentang-baku-pdf)
-  - [Fitur Utama](#fitur-utama)
-  - [Alat Ekstra PDF (100% Luring)](#alat-ekstra-pdf-100-luring)
-  - [Daftar Templat Baku Bawaan](#daftar-templat-baku-bawaan)
-  - [Arsitektur & Spesifikasi Teknis](#arsitektur--spesifikasi-teknis)
-  - [Persyaratan Sistem & Instalasi](#persyaratan-sistem--instalasi)
-- [English](#english)
-  - [About Baku PDF](#about-baku-pdf)
-  - [Key Features](#key-features)
-  - [Offline PDF Extra Tools](#offline-pdf-extra-tools)
-  - [Built-In Standard Templates](#built-in-standard-templates)
-  - [Architecture & Tech Stack](#architecture--tech-stack)
-  - [System Requirements & Installation](#system-requirements--installation)
-- [Dokumentasi Lengkap / Documentation](#dokumentasi-lengkap--documentation)
-- [Lisensi / License](#lisensi--license)
+## Table of Contents
+- [About Baku PDF](#about-baku-pdf)
+- [Key Features](#key-features)
+- [Offline PDF Extra Tools (100% Local)](#offline-pdf-extra-tools-100-local)
+- [Built-In Standard Templates](#built-in-standard-templates)
+- [Architecture & Tech Stack](#architecture--tech-stack)
+- [System Requirements & Installation](#system-requirements--installation)
+- [Complete Documentation](#complete-documentation)
+- [License](#license)
 
 ---
 
-## Bahasa Indonesia
+## About Baku PDF
 
-### Tentang Baku PDF
-Baku PDF adalah aplikasi pengolah kata desktop modern yang dirancang untuk mempermudah penyusunan karya ilmiah, tugas akhir, skripsi, dan surat dinas resmi dengan standar format baku yang presisi. Aplikasi ini berpegang pada filosofi **local-first**: seluruh pemrosesan teks, render halaman, dan manipulasi PDF berjalan 100% secara luring di komputer Anda tanpa server, tanpa analitik pelacak, dan tanpa langganan awan.
-
-Dibangun dengan **Tauri** dan **Rust** serta lapisan tampilan web vanilla murni, Baku PDF berbobot sangat ringan (konsumsi memori RAM rendah ~50-80 MB), memiliki waktu mulai instan, dan bebas dari kelambatan (*lag*) yang umumnya dijumpai pada aplikasi pengolah dokumen berbasis Electron.
-
-### Fitur Utama
-
-1. **Peluncur Cepat Beranda (Word-Style Home Screen)**:
-   - Mulai dokumen baru dengan lembar kosong (*Blank Document*).
-   - Akses pembuka berkas format mandiri `.baku`.
-   - Kotak kertas miniatur templat dokumen bergaya Microsoft Word (Skripsi/TA, Surat Dinas, Makalah) lengkap dengan garis thumbnail tata letak dan pill badge baku.
-   - Akses cepat ke seluruh galeri templat dan daftar dokumen terakhir yang dibuka.
-
-2. **Galeri Templat Baku & Pembuat Templat Kustom**:
-   - Dilengkapi templat standar resmi siap pakai untuk skripsi, makalah, surat dinas, laporan praktikum, memo internal, notula rapat, dan CV ATS.
-   - Filter kategori templat (Akademik, Surat & Dinas, Bisnis & Kantor, Templat Saya) dan pencarian kata kunci instan.
-   - Pratinjau split-view dengan diagram miniatur lembar kertas potret/lanskap.
-   - Buat templat baru dari nol (*Create New Template*) atau simpan dokumen editor yang sedang aktif menjadi templat (*Save As Template*).
-   - Opsi penguncian standar baku (*Strict Standard Lock*) untuk menjamin margin dan ukuran kertas tidak sengaja berubah.
-   - Ekspor dan impor berkas templat mandiri `.baku`.
-
-3. **Multi-Halaman & Multi-Seksi Cerdas**:
-   - Pemisah Halaman (*Page Break*, Ctrl/Cmd + Enter) instan berkinerja tinggi 60 FPS tanpa jeda input.
-   - Pemisah Seksi (*Section Break*, Ctrl/Cmd + Shift + Enter) untuk memulai penomoran bab baru atau mengubah format nomor di tengah dokumen.
-   - Format penomoran dokumen fleksibel: Angka Arab (1, 2, 3), Romawi Kecil (i, ii, iii), Romawi Besar (I, II, III), dan Huruf (A, B, C / a, b, c).
-   - Posisi nomor halaman: Header atau Footer, rata kiri, tengah, atau kanan.
-   - Opsi Beda Halaman Pertama (*Different First Page*) untuk menyembunyikan nomor pada halaman sampul/judul resmi.
-
-4. **Penggaris Visual Interaktif (Interactive Visual Ruler)**:
-   - Penggaris horizontal berskala presisi milimeter/sentimeter/inci dengan panduan visual margin aktif.
-   - Tiga penanda seret interaktif: Indentasi Baris Pertama (*First Line Indent*), Indentasi Kiri (*Left Indent*), dan Margin Kanan (*Right Margin*).
-   - Sinkronisasi instan terhadap paragraf aktif di kanvas editor.
-
-5. **Galeri Gaya Tipografi & Tata Huruf Presisi**:
-   - Palet gaya format dokumen standar: Normal, Judul Dokumen, Subjudul, Bab / Judul 1, Sub-bab / Judul 2, Sub-sub-bab / Judul 3, Kutipan Langsung (*Blockquote*), dan Monospace / Kode.
-   - Pemilih ukuran huruf presisi (8pt hingga 72pt), pemilih tinggi baris (*Line Height*: 1.0, 1.15, 1.5, 2.0, kustom), dan pemilih palet warna teks/latar.
-   - Pengaturan margin halaman baku (4-4-3-3 cm, 4-3-4-3 cm, 3-3-3-3 cm, 2.54 cm normal, dan kustom) serta ukuran kertas (A4, F4/Folio 215x330mm, Letter, Legal).
-
-6. **Alat Bantu Dokumen Lengkap**:
-   - **Ubah Kapitalisasi (Change Case)**: Kalimat awal (*Sentence case*), huruf kecil semua (*lowercase*), HURUF BESAR (*UPPERCASE*), Huruf Kapital Tiap Kata (*Capitalize Each Word*), dan Huruf Balik (*tOGGLE cASE*).
-   - **Statistik Dokumen Real-time**: Hitungan jumlah kata, karakter dengan/tanpa spasi, jumlah paragraf, dan estimasi waktu baca.
-   - **Penyunting Tabel Kustom**: Pembuat tabel matriks baris x kolom dengan toolbar mengambang (*floating toolbar*) untuk menambah/menghapus baris/kolom dan perataan teks sel.
-   - **Penyunting Gambar**: Unggah gambar lokal, perataan (kiri, tengah, kanan), penyesuaian ukuran proporsional, serta penghapusan aman.
-   - **Pemilih Simbol Khusus**: Dialog pemilih simbol tipografi, aksara, matematika, dan karakter resmi.
-
-7. **Ekspor & Cetak WYSIWYG**:
-   - Ekspor PDF WYSIWYG dengan keakuratan tata letak piksel terhadap kanvas editor.
-   - Dialog Cetak langsung terintegrasi dengan daftar printer sistem operasi lokal dan pencetakan multi-eksemplar.
-
-### Alat Ekstra PDF (100% Luring)
-Baku PDF menyediakan utilitas pengolahan PDF mandiri langsung di perangkat Anda tanpa bantuan server luar:
-- **Gabungkan PDF (Merge PDF)**: Satukan dua atau lebih berkas PDF menjadi satu dokumen utuh dengan urutan yang dapat diatur.
-- **Pisahkan PDF (Split PDF)**: Ekstrak halaman atau rentang halaman tertentu (misalnya: 1-3, 5, 8-10) atau pisahkan setiap halaman menjadi berkas tersendiri.
-- **Putar Halaman (Rotate PDF)**: Perbaiki orientasi halaman PDF yang miring atau terbalik (rotasi 90 derajat, 180 derajat, atau 270 derajat).
-- **Gambar ke PDF (Images to PDF)**: Ubah kumpulan foto atau scan dokumen (JPG, PNG) menjadi satu berkas PDF rapi siap cetak.
-
-### Daftar Templat Baku Bawaan
-| Nama Templat | Kategori | Margin Baku | Tipografi Standar | Deskripsi |
-|---|---|---|---|---|
-| Skripsi / Tugas Akhir | Akademik | 4-4-3-3 cm | Times New Roman, 12pt, Spasi 1.5 | Format baku karya ilmiah perguruan tinggi (Sampul, Pengesahan, Abstrak, Bab I, Daftar Pustaka). |
-| Makalah / Karya Ilmiah | Akademik | 4-3-4-3 cm | Times New Roman, 12pt, Spasi 1.5 | Format makalah mahasiswa, seminar ilmiah, dan jurnal terstruktur. |
-| Laporan Praktikum | Akademik | 4-3-3-3 cm | Calibri, 11pt, Spasi 1.15 | Sistematika laporan laboratorium, tujuan praktikum, alat & bahan, serta analisis data. |
-| Surat Resmi / Dinas | Surat & Dinas | 3-2.5-3-2.5 cm | Arial / Calibri, 11pt, Spasi 1.15 | Standar tata naskah dinas kedinasan & instansi (Kop surat, nomor, lampiran, perihal, tanda tangan). |
-| Surat Lamaran Kerja | Surat & Dinas | 2.5 cm rata | Calibri, 11pt, Spasi 1.15 | Format formal korespondensi lamaran kerja HRD dengan ejaan baku. |
-| Notula Rapat | Bisnis & Kantor | 2.5 cm rata | Segoe UI / Arial, 11pt, Spasi 1.15 | Format risalah rapat resmi dengan tabel agenda, kehadiran, dan matriks tindak lanjut. |
-| CV ATS Standar | Bisnis & Kantor | 2 cm rata | Calibri / Arial, 10.5pt, Spasi 1.15 | Tata letak kurikulum vitae satu kolom ramah pemindaian sistem ATS perusahaan. |
-| Memo Internal | Bisnis & Kantor | 2.5 cm rata | Arial, 11pt, Spasi 1.15 | Format memo ringkas untuk komunikasi antar departemen dan pimpinan divisi. |
-
-### Arsitektur & Spesifikasi Teknis
-- **Backend**: Rust 2021 dengan Tauri Framework v1.6.
-- **I/O & PDF Engine**: `lopdf` v0.31 untuk manipulasi struktur internal PDF (merge, split, rotate) dan `printpdf` v0.7 untuk perakitan kanvas PDF mandiri.
-- **Frontend**: HTML5, CSS3 murni, dan Vanilla JavaScript ES6+ (tanpa framework runtime tambahan).
-- **Inti Editor**: Quill.js 2.0 (Custom Build dengan ekstensi multi-halaman & multi-seksi).
-- **Penyimpanan Berkas**: Format `.baku` berbasis JSON terenkapsulasi dengan mekanisme penulisan atomik (*atomic write*) untuk mencegah korupsi data.
-- **Akselerasi Grafis**: Lapisan lembar kertas `#page-sheets-layer` komposit independen yang di-cache langsung oleh GPU.
-
-### Persyaratan Sistem & Instalasi
-
-#### Prasyarat
-- Node.js (versi 16 atau lebih baru)
-- Rust & Cargo (versi stabil terbaru)
-- Dependensi sistem Tauri (disesuaikan dengan OS macOS / Windows / Linux)
-
-#### Menjalankan Proyek
-1. Klon repositori:
-   ```bash
-   git clone https://github.com/Kharisdestianmaulana-hub/Baku.git
-   cd Baku
-   ```
-
-2. Instal dependensi frontend:
-   ```bash
-   npm install
-   ```
-
-3. Jalankan dalam mode pengembangan:
-   ```bash
-   npm run tauri dev
-   ```
-
-4. Bangun berkas biner mandiri (*executable*):
-   ```bash
-   npm run tauri build
-   ```
-
----
-
-## English
-
-### About Baku PDF
 Baku PDF is a modern desktop word processor engineered specifically for drafting structured academic papers, undergraduate theses, and official correspondences adhering to strict formatting standards. Rooted in a **local-first** philosophy, all text processing, document rendering, and PDF manipulation take place 100% offline on your device, free from external servers, tracking analytics, and cloud subscriptions.
 
 Powered by **Tauri** and **Rust** with a pure vanilla web frontend, Baku PDF is exceptionally lightweight (low memory footprint of ~50-80 MB RAM), launches instantaneously, and eliminates the layout sluggishness commonly found in Electron-based editors.
 
-### Key Features
+---
+
+## Key Features
 
 1. **Word-Style Home Screen Quick Launcher**:
    - Start with a clean Blank Document.
@@ -196,14 +93,20 @@ Powered by **Tauri** and **Rust** with a pure vanilla web frontend, Baku PDF is 
    - Pixel-perfect PDF generation matching on-screen canvas margins and page boundaries.
    - Direct system print dialog integrated with local printers and copy quantity controls.
 
-### Offline PDF Extra Tools (100% Local)
+---
+
+## Offline PDF Extra Tools (100% Local)
+
 Baku PDF includes standalone PDF utility tools running entirely on your machine without cloud dependencies:
 - **Merge PDF**: Combine two or more PDF files into a single unified document with custom sequencing.
 - **Split PDF**: Extract specific page ranges (e.g., 1-3, 5, 8-10) or separate every page into individual files.
 - **Rotate PDF**: Correct skewed or inverted pages (rotate 90, 180, or 270 degrees clockwise).
 - **Images to PDF**: Convert scanned documents and image collections (JPG, PNG) into a clean PDF document.
 
-### Built-In Standard Templates
+---
+
+## Built-In Standard Templates
+
 | Template Name | Category | Standard Margins | Standard Typography | Description |
 |---|---|---|---|---|
 | Undergraduate Thesis | Academic | 4-4-3-3 cm | Times New Roman, 12pt, 1.5 Line Spacing | Official university thesis structure (Cover, Approval Sheet, Bilingual Abstract, Chapter I, References). |
@@ -215,7 +118,10 @@ Baku PDF includes standalone PDF utility tools running entirely on your machine 
 | ATS Standard Resume | Business & Office | 2 cm equal | Calibri / Arial, 10.5pt, 1.15 Line Spacing | Single-column curriculum vitae structure optimized for automated ATS parsers. |
 | Internal Memo | Business & Office | 2.5 cm equal | Arial, 11pt, 1.15 Line Spacing | Compact internal company memorandum format. |
 
-### Architecture & Tech Stack
+---
+
+## Architecture & Tech Stack
+
 - **Backend**: Rust 2021 with Tauri Framework v1.6.
 - **I/O & PDF Pipeline**: `lopdf` v0.31 for low-level PDF manipulation (merge, split, rotate) and `printpdf` v0.7 for standalone canvas compilation.
 - **Frontend**: HTML5, pure CSS3, and Vanilla JavaScript ES6+ (zero runtime UI frameworks).
@@ -223,14 +129,16 @@ Baku PDF includes standalone PDF utility tools running entirely on your machine 
 - **Storage Architecture**: Encapsulated `.baku` JSON format with atomic write operations to prevent corruption.
 - **Graphics Acceleration**: Composite `#page-sheets-layer` rendered as independent GPU-cached tiles.
 
-### System Requirements & Installation
+---
 
-#### Prerequisites
+## System Requirements & Installation
+
+### Prerequisites
 - Node.js (version 16 or newer)
 - Rust & Cargo (latest stable toolchain)
 - Platform-specific Tauri build tools (macOS, Windows, or Linux)
 
-#### Running the Project
+### Running the Project
 1. Clone the repository:
    ```bash
    git clone https://github.com/Kharisdestianmaulana-hub/Baku.git
@@ -254,21 +162,20 @@ Baku PDF includes standalone PDF utility tools running entirely on your machine 
 
 ---
 
-## Dokumentasi Lengkap / Documentation
-
-Kami menyediakan dokumentasi teknis dan panduan komunitas lengkap untuk mendukung transparansi serta kolaborasi sumber terbuka:
+## Complete Documentation
 
 We provide comprehensive technical documentation and community guidelines to support open-source collaboration and transparency:
 
-| Dokumen / Document | Bahasa Indonesia | English |
-| :--- | :--- | :--- |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | Panduan kontribusi, alur kerja Git, dan standar kode. | Contribution guidelines, Git workflow, and code standards. |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | Spesifikasi teknis, alur IPC Tauri, dan format `.baku`. | Technical specifications, Tauri IPC flow, and `.baku` format. |
-| [CHANGELOG.md](CHANGELOG.md) | Riwayat pembaruan dan catatan rilis versi. | Version release notes and update history. |
-| [SECURITY.md](SECURITY.md) | Kebijakan keamanan dan pelaporan celah kerentanan. | Security policy and vulnerability reporting. |
-| [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Norma komunitas dan standar interaksi kontributor. | Community standards and contributor code of conduct. |
+| Document | Description |
+| :--- | :--- |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution guidelines, Git workflow, and code standards. |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Technical specifications, Tauri IPC flow, and `.baku` format. |
+| [CHANGELOG.md](CHANGELOG.md) | Version release notes and update history. |
+| [SECURITY.md](SECURITY.md) | Security policy and vulnerability reporting. |
+| [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Community standards and contributor code of conduct. |
 
 ---
 
-## Lisensi / License
+## License
+
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

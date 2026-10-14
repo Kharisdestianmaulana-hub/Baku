@@ -1,14 +1,17 @@
 # Catatan Perubahan / Changelog
 
-Seluruh perubahan penting pada proyek **Baku PDF** dicatat di dalam dokumen ini.
+**Languages / Bahasa**: [Bahasa Indonesia](#bahasa-indonesia) | [English](#english)
 
-Format dokumen ini mengacu pada panduan [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) dan mematuhi aturan penomoran [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+All notable changes to the **Baku PDF** project are documented in this file.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-## [1.0.0] - 2026-10-14
+## Bahasa Indonesia
 
-### Ditambahkan (Added)
+### [1.0.0] - 2026-10-14
+
+#### Ditambahkan (Added)
 - **Editor Dokumen WYSIWYG Berstandar Baku**:
   - Mesin editor teks berbasis Quill 2.0 dengan ekstensi blot kustom untuk penataan dokumen formal.
   - Pengaturan ukuran kertas standar: A4, F4 / Folio (215 × 330 mm), Letter, dan Legal.
@@ -24,6 +27,7 @@ Format dokumen ini mengacu pada panduan [Keep a Changelog](https://keepachangelo
 - **Tipografi & Gaya Dokumen Presisi**:
   - Palet gaya format dokumen: Normal, Judul Dokumen, Subjudul, Bab / Judul 1, Sub-bab / Judul 2, Sub-sub-bab / Judul 3, Kutipan Langsung (*Blockquote*), dan Monospace / Kode.
   - Pemilih ukuran huruf presisi (8pt hingga 72pt), pemilih tinggi baris (*Line Height*: 1.0, 1.15, 1.5, 2.0, kustom), dan pemilih palet warna teks/latar.
+  - Perbaikan rendering font default Times New Roman pada lembar kerja.
 - **Galeri Templat Baku & Pembuat Templat Kustom**:
   - 8 templat bawaan resmi siap pakai: Skripsi / Tugas Akhir, Makalah / Karya Ilmiah, Laporan Praktikum, Surat Resmi / Dinas, Surat Lamaran Kerja, Notula Rapat, CV ATS Standar, dan Memo Internal.
   - Pembuat templat baru dari nol (*Create New Template*) atau simpan dokumen editor yang sedang aktif menjadi templat (*Save As Template*).
@@ -48,8 +52,63 @@ Format dokumen ini mengacu pada panduan [Keep a Changelog](https://keepachangelo
   - Ekspor PDF WYSIWYG berpresisi tinggi sesuai batas kanvas editor.
   - Dialog cetak terintegrasi langsung dengan daftar printer sistem operasi lokal.
   - Dukungan dwibahasa penuh (Bahasa Indonesia & English) tersinkronisasi dinamis dengan menu bar native sistem operasi (macOS & Windows).
-  - Installer macOS DMG dengan tata letak seret ke folder Applications dan pencegat eksekusi langsung dari DMG (*DMG launch guard*).
+  - Adaptasi dinamis simbol shortcut papan ketik multi-OS (macOS ⌘/⌥, Windows Alt+F4, Linux Ctrl+Q).
+  - Installer macOS DMG Universal Binary (x86_64 Intel + arm64 Apple Silicon) dengan pencegat eksekusi volume sementara (*DMG launch guard*).
 
-### Keamanan (Security)
+#### Keamanan (Security)
 - Arsitektur *local-first* murni: seluruh pemrosesan berjalan 100% luring di perangkat pengguna tanpa transmisi jaringan atau telemetri.
 - Penulisan berkas `.baku` atomik di sisi backend Rust untuk mencegah korupsi data saat sistem tertutup tiba-tiba.
+
+---
+
+## English
+
+### [1.0.0] - 2026-10-14
+
+#### Added
+- **Standardized WYSIWYG Document Editor**:
+  - Modern text editor core based on Quill 2.0 with custom blot extensions for formal formatting.
+  - Standard paper size configurations: A4, F4 / Folio (215 × 330 mm), Letter, and Legal.
+  - Standard academic margin presets: 4-4-3-3 cm (Thesis), 4-3-4-3 cm (Paper), 3-3-3-3 cm (Formal), 2.54 cm (Normal), and custom settings.
+- **Smart Multi-Page & Multi-Section Engine**:
+  - Instant 60 FPS Page Breaks (Ctrl/Cmd + Enter) free from layout thrashing bottlenecks.
+  - High-performance Section Breaks (Ctrl/Cmd + Shift + Enter) for restarting numbering or modifying headers across chapters.
+  - Diverse numbering formats: Arabic numerals (1, 2, 3), Lowercase Roman (i, ii, iii), Uppercase Roman (I, II, III), and Alphabetical (A, B, C / a, b, c).
+  - Different First Page toggle to suppress numbering on cover and title pages.
+- **Interactive Visual Ruler**:
+  - Horizontal ruler scale in millimeters, centimeters, and inches.
+  - Three draggable markers: First Line Indent, Left Indent, and Right Margin.
+- **Precision Typography & Document Styles**:
+  - Comprehensive style palette: Normal, Title, Subtitle, Headings 1 through 3, Blockquote, and Monospace / Code.
+  - Font size selector (8pt to 72pt), line height dropdown (1.0, 1.15, 1.5, 2.0, custom), and color pickers.
+  - Resolved default Times New Roman font rendering across the document editor.
+- **Standard Templates Gallery & Custom Template Builder**:
+  - 8 built-in official templates: Undergraduate Thesis, Academic Paper, Lab Report, Official Letter, Job Application Letter, Meeting Minutes, ATS Standard Resume, and Internal Memo.
+  - Create new templates from scratch (*Create New Template*) or save the active editor document as a reusable template (*Save As Template*).
+  - Strict Standard Lock to prevent accidental margin and paper size modifications.
+  - Import and export standalone `.baku` template files.
+- **Word-Style Home Screen Quick Launcher**:
+  - Microsoft Word-style miniature paper template cards with thumbnail guidelines and official badges.
+  - Recent Documents history table automatically synchronized with the working workspace folder.
+- **Offline PDF Extra Utilities (100% Local)**:
+  - Merge PDF: Combine two or more PDF files into a single unified document.
+  - Split PDF: Extract specific pages or custom ranges (e.g., 1-3, 5, 8-10).
+  - Rotate PDF: Reorient pages by 90, 180, or 270 degrees.
+  - Images to PDF: Convert JPG/PNG scanned document collections into clean printable PDFs.
+- **Integrated Table & Image Editors**:
+  - Visual matrix table creator with floating toolbar for adding/removing rows and columns and cell alignment.
+  - Local image insertion with alignment options, proportional resizing, and safe deletion.
+- **Document Utilities & Typography Tools**:
+  - Change Case: Sentence case, lowercase, UPPERCASE, Capitalize Each Word, and tOGGLE cASE.
+  - Real-time document statistics: Live word, character, and paragraph counts with estimated reading time.
+  - Special symbols and typographic character picker dialog.
+- **Desktop Integration & WYSIWYG Export**:
+  - Pixel-perfect WYSIWYG PDF export matching on-screen margins.
+  - Native print dialog directly integrated with local operating system printers.
+  - Full bilingual support (English and Bahasa Indonesia) synchronized with native OS menu bars.
+  - Dynamic multi-OS keyboard shortcut adaptation (macOS ⌘/⌥, Windows Alt+F4, Linux Ctrl+Q).
+  - Universal Binary macOS DMG Installer (x86_64 Intel + arm64 Apple Silicon) with automated Applications drag-and-drop and launch guard.
+
+#### Security
+- Pure local-first architecture: all processing runs 100% offline without network requests or telemetry tracking.
+- Atomic file writing for `.baku` documents in the Rust backend to safeguard data integrity against sudden power failures.
