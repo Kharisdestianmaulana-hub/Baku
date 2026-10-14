@@ -41,7 +41,7 @@ Berdasarkan audit menyeluruh terhadap kode sumber Baku PDF, modul-modul berikut 
 | **Modal Tautan (Link) Mandiri** | Sudah Ada | Modal Flat 2D (`#modal-link-overlay`) dengan kolom Teks Tampilan, Alamat URL, tombol Hapus Tautan, pintasan `Ctrl+K` / `Cmd+K`, dan pembukaan tautan eksternal via `Ctrl/Cmd + Klik`. |
 | **Kontrol Perbesaran (Zoom)** | Sudah Ada | Tombol Zoom In, Zoom Out, Reset 100%, slider persentase zoom pada status bar bawah, dan setelan skala aplikasi di Pengaturan. |
 | **4 Alat Ekstra PDF Luring** | Sudah Ada | Gabungkan PDF (*Merge*), Pisahkan PDF (*Split*), Putar Halaman PDF (*Rotate*), dan Gambar ke PDF (*Images to PDF*) berbasis pustaka Rust `lopdf` dan `image`. |
-| **Paket macOS DMG Installer** | Sudah Ada | Bundel DMG resmi (`Baku_1.0.0_Installer.dmg`) dengan latar belakang panduan seret-lepas dan perlindungan eksekusi volume sementara (`check_running_from_dmg`). |
+| **Paket macOS Universal DMG Installer** | Sudah Ada | Bundel DMG Universal Binary (`x86_64` Intel + `arm64` Apple Silicon M1/M2/M3/M4) resmi (`Baku_1.0.0_Universal_Installer.dmg` / `Baku_1.0.0_Installer.dmg`) dengan latar belakang panduan seret-lepas dan perlindungan eksekusi volume sementara (`check_running_from_dmg`). |
 
 Fitur-fitur di atas merupakan fondasi stabil versi 1.0.0 dan **tidak lagi dicantumkan sebagai rencana fitur baru**, melainkan sebagai pijakan integrasi untuk fitur-fitur lanjutan versi 1.5 di bawah ini.
 
@@ -209,14 +209,14 @@ Melengkapi 8 templat yang sudah tersedia pada v1.0.0, v1.5 menghadirkan templat 
   - Pembuatan manifes `flatpak` untuk ekosistem distribusi terisolasi sandbox.
   - Paket `baku-bin` pada repositori komunitas Arch Linux (AUR).
 
-### 6.3. Pembaruan Paket macOS
-- **Universal Binary DMG**:
-  - Mengembangkan bundel DMG x86_64 yang sudah ada menjadi paket biner universal yang mendukung arsitektur Apple Silicon (M1/M2/M3/M4) dan prosesor Intel secara terpadu.
+### 6.3. Distribusi macOS Lanjutan
 - **Distribusi Homebrew Cask**:
   - Dukungan instalasi praktis melalui terminal macOS:
     ```bash
     brew install --cask baku-pdf
     ```
+- **Penandatanganan Kode & Notarisasi Apple (Code Signing & Notarization)**:
+  - Mengintegrasikan sertifikat Apple Developer ID dan notarisasi resmi Apple agar aplikasi dapat dibuka langsung tanpa peringatan Gatekeeper macOS.
 
 ---
 
