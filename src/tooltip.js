@@ -304,9 +304,21 @@ function formatShortcutForOS(shortcut) {
     return shortcut;
 }
 
+function updateMenuBarShortcuts() {
+    if (typeof document === 'undefined') return;
+    document.querySelectorAll('.menu-action .shortcut').forEach(el => {
+        if (!el.hasAttribute('data-orig-shortcut')) {
+            el.setAttribute('data-orig-shortcut', el.textContent.trim());
+        }
+        const orig = el.getAttribute('data-orig-shortcut');
+        el.textContent = formatShortcutForOS(orig);
+    });
+}
+
 window.getOperatingSystem = getOperatingSystem;
 window.isMacPlatform = isMacPlatform;
 window.formatShortcutForOS = formatShortcutForOS;
+window.updateMenuBarShortcuts = updateMenuBarShortcuts;
 
 document.addEventListener('DOMContentLoaded', () => {
     const tooltipBox = document.getElementById('rich-tooltip');
@@ -439,15 +451,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Perbarui teks shortcut pada Dropdown Menu Bar agar sesuai OS (⌘ pada macOS, Ctrl+Q pada Linux, Alt+F4 pada Windows)
-    function updateMenuBarShortcuts() {
-        document.querySelectorAll('.menu-action .shortcut').forEach(el => {
-            if (!el.hasAttribute('data-orig-shortcut')) {
-                el.setAttribute('data-orig-shortcut', el.textContent.trim());
-            }
-            const orig = el.getAttribute('data-orig-shortcut');
-            el.textContent = formatShortcutForOS(orig);
-        });
-    }
-    window.updateMenuBarShortcuts = updateMenuBarShortcuts;
     updateMenuBarShortcuts();
 });

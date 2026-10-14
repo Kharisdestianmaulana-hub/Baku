@@ -285,8 +285,7 @@ const quill = new Quill('#quill-container', {
                 header2: { key: '2', shortKey: true, altKey: true, handler: function() { this.quill.format('header', 2); } },
                 header0: { key: '0', shortKey: true, altKey: true, handler: function() { this.quill.format('header', false); } },
                 listBullet: { key: 'L', shortKey: true, shiftKey: true, handler: function() { this.quill.format('list', 'bullet'); } },
-                listNumber: { key: 'N', shortKey: true, shiftKey: true, handler: function() { this.quill.format('list', 'ordered'); } },
-                listCheck: { key: 'C', shortKey: true, shiftKey: true, handler: function() { this.quill.format('list', 'check'); } }
+                listNumber: { key: 'N', shortKey: true, shiftKey: true, handler: function() { this.quill.format('list', 'ordered'); } }
             }
         }
     }
@@ -2953,30 +2952,31 @@ window.addEventListener("drop", (e) => {
 
 // Mencegah shortcut bawaan browser dan mengarahkannya ke fitur aplikasi (Mendukung macOS & Windows/Linux)
 window.addEventListener('keydown', (e) => {
+    const code = e.code || '';
+    const keyLower = (e.key || '').toLowerCase();
+    const activeTag = document.activeElement ? document.activeElement.tagName : '';
+    const isInputFocused = (activeTag === 'INPUT' || activeTag === 'TEXTAREA');
+
     // 1. Shortcut kombinasi Ctrl (Win/Linux) atau Cmd (macOS)
     if (e.ctrlKey || e.metaKey) {
-        const keyLower = e.key.toLowerCase();
-        const activeTag = document.activeElement ? document.activeElement.tagName : '';
-        const isInputFocused = (activeTag === 'INPUT' || activeTag === 'TEXTAREA');
-
-        // Ctrl/Cmd + Alt Shortcuts (Gaya Teks / Headings & Zoom Alternatif)
+        // Ctrl/Cmd + Alt / Option Shortcuts (Gaya Teks / Headings)
         if (e.altKey) {
-            if (keyLower === '1') {
+            if (keyLower === '1' || code === 'Digit1' || code === 'Numpad1') {
                 e.preventDefault();
                 quill.format('header', 1);
-            } else if (keyLower === '2') {
+            } else if (keyLower === '2' || code === 'Digit2' || code === 'Numpad2') {
                 e.preventDefault();
                 quill.format('header', 2);
-            } else if (keyLower === '3') {
+            } else if (keyLower === '3' || code === 'Digit3' || code === 'Numpad3') {
                 e.preventDefault();
                 quill.format('header', 3);
-            } else if (keyLower === '0') {
+            } else if (keyLower === '0' || code === 'Digit0' || code === 'Numpad0') {
                 e.preventDefault();
                 quill.format('header', false);
-            } else if (e.key === '=' || e.key === '+' || e.code === 'NumpadAdd') {
+            } else if (e.key === '=' || e.key === '+' || code === 'Equal' || code === 'NumpadAdd') {
                 e.preventDefault();
                 document.getElementById('action-zoom-in')?.click();
-            } else if (e.key === '-' || e.code === 'NumpadSubtract') {
+            } else if (e.key === '-' || code === 'Minus' || code === 'NumpadSubtract') {
                 e.preventDefault();
                 document.getElementById('action-zoom-out')?.click();
             }
@@ -2985,19 +2985,19 @@ window.addEventListener('keydown', (e) => {
 
         // Ctrl/Cmd + Shift Shortcuts
         if (e.shiftKey) {
-            if (keyLower === 'p') {
+            if (keyLower === 'p' || code === 'KeyP') {
                 e.preventDefault();
                 document.getElementById('action-page-setup')?.click();
-            } else if (keyLower === 'i') {
+            } else if (keyLower === 'i' || code === 'KeyI') {
                 e.preventDefault();
                 document.querySelector('.ql-image')?.click();
-            } else if (keyLower === 't') {
+            } else if (keyLower === 't' || code === 'KeyT') {
                 e.preventDefault();
                 document.getElementById('btn-insert-table')?.click();
-            } else if (keyLower === 'c') { // Salin format kuas
+            } else if (keyLower === 'c' || code === 'KeyC') { // Salin format kuas
                 e.preventDefault();
                 document.getElementById('btn-format-painter')?.click();
-            } else if (keyLower === 'v') { // Tempel format kuas
+            } else if (keyLower === 'v' || code === 'KeyV') { // Tempel format kuas
                 e.preventDefault();
                 if (typeof copiedFormat !== 'undefined' && copiedFormat) {
                     const range = quill.getSelection();
@@ -3008,156 +3008,189 @@ window.addEventListener('keydown', (e) => {
                         }
                     }
                 }
-            } else if (keyLower === 'z') { // Redo (Cmd+Shift+Z di macOS / Ctrl+Shift+Z)
-                e.preventDefault();
-                quill.history.redo();
-            } else if (keyLower === 's') { // Simpan Sebagai (Save As)
+            } else if (keyLower === 'z' || code === 'KeyZ') { // Redo (Cmd+Shift+Z di macOS / Ctrl+Shift+Z)
+                if (!e.defaultPrevented) {
+                    e.preventDefault();
+                    quill.history.redo();
+                }
+            } else if (keyLower === 's' || code === 'KeyS') { // Simpan Sebagai (Save As)
                 e.preventDefault();
                 actionSaveAs();
-            } else if (keyLower === 'x') { // Coret (Strikethrough)
+            } else if (keyLower === 'x' || code === 'KeyX') { // Coret (Strikethrough)
                 e.preventDefault();
                 const format = quill.getFormat();
                 quill.format('strike', !format.strike);
-            } else if (keyLower === 'f') { // Ganti Font
+            } else if (keyLower === 'f' || code === 'KeyF') { // Ganti Font
                 e.preventDefault();
                 document.querySelector('.ql-font .ql-picker-label')?.click();
-            } else if (e.key === '>' || e.key === '.') {
+            } else if (e.key === '>' || e.key === '.' || code === 'Period') {
                 e.preventDefault();
                 document.getElementById('custom-btn-size-up')?.click();
-            } else if (e.key === '<' || e.key === ',') {
+            } else if (e.key === '<' || e.key === ',' || code === 'Comma') {
                 e.preventDefault();
                 document.getElementById('custom-btn-size-down')?.click();
-            } else if (e.key === 'Enter') {
+            } else if (e.key === 'Enter' || code === 'Enter' || code === 'NumpadEnter') {
                 e.preventDefault();
                 insertPageBreak(quill, quill.getSelection(true), true); // Pemisah Bagian (Section Break)
-            } else if (e.key === '8' || e.key === '*') {
+            } else if (e.key === '8' || e.key === '*' || code === 'Digit8') {
                 e.preventDefault();
                 toggleFormattingMarks();
-            } else if (keyLower === 'l') { // Daftar Berpoin (Word: Ctrl+Shift+L)
+            } else if (keyLower === 'l' || code === 'KeyL') { // Daftar Berpoin (Word: Ctrl+Shift+L)
                 e.preventDefault();
                 const format = quill.getFormat();
                 quill.format('list', format.list === 'bullet' ? false : 'bullet');
-            } else if (keyLower === 'n' || e.key === '7' || e.key === '&') { // Daftar Bernomor
+            } else if (keyLower === 'n' || code === 'KeyN' || e.key === '7' || e.key === '&' || code === 'Digit7') { // Daftar Bernomor
                 e.preventDefault();
                 const format = quill.getFormat();
                 quill.format('list', format.list === 'ordered' ? false : 'ordered');
-            } else if (keyLower === 'e') {
+            } else if (keyLower === 'e' || code === 'KeyE') { // Ekspor PDF
                 e.preventDefault();
                 document.getElementById('action-export')?.click();
-            } else if (e.key === '+' || e.key === '=' || e.code === 'Equal' || e.code === 'NumpadAdd') { // Superskrip
+            } else if (e.key === '+' || e.key === '=' || code === 'Equal' || code === 'NumpadAdd') {
                 e.preventDefault();
-                const format = quill.getFormat();
-                quill.format('script', format.script === 'super' ? false : 'super');
+                const range = quill.getSelection();
+                if (range && range.length > 0) {
+                    const format = quill.getFormat();
+                    quill.format('script', format.script === 'super' ? false : 'super');
+                } else {
+                    document.getElementById('action-zoom-in')?.click();
+                }
             }
         } else {
             // Ctrl/Cmd murni (tanpa Shift dan tanpa Alt)
-            if (keyLower === 's') {
+            if (keyLower === 's' || code === 'KeyS') {
                 e.preventDefault();
                 actionSave();
-            } else if (keyLower === 'p') {
+            } else if (keyLower === 'p' || code === 'KeyP') {
                 e.preventDefault();
                 actionPrint();
-            } else if (keyLower === 'o') {
+            } else if (keyLower === 'o' || code === 'KeyO') {
                 e.preventDefault();
                 actionOpen();
-            } else if (keyLower === 'n') {
+            } else if (keyLower === 'n' || code === 'KeyN') {
                 e.preventDefault();
                 actionNew();
-            } else if (keyLower === 'k') {
+            } else if (keyLower === 'f' || code === 'KeyF') { // Cari Kata (Find)
+                e.preventDefault();
+                document.getElementById('ribbon-btn-find')?.click();
+            } else if (keyLower === 'h' || code === 'KeyH') { // Ganti Kata (Replace)
+                e.preventDefault();
+                document.getElementById('ribbon-btn-replace')?.click();
+            } else if (keyLower === 'a' || code === 'KeyA') { // Pilih Semua (Select All)
+                if (quill.hasFocus()) {
+                    e.preventDefault();
+                    quill.setSelection(0, quill.getLength());
+                }
+            } else if (keyLower === 'k' || code === 'KeyK') {
                 e.preventDefault();
                 triggerInsertLink();
-            } else if (keyLower === 'y') { // Redo (Ctrl+Y di Windows / Cmd+Y)
-                e.preventDefault();
-                quill.history.redo();
-            } else if (keyLower === 'z') { // Undo (Cmd+Z / Ctrl+Z)
-                e.preventDefault();
-                quill.history.undo();
-            } else if (keyLower === 'b') { // Tebal (Bold)
-                e.preventDefault();
-                const format = quill.getFormat();
-                quill.format('bold', !format.bold);
-            } else if (keyLower === 'i') { // Miring (Italic)
-                e.preventDefault();
-                const format = quill.getFormat();
-                quill.format('italic', !format.italic);
-            } else if (keyLower === 'u') { // Garis Bawah (Underline)
-                e.preventDefault();
-                const format = quill.getFormat();
-                quill.format('underline', !format.underline);
-            } else if (keyLower === 'l' && !isInputFocused) { // Rata Kiri (Align Left)
+            } else if (keyLower === 'y' || code === 'KeyY') { // Redo (Ctrl+Y di Windows / Cmd+Y)
+                if (!e.defaultPrevented) {
+                    e.preventDefault();
+                    quill.history.redo();
+                }
+            } else if (keyLower === 'z' || code === 'KeyZ') { // Undo (Cmd+Z / Ctrl+Z)
+                if (!e.defaultPrevented) {
+                    e.preventDefault();
+                    quill.history.undo();
+                }
+            } else if (keyLower === 'b' || code === 'KeyB') { // Tebal (Bold)
+                if (!e.defaultPrevented) {
+                    e.preventDefault();
+                    const format = quill.getFormat();
+                    quill.format('bold', !format.bold);
+                }
+            } else if (keyLower === 'i' || code === 'KeyI') { // Miring (Italic)
+                if (!e.defaultPrevented) {
+                    e.preventDefault();
+                    const format = quill.getFormat();
+                    quill.format('italic', !format.italic);
+                }
+            } else if (keyLower === 'u' || code === 'KeyU') { // Garis Bawah (Underline)
+                if (!e.defaultPrevented) {
+                    e.preventDefault();
+                    const format = quill.getFormat();
+                    quill.format('underline', !format.underline);
+                }
+            } else if ((keyLower === 'l' || code === 'KeyL') && !isInputFocused) { // Rata Kiri (Align Left)
                 e.preventDefault();
                 quill.format('align', false);
-            } else if (keyLower === 'e' && !isInputFocused) { // Rata Tengah (Align Center)
+            } else if ((keyLower === 'e' || code === 'KeyE') && !isInputFocused) { // Rata Tengah (Align Center)
                 e.preventDefault();
                 quill.format('align', 'center');
-            } else if (keyLower === 'r' && !isInputFocused) { // Rata Kanan (Align Right) - cegah RELOAD di macOS!
+            } else if ((keyLower === 'r' || code === 'KeyR') && !isInputFocused) { // Rata Kanan (Align Right) - cegah RELOAD di macOS!
                 e.preventDefault();
                 quill.format('align', 'right');
-            } else if (keyLower === 'j' && !isInputFocused) { // Rata Kiri-Kanan (Align Justify)
+            } else if ((keyLower === 'j' || code === 'KeyJ') && !isInputFocused) { // Rata Kiri-Kanan (Align Justify)
                 e.preventDefault();
                 quill.format('align', 'justify');
-            } else if (keyLower === 'q') { // Cmd+Q (macOS) / Ctrl+Q (Linux & Windows)
+            } else if (keyLower === 'q' || code === 'KeyQ') { // Cmd+Q (macOS) / Ctrl+Q (Linux & Windows)
                 e.preventDefault();
                 actionExit?.click();
-            } else if (keyLower === 'w') { // Cmd+W (macOS)
+            } else if (keyLower === 'w' || code === 'KeyW') { // Cmd+W (macOS)
                 if (e.metaKey) {
                     e.preventDefault();
                     actionExit?.click();
                 }
-            } else if (keyLower === '1') {
+            } else if (keyLower === '1' || code === 'Digit1') {
                 e.preventDefault();
                 quill.format('lineheight', '1');
-            } else if (keyLower === '2') {
+            } else if (keyLower === '2' || code === 'Digit2') {
                 e.preventDefault();
                 quill.format('lineheight', '2');
-            } else if (keyLower === '5') {
+            } else if (keyLower === '5' || code === 'Digit5') {
                 e.preventDefault();
                 quill.format('lineheight', '1.5');
-            } else if (e.key === '=' || e.code === 'Equal') { // Subskrip (Ctrl/Cmd + =)
+            } else if (e.key === '=' || code === 'Equal') { // Subskrip atau Zoom In
                 e.preventDefault();
-                const format = quill.getFormat();
-                quill.format('script', format.script === 'sub' ? false : 'sub');
-            } else if (e.code === 'NumpadAdd') { // Zoom In Numpad
+                const range = quill.getSelection();
+                if (range && range.length > 0) {
+                    const format = quill.getFormat();
+                    quill.format('script', format.script === 'sub' ? false : 'sub');
+                } else {
+                    document.getElementById('action-zoom-in')?.click();
+                }
+            } else if (code === 'NumpadAdd') { // Zoom In Numpad
                 e.preventDefault();
                 document.getElementById('action-zoom-in')?.click();
-            } else if (e.key === '-' || e.code === 'Minus' || e.code === 'NumpadSubtract') { // Zoom Out
+            } else if (e.key === '-' || code === 'Minus' || code === 'NumpadSubtract') { // Zoom Out
                 e.preventDefault();
                 document.getElementById('action-zoom-out')?.click();
-            } else if (e.key === '0' || e.code === 'Digit0' || e.code === 'Numpad0') { // Reset Zoom 100%
+            } else if (e.key === '0' || code === 'Digit0' || code === 'Numpad0') { // Reset Zoom 100%
                 e.preventDefault();
                 document.getElementById('action-zoom-reset')?.click();
-            } else if (e.key === '\\') { // Bersihkan format
+            } else if (e.key === '\\' || code === 'Backslash') { // Bersihkan format
                 e.preventDefault();
                 document.querySelector('.ql-clean')?.click();
-            } else if (e.key === '[') { // Kurangi Indentasi
+            } else if (e.key === '[' || code === 'BracketLeft') { // Kurangi Indentasi
                 e.preventDefault();
                 quill.format('indent', '-1');
-            } else if (e.key === ']') { // Tambah Indentasi
+            } else if (e.key === ']' || code === 'BracketRight') { // Tambah Indentasi
                 e.preventDefault();
                 quill.format('indent', '+1');
-            } else if (e.key === 'Enter') { // Halaman Baru (Page Break)
+            } else if (e.key === 'Enter' || code === 'Enter' || code === 'NumpadEnter') { // Halaman Baru (Page Break)
                 e.preventDefault();
                 insertPageBreak(quill, quill.getSelection(true), false);
             }
         }
     } else if (e.altKey && e.shiftKey) {
         // Alt+Shift / Option+Shift Shortcuts
-        if (e.key.toLowerCase() === 'd') {
+        if (keyLower === 'd' || code === 'KeyD') {
             e.preventDefault();
             document.getElementById('btn-insert-date')?.click();
         }
-    } else if (e.altKey && e.key === 'F4') {
+    } else if (e.altKey && (e.key === 'F4' || code === 'F4')) {
         // Alt+F4 (Keluar di Windows / Linux)
         e.preventDefault();
         actionExit?.click();
-    } else if (e.shiftKey && e.key === 'F3') {
+    } else if (e.shiftKey && (e.key === 'F3' || code === 'F3')) {
         // Shift+F3: Putar kapitalisasi teks (Word-style rotation: lower -> UPPER -> Title)
         e.preventDefault();
         cycleShiftF3();
-    } else if (e.key === 'F1') {
+    } else if (e.key === 'F1' || code === 'F1') {
         e.preventDefault();
         document.getElementById('action-about')?.click();
-    } else if (e.key === 'Escape') {
+    } else if (e.key === 'Escape' || code === 'Escape') {
         const viewPrint = document.getElementById('view-print');
         if (viewPrint && viewPrint.classList.contains('active')) {
             closePrintView();
