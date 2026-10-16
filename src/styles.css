@@ -50,27 +50,94 @@ input, textarea, select, [contenteditable="true"], .ql-editor, .ql-editor * {
 /* SIDEBAR */
 #sidebar {
     width: 240px;
+    height: 100%;
     background: #F4F5F7;
     border-right: 1px solid #D1D5DB;
-    padding: 32px 24px;
+    padding: 24px 16px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
+    transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1), padding 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    flex-shrink: 0;
 }
-.logo { font-size: 18pt; font-weight: 700; color: #2D3142; }
-.menu { display: flex; flex-direction: column; gap: 8px; }
-.menu-item {
-    height: 36px;
-    border-radius: 0;
-    padding: 0 12px;
+.logo-container {
     display: flex;
     align-items: center;
-    font-size: 11pt;
-    color: #2D3142;
+    gap: 12px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    border-radius: 10px;
     cursor: pointer;
+    user-select: none;
+    transition: background 0.15s ease;
 }
-.menu-item:hover { background: #E1E4E8; }
-.menu-item.active { background: #E1E4E8; }
+.logo-container:hover {
+    background: #E8ECEF;
+}
+.logo-icon {
+    background: transparent;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.logo-text {
+    font-size: 16pt;
+    font-weight: 700;
+    margin: 0;
+    color: #1E2022;
+    white-space: nowrap;
+}
+.logo { font-size: 18pt; font-weight: 700; color: #2D3142; }
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    user-select: none;
+}
+.menu-item {
+    height: 42px;
+    border-radius: 8px;
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11pt;
+    color: #4B5563;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    box-sizing: border-box;
+}
+.menu-item:hover {
+    background: #E8ECEF;
+    color: #111827;
+}
+.menu-item.active {
+    background: #E1E4E8;
+    color: #111827;
+    font-weight: 600;
+}
+.menu-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+.menu-text {
+    font-size: 11pt;
+    white-space: nowrap;
+}
+.sidebar-bottom {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
 
 /* VIEWS */
 .view {
@@ -724,35 +791,86 @@ body.is-mac #menu-bar {
 .ql-snow .ql-picker.ql-lineheight .ql-picker-item[data-value="2"]::before { content: 'Spasi 2.0'; }
 
 /* LOGIKA SIDEBAR COLLAPSIBLE */
-#sidebar {
-    transition: width 0.3s ease;
-    overflow: hidden;
-    white-space: nowrap;
-}
 #sidebar.collapsed {
-    width: 72px; /* Cukup untuk ikon B dan ikon menu */
-}
-#sidebar.collapsed .logo-text {
-    display: none;
-}
-#sidebar.collapsed .menu-text {
-    display: none;
+    width: 76px;
+    padding: 16px 6px;
+    gap: 14px;
 }
 #sidebar.collapsed .logo-container {
-    padding: 24px 0 !important;
-    justify-content: center !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 4px 10px 4px;
+    margin-bottom: 2px;
+    gap: 6px;
+    width: 100%;
+    box-sizing: border-box;
+}
+#sidebar.collapsed .logo-icon {
+    width: 32px;
+    height: 32px;
+}
+#sidebar.collapsed .logo-text {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    color: #1E2022;
+    text-align: center;
+    line-height: 1.2;
+    margin: 0;
+    white-space: nowrap;
+    letter-spacing: -0.2px;
+}
+#sidebar.collapsed .menu {
+    gap: 10px;
+    align-items: center;
+    width: 100%;
 }
 #sidebar.collapsed .menu-item {
-    padding: 0 !important;
-    justify-content: center !important;
-}
-.menu-item {
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    width: 64px;
+    min-height: 56px;
+    height: auto;
+    padding: 7px 2px;
+    border-radius: 10px;
+    gap: 4px;
+    text-align: center;
+    background: transparent;
 }
-.menu-icon {
+#sidebar.collapsed .menu-item:hover {
+    background: #E8ECEF;
+    color: #111827;
+}
+#sidebar.collapsed .menu-item.active {
+    background: #E1E4E8;
+    color: #111827;
+    font-weight: 600;
+}
+#sidebar.collapsed .menu-icon {
+    width: 22px;
+    height: 22px;
     flex-shrink: 0;
+}
+#sidebar.collapsed .menu-text {
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.15;
+    text-align: center;
+    white-space: normal;
+    word-break: normal;
+    max-width: 100%;
+    color: inherit;
+    letter-spacing: -0.1px;
+}
+#sidebar.collapsed .sidebar-bottom {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 /* FLAT UI SETTINGS */

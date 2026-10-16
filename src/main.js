@@ -4766,8 +4766,15 @@ if (btnErrorClose) {
 // --- LOGIKA SIDEBAR & HALAMAN PENGATURAN ---
 const btnToggleSidebar = document.getElementById('btn-toggle-sidebar');
 if (btnToggleSidebar) {
+    if (localStorage.getItem('baku_sidebar_collapsed') === 'true') {
+        document.getElementById('sidebar')?.classList.add('collapsed');
+    }
     btnToggleSidebar.addEventListener('click', () => {
-        document.getElementById('sidebar').classList.toggle('collapsed');
+        const sb = document.getElementById('sidebar');
+        if (sb) {
+            sb.classList.toggle('collapsed');
+            localStorage.setItem('baku_sidebar_collapsed', sb.classList.contains('collapsed'));
+        }
     });
 }
 
