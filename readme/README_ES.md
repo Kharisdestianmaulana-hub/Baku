@@ -35,6 +35,7 @@
 - [Características Principales](#características-principales)
 - [Herramientas Extra PDF (100% Fuera de Línea)](#herramientas-extra-pdf-100-fuera-de-línea)
 - [Hoja de Ruta de Próximas Versiones (v1.2.0 – v1.5.0)](#hoja-de-ruta-de-próximas-versiones-v120--v150)
+- [Calendario Oficial de Lanzamientos (v1.1.0 – v1.5.0)](#calendario-oficial-de-lanzamientos-v110--v150)
 - [Arquitectura y Pila Tecnológica](#arquitectura-y-pila-tecnológica)
 - [Requisitos del Sistema e Instalación](#requisitos-del-sistema-e-instalación)
 - [Documentación Completa](#documentación-completa)
@@ -129,6 +130,20 @@ Consulte la documentación completa de la hoja de ruta:
 - [Hoja de Ruta en Español (../Update/Update_Baku_es.md)](../Update/Update_Baku_es.md)
 - [English Roadmap (../Update/Update_Baku_en.md)](../Update/Update_Baku_en.md)
 - [Directorio Completo de Hojas de Ruta (../Update/)](../Update/)
+
+---
+
+## Calendario Oficial de Lanzamientos (v1.1.0 – v1.5.0)
+
+Para asegurar la máxima estabilidad del software y permitir un control de calidad riguroso, Baku PDF adopta un ciclo de lanzamientos mensual constante (~4 semanas por versión menor):
+
+| Versión de Lanzamiento | Enfoque Principal | Fecha Objetivo de Lanzamiento | Estado de Publicación |
+| :--- | :--- | :--- | :--- |
+| **v1.1.0** | Pestañas Multidocumento y Compresor de PDF Fuera de Línea | **16 de octubre de 2026** | Completado y Publicado |
+| **v1.2.0** | Numeración de Tesis, Fórmulas KaTeX y Tablas Científicas | **14 – 16 de noviembre de 2026** | En Desarrollo |
+| **v1.3.0** | Instaladores Windows (.exe), Linux (.deb/AppImage) y Esquema | **14 – 16 de diciembre de 2026** | Planificado |
+| **v1.4.0** | Firmas Digitales, Protección por Contraseña y Utilidades PDF | **20 – 25 de enero de 2027** | Planificado |
+| **v1.5.0** | Virtualización DOM 500+ Págs, Modo Oscuro, Importación Docx | **1 – 5 de marzo de 2027** | Hito Principal |
 
 ---
 

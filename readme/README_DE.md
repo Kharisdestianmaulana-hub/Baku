@@ -35,6 +35,7 @@
 - [Hauptfunktionen](#hauptfunktionen)
 - [PDF-Zusatzwerkzeuge (100% Offline)](#pdf-zusatzwerkzeuge-100-offline)
 - [Roadmap Zukünftiger Veröffentlichungen (v1.2.0 – v1.5.0)](#roadmap-zukünftiger-veröffentlichungen-v120--v150)
+- [Offizieller Veröffentlichungszeitplan (v1.1.0 – v1.5.0)](#offizieller-veröffentlichungszeitplan-v110--v150)
 - [Architektur und Technologie-Stack](#architektur-und-technologie-stack)
 - [Systemvoraussetzungen und Installation](#systemvoraussetzungen-und-installation)
 - [Vollständige Dokumentation](#vollständige-dokumentation)
@@ -127,6 +128,20 @@ Detaillierte Roadmap-Spezifikationen einsehen:
 - [Roadmap auf Deutsch (../Update/Update_Baku_de.md)](../Update/Update_Baku_de.md)
 - [English Roadmap (../Update/Update_Baku_en.md)](../Update/Update_Baku_en.md)
 - [Verzeichnis aller Roadmap-Sprachen (../Update/)](../Update/)
+
+---
+
+## Offizieller Veröffentlichungszeitplan (v1.1.0 – v1.5.0)
+
+Um eine hohe Softwarestabilität und umfassende Qualitätsprüfungen zu gewährleisten, folgt Baku PDF einem geordneten monatlichen Veröffentlichungszyklus (~4 Wochen pro Minor-Version):
+
+| Version | Entwicklungsschwerpunkt | Zieldatum | Status |
+| :--- | :--- | :--- | :--- |
+| **v1.1.0** | Multi-Dokument-Tabs und Offline-PDF-Kompressor | **16. Oktober 2026** | Abgeschlossen & Veröffentlicht |
+| **v1.2.0** | Abschlussarbeits-Nummerierung, KaTeX und wissenschaftliche Tabellen | **14. – 16. November 2026** | In Entwicklung |
+| **v1.3.0** | Windows (.exe), Linux (.deb/AppImage) und Dokument-Gliederung | **14. – 16. Dezember 2026** | Geplant |
+| **v1.4.0** | Digitale Signaturen, Passwortschutz und PDF-Dienstprogramme | **20. – 25. Januar 2027** | Geplant |
+| **v1.5.0** | 500+ Seiten DOM-Virtualisierung, Dark Mode, Docx-Import | **1. – 5. März 2027** | Meilenstein-Höhepunkt |
 
 ---
 

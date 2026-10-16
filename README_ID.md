@@ -36,6 +36,7 @@
 - [Alat Ekstra PDF (100% Luring)](#alat-ekstra-pdf-100-luring)
 - [Daftar Templat Baku Bawaan](#daftar-templat-baku-bawaan)
 - [Peta Jalan Pembaruan Mendatang (v1.2.0 – v1.5.0)](#peta-jalan-pembaruan-mendatang-v120--v150)
+- [Jadwal Rilis Resmi (v1.1.0 – v1.5.0)](#jadwal-rilis-resmi-v110--v150)
 - [Arsitektur & Spesifikasi Teknis](#arsitektur--spesifikasi-teknis)
 - [Persyaratan Sistem & Instalasi](#persyaratan-sistem--instalasi)
 - [Dokumentasi Lengkap](#dokumentasi-lengkap)
@@ -161,6 +162,20 @@ Seluruh perencanaan fitur baru, peta jalan teknis, dan catatan versi masa depan 
 | **Português** | [Update_Baku_pt.md](Update/Update_Baku_pt.md) | Roteiro oficial de lançamentos e especificações em português. |
 | **Русский** | [Update_Baku_ru.md](Update/Update_Baku_ru.md) | Официальный план развития и спецификации функций на русском языке. |
 | **العربية** | [Update_Baku_ar.md](Update/Update_Baku_ar.md) | خارطة طريق الإصدارات الرسمية والمواصفات باللغة العربية. |
+
+---
+
+## Jadwal Rilis Resmi (v1.1.0 – v1.5.0)
+
+Untuk menjaga stabilitas performa aplikasi serta ketelitian pengujian mutu (*quality assurance*), jadwal rilis Baku PDF mengadopsi siklus bulanan teratur (~4 minggu per versi minor):
+
+| Versi Rilis | Fokus Utama Rilis | Target Tanggal Rilis | Status Rilis |
+| :--- | :--- | :--- | :--- |
+| **v1.1.0** | Bilah Tab Multi-Dokumen & Kompresor PDF Luring | **16 Oktober 2026** | Selesai Dirilis |
+| **v1.2.0** | Standar Akademik Skripsi, KaTeX Luring & Tabel Ilmiah | **14 – 16 November 2026** | Tahap Pengembangan |
+| **v1.3.0** | Distribusi Windows (.exe), Linux (.deb/AppImage) & Outline | **14 – 16 Desember 2026** | Direncanakan |
+| **v1.4.0** | Tanda Tangan Digital, Proteksi Sandi & Utilitas PDF Luring | **20 – 25 Januari 2027** | Direncanakan |
+| **v1.5.0** | Virtualisasi DOM 500+ Hal, Dark Mode, Impor Docx & Zen Mode | **1 – 5 Maret 2027** | Puncak Milestone |
 
 ---
 

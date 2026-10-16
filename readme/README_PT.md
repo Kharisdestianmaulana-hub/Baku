@@ -35,6 +35,7 @@
 - [Principais Funcionalidades](#principais-funcionalidades)
 - [Ferramentas Extras de PDF (100% Offline)](#ferramentas-extras-de-pdf-100-offline)
 - [Roteiro de Próximos Lançamentos (v1.2.0 – v1.5.0)](#roteiro-de-próximos-lançamentos-v120--v150)
+- [Cronograma Oficial de Lançamentos (v1.1.0 – v1.5.0)](#cronograma-oficial-de-lançamentos-v110--v150)
 - [Arquitetura e Tecnologias](#arquitetura-e-tecnologias)
 - [Requisitos e Instalação](#requisitos-e-instalação)
 - [Documentação Completa](#documentação-completa)
@@ -127,6 +128,20 @@ Acesse as especificações completas do roteiro:
 - [Roteiro em Português (../Update/Update_Baku_pt.md)](../Update/Update_Baku_pt.md)
 - [English Roadmap (../Update/Update_Baku_en.md)](../Update/Update_Baku_en.md)
 - [Diretório Completo de Roteiros (../Update/)](../Update/)
+
+---
+
+## Cronograma Oficial de Lançamentos (v1.1.0 – v1.5.0)
+
+Para manter a confiabilidade do software e garantir testes de qualidade consistentes, o Baku PDF adota um ciclo mensal disciplinado (~4 semanas por versão secundária):
+
+| Versão | Foco Principal do Lançamento | Data Alvo de Lançamento | Status |
+| :--- | :--- | :--- | :--- |
+| **v1.1.0** | Abas Multidocumento e Compressor de PDF Offline | **16 de outubro de 2026** | Concluído e Lançado |
+| **v1.2.0** | Numeração de Teses, KaTeX Offline e Tabelas Científicas | **14 – 16 de novembro de 2026** | Em Desenvolvimento |
+| **v1.3.0** | Instaladores Windows (.exe), Linux (.deb/AppImage) e Outline | **14 – 16 de dezembro de 2026** | Planejado |
+| **v1.4.0** | Assinaturas Digitais, Senhas e Utilitários de PDF Offline | **20 – 25 de janeiro de 2027** | Planejado |
+| **v1.5.0** | Virtualização DOM 500+ Págs, Dark Mode, Importação Docx | **1 – 5 de março de 2027** | Marco Principal |
 
 ---
 

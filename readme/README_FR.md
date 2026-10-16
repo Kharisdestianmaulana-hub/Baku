@@ -35,6 +35,7 @@
 - [Fonctionnalités Principales](#fonctionnalités-principales)
 - [Outils PDF Additionnels (100% Hors Ligne)](#outils-pdf-additionnels-100-hors-ligne)
 - [Feuille de Route des Prochaines Versions (v1.2.0 – v1.5.0)](#feuille-de-route-des-prochaines-versions-v120--v150)
+- [Calendrier Officiel des Versions (v1.1.0 – v1.5.0)](#calendrier-officiel-des-versions-v110--v150)
 - [Architecture et Pile Technologique](#architecture-et-pile-technologique)
 - [Prérequis et Installation](#prérequis-et-installation)
 - [Documentation Complète](#documentation-complète)
@@ -127,6 +128,20 @@ Consultez les spécifications complètes de la feuille de route :
 - [Feuille de Route en Français (../Update/Update_Baku_fr.md)](../Update/Update_Baku_fr.md)
 - [English Roadmap (../Update/Update_Baku_en.md)](../Update/Update_Baku_en.md)
 - [Répertoire des Feuilles de Route Multilingues (../Update/)](../Update/)
+
+---
+
+## Calendrier Officiel des Versions (v1.1.0 – v1.5.0)
+
+Afin d'assurer une stabilité logicielle optimale et de garantir des tests de qualité approfondis, Baku PDF adopte un cycle de publication mensuel régulier (~4 semaines par version mineure) :
+
+| Version | Axe Principal de Développement | Date Cible de Publication | Statut |
+| :--- | :--- | :--- | :--- |
+| **v1.1.0** | Onglets Multi-Documents et Compresseur PDF Hors Ligne | **16 octobre 2026** | Déployé et Publié |
+| **v1.2.0** | Numérotation de Thèse, KaTeX Hors Ligne et Tableaux Scientifiques | **14 – 16 novembre 2026** | En Développement |
+| **v1.3.0** | Installateurs Windows (.exe), Linux (.deb/AppImage) et Plan de Document | **14 – 16 décembre 2026** | Planifié |
+| **v1.4.0** | Signatures Numériques, Protection par Mot de Passe et Utilitaires PDF | **20 – 25 janvier 2027** | Planifié |
+| **v1.5.0** | Virtualisation DOM 500+ Pages, Mode Sombre, Import Docx | **1 – 5 mars 2027** | Jalon Majeur |
 
 ---
 

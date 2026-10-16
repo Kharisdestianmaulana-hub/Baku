@@ -36,6 +36,7 @@
 - [Offline PDF Extra Tools (100% Local)](#offline-pdf-extra-tools-100-local)
 - [Built-In Standard Templates](#built-in-standard-templates)
 - [Upcoming Release Roadmap (v1.2.0 – v1.5.0)](#upcoming-release-roadmap-v120--v150)
+- [Official Release Schedule (v1.1.0 – v1.5.0)](#official-release-schedule-v110--v150)
 - [Architecture & Tech Stack](#architecture--tech-stack)
 - [System Requirements & Installation](#system-requirements--installation)
 - [Complete Documentation](#complete-documentation)
@@ -161,6 +162,20 @@ All upcoming feature plans, technical roadmaps, and version updates are maintain
 | **Português** | [Update_Baku_pt.md](Update/Update_Baku_pt.md) | Roteiro oficial de lançamentos e especificações em português. |
 | **Русский** | [Update_Baku_ru.md](Update/Update_Baku_ru.md) | Официальный план развития и спецификации функций на русском языке. |
 | **العربية** | [Update_Baku_ar.md](Update/Update_Baku_ar.md) | خارطة طريق الإصدارات الرسمية والمواصفات باللغة العربية. |
+
+---
+
+## Official Release Schedule (v1.1.0 – v1.5.0)
+
+To maintain high software reliability and allow thorough testing, Baku PDF follows a disciplined monthly release cycle (~4 weeks per minor version):
+
+| Release Version | Primary Focus Area | Target Release Date | Release Status |
+| :--- | :--- | :--- | :--- |
+| **v1.1.0** | Multi-Document Tab Bar & Offline PDF Compressor | **October 16, 2026** | Completed & Released |
+| **v1.2.0** | Thesis Page Numbering, Offline KaTeX & Scientific Tables | **November 14 – 16, 2026** | In Development |
+| **v1.3.0** | Windows (.exe), Linux (.deb/AppImage) & Document Outline | **December 14 – 16, 2026** | Planned |
+| **v1.4.0** | Digital Signatures, Password Protection & PDF Utilities | **January 20 – 25, 2027** | Planned |
+| **v1.5.0** | 500+ Page DOM Virtualizer, Dark Mode, Docx Import & Zen Mode | **March 1 – 5, 2027** | Milestone Peak |
 
 ---
 
