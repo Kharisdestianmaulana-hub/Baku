@@ -18,9 +18,9 @@
 
 # Rencana Pembaruan Baku PDF (Roadmap v1.1.0 – v1.5.0)
 
-Dokumen ini memuat analisis status fitur saat ini pada rilis **Baku PDF v1.0.0** serta daftar rencana fitur baru, peningkatan performa, dan ekspansi modul yang dirilis secara bertahap mulai dari **Baku PDF v1.1.0 hingga v1.5.0**. Pembaruan bertahap ini difokuskan pada penyempurnaan ekosistem penulisan akademik lanjutan, penambahan alat manipulasi PDF luring tingkat lanjut, dukungan multi-platform penuh (Windows, macOS, Linux), serta efisiensi perenderan dokumen naskah tebal.
+Dokumen ini memuat analisis status fitur saat ini pada rilis **Baku PDF v1.0.0** serta daftar rencana fitur baru, peningkatan performa, dan ekspansi modul yang dikelompokkan secara terstruktur berdasarkan nomor versi rilis mulai dari **v1.1.0 hingga v1.5.0**. Setiap tahapan rilis dirancang terukur, teruji secara bertahap, dan mempertahankan prinsip dasar aplikasi:
 
-Prinsip utama pengembangan Baku PDF tetap dipertahankan:
+Prinsip utama pengembangan Baku PDF:
 - **100% Luring (Offline-First)**: Seluruh pemrosesan berjalan di komputer lokal tanpa server awan.
 - **Privasi Mutlak**: Tanpa analitik pelacak, telemetri, atau transmisi data keluar jaringan.
 - **Konsumsi Sumber Daya Rendah**: Performa cepat dan hemat memori RAM (~50-80 MB).
@@ -31,21 +31,18 @@ Prinsip utama pengembangan Baku PDF tetap dipertahankan:
 
 ## Daftar Isi Dokumen
 
-1. [Status Fitur yang Sudah Tersedia (Baseline v1.0.0)](#1-status-fitur-yang-sudah-tersedia-baseline-v100)
-2. [Editor Dokumen & Tipografi Baku Ilmiah Lanjutan](#2-editor-dokumen--tipografi-baku-ilmiah-lanjutan)
-3. [Manajemen Struktur Dokumen Akademik Otomatis](#3-manajemen-struktur-dokumen-akademik-otomatis)
-4. [Ekspansi Alat Ekstra PDF Luring Baru](#4-ekspansi-alat-ekstra-pdf-luring-baru)
-5. [Koleksi Templat Standar Tambahan](#5-koleksi-templat-standar-tambahan)
-6. [Dukungan Multi-Platform & Distribusi Biner](#6-dukungan-multi-platform--distribusi-biner)
-7. [Arsitektur Inti, Performa, & Penanganan Dokumen Tebal](#7-arsitektur-inti-performa--penanganan-dokumen-tebal)
-8. [Antarmuka Pengguna, Navigasi, & Aksesibilitas](#8-antarmuka-pengguna-navigasi--aksesibilitas)
-9. [Interoperabilitas Format & Kompatibilitas Berkas](#9-interoperabilitas-format--kompatibilitas-berkas)
-10. [Keamanan Dokumen & Pembersihan Metadata](#10-keamanan-dokumen--pembersihan-metadata)
-11. [Tahapan Rilis Bertahap & Matriks Prioritas (v1.1.0 – v1.5.0)](#11-tahapan-rilis-bertahap--matriks-prioritas-v110--v150)
+1. [Status Fitur Fondasi Saat Ini (Rilis v1.0.0)](#1-status-fitur-fondasi-saat-ini-rilis-v100)
+2. [Rencana Pembaruan Versi 1.1.0 (Tab Multi-Dokumen & Efisiensi Kerja)](#2-rencana-pembaruan-versi-110-tab-multi-dokumen--efisiensi-kerja)
+3. [Rencana Pembaruan Versi 1.2.0 (Standar Akademik & Tipografi Ilmiah)](#3-rencana-pembaruan-versi-120-standar-akademik--tipografi-ilmiah)
+4. [Rencana Pembaruan Versi 1.3.0 (Distribusi Multi-Platform Penuh & Navigasi)](#4-rencana-pembaruan-versi-130-distribusi-multi-platform-penuh--navigasi)
+5. [Rencana Pembaruan Versi 1.4.0 (Utilitas PDF Luring & Keamanan Dokumen)](#5-rencana-pembaruan-versi-140-utilitas-pdf-luring--keamanan-dokumen)
+6. [Rencana Pembaruan Versi 1.5.0 (Puncak Milestone Ekosistem & Performa Naskah Tebal)](#6-rencana-pembaruan-versi-150-puncak-milestone-ekosistem--performa-naskah-tebal)
+7. [Matriks Prioritas Teknis & Rangkuman Tahapan Rilis (v1.1.0 – v1.5.0)](#7-matriks-prioritas-teknis--rangkuman-tahapan-rilis-v110--v150)
+8. [Kontribusi & Diskusi Fitur](#8-kontribusi--diskusi-fitur)
 
 ---
 
-## 1. Status Fitur yang Sudah Tersedia (Baseline v1.0.0)
+## 1. Status Fitur Fondasi Saat Ini (Rilis v1.0.0)
 
 Berdasarkan audit menyeluruh terhadap kode sumber Baku PDF, modul-modul berikut **telah selesai diimplementasikan secara penuh pada versi 1.0.0**:
 
@@ -61,226 +58,15 @@ Berdasarkan audit menyeluruh terhadap kode sumber Baku PDF, modul-modul berikut 
 | **4 Alat Ekstra PDF Luring** | Sudah Ada | Gabungkan PDF (*Merge*), Pisahkan PDF (*Split*), Putar Halaman PDF (*Rotate*), dan Gambar ke PDF (*Images to PDF*) berbasis pustaka Rust `lopdf` dan `image`. |
 | **Paket macOS Universal DMG Installer** | Sudah Ada | Bundel DMG Universal Binary (`x86_64` Intel + `arm64` Apple Silicon M1/M2/M3/M4) resmi (`Baku_1.0.0_Universal_Installer.dmg` / `Baku_1.0.0_Installer.dmg`) dengan latar belakang panduan seret-lepas dan perlindungan eksekusi volume sementara (`check_running_from_dmg`). |
 
-Fitur-fitur di atas merupakan fondasi stabil versi 1.0.0 dan **tidak lagi dicantumkan sebagai rencana fitur baru**, melainkan sebagai pijakan integrasi untuk fitur-fitur lanjutan versi 1.5 di bawah ini.
+Fitur-fitur di atas merupakan fondasi stabil versi 1.0.0 dan **tidak lagi dicantumkan sebagai rencana fitur baru**, melainkan sebagai pijakan integrasi untuk fitur-fitur rilis bertahap di bawah ini.
 
 ---
 
-## 2. Editor Dokumen & Tipografi Baku Ilmiah Lanjutan
+## 2. Rencana Pembaruan Versi 1.1.0 (Tab Multi-Dokumen & Efisiensi Kerja)
 
-### 2.1. Notasi Matematika & Rumus Ilmiah (KaTeX Luring)
-- Integrasi parser formula KaTeX yang dikemas 100% secara luring di dalam bundel aplikasi.
-- Penyisipan blok persamaan matematika interaktif (`Inline Math` dan `Block Equation`).
-- Penomoran otomatis persamaan di tepi kanan lembar kertas sesuai bab: `(1.1)`, `(1.2)`, dll.
-- Dukungan simbol kalkulus, matriks, aljabar linear, dan notasi fisika/kimia standar.
+Tahap pembaruan **v1.1.0** difokuskan pada produktivitas pengetikan naskah paralel dan penyusutan berkas PDF hasil ekspor agar siap diunggah ke berbagai portal publik:
 
-### 2.2. Ekspansi Penggaris Interaktif: Indentasi Paragraf & Penggaris Vertikal
-- Menambahkan penanda seret khusus pada penggaris horisontal yang sudah ada:
-  - **Penanda Indentasi Baris Pertama (*First Line Indent*)**: Menentukan awal paragraf menjorok ke dalam (misal 1 cm atau 1.27 cm).
-  - **Penanda Indentasi Gantung (*Hanging Indent*)**: Menentukan batas kiri baris lanjutan (standar penulisan Daftar Pustaka format APA/IEEE).
-- **Penggaris Vertikal (Vertical Ruler)** di sebelah kiri lembar kertas:
-  - Mengukur ketinggian halaman aktual (cm).
-  - Penanda seret visual untuk mengatur margin atas (*top margin*) dan margin bawah (*bottom margin*) langsung dari kanvas.
-
-### 2.3. Pemformatan Tabel Ilmiah Tingkat Lanjut (Advanced Scientific Tables)
-- Penggabungan sel horizontal (*Merge Columns*) dan vertikal (*Merge Rows*).
-- Pemisah batas sel kustom gaya publikasi ilmiah (*Booktabs Style*): tabel tanpa garis batas vertikal (hanya garis atas tebal, garis bawah header tipis, dan garis penutup tebal).
-- Perataan angka desimal pada kolom numerik (penyesuaian posisi titik koma desimal).
-- Pengulangan baris judul tabel secara otomatis jika tabel terpotong ke lembar halaman berikutnya (*Repeat Header Row across Pages*).
-- Penomoran otomatis judul tabel: `Tabel 1.1: Judul Tabel`.
-
-### 2.4. Pemeriksa Ejaan & Panduan PUEBI/KBBI Luring
-- Kamus kata dasar Bahasa Indonesia luring terintegrasi untuk pendeteksian salah ketik (*typo*).
-- Penanda garis bawah merah lembut untuk kata di luar perbendaharaan baku.
-- Saran koreksi kata baku melalui menu klik kanan (misal: *analisa* -> *analisis*, *praktek* -> *praktik*, *jadual* -> *jadwal*).
-- Pemisahan suku kata otomatis (*Hyphenation*) berdasarkan kaidah fonologi Bahasa Indonesia untuk paragraf rata kiri-kanan (*Justify*) agar spasi antar-kata tidak renggang berlebihan.
-
----
-
-## 3. Manajemen Struktur Dokumen Akademik Otomatis
-
-### 3.1. Aturan Penomoran Halaman Skripsi Baku Otomatis (Dual-Positioning Rules)
-- Otomatisasi aturan penempatan nomor halaman karya ilmiah Indonesia:
-  - Halaman pertama setiap Bab baru (memuat judul Bab) otomatis diletakkan di **tengah bawah**.
-  - Halaman lanjutan Bab tersebut otomatis berpindah ke **sudut kanan atas**.
-- Penomoran seksi independen (*Restart Numbering per Section*) yang terisolasi tanpa merusak penomoran seksi sebelumnya.
-
-### 3.2. Pembuat Daftar Isi Dinamis (Auto Table of Contents)
-- Pembangkitan Daftar Isi instan berdasarkan hierarki heading dokumen (Heading 1 = Bab, Heading 2 = Sub-bab, Heading 3 = Anak Sub-bab).
-- Garis titik-titik pemandu (*dot leaders*) otomatis yang menghubungkan judul bab dengan nomor halaman di sisi kanan.
-- Tombol pembaruan satu klik (*Update Entire Table*) saat terjadi pergeseran halaman atau perubahan judul naskah.
-
-### 3.3. Pembuat Daftar Tabel & Daftar Gambar Dinamis
-- Pelacakan otomatis seluruh keterangan (*caption*) tabel dan gambar dalam naskah dokumen.
-- Penyusunan otomatis halaman Daftar Tabel dan Daftar Gambar dengan sinkronisasi nomor halaman real-time.
-
-### 3.4. Pengelola Sitasi & Daftar Pustaka Luring (Citation Manager)
-- Input bibliografi manual atau impor dari berkas pustaka BibTeX (`.bib`) dan RIS.
-- Format sitasi otomatis dalam naskah:
-  - Gaya APA 7th Edition: `(Maulana, 2026)`
-  - Gaya IEEE: `[1]`
-  - Gaya Harvard: `(Maulana 2026, hlm. 45)`
-  - Gaya Vancouver
-- Pembangkitan Daftar Pustaka otomatis di akhir dokumen yang terurut secara alfabetis atau kronologis nomor kutipan dengan format *hanging indent* baku.
-
----
-
-## 4. Ekspansi Alat Ekstra PDF Luring Baru
-
-Di luar 4 alat yang sudah ada (Gabung, Pisah, Putar, Gambar ke PDF), versi 1.5 menambahkan 6 alat manipulasi PDF luring baru:
-
-### 4.1. Kompresor Ukuran Berkas PDF (Offline PDF Compressor)
-- Pengurangan ukuran berkas PDF secara lokal menggunakan pustaka Rust teroptimasi tanpa menurunkan keterbacaan teks naskah.
-- Preset target kompresi instan:
-  - **Di bawah 500 KB**: Standar unggah portal pendaftaran CPNS, BUMN, dan beasiswa.
-  - **Di bawah 1 MB**: Standar portal akademik dan repositori tugas akhir kampus.
-  - **Di bawah 2 MB**: Standar berkas publikasi umum.
-  - **Kustom**: Input manual target resolusi DPI gambar (150 DPI, 96 DPI, 72 DPI).
-- Tampilan estimasi ukuran sebelum dan sesudah kompresi sebelum berkas disimpan.
-
-### 4.2. Penandatangan & Pembubuh Paraf Digital Luring (Offline Signature & Stamp)
-- Penggambaran tanda tangan langsung menggunakan kursor/stylus atau impor gambar tanda tangan berlatar transparan (PNG).
-- Penempatan tanda tangan pada halaman mana pun dengan pratinjau seret-dan-lepas (*drag-and-drop*).
-- Fitur tanda tangan massal pada koordinat tetap untuk dokumen multi-halaman.
-- Pembubuhan stempel tanggal dan paraf luring.
-
-### 4.3. Proteksi & Enkripsi Kata Sandi PDF (PDF Password Protect & Decrypt)
-- Pemasangan kata sandi buka dokumen (*User Password*) menggunakan enkripsi standar industri AES-256 luring.
-- Pemasangan kata sandi izin (*Owner/Permissions Password*):
-  - Membatasi pencetakan dokumen.
-  - Membatasi penyalinan teks dan ekstraksi konten.
-  - Membatasi modifikasi anotasi.
-- Alat penghapus proteksi sandi (bagi pemilik berkas yang memiliki kata sandi sah).
-
-### 4.4. Penyusun & Pemilah Halaman Visual (Visual Page Organizer & Reorder)
-- Antarmuka kisi thumbnail visual untuk setiap halaman dokumen PDF.
-- Pemindahan urutan halaman dengan seret-dan-lepas (*drag-and-drop reordering*).
-- Penghapusan halaman tunggal atau rentang halaman tertentu dengan tombol cepat.
-- Penyisipan halaman kosong atau penyisipan halaman dari berkas PDF lain ke titik tertentu.
-
-### 4.5. Penomoran Halaman PDF Eksternal (Bates Numbering & PDF Page Stamper)
-- Penomoran berkas PDF pihak ketiga yang belum memiliki nomor halaman.
-- Konfigurasi letak nomor: sudut kanan atas, sudut kanan bawah, atau tengah bawah.
-- Konfigurasi awalan teks (misal: `Lampiran Halaman 1 dari 10`, `Hal. 1`, atau nomor perkara peradilan).
-
-### 4.6. Pembubuh Watermark / Cap Teks Luring (PDF Watermark Tool)
-- Pembubuhan teks watermark diagonal (kemiringan 45 derajat) atau horizontal.
-- Preset kata: `DRAFT`, `SALINAN RESMI`, `RAHASIA`, `CONFIDENTIAL`, `SAMPLE`.
-- Pengaturan transparansi teks (*opacity*), ukuran huruf, warna, dan pemilihan rentang halaman sasaran.
-
----
-
-## 5. Koleksi Templat Standar Tambahan
-
-Melengkapi 8 templat yang sudah tersedia pada v1.0.0, v1.5 menghadirkan templat standar baru untuk kebutuhan spesifik:
-
-### 5.1. Templat Publikasi & Jurnal Ilmiah
-- **Jurnal Ilmiah Format SINTA (Tata Letak Kolom Ganda)**:
-  - Tata letak dua kolom presisi dengan bagian judul satu kolom penuh.
-  - Blok abstrak dwibahasa (Bahasa Indonesia & Bahasa Inggris) dengan kata kunci (*keywords*).
-  - Struktur IMRAD baku: Pendahuluan, Metode, Hasil dan Pembahasan, Kesimpulan.
-- **Paper Prosiding Standar IEEE**:
-  - Standar ukuran margin, font Times New Roman 10pt/8pt, dan penataan grafik dua kolom.
-
-### 5.2. Templat Administrasi Kampus & Hibah Penelitian
-- **Proposal Program Kreativitas Mahasiswa (PKM Kemendikbudristek)**:
-  - Format baku sesuai panduan pedoman PKM terbaru: lembar pengesahan, rincian anggaran biaya format tabel baku, dan jadwal kegiatan.
-- **Laporan Praktik Kerja Lapangan (PKL) / Magang Industri**:
-  - Struktur pelaporan kegiatan mingguan, profil institusi mitra, dan logbook kegiatan.
-- **Proposal Tesis & Disertasi Pascasarjana**:
-  - Standar metodologi penelitian mendalam, kerangka pemikiran konseptual, dan hipotesis.
-
-### 5.3. Templat Administrasi Pemerintahan & Lembaga Resmi
-- **Nota Dinas & Surat Perintah Tugas (SPT)**:
-  - Format administrasi instansi pemerintah dengan kop naskah dinas, dasar pertimbangan, dan diktum penetapan tugas.
-- **Surat Keputusan (SK) Resmi**:
-  - Format standar perundang-undangan: konsiderans Menimbang, Mengingat, Memperhatikan, dan Menetapkan.
-- **Berita Acara Serah Terima (BAST)**:
-  - Format baku penyerahan pekerjaan fisik atau dokumen dengan klausul saksi.
-
-### 5.4. Ekspor/Impor Berkas Paket Templat Mandiri (.bakutpl)
-- Mengembangkan fitur templat kustom yang sudah ada dengan kemampuan mengekspor templat buatan pengguna ke dalam satu berkas paket portabel `.bakutpl`.
-- Kemampuan mengimpor berkas `.bakutpl` dari komputer lain langsung ke dalam Galeri Templat lokal.
-
----
-
-## 6. Dukungan Multi-Platform & Distribusi Biner
-
-### 6.1. Rilis Sistem Operasi Windows
-- **Installer NSIS Terbimbing (`.exe`)**:
-  - Installer 64-bit (`x64`) dan ARM64 untuk Windows 10 dan Windows 11.
-  - Integrasi pintasan Menu Mulai (*Start Menu*), Desktop, dan pembuat asosiasi berkas `.baku`.
-  - Pemasangan uninstaller bersih tanpa meninggalkan sisa sampah di registri.
-- **Edisi Portabel Mandiri (`Baku_Portable.exe`)**:
-  - Eksekusi langsung tanpa memerlukan hak administrator, cocok untuk komputer laboratorium atau lingkungan kerja terbatas.
-- **Dukungan Microsoft Package Manager (`winget`)**:
-  - Penerbitan manifes rilis ke repositori resmi `winget-pkgs`:
-    ```cmd
-    winget install Baku.BakuPDF
-    ```
-
-### 6.2. Rilis Sistem Operasi Linux
-- **Paket Universal `AppImage`**:
-  - Satu berkas mandiri siap jalan yang kompatibel dengan berbagai distribusi (Ubuntu, Fedora, Arch Linux, Debian, openSUSE).
-- **Paket Debian / Ubuntu (`.deb`)**:
-  - Paket biner native dengan pemenuhan dependensi `webkit2gtk-4.1`.
-- **Dukungan Flathub & Arch User Repository (AUR)**:
-  - Pembuatan manifes `flatpak` untuk ekosistem distribusi terisolasi sandbox.
-  - Paket `baku-bin` pada repositori komunitas Arch Linux (AUR).
-
-### 6.3. Distribusi macOS Lanjutan
-- **Distribusi Homebrew Cask**:
-  - Dukungan instalasi praktis melalui terminal macOS:
-    ```bash
-    brew install --cask baku-pdf
-    ```
-- **Penandatanganan Kode & Notarisasi Apple (Code Signing & Notarization)**:
-  - Mengintegrasikan sertifikat Apple Developer ID dan notarisasi resmi Apple agar aplikasi dapat dibuka langsung tanpa peringatan Gatekeeper macOS.
-
----
-
-## 7. Arsitektur Inti, Performa, & Penanganan Dokumen Tebal
-
-### 7.1. Virtualisasi Lembar Kertas (Infinite Virtual DOM Page Rendering)
-- Render hanya lembar kertas yang sedang berada dalam area pandang (*viewport*) layar pengguna ditambah buffer 1-2 halaman sebelum dan sesudah.
-- Memungkinkan pembukaan dokumen berbobot lebih dari 500 halaman (seperti buku ajar dan draf disertasi utuh) tanpa lonjakan konsumsi memori RAM.
-- Waktu respons pengetikan (*input latency*) tetap berada di bawah 8 milidetik terlepas dari ketebalan naskah.
-
-### 7.2. Mesin Pengekspor PDF Native Rust Murni
-- Transisi modul ekspor PDF utama ke pustaka Rust native (`printpdf` dan `lopdf`) untuk melengkapi mekanisme cetak WebView.
-- Hasil ekspor menghasilkan teks berbasis vektor murni yang dapat disalin (*searchable and selectable text*) dengan ukuran berkas keluaran hingga 60% lebih ringkas.
-- Penanaman font (*Font Subsetting*) otomatis: hanya glif font yang digunakan yang disematkan ke dalam berkas PDF.
-
-### 7.3. Sistem Simpan Otomatis & Pemulihan Pasca Gangguan (Crash Auto-Recovery)
-- Penyimpanan berkas berkala (*Auto-Save*) setiap 60 detik ke direktori penyimpanan lokal terisolasi.
-- Jika komputer mati mendadak atau aplikasi terhenti paksa, sesi dokumen yang belum tersimpan akan ditampilkan dalam dialog pemulihan otomatis saat aplikasi dibuka kembali.
-- Riwayat snapshot versi lokal (*Local Revision History*) yang memungkinkan pengembalian dokumen ke status penulisan 15, 30, atau 60 menit sebelumnya.
-
----
-
-## 8. Antarmuka Pengguna, Navigasi, & Aksesibilitas
-
-### 8.1. Bilah Samping Navigasi Dokumen (Document Outline & Navigator Sidebar)
-- Panel bilah samping kiri pada kanvas editor yang dapat dibuka-tutup (*Collapsible Sidebar*):
-  - **Tab Navigasi Judul**: Pohon hierarki Bab dan Sub-bab; mengeklik judul akan langsung menggulir layar ke halaman bersangkutan.
-  - **Tab Thumbnail Halaman**: Tinjauan miniatur seluruh halaman dokumen secara vertikal.
-  - **Tab Hasil Pencarian**: Menampilkan daftar kutipan kalimat yang cocok saat menggunakan fitur Temukan & Ganti (*Find & Replace*).
-
-### 8.2. Mode Gelap & Terang Adaptif Penuh (Adaptive Dark/Light Themes)
-- Tema Gelap Khusus (*True Dark Theme*) yang dirancang dengan rasio kontras tinggi sesuai standar WCAG AAA.
-- Pilihan representasi lembar kertas di Mode Gelap:
-  - *Kertas Terang di Lingkungan Gelap* (representasi fisik asli cetak).
-  - *Kertas Terbalik Gelap* (mode kenyamanan membaca malam hari untuk mengurangi kelelahan mata).
-- Sinkronisasi otomatis dengan preferensi tema sistem operasi (*Follow System Theme*).
-
-### 8.3. Mode Penulisan Bebas Gangguan (Zen / Distraction-Free Mode)
-- Menyembunyikan seluruh bilah menu, pita alat ribbon, dan bilah samping dengan satu tombol pintas (`F11` atau `Cmd+Shift+F`).
-- Hanya menampilkan lembar kertas terpusat dengan latar belakang redup untuk fokus penuh pada pembuatan draf naskah.
-
-### 8.4. Tata Letak Dua Halaman Berdampingan & Preset Skala Lanjutan
-- **Tampilan Berdampingan (*Two-Page Spread View*)**: Menampilkan dua halaman lembar kertas berdampingan secara horizontal pada monitor layar lebar.
-- **Opsi Skala Lanjutan**: Opsi *Fit to Width* (Sesuaikan Lebar Jendela) dan *Fit to Page* (Sesuaikan Satu Halaman Penuh) yang melengkapi kontrol zoom persentase yang sudah ada.
-
-### 8.5. Bilah Tab Multi-Dokumen (Multi-Document Tab Bar)
+### 2.1. Bilah Tab Multi-Dokumen (Multi-Document Tab Bar)
 - **Tujuan & Manfaat Kerja**:
   - Mengeliminasi kebutuhan berganti jendela sistem operasi (Alt+Tab / Cmd+`) saat menyusun naskah yang membutuhkan banyak dokumen rujukan sekaligus (misal: draf Bab I, catatan revisi pembimbing, dan dokumen templat panduan).
   - Membuka dan mengedit hingga banyak dokumen `.baku` secara bersamaan dalam satu jendela aplikasi yang terintegrasi.
@@ -311,54 +97,219 @@ Melengkapi 8 templat yang sudah tersedia pada v1.0.0, v1.5 menghadirkan templat 
   - `Ctrl+Shift+Tab` / `Cmd+Option+Left`: Berpindah ke tab dokumen sebelumnya.
   - `Ctrl+W` / `Cmd+W`: Menutup tab aktif dengan pengaman konfirmasi simpan.
 
----
-
-## 9. Interoperabilitas Format & Kompatibilitas Berkas
-
-### 9.1. Impor & Konversi Berkas Word (.docx) Luring
-- Parser berkas `.docx` lokal murni berbasis Rust untuk membaca naskah Word yang sudah ada.
-- Menjaga integritas pemformatan dasar: teks tebal, miring, garis bawah, tabel, paragraf, dan daftar butir/nomor.
-- Mengonversi otomatis margin dan ukuran kertas ke standar format baku Baku PDF.
-
-### 9.2. Ekspor ke Format Naskah Standar
-- Ekspor ke berkas `.docx` (Microsoft Word) untuk kebutuhan peninjauan oleh dosen pembimbing atau instansi yang mewajibkan format Word.
-- Ekspor ke berkas teks polos (`.txt`) dan Markdown ilmiah (`.md`).
-
-### 9.3. Penyempurnaan Format Berkas .baku (Spesifikasi v2.0)
-- Menambahkan penampung lampiran berkas biner di dalam struktur JSON `.baku` (misalnya gambar beresolusi tinggi yang terkompresi secara lossless).
-- Penyimpanan daftar pustaka internal dan status nomor halaman per seksi.
-- Kompatibilitas mundur penuh (*backward-compatible*): berkas `.baku` versi 1.0.0 tetap dapat dibuka sempurna pada versi 1.5.
+### 2.2. Kompresor Ukuran Berkas PDF Luring (Offline PDF Compressor)
+- Pengurangan ukuran berkas PDF secara lokal menggunakan pustaka Rust teroptimasi tanpa menurunkan keterbacaan teks naskah.
+- Preset target kompresi instan:
+  - **Di bawah 500 KB**: Standar unggah portal pendaftaran CPNS, BUMN, dan beasiswa.
+  - **Di bawah 1 MB**: Standar portal akademik dan repositori tugas akhir kampus.
+  - **Di bawah 2 MB**: Standar berkas publikasi umum.
+  - **Kustom**: Input manual target resolusi DPI gambar (150 DPI, 96 DPI, 72 DPI).
+- Tampilan estimasi ukuran sebelum dan sesudah kompresi sebelum berkas disimpan.
 
 ---
 
-## 10. Keamanan Dokumen & Pembersihan Metadata
+## 3. Rencana Pembaruan Versi 1.2.0 (Standar Akademik & Tipografi Ilmiah)
 
-### 10.1. Pembersih Jejak Metadata Dokumen (Metadata Sanitizer)
+Tahap pembaruan **v1.2.0** difokuskan pada penegakan aturan tata tulis karya ilmiah perguruan tinggi serta kelengkapan instrumen matematis dan tipografi tabel:
+
+### 3.1. Aturan Penomoran Halaman Skripsi Baku Otomatis (Dual-Positioning Rules)
+- Otomatisasi aturan penempatan nomor halaman karya ilmiah Indonesia:
+  - Halaman pertama setiap Bab baru (memuat judul Bab) otomatis diletakkan di **tengah bawah**.
+  - Halaman lanjutan Bab tersebut otomatis berpindah ke **sudut kanan atas**.
+- Penomoran seksi independen (*Restart Numbering per Section*) yang terisolasi tanpa merusak penomoran seksi sebelumnya.
+
+### 3.2. Notasi Matematika & Rumus Ilmiah (KaTeX Luring)
+- Integrasi parser formula KaTeX yang dikemas 100% secara luring di dalam bundel aplikasi.
+- Penyisipan blok persamaan matematika interaktif (`Inline Math` dan `Block Equation`).
+- Penomoran otomatis persamaan di tepi kanan lembar kertas sesuai bab: `(1.1)`, `(1.2)`, dll.
+- Dukungan simbol kalkulus, matriks, aljabar linear, dan notasi fisika/kimia standar.
+
+### 3.3. Pemformatan Tabel Ilmiah Tingkat Lanjut (Advanced Scientific Tables / Booktabs)
+- Penggabungan sel horizontal (*Merge Columns*) dan vertikal (*Merge Rows*).
+- Pemisah batas sel kustom gaya publikasi ilmiah (*Booktabs Style*): tabel tanpa garis batas vertikal (hanya garis atas tebal, garis bawah header tipis, dan garis penutup tebal).
+- Perataan angka desimal pada kolom numerik (penyesuaian posisi titik koma desimal).
+- Pengulangan baris judul tabel secara otomatis jika tabel terpotong ke lembar halaman berikutnya (*Repeat Header Row across Pages*).
+- Penomoran otomatis judul tabel: `Tabel 1.1: Judul Tabel`.
+
+### 3.4. Penggaris Vertikal & Indentasi Paragraf Lanjutan
+- Menambahkan penanda seret khusus pada penggaris horisontal yang sudah ada:
+  - **Penanda Indentasi Baris Pertama (*First Line Indent*)**: Menentukan awal paragraf menjorok ke dalam (misal 1 cm atau 1.27 cm).
+  - **Penanda Indentasi Gantung (*Hanging Indent*)**: Menentukan batas kiri baris lanjutan (standar penulisan Daftar Pustaka format APA/IEEE).
+- **Penggaris Vertikal (Vertical Ruler)** di sebelah kiri lembar kertas:
+  - Mengukur ketinggian halaman aktual (cm).
+  - Penanda seret visual untuk mengatur margin atas (*top margin*) dan margin bawah (*bottom margin*) langsung dari kanvas.
+
+### 3.5. Pemeriksa Ejaan & Panduan PUEBI/KBBI Luring
+- Kamus kata dasar Bahasa Indonesia luring terintegrasi untuk pendeteksian salah ketik (*typo*).
+- Penanda garis bawah merah lembut untuk kata di luar perbendaharaan baku.
+- Saran koreksi kata baku melalui menu klik kanan (misal: *analisa* -> *analisis*, *praktek* -> *praktik*, *jadual* -> *jadwal*).
+- Pemisahan suku kata otomatis (*Hyphenation*) berdasarkan kaidah fonologi Bahasa Indonesia untuk paragraf rata kiri-kanan (*Justify*) agar spasi antar-kata tidak renggang berlebihan.
+
+### 3.6. Manajemen Struktur Dokumen Akademik Otomatis
+- **Pembuat Daftar Isi Dinamis (Auto Table of Contents)**: Pembangkitan Daftar Isi instan berdasarkan hierarki heading dokumen dengan garis titik-titik pemandu (*dot leaders*) otomatis dan pembaruan satu klik.
+- **Pembuat Daftar Tabel & Daftar Gambar Dinamis**: Pelacakan otomatis seluruh keterangan (*caption*) tabel dan gambar dalam naskah dokumen dengan sinkronisasi nomor halaman real-time.
+- **Pengelola Sitasi & Daftar Pustaka Luring (Citation Manager)**: Input bibliografi manual atau impor dari berkas pustaka BibTeX (`.bib`) dan RIS dengan pemformatan APA 7th, IEEE, Harvard, dan Vancouver.
+
+---
+
+## 4. Rencana Pembaruan Versi 1.3.0 (Distribusi Multi-Platform Penuh & Navigasi)
+
+Tahap pembaruan **v1.3.0** difokuskan pada perluasan instalasi native untuk ekosistem Windows dan Linux serta instrumen navigasi dokumen panjang:
+
+### 4.1. Paket Distribusi Sistem Operasi Windows
+- **Installer NSIS Terbimbing (`.exe`)**:
+  - Installer 64-bit (`x64`) dan ARM64 untuk Windows 10 dan Windows 11.
+  - Integrasi pintasan Menu Mulai (*Start Menu*), Desktop, dan pembuat asosiasi berkas `.baku`.
+  - Pemasangan uninstaller bersih tanpa meninggalkan sisa sampah di registri.
+- **Edisi Portabel Mandiri (`Baku_Portable.exe`)**:
+  - Eksekusi langsung tanpa memerlukan hak administrator, cocok untuk komputer laboratorium atau lingkungan kerja terbatas.
+- **Dukungan Microsoft Package Manager (`winget`)**:
+  - Penerbitan manifes rilis ke repositori resmi `winget-pkgs`:
+    ```cmd
+    winget install Baku.BakuPDF
+    ```
+
+### 4.2. Paket Distribusi Sistem Operasi Linux
+- **Paket Universal `AppImage`**:
+  - Satu berkas mandiri siap jalan yang kompatibel dengan berbagai distribusi (Ubuntu, Fedora, Arch Linux, Debian, openSUSE).
+- **Paket Debian / Ubuntu (`.deb`)**:
+  - Paket biner native dengan pemenuhan dependensi `webkit2gtk-4.1`.
+- **Dukungan Flathub & Arch User Repository (AUR)**:
+  - Pembuatan manifes `flatpak` untuk ekosistem distribusi terisolasi sandbox.
+  - Paket `baku-bin` pada repositori komunitas Arch Linux (AUR).
+
+### 4.3. Distribusi macOS Lanjutan
+- **Distribusi Homebrew Cask**:
+  - Dukungan instalasi praktis melalui terminal macOS:
+    ```bash
+    brew install --cask baku-pdf
+    ```
+- **Penandatanganan Kode & Notarisasi Apple (Code Signing & Notarization)**:
+  - Mengintegrasikan sertifikat Apple Developer ID dan notarisasi resmi Apple agar aplikasi dapat dibuka langsung tanpa peringatan Gatekeeper macOS.
+
+### 4.4. Bilah Samping Navigasi Dokumen (Document Outline & Navigator Sidebar)
+- Panel bilah samping kiri pada kanvas editor yang dapat dibuka-tutup (*Collapsible Sidebar*):
+  - **Tab Navigasi Judul**: Pohon hierarki Bab dan Sub-bab; mengeklik judul akan langsung menggulir layar ke halaman bersangkutan.
+  - **Tab Thumbnail Halaman**: Tinjauan miniatur seluruh halaman dokumen secara vertikal.
+  - **Tab Hasil Pencarian**: Menampilkan daftar kutipan kalimat yang cocok saat menggunakan fitur Temukan & Ganti (*Find & Replace*).
+
+---
+
+## 5. Rencana Pembaruan Versi 1.4.0 (Utilitas PDF Luring & Keamanan Dokumen)
+
+Tahap pembaruan **v1.4.0** difokuskan pada modul manipulasi berkas PDF independen dan keamanan privasi dokumen resmi:
+
+### 5.1. Penandatangan & Pembubuh Paraf Digital Luring (Offline Signature & Stamp)
+- Penggambaran tanda tangan langsung menggunakan kursor/stylus atau impor gambar tanda tangan berlatar transparan (PNG).
+- Penempatan tanda tangan pada halaman mana pun dengan pratinjau seret-dan-lepas (*drag-and-drop*).
+- Fitur tanda tangan massal pada koordinat tetap untuk dokumen multi-halaman.
+- Pembubuhan stempel tanggal dan paraf luring.
+
+### 5.2. Pembersih Jejak Metadata Dokumen (Metadata Sanitizer)
 - Pembersihan metadata tersembunyi sebelum berkas diekspor ke PDF publik:
   - Menghapus nama pembuat asli, nama perangkat komputer, dan riwayat path folder lokal.
   - Menghapus cap waktu penyuntingan tersembunyi.
 - Sangat penting untuk proses *Blind Review* artikel jurnal ilmiah dan dokumen rahasia instansi.
 
-### 10.2. Penguncian Dokumen Hanya-Baca (Read-Only Locking Mode)
-- Opsi untuk mengunci berkas `.baku` ke status baca-saja (*Read-Only*) guna mencegah perubahan tak sengaja pada naskah yang telah disetujui atau ditandatangani.
+### 5.3. Penyusun & Pemilah Halaman Visual (Visual Page Organizer & Reorder)
+- Antarmuka kisi thumbnail visual untuk setiap halaman dokumen PDF.
+- Pemindahan urutan halaman dengan seret-dan-lepas (*drag-and-drop reordering*).
+- Penghapusan halaman tunggal atau rentang halaman tertentu dengan tombol cepat.
+- Penyisipan halaman kosong atau penyisipan halaman dari berkas PDF lain ke titik tertentu.
+
+### 5.4. Pembubuh Watermark / Cap Teks Luring (PDF Watermark Tool)
+- Pembubuhan teks watermark diagonal (kemiringan 45 derajat) atau horizontal.
+- Preset kata: `DRAFT`, `SALINAN RESMI`, `RAHASIA`, `CONFIDENTIAL`, `SAMPLE`.
+- Pengaturan transparansi teks (*opacity*), ukuran huruf, warna, dan pemilihan rentang halaman sasaran.
+
+### 5.5. Proteksi & Enkripsi Kata Sandi PDF (PDF Password Protect & Decrypt)
+- Pemasangan kata sandi buka dokumen (*User Password*) menggunakan enkripsi standar industri AES-256 luring.
+- Pemasangan kata sandi izin (*Owner/Permissions Password*):
+  - Membatasi pencetakan dokumen.
+  - Membatasi penyalinan teks dan ekstraksi konten.
+  - Membatasi modifikasi anotasi.
+- Alat penghapus proteksi sandi (bagi pemilik berkas yang memiliki kata sandi sah).
+
+### 5.6. Penomoran Halaman PDF Eksternal (Bates Numbering & PDF Page Stamper)
+- Penomoran berkas PDF pihak ketiga yang belum memiliki nomor halaman.
+- Konfigurasi letak nomor: sudut kanan atas, sudut kanan bawah, atau tengah bawah.
+- Konfigurasi awalan teks (misal: `Lampiran Halaman 1 dari 10`, `Hal. 1`, atau nomor perkara peradilan).
 
 ---
 
-## 11. Tahapan Rilis Bertahap & Matriks Prioritas (v1.1.0 – v1.5.0)
+## 6. Rencana Pembaruan Versi 1.5.0 (Puncak Milestone Ekosistem & Performa Naskah Tebal)
+
+Tahap pembaruan **v1.5.0** merupakan puncak pencapaian (*Milestone Peak*) ekosistem Baku PDF untuk penanganan dokumen berskala masif, paket templat portabel, dan interoperabilitas penuh:
+
+### 6.1. Ekspor/Impor Berkas Paket Templat Mandiri (.bakutpl)
+- Kemampuan mengekspor templat buatan pengguna ke dalam satu berkas paket portabel `.bakutpl`.
+- Kemampuan mengimpor berkas `.bakutpl` dari komputer lain langsung ke dalam Galeri Templat lokal.
+
+### 6.2. Koleksi Templat Standar Tambahan Spesifik
+- **Templat Publikasi & Jurnal Ilmiah**:
+  - Jurnal Ilmiah Format SINTA (tata letak dua kolom presisi, abstrak dwibahasa, struktur IMRAD).
+  - Paper Prosiding Standar IEEE (margin baku, font Times New Roman 10pt/8pt, penataan grafik dua kolom).
+- **Templat Administrasi Kampus & Hibah Penelitian**:
+  - Proposal Program Kreativitas Mahasiswa (PKM Kemendikbudristek).
+  - Laporan Praktik Kerja Lapangan (PKL) / Magang Industri.
+  - Proposal Tesis & Disertasi Pascasarjana.
+- **Templat Administrasi Pemerintahan & Lembaga Resmi**:
+  - Nota Dinas & Surat Perintah Tugas (SPT).
+  - Surat Keputusan (SK) Resmi (konsiderans Menimbang, Mengingat, Menetapkan).
+  - Berita Acara Serah Terima (BAST).
+
+### 6.3. Virtualisasi Lembar Kertas (Infinite Virtual DOM Page Rendering)
+- Render hanya lembar kertas yang sedang berada dalam area pandang (*viewport*) layar pengguna ditambah buffer 1-2 halaman sebelum dan sesudah.
+- Memungkinkan pembukaan dokumen berbobot lebih dari 500 halaman (seperti buku ajar dan draf disertasi utuh) tanpa lonjakan konsumsi memori RAM.
+- Waktu respons pengetikan (*input latency*) tetap berada di bawah 8 milidetik terlepas dari ketebalan naskah.
+
+### 6.4. Mesin Pengekspor PDF Native Rust Murni
+- Transisi modul ekspor PDF utama ke pustaka Rust native (`printpdf` dan `lopdf`) untuk melengkapi mekanisme cetak WebView.
+- Hasil ekspor menghasilkan teks berbasis vektor murni yang dapat disalin (*searchable and selectable text*) dengan ukuran berkas keluaran hingga 60% lebih ringkas.
+- Penanaman font (*Font Subsetting*) otomatis: hanya glif font yang digunakan yang disematkan ke dalam berkas PDF.
+
+### 6.5. Mode Gelap & Terang Adaptif Penuh (Adaptive Dark/Light Themes)
+- Tema Gelap Khusus (*True Dark Theme*) yang dirancang dengan rasio kontras tinggi sesuai standar WCAG AAA.
+- Pilihan representasi lembar kertas di Mode Gelap: *Kertas Terang di Lingkungan Gelap* atau *Kertas Terbalik Gelap*.
+- Sinkronisasi otomatis dengan preferensi tema sistem operasi (*Follow System Theme*).
+
+### 6.6. Mode Penulisan Bebas Gangguan (Zen Mode) & Tata Letak Dua Halaman Berdampingan
+- **Mode Bebas Gangguan (Zen / Distraction-Free Mode)**: Menyembunyikan pita alat dan bilah samping (`F11` / `Cmd+Shift+F`), hanya menyisakan lembar kertas terpusat.
+- **Tampilan Berdampingan (*Two-Page Spread View*)**: Menampilkan dua halaman lembar kertas berdampingan secara horizontal pada monitor layar lebar.
+- **Opsi Skala Lanjutan**: Opsi *Fit to Width* (Sesuaikan Lebar) dan *Fit to Page* (Sesuaikan Halaman Penuh).
+
+### 6.7. Impor & Konversi Berkas Word (.docx) Luring serta Ekspor Format Naskah Standar
+- Parser berkas `.docx` lokal murni berbasis Rust untuk membaca naskah Word dengan integritas pemformatan dasar.
+- Ekspor ke berkas `.docx` (Microsoft Word) untuk kebutuhan peninjauan oleh dosen pembimbing atau instansi yang mewajibkan format Word.
+- Ekspor ke berkas teks polos (`.txt`) dan Markdown ilmiah (`.md`).
+
+### 6.8. Penyempurnaan Format Berkas .baku (Spesifikasi v2.0)
+- Menambahkan penampung lampiran berkas biner di dalam struktur JSON `.baku` (misalnya gambar beresolusi tinggi yang terkompresi secara lossless).
+- Penyimpanan daftar pustaka internal dan status nomor halaman per seksi.
+- Kompatibilitas mundur penuh (*backward-compatible*): berkas `.baku` versi 1.0.0 tetap dapat dibuka sempurna pada versi 1.5.
+
+### 6.9. Sistem Simpan Otomatis & Pemulihan Pasca Gangguan (Crash Auto-Recovery)
+- Penyimpanan berkas berkala (*Auto-Save*) setiap 60 detik ke direktori penyimpanan lokal terisolasi.
+- Dialog pemulihan otomatis saat aplikasi dibuka kembali jika terjadi listrik mati atau penutupan paksa.
+- Riwayat snapshot versi lokal (*Local Revision History*) berdurasi 15, 30, dan 60 menit.
+
+---
+
+## 7. Matriks Prioritas Teknis & Rangkuman Tahapan Rilis (v1.1.0 – v1.5.0)
 
 Untuk menghadirkan fitur-fitur baru secara cepat, teruji, dan stabil tanpa menunggu seluruh modul selesai sekaligus, pembaruan Baku PDF dibagi ke dalam lima gelombang rilis bertahap:
 
-### 11.1. Rencana Gelombang Rilis Bertahap
+### 7.1. Rencana Gelombang Rilis Bertahap
 
 | Versi Rilis | Fokus Utama Rilis | Modul Fitur yang Disertakan | Target Rilis |
 | :--- | :--- | :--- | :--- |
-| **v1.1.0** | Tab Dokumen & Efisiensi Kerja | Bilah Tab Multi-Dokumen (Sub-bab 8.5) dan Kompresor Ukuran Berkas PDF Luring (Sub-bab 4.1). | Rilis Terdekat |
-| **v1.2.0** | Standar Akademik & Tipografi Ilmiah | Aturan Nomor Halaman Skripsi Ganda (Sub-bab 3.1), Notasi KaTeX Luring (Sub-bab 2.1), Tabel Ilmiah Booktabs (Sub-bab 2.3), dan Penggaris Vertikal (Sub-bab 2.2). | Tahap 2 |
-| **v1.3.0** | Distribusi Multi-Platform Penuh | Installer Windows NSIS (`.exe`) & Portable (Sub-bab 6.1) serta Paket Universal Linux AppImage & Debian `.deb` (Sub-bab 6.2). | Tahap 3 |
-| **v1.4.0** | Utilitas PDF Luring & Keamanan | Tanda Tangan & Paraf Digital Luring (Sub-bab 4.2), Pembersih Metadata Dokumen (Sub-bab 10.1), Penyusun Halaman Visual (Sub-bab 4.4), dan Cap Watermark Luring (Sub-bab 4.6). | Tahap 4 |
-| **v1.5.0** | Puncak Milestone Ekosistem | Paket Templat Mandiri `.bakutpl` (Sub-bab 5.4), Virtualisasi Lembar Kertas DOM 500+ Halaman (Sub-bab 7.1), Mode Gelap Adaptif (Sub-bab 8.2), dan Impor Word `.docx` (Sub-bab 9.1). | Puncak Milestone |
+| **v1.1.0** | Tab Dokumen & Efisiensi Kerja | Bilah Tab Multi-Dokumen (Sub-bab 2.1) dan Kompresor Ukuran Berkas PDF Luring (Sub-bab 2.2). | Rilis Terdekat |
+| **v1.2.0** | Standar Akademik & Tipografi Ilmiah | Aturan Nomor Halaman Skripsi Ganda (Sub-bab 3.1), Notasi KaTeX Luring (Sub-bab 3.2), Tabel Ilmiah Booktabs (Sub-bab 3.3), Penggaris Vertikal (Sub-bab 3.4), PUEBI (Sub-bab 3.5), dan Struktur Dokumen Otomatis (Sub-bab 3.6). | Tahap 2 |
+| **v1.3.0** | Distribusi Multi-Platform Penuh | Installer Windows NSIS (`.exe`) & Portable (Sub-bab 4.1), Paket Universal Linux AppImage & Debian `.deb` (Sub-bab 4.2), Distribusi macOS (Sub-bab 4.3), dan Bilah Samping Navigasi (Sub-bab 4.4). | Tahap 3 |
+| **v1.4.0** | Utilitas PDF Luring & Keamanan | Tanda Tangan & Paraf Digital Luring (Sub-bab 5.1), Pembersih Metadata Dokumen (Sub-bab 5.2), Penyusun Halaman Visual (Sub-bab 5.3), Cap Watermark Luring (Sub-bab 5.4), Enkripsi Sandi PDF (Sub-bab 5.5), dan Bates Numbering (Sub-bab 5.6). | Tahap 4 |
+| **v1.5.0** | Puncak Milestone Ekosistem | Paket Templat Mandiri `.bakutpl` (Sub-bab 6.1), Koleksi Templat Tambahan (Sub-bab 6.2), Virtualisasi DOM 500+ Halaman (Sub-bab 6.3), Mesin PDF Rust (Sub-bab 6.4), Mode Gelap (Sub-bab 6.5), Zen Mode (Sub-bab 6.6), Impor Word `.docx` (Sub-bab 6.7), Spesifikasi `.baku` v2.0 (Sub-bab 6.8), dan Pemulihan Crash (Sub-bab 6.9). | Puncak Milestone |
 
-### 11.2. Matriks Prioritas Teknis Pengembangan
+### 7.2. Matriks Prioritas Teknis Pengembangan
 
 | Modul Fitur | Target Komponen | Target Versi | Prioritas | Estimasi Kompleksitas |
 | :--- | :--- | :--- | :--- | :--- |
@@ -380,7 +331,7 @@ Untuk menghadirkan fitur-fitur baru secara cepat, teruji, dan stabil tanpa menun
 
 ---
 
-## Kontribusi & Diskusi Fitur
+## 8. Kontribusi & Diskusi Fitur
 
 Rencana pembaruan ini bersifat terbuka untuk masukan dari komunitas pengguna dan pengembang:
 - Ajukan usulan melalui [.github/ISSUE_TEMPLATE/feature_request.md](../.github/ISSUE_TEMPLATE/feature_request.md).

@@ -18,7 +18,7 @@
 
 # Roteiro de Atualização do Baku PDF (Versões v1.1.0 – v1.5.0)
 
-Este documento estabelece o panorama de recursos da versão **Baku PDF v1.0.0**, bem como a lista de novos recursos planejados em lançamentos graduais de **Baku PDF v1.1.0 a v1.5.0**. Este ciclo escalonado foca no aprimoramento da produção científica, ferramentas adicionais de manipulação de PDF totalmente offline, suporte multiplataforma nativo (Windows, macOS, Linux) e renderização veloz para documentos extensos.
+Este documento estabelece o panorama de recursos da versão **Baku PDF v1.0.0**, bem como a lista de novos recursos planejados em lançamentos graduais de **Baku PDF v1.1.0 a v1.5.0**. Cada etapa de lançamento é estruturada de forma mensurável, testada progressivamente e alinhada com os princípios fundacionais do aplicativo:
 
 Diretrizes essenciais de desenvolvimento:
 - **100% Offline (Offline-First)**: Processamento estritamente local, sem dependência de servidores em nuvem.
@@ -29,23 +29,20 @@ Diretrizes essenciais de desenvolvimento:
 
 ---
 
-## Índice
+## Índice do Documento
 
-1. [Recursos Disponíveis na Linha de Base (Status v1.0.0)](#1-recursos-disponíveis-na-linha-de-base-status-v100)
-2. [Editor de Documentos e Tipografia Científica Avançada](#2-editor-de-documentos-e-tipografia-científica-avançada)
-3. [Estruturação Automatizada de Documentos Acadêmicos](#3-estruturação-automatizada-de-documentos-acadêmicos)
-4. [Expansão de Ferramentas Extras de PDF Offline](#4-expansão-de-ferramentas-extras-de-pdf-offline)
-5. [Coleção Expandida de Modelos Padronizados](#5-coleção-expandida-de-modelos-padronizados)
-6. [Suporte Multiplataforma e Empacotamento de Binários](#6-suporte-multiplataforma-e-empacotamento-de-binários)
-7. [Arquitetura Central, Desempenho e Documentos Densos](#7-arquitetura-central-desempenho-e-documentos-densos)
-8. [Interface do Usuário, Navegação e Acessibilidade](#8-interface-do-usuário-navegação-e-acessibilidade)
-9. [Interoperabilidade de Formatos e Compatibilidade de Arquivos](#9-interoperabilidade-de-formatos-e-compatibilidade-de-arquivos)
-10. [Segurança de Documentos e Higienização de Metadados](#10-segurança-de-documentos-e-higienização-de-metadados)
-11. [Fases de Lançamento Gradual e Matriz de Prioridades (v1.1.0 – v1.5.0)](#11-fases-de-lançamento-gradual-e-matriz-de-prioridades-v110--v150)
+1. [Inventário de Recursos da Linha de Base (Status da Versão v1.0.0)](#1-inventário-de-recursos-da-linha-de-base-status-da-versão-v100)
+2. [Plano de Lançamento Versão 1.1.0 (Abas Multidocumento e Eficiência Operacional)](#2-plano-de-lançamento-versão-110-abas-multidocumento-e-eficiência-operacional)
+3. [Plano de Lançamento Versão 1.2.0 (Padrões Acadêmicos e Tipografia Científica)](#3-plano-de-lançamento-versão-120-padrões-acadêmicos-e-tipografia-científica)
+4. [Plano de Lançamento Versão 1.3.0 (Distribuição Multiplataforma Completa e Navegação)](#4-plano-de-lançamento-versão-130-distribuição-multiplataforma-completa-e-navegação)
+5. [Plano de Lançamento Versão 1.4.0 (Utilitários PDF Offline e Segurança de Documentos)](#5-plano-de-lançamento-versão-140-utilitários-pdf-offline-e-segurança-de-documentos)
+6. [Plano de Lançamento Versão 1.5.0 (Ápice do Marco do Ecossistema e Alto Desempenho)](#6-plano-de-lançamento-versão-150-ápice-do-marco-do-ecossistema-e-alto-desempenho)
+7. [Matriz de Prioridades Técnicas e Resumo de Lançamentos Graduais (v1.1.0 – v1.5.0)](#7-matriz-de-prioridades-técnicas-e-resumo-de-lançamentos-graduais-v110--v150)
+8. [Contribuições da Comunidade e Discussões de Recursos](#8-contribuições-da-comunidade-e-discussões-de-recursos)
 
 ---
 
-## 1. Recursos Disponíveis na Linha de Base (Status v1.0.0)
+## 1. Inventário de Recursos da Linha de Base (Status da Versão v1.0.0)
 
 Conforme auditoria do código-fonte, os seguintes módulos **estão 100% implementados na versão 1.0.0**:
 
@@ -58,243 +55,159 @@ Conforme auditoria do código-fonte, os seguintes módulos **estão 100% impleme
 | **Primeira Página com Cabeçalho e Rodapé Diferentes** | Implementado | Alternância Primeira Página Diferente (`diffFirst`) para ocultar ou isolar elementos na página de título. |
 | **Janela Modal de Hiperlinks** | Implementado | Modal Flat 2D (`#modal-link-overlay`) com texto de exibição, campo de URL, remoção de link e atalho `Ctrl+K` / `Cmd+K`. |
 | **Controles de Zoom e Escala** | Implementado | Ampliar, reduzir, redefinir 100%, controle deslizante na barra de status e ajuste de interface nas Configurações. |
-| **4 Ferramentas Extras de PDF Offline** | Implementado | Mesclar PDF, Dividir PDF, Girar Páginas e Imagens para PDF através das bibliotecas Rust `lopdf` e `image`. |
-| **Instalador Universal DMG para macOS** | Implementado | Pacote binário universal oficial (`x86_64` Intel + `arm64` Apple Silicon M1-M4) (`Baku_1.0.0_Universal_Installer.dmg`) com proteção de execução em disco temporário (`check_running_from_dmg`). |
+| **4 Ferramentas PDF Offline** | Implementado | Mesclar PDF (*Merge*), Dividir PDF (*Split*), Girar Páginas (*Rotate*) e Imagens para PDF (*Images to PDF*) via Rust `lopdf` e `image`. |
+| **Instalador Universal DMG para macOS** | Implementado | Pacote oficial Universal DMG (`x86_64` Intel + `arm64` Apple Silicon M1/M2/M3/M4) com interface de arrastar e soltar e verificação de volume (`check_running_from_dmg`). |
 
 ---
 
-## 2. Editor de Documentos e Tipografia Científica Avançada
+## 2. Plano de Lançamento Versão 1.1.0 (Abas Multidocumento e Eficiência Operacional)
 
-### 2.1. Notação Matemática e Equações KaTeX Offline
-- Interpretador KaTeX 100% incorporado ao pacote da aplicação sem conexão de rede.
-- Inserção de equações na linha de texto ou em blocos centralizados destacados.
-- Numeração automática de equações alinhada à margem direita por capítulo: `(1.1)`, `(1.2)`.
-- Compatibilidade com matrizes, cálculo diferencial e símbolos de física e química.
+A etapa **v1.1.0** foca na produtividade com múltiplos documentos abertos e compressão local de arquivos PDF:
 
-### 2.2. Expansão da Régua Interativa: Recuos e Régua Vertical
-- Marcadores na régua horizontal:
-  - **Recuo de Primeira Linha**: Determina o início do parágrafo recuado (ex.: 1,25 cm).
-  - **Recuo Francês (Hanging Indent)**: Padrão para referências bibliográficas (ABNT, APA, IEEE).
-- **Régua Vertical** à esquerda da folha:
-  - Medição em centímetros da altura da página.
-  - Ajuste direto de margens superior e inferior por marcadores deslizantes.
+### 2.1. Barra de Abas Multidocumento (Multi-Document Tab Bar)
+- **Objetivo e Benefícios**: Elimina a alternância frequente com `Alt+Tab` entre janelas do sistema operacional, permitindo abrir, editar e alternar entre vários arquivos `.baku` simultaneamente em uma única janela.
+- **Posicionamento Ergonômico**: Posicionada estrategicamente **abaixo da Ribbon Toolbar e logo acima da Régua/Canvas do Editor**.
+- **Design Visual Flat 2D**: Abas compactas (30–32 px de altura); aba ativa com fundo branco (`#FFFFFF`) e faixa azul superior (`#2563EB`); abas inativas em cinza neutro (`#F3F2F1`) com elipse para nomes longos.
+- **Navegação com Rolagem Horizontal**: Exibição proporcional para 1 a 5 documentos; rolagem horizontal suave com trackpad/mouse e botões direcionais `<` e `>` ao ultrapassar 5 arquivos.
+- **Isolamento de Estado e Segurança**: Pilha de Desfazer/Refazer (`Ctrl+Z` / `Ctrl+Y`) isolada por aba, indicador de documento não salvo (ponto azul) e confirmação antes do fechamento.
+- **Virtualização de Memória RAM**: Abas em segundo plano permanecem como objetos JSON leves sem nós DOM montados, mantendo o consumo de memória baixo (~50-80 MB).
+- **Atalhos Rápidos**: `Ctrl+Tab` para próxima aba, `Ctrl+Shift+Tab` para aba anterior e `Ctrl+W` para fechar aba.
 
-### 2.3. Tabelas Científicas Avançadas
-- Mesclagem de células na horizontal e vertical.
-- Estilo de bordas para publicações científicas (Estilo Booktabs): sem bordas verticais, com linhas horizontais destacadas.
-- Alinhamento decimal para colunas numéricas.
-- Repetição automática da linha de cabeçalho em quebras de página.
-- Numeração sequencial de tabelas: `Tabela 1.1: Legenda`.
-
-### 2.4. Corretor Ortográfico e Hifenização Offline
-- Dicionário local integrado para detecção de erros de digitação.
-- Sublinhado vermelho discreto para termos não reconhecidos.
-- Sugestões contextuais via menu de clique com botão direito.
-- Hifenização fonológica automática em alinhamento justificado para espaçamento uniforme.
+### 2.2. Compressor de Arquivos PDF Offline (Offline PDF Compressor)
+- Redução de tamanho de arquivos PDF no ambiente local em Rust sem degradar a legibilidade do texto vetorial.
+- Metas pré-configuradas: abaixo de 500 KB (concursos e bolsas), abaixo de 1 MB (portais acadêmicos), abaixo de 2 MB e ajuste de DPI (150, 96, 72 DPI).
+- Prévia comparativa de tamanho antes e após a compressão.
 
 ---
 
-## 3. Estruturação Automatizada de Documentos Acadêmicos
+## 3. Plano de Lançamento Versão 1.2.0 (Padrões Acadêmicos e Tipografia Científica)
 
-### 3.1. Numeração de Páginas de Tese em Posição Dupla
-- Automação de regras de teses e dissertações:
-  - Primeira página de cada capítulo (com título) posiciona o número no **centro inferior**.
-  - Páginas subsequentes do mesmo capítulo posicionam o número no **canto superior direito**.
-- Reinício de numeração isolado por seção sem alterar as seções anteriores.
+A etapa **v1.2.0** traz suporte integral às normas de teses acadêmicas e notação matemática:
 
-### 3.2. Sumário Dinâmico Automatizado
-- Criação instantânea de sumário com base nos níveis de título (Título 1, Título 2, Título 3).
-- Linhas pontilhadas automáticas conectando o nome do capítulo ao número da página.
-- Botão de atualização rápida para refletir revisões e alterações na paginação.
+### 3.1. Numeração Dupla de Páginas para Teses
+- Regra acadêmica automatizada: primeira folha de cada capítulo com número no **centro inferior**; folhas de desenvolvimento no **canto superior direito**.
+- Reinício isolado de numeração por seção.
 
-### 3.3. Lista Dinâmica de Tabelas e Ilustrações
-- Rastreamento contínuo de legendas de imagens e tabelas.
-- Geração instantânea de listas de ilustrações e tabelas sincronizadas em tempo real.
+### 3.2. Notação Matemática KaTeX Offline
+- Motor KaTeX empacotado 100% offline.
+- Inserção de equações em linha (`Inline Math`) e em bloco (`Block Equation`).
+- Numeração sequencial no canto direito da folha: `(1.1)`, `(1.2)`.
 
-### 3.4. Gerenciador de Citações e Referências Bibliográficas Offline
-- Cadastro manual ou importação de arquivos BibTeX (`.bib`) e RIS.
-- Formatação de citações nos padrões ABNT, APA 7ª Edição, IEEE, Harvard e Vancouver.
-- Construção da lista de referências final com recuo francês e ordenação alfabética automática.
+### 3.3. Tabelas Científicas Avançadas (Estilo Booktabs)
+- Mesclagem de células horizontal e vertical.
+- Bordas padronizadas sem linhas verticais (linha superior grossa, linha de cabeçalho fina, linha de fechamento grossa).
+- Alinhamento de vírgula decimal em colunas numéricas e repetição automática de cabeçalho nas quebras de folha.
 
----
+### 3.4. Régua Vertical e Recuos de Parágrafo
+- Marcadores na régua horizontal para Recuo de Primeira Linha e Recuo Francês (ABNT/APA/IEEE).
+- Régua vertical à esquerda para medição da altura real e controle visual das margens superior e inferior.
 
-## 4. Expansão de Ferramentas Extras de PDF Offline
+### 3.5. Verificador Ortográfico e Guia de Escrita Offline
+- Dicionário local integrado com detecção de desvios ortográficos, sugestões no menu de clique direito e hifenização automática para parágrafos justificados.
 
-Além das 4 ferramentas existentes, a versão 1.5 introduz 6 novos utilitários locais:
-
-### 4.1. Compressor de Arquivos PDF Offline
-- Otimização do peso de arquivos PDF em Rust sem prejudicar a leitura do texto.
-- Metas de tamanho: abaixo de 500 KB, abaixo de 1 MB, abaixo de 2 MB e ajuste manual de resolução DPI.
-- Comparativo de tamanho antes e depois do processamento.
-
-### 4.2. Assinatura Digital e Rubrica Offline
-- Assinatura direta via cursor/caneta digital ou importação de imagem PNG transparente.
-- Posicionamento com visualização em tempo real em qualquer página.
-- Aplicação em lote por coordenadas para documentos de múltiplas páginas.
-- Carimbo de data e rubricas offline.
-
-### 4.3. Proteção por Senha e Criptografia AES-256
-- Senha de abertura com criptografia local padrão AES-256.
-- Senha de permissões para restringir impressão, cópia de texto e alterações.
-- Descriptografia offline para usuários autorizados.
-
-### 4.4. Organizador Visual de Páginas
-- Grade de miniaturas das páginas do documento.
-- Reordenação por arrastar e soltar.
-- Exclusão de páginas avulsas ou intervalos específicos.
-- Inserção de páginas em branco e anexação de páginas de outros PDFs.
-
-### 4.5. Numeração Bates e Carimbador de PDFs Externos
-- Numeração de documentos PDF de terceiros.
-- Posição personalizável: superior direito, inferior direito ou centro inferior.
-- Prefixos configuráveis (ex.: `Anexo Página 1 de 10`, `Folha 1`).
-
-### 4.6. Ferramenta de Marca d'Água Offline
-- Aplicação diagonal (45 graus) ou horizontal.
-- Textos rápidos: `RASCUNHO`, `CONFIDENCIAL`, `CÓPIA OFICIAL`, `AMOSTRA`.
-- Controle de transparência, fonte, cor e intervalo de páginas.
+### 3.6. Estruturação Automatizada de Documentos Acadêmicos
+- Sumário dinâmico com linhas pontilhadas guias e atualização rápida.
+- Lista automática de tabelas e figuras sincronizadas com os números de página.
+- Gerenciador de citações e referências offline com suporte a BibTeX (`.bib`), ABNT, APA 7, IEEE e Vancouver.
 
 ---
 
-## 5. Coleção Expandida de Modelos Padronizados
+## 4. Plano de Lançamento Versão 1.3.0 (Distribuição Multiplataforma Completa e Navegação)
 
-### 5.1. Publicações Científicas e Periódicos
-- **Artigo em Formato de Duas Colunas**: Cabeçalho de página inteira, resumo bilíngue e formato IMRAD.
-- **Artigo de Conferência IEEE**: Padrão tipográfico e diagramação visual rigorosa.
+A etapa **v1.3.0** expande a compatibilidade nativa para Windows e Linux e adiciona navegação lateral:
 
-### 5.2. Vida Acadêmica e Bolsas de Pesquisa
-- **Proposta de Iniciação Científica e Projetos**: Folha de aprovação, cronograma e tabela orçamentária.
-- **Relatório de Estágio Supervisionado**: Registro semanal de atividades e avaliação institucional.
-- **Projeto de Dissertação de Mestrado e Tese Doutoral**: Metodologia detalhada e hipóteses de pesquisa.
+### 4.1. Distribuição para Microsoft Windows
+- Instalador guiado NSIS (`.exe`) para x64 e ARM64 no Windows 10 e 11 com associação de arquivos `.baku`.
+- Edição portátil (`Baku_Portable.exe`) para execução sem privilégios de administrador.
+- Publicação no gerenciador oficial de pacotes do Windows (`winget install Baku.BakuPDF`).
 
-### 5.3. Administração Pública e Empresarial
-- **Memorando e Ordem de Serviço**: Modelo padronizado com identificação de setor e justificativas.
-- **Portaria Administrativa Oficial**: Estrutura normativa formal.
-- **Termo de Recebimento e Entrega**: Modelo contratual com assinaturas de testemunhas.
+### 4.2. Distribuição para Linux
+- Pacote universal `AppImage` para Ubuntu, Fedora, Arch Linux, Debian e openSUSE.
+- Pacote nativo `.deb` para Debian/Ubuntu com dependências declaradas.
+- Suporte para Flatpak (Flathub) e AUR (`baku-bin`).
 
-### 5.4. Exportação e Importação de Pacotes de Modelos (.bakutpl)
-- Compartilhamento de modelos personalizados através de arquivos portáteis `.bakutpl`.
-- Importação direta na galeria de modelos de outros computadores.
+### 4.3. Distribuição Avançada no macOS
+- Instalação via Homebrew Cask (`brew install --cask baku-pdf`).
+- Assinatura oficial Apple Developer ID e notarização para execução sem alertas do Gatekeeper.
 
----
-
-## 6. Suporte Multiplataforma e Empacotamento de Binários
-
-### 6.1. Distribuição para Windows
-- **Instalador NSIS Guiado (`.exe`)**: Pacotes 64-bit (`x64`) e ARM64 para Windows 10 e 11 com associação de arquivos `.baku`.
-- **Edição Portátil Independente (`Baku_Portable.exe`)**: Execução direta sem privilégios de administrador.
-- **Gerenciador de Pacotes da Microsoft (`winget`)**: Publicação no repositório oficial `winget-pkgs`.
-
-### 6.2. Distribuição para Linux
-- **Pacote Universal `AppImage`**: Binário autossuficiente compatível com as principais distribuições.
-- **Pacote Debian / Ubuntu (`.deb`)**: Pacote com dependências integradas.
-- **Flathub e Arch User Repository (AUR)**: Manifesto Flatpak e pacote `baku-bin` no AUR.
-
-### 6.3. Distribuição Avançada no macOS
-- **Homebrew Cask**: Instalação por linha de comando (`brew install --cask baku-pdf`).
-- **Assinatura de Código e Notarização Apple**: Validação oficial via Apple Developer ID para inicialização sem avisos de segurança.
+### 4.4. Painel Lateral de Navegação
+- Painel retrátil à esquerda com guias para estrutura de títulos (Capítulos e Subseções), miniaturas de páginas e painel de busca e substituição.
 
 ---
 
-## 7. Arquitetura Central, Desempenho e Documentos Densos
+## 5. Plano de Lançamento Versão 1.4.0 (Utilitários PDF Offline e Segurança de Documentos)
 
-### 7.1. Virtualização de Páginas no DOM
-- Renderização restrita às páginas atualmente visíveis na tela mais buffer preventivo de 1 a 2 páginas.
-- Manuseio fluido de documentos com mais de 500 páginas mantendo consumo de memória estável.
-- Latência de digitação inferior a 8 milissegundos.
+A etapa **v1.4.0** introduz ferramentas avançadas para manuseio de PDF e proteção de privacidade:
 
-### 7.2. Motor de Exportação Vetorial de PDF Nativo em Rust
-- Geração de PDF via bibliotecas Rust (`printpdf` e `lopdf`) com texto vetorial selecionável.
-- Redução de até 60% no tamanho dos arquivos gerados.
-- Incorporação inteligente de fontes com subconjuntos (*Font Subsetting*).
+### 5.1. Assinatura Digital e Rubrica Offline
+- Desenho de assinatura via cursor/caneta ou importação de PNG transparente com posicionamento interativo.
+- Assinatura em lote em coordenadas fixas e aposição de carimbo de data.
 
-### 7.3. Salvamento Automático a Cada 60 Segundos e Recuperação de Sessão
-- Cópias de segurança periódicas em armazenamento local isolado.
-- Diálogo de recuperação imediata ao reabrir o programa após interrupções inesperadas.
-- Histórico de versões locais com retorno a estados de 15, 30 ou 60 minutos anteriores.
+### 5.2. Higienizador de Metadados de Documentos
+- Limpeza de nomes de autor, caminhos de diretório e carimbos de revisão para submissão anônima (*Blind Review*).
 
----
+### 5.3. Organizador Visual de Páginas
+- Grade de miniaturas para reordenar páginas arrastando e soltando, exclusão rápida e inserção de páginas em branco ou de outros PDFs.
 
-## 8. Interface do Usuário, Navegação e Acessibilidade
+### 5.4. Marca d'Água Textual Offline
+- Aplicação de marca d'água diagonal ou horizontal com modelos predefinidos (`RASCUNHO`, `CONFIDENCIAL`, `CÓPIA OFICIAL`) e controle de opacidade.
 
-### 8.1. Painel Lateral de Navegação e Estrutura
-- Barra lateral retrátil com visualização de tópicos, miniaturas das folhas e resultados de busca contextual.
+### 5.5. Proteção e Criptografia com Senha em PDF
+- Criptografia padrão AES-256 local com senha de abertura e senha de permissões (restringir impressão e cópia).
 
-### 8.2. Modo Escuro e Claro Adaptativo
-- Tema escuro de alto contraste em conformidade com as normas WCAG AAA.
-- Opção de folha branca sobre fundo escuro ou inversão completa para leitura noturna.
-- Integração automática com o tema visual do sistema operacional.
-
-### 8.3. Modo Foco Sem Distrações (Zen Mode)
-- Ocultação imediata de menus e barras de ferramentas com o atalho `F11` ou `Cmd+Shift+F`.
-
-### 8.4. Visualização de Páginas Lado a Lado
-- Exibição de duas páginas simultâneas em monitores ultrawide.
-
-### 8.5. Barra de Abas Multidocumento (Multi-Document Tab Bar)
-- **Objetivo e Benefícios de Produtividade**:
-  - Elimina a alternância constante de janelas no sistema operacional (Alt+Tab / Cmd+`) ao redigir trabalhos que exigem múltiplos documentos de consulta simultâneos.
-  - Abertura e edição de vários arquivos `.baku` em uma mesma janela unificada.
-- **Posicionamento Ergonômico**:
-  - Localizada estrategicamente **abaixo da faixa de opções (Ribbon) e diretamente acima da régua e do editor**.
-  - Segue a hierarquia visual natural de trabalho: selecionar comandos na faixa -> selecionar o documento na barra de abas -> editar na folha.
-  - Aproveita toda a largura horizontal da tela sem sobrecarregar a barra de status inferior.
-- **Design Visual Flat 2D**:
-  - Barra de perfil fino (altura de 30 a 32 px).
-  - **Aba Ativa**: Fundo branco (`#FFFFFF`) contínuo com a folha de trabalho, linha de destaque superior azul (`#2563EB`), título em negrito, botão de fechar `x` e sinalizador de alterações não salvas.
-  - **Aba Inativa**: Cinza neutro (`#F3F2F1`) com transições suaves.
-  - Encurtamento de nomes longos com reticências e botão `+` para criação/abertura rápida.
-- **Rolagem Horizontal e Navegação**:
-  - Exibição proporcional para 1 a 5 abas abertas.
-  - Rolagem horizontal fluida quando houver mais de 5 documentos, auxiliada por setas `<` e `>` nos extremos.
-- **Isolamento de Estado e Segurança dos Dados**:
-  - Estado Delta JSON independente por aba, preservando o ponto de rolagem e a posição do cursor.
-  - Histórico de Desfazer (`Ctrl/Cmd+Z`) e Refazer (`Ctrl+Y` / `Cmd+Shift+Z`) isolado por documento.
-  - Ponto indicador de documento não salvo e aviso de confirmação antes do fechamento.
-- **Economia de Memória RAM**:
-  - Abas em segundo plano permanecem armazenadas como estruturas de dados leves na RAM sem sobrecarregar a árvore DOM.
+### 5.6. Numeração Externa de Páginas (Bates Numbering)
+- Inserção de numeração em PDFs externos com prefixos personalizáveis.
 
 ---
 
-## 9. Interoperabilidade de Formatos e Compatibilidade de Arquivos
+## 6. Plano de Lançamento Versão 1.5.0 (Ápice do Marco do Ecossistema e Alto Desempenho)
 
-### 9.1. Importação e Conversão de Documentos Word (.docx) Offline
-- Interpretador local em Rust para carregar arquivos do Microsoft Word preservando os estilos essenciais.
+A etapa **v1.5.0** representa o marco ápice de maturidade do Baku PDF:
 
-### 9.2. Exportação para Formatos Convencionais
-- Exportação para `.docx`, texto simples (`.txt`) e Markdown científico (`.md`).
+### 6.1. Pacotes de Modelos Portáteis (.bakutpl)
+- Exportação e importação de modelos personalizados em arquivos `.bakutpl`.
 
-### 9.3. Especificação do Formato .baku v2.0
-- Contêiner de anexos binários compactados para ilustrações de alta resolução.
-- Compatibilidade retroativa integral com arquivos da versão 1.0.0.
+### 6.2. Coleção Expandida de Modelos Padronizados
+- Artigos científicos de coluna dupla e publicações IEEE.
+- Propostas de projetos estudantis, relatórios de estágio e projetos de pós-graduação.
+- Modelos formais administrativos (Ofícios, Decretos e Portarias).
+
+### 6.3. Renderização Virtual de Páginas DOM (500+ Páginas)
+- Montagem exclusiva das folhas no campo de visão (*viewport*), permitindo redigir monografias de centenas de páginas com latência de digitação inferior a 8 ms.
+
+### 6.4. Motor de Exportação PDF Nativo em Rust
+- Geração vetorial pura com Rust (`printpdf`/`lopdf`) com subconjunto de fontes embutidas, reduzindo o arquivo final em até 60%.
+
+### 6.5. Modo Escuro e Claro Adaptativo Completo
+- Tema escuro de alto contraste atendendo às normas WCAG AAA, com folhas convencionais ou folhas invertidas e sincronização com o sistema operacional.
+
+### 6.6. Modo Livre de Distrações (Zen) e Visualização em Página Dupla
+- Ocultação de menus e barras (`F11` / `Cmd+Shift+F`) e visualização lado a lado de duas páginas em telas panorâmicas.
+
+### 6.7. Importador de Word (.docx) e Exportação Padrão
+- Leitor local em Rust de arquivos `.docx` preservando a estrutura de texto e exportação para `.docx`, texto simples (`.txt`) e Markdown (`.md`).
+
+### 6.8. Especificação do Formato .baku v2.0
+- Contêiner de anexos binários comprimidos para imagens de alta resolução e compatibilidade retroativa total com a versão 1.0.0.
+
+### 6.9. Salvamento Automático Periódico e Recuperação de Sessão
+- Gravação a cada 60 segundos com restauração automática em caso de desligamento inesperado e histórico de revisões.
 
 ---
 
-## 10. Segurança de Documentos e Higienização de Metadados
+## 7. Matriz de Prioridades Técnicas e Resumo de Lançamentos Graduais (v1.1.0 – v1.5.0)
 
-### 10.1. Higienizador de Metadados
-- Limpeza de nomes de autores, dados da máquina e registros temporais para submissão anônima (*Blind Review*).
-
-### 10.2. Modo de Bloqueio Somente Leitura
-- Proteção contra modificações acidentais em documentos aprovados.
-
----
-
-## 11. Fases de Lançamento Gradual e Matriz de Prioridades (v1.1.0 – v1.5.0)
-
-Para disponibilizar novos recursos com agilidade e alta estabilidade sem aguardar a conclusão simultânea de todos os módulos, o ciclo de desenvolvimento foi estruturado em cinco etapas:
-
-### 11.1. Plano de Lançamentos Graduais
+### 7.1. Plano de Lançamentos Graduais
 
 | Versão | Foco Principal | Módulos Integrados | Previsão |
 | :--- | :--- | :--- | :--- |
-| **v1.1.0** | Abas de Documentos e Eficiência | Barra de Abas Multidocumento (Seção 8.5) e Compressor de PDF Offline (Seção 4.1). | Próximo Lançamento |
-| **v1.2.0** | Padrões Acadêmicos e Tipografia | Numeração Dupla de Páginas (Seção 3.1), Fórmulas KaTeX (Seção 2.1), Tabelas Booktabs (Seção 2.3) e Régua Vertical (Seção 2.2). | Fase 2 |
-| **v1.3.0** | Distribuição Multiplataforma | Instalador Windows NSIS (`.exe`) e Edição Portátil (Seção 6.1), Pacote Universal Linux AppImage e Debian `.deb` (Seção 6.2). | Fase 3 |
-| **v1.4.0** | Utilitários PDF e Segurança | Assinatura Digital e Rubrica (Seção 4.2), Higienizador de Metadados (Seção 10.1), Organizador de Páginas (Seção 4.4) e Marca d'Água (Seção 4.6). | Fase 4 |
-| **v1.5.0** | Marco do Ecossistema e Performance | Pacotes de Modelos Portáteis `.bakutpl` (Seção 5.4), Renderização Virtual DOM para 500+ Páginas (Seção 7.1), Modo Escuro Adaptativo (Seção 8.2) e Importação Word `.docx` (Seção 9.1). | Ápice do Marco |
+| **v1.1.0** | Abas de Documentos e Eficiência | Barra de Abas Multidocumento (Seção 2.1) e Compressor de PDF (Seção 2.2). | Próximo Lançamento |
+| **v1.2.0** | Padrões Acadêmicos e Tipografia | Numeração Dupla de Páginas (Seção 3.1), Fórmulas KaTeX (Seção 3.2), Tabelas Booktabs (Seção 3.3), Régua Vertical (Seção 3.4), Ortografia (Seção 3.5) e Estrutura (Seção 3.6). | Fase 2 |
+| **v1.3.0** | Distribuição Multiplataforma | Instaladores Windows (`.exe`/portátil) (Seção 4.1), Linux AppImage/Debian (Seção 4.2), macOS (Seção 4.3) e Painel Lateral (Seção 4.4). | Fase 3 |
+| **v1.4.0** | Utilitários PDF e Segurança | Assinatura Digital (Seção 5.1), Higienizador de Metadados (Seção 5.2), Organizador de Páginas (Seção 5.3), Marca d'Água (Seção 5.4), Criptografia (Seção 5.5) e Numeração (Seção 5.6). | Fase 4 |
+| **v1.5.0** | Marco do Ecossistema e Performance | Pacotes `.bakutpl` (Seção 6.1), Modelos Extras (Seção 6.2), DOM Virtual 500+ Páginas (Seção 6.3), Motor PDF Rust (Seção 6.4), Modo Escuro (Seção 6.5), Modo Zen (Seção 6.6), Importador Word (Seção 6.7), `.baku` v2.0 (Seção 6.8) e Salvamento Automático (Seção 6.9). | Ápice do Marco |
 
-### 11.2. Matriz Técnica de Prioridades de Desenvolvimento
+### 7.2. Matriz Técnica de Prioridades de Desenvolvimento
 
 | Módulo | Componente Alvo | Versão Alvo | Prioridade | Complexidade Estimada |
 | :--- | :--- | :--- | :--- | :--- |
@@ -316,9 +229,9 @@ Para disponibilizar novos recursos com agilidade e alta estabilidade sem aguarda
 
 ---
 
-## Discussões e Contribuições da Comunidade
+## 8. Contribuições da Comunidade e Discussões de Recursos
 
 - Sugestões de recursos: [.github/ISSUE_TEMPLATE/feature_request.md](../.github/ISSUE_TEMPLATE/feature_request.md)
 - Relatório de falhas: [.github/ISSUE_TEMPLATE/bug_report.md](../.github/ISSUE_TEMPLATE/bug_report.md)
 - Guia de colaboração: [CONTRIBUTING.md](../CONTRIBUTING.md)
-- Arquitetura técnica: [ARCHITECTURE.md](../ARCHITECTURE.md)\n
+- Arquitetura técnica: [ARCHITECTURE.md](../ARCHITECTURE.md)

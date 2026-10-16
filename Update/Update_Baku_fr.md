@@ -18,307 +18,220 @@
 
 # Feuille de Route Baku PDF (Cycle de Versions v1.1.0 – v1.5.0)
 
-Ce document dresse le bilan des fonctionnalités initiales de **Baku PDF v1.0.0** et présente l'ensemble des nouvelles fonctionnalités planifiées déployées par étapes successives de **Baku PDF v1.1.0 à v1.5.0**. Ce cycle progressif est axé sur la rédaction académique avancée, l'ajout d'outils de manipulation de PDF hors ligne, le support multiplateforme complet (Windows, macOS, Linux) et le rendu ultra-rapide des documents volumineux.
+Ce document dresse le bilan des fonctionnalités disponibles dans **Baku PDF v1.0.0**, suivi de la feuille de route technique organisée par numéro de version de **v1.1.0 à v1.5.0**. Chaque étape de déploiement est structurée de manière mesurable, testée progressivement et respecte strictement les principes fondateurs de l'application :
 
-Principes fondamentaux préservés :
-- **100% Hors Ligne (Offline-First)** : Tous les traitements sont exécutés localement sur la machine de l'utilisateur sans aucun serveur distant.
-- **Confidentialité Totale** : Aucune télémétrie, aucun traceur ni transmission de données externe.
-- **Faible Consommation de Ressources** : Lancement instantané et empreinte mémoire minimale (~50–80 Mo de RAM).
-- **Design Épuré Flat 2D** : Interface claire, fonctionnelle et sans distraction.
-- **Standardisation Rigoureuse** : Conformité aux normes de mise en page académiques et administratives.
-
----
-
-## Table des Matières
-
-1. [État des Fonctionnalités Disponibles (Base v1.0.0)](#1-état-des-fonctionnalités-disponibles-base-v100)
-2. [Éditeur de Documents et Typographie Scientifique Avancée](#2-éditeur-de-documents-et-typographie-scientifique-avancée)
-3. [Structuration Automatisée des Documents Académiques](#3-structuration-automatisée-des-documents-académiques)
-4. [Extension des Outils PDF Hors Ligne](#4-extension-des-outils-pdf-hors-ligne)
-5. [Collection Élargie de Modèles Standards](#5-collection-élargie-de-modèles-standards)
-6. [Support Multiplateforme et Distribution des Binaires](#6-support-multiplateforme-et-distribution-des-binaires)
-7. [Architecture Interne, Performances et Documents Volumineux](#7-architecture-interne-performances-et-documents-volumineux)
-8. [Interface Utilisateur, Navigation et Accessibilité](#8-interface-utilisateur-navigation-et-accessibilité)
-9. [Interopérabilité des Formats et Compatibilité des Fichiers](#9-interopérabilité-des-formats-et-compatibilité-des-fichiers)
-10. [Sécurité des Documents et Nettoyage des Métadonnées](#10-sécurité-des-documents-et-nettoyage-des-métadonnées)
-11. [Étapes de Déploiement Progressif et Matrice des Priorités (v1.1.0 – v1.5.0)](#11-étapes-de-déploiement-progressif-et-matrice-des-priorités-v110--v150)
+Principes fondamentaux de conception :
+- **100% Hors Ligne (Local-First)** : Traitement strictement local sur votre appareil, sans recours au cloud.
+- **Confidentialité Absolue** : Aucune télémétrie, suivi analytique ou transmission externe de données.
+- **Faible Empreinte Système** : Démarrage instantané et consommation de mémoire RAM minime (~50-80 Mo).
+- **Design Épuré Flat 2D** : Interface ergonomique, moderne et exempte de distractions.
+- **Conformité Typographique** : Respect rigoureux des normes de rédaction académique et administrative.
 
 ---
 
-## 1. État des Fonctionnalités Disponibles (Base v1.0.0)
+## Sommaire du Document
 
-Après audit approfondi du code source, les modules suivants **sont intégralement implémentés dans la version 1.0.0** :
+1. [Inventaire des Fonctionnalités Initiales (Statut de Version v1.0.0)](#1-inventaire-des-fonctionnalités-initiales-statut-de-version-v100)
+2. [Plan de Version 1.1.0 (Onglets Multi-Documents et Efficacité Opérationnelle)](#2-plan-de-version-110-onglets-multi-documents-et-efficacité-opérationnelle)
+3. [Plan de Version 1.2.0 (Normes Académiques et Typographie Scientifique)](#3-plan-de-version-120-normes-académiques-et-typographie-scientifique)
+4. [Plan de Version 1.3.0 (Déploiement Multiplateforme Complet et Navigation)](#4-plan-de-version-130-déploiement-multiplateforme-complet-et-navigation)
+5. [Plan de Version 1.4.0 (Outils PDF Hors Ligne et Sécurité des Documents)](#5-plan-de-version-140-outils-pdf-hors-ligne-et-sécurité-des-documents)
+6. [Plan de Version 1.5.0 (Sommet de l'Écosystème et Hautes Performances)](#6-plan-de-version-150-sommet-de-lécosystème-et-hautes-performances)
+7. [Matrice des Priorités Techniques et Résumé des Jalons (v1.1.0 – v1.5.0)](#7-matrice-des-priorités-techniques-et-résumé-des-jalons-v110--v150)
+8. [Contributions Communautaires et Discussions des Fonctionnalités](#8-contributions-communautaires-et-discussions-des-fonctionnalités)
 
-| Module de Fonction | Statut v1.0.0 | Détails d'Implémentation |
+---
+
+## 1. Inventaire des Fonctionnalités Initiales (Statut de Version v1.0.0)
+
+L'audit complet du code source confirme que les modules suivants sont **intégralement implémentés dans la version 1.0.0** :
+
+| Module Fonctionnel | Statut v1.0.0 | Description Technique |
 | :--- | :--- | :--- |
-| **Règle Horizontale Interactive** | Implémenté | Règle supérieure en centimètres avec curseurs de marges (`ruler-marker-left`, `ruler-marker-right`), repères d'alignement et bouton d'affichage dans le ruban et le menu Affichage. |
-| **8 Modèles Standards Intégrés** | Implémenté | Thèse complète de 5 pages, Article Scientifique, Rapport de Laboratoire, Lettre Administrative Officielle, **Lettre de Motivation**, Compte-Rendu de Réunion, **CV ATS Professionnel** et Note Interne. |
-| **Système de Création de Modèles Personnalisés** | Implémenté | Enregistrer comme Modèle (`#action-save-as-template`), Créer un Nouveau Modèle (`#btn-create-new-template`) et filtre des modèles personnels dans la galerie. |
-| **Numérotation des Pages et Sauts de Section** | Implémenté | Modal de numérotation (`#modal-page-number`) en chiffres arabes (`1, 2, 3`), romains minuscules (`i, ii, iii`), romains majuscules (`I, II, III`) et insertion de sauts de section. |
-| **En-tête et Pied de Page Distincts en Première Page** | Implémenté | Option Première Page Distincte (`diffFirst`) pour isoler ou masquer l'en-tête de page de garde. |
-| **Fenêtre Modale de Liens Hypertextes** | Implémenté | Modal plat 2D (`#modal-link-overlay`) avec texte d'affichage, champ URL, suppression de lien, raccourci `Ctrl+K` / `Cmd+K` et ouverture par `Ctrl/Cmd + Clic`. |
-| **Commandes de Zoom et d'Échelle** | Implémenté | Zoom avant, zoom arrière, réinitialisation à 100%, curseur dans la barre d'état et échelle d'affichage dans les Préférences. |
-| **4 Outils PDF Hors Ligne** | Implémenté | Fusionner PDF, Diviser PDF, Pivoter les Pages et Images vers PDF via les bibliothèques Rust `lopdf` et `image`. |
-| **Installateur Universel DMG pour macOS** | Implémenté | Paquet binaire universel officiel (`x86_64` Intel + `arm64` Apple Silicon M1-M4) (`Baku_1.0.0_Universal_Installer.dmg`) avec protection d'exécution temporaire (`check_running_from_dmg`). |
+| **Règle Horizontale Interactive** | Implémenté | Règle métrique en centimètres, curseurs de marges gauche/droite (`ruler-marker-left`, `ruler-marker-right`), repères d'alignement et boutons de bascule. |
+| **8 Modèles Standards Intégrés** | Implémenté | Thèse universitaire complète de 5 pages, Article Scientifique, Rapport de Laboratoire, Lettre Administrative, **Lettre de Motivation**, Compte-rendu de Réunion, **CV Standard ATS** et Mémo Interne. |
+| **Système de Création de Modèles** | Implémenté | Action "Enregistrer comme modèle..." (`#action-save-as-template`), "Créer un modèle" (`#btn-create-new-template`) et filtre des modèles personnels. |
+| **Numérotation et Sauts de Section** | Implémenté | Boîte de dialogue (`#modal-page-number`) avec formats arabes (`1, 2, 3`), romains minuscules (`i, ii, iii`), romains majuscules (`I, II, III`) et sauts de section. |
+| **Première Page d'En-tête Différente** | Implémenté | Option *Première page différente* (`diffFirst`) pour isoler les pages de titre. |
+| **Modal d'Insertion de Liens Dédié** | Implémenté | Dialogue Flat 2D (`#modal-link-overlay`) avec texte d'affichage, URL cible, suppression du lien, raccourci `Ctrl+K` / `Cmd+K` et ouverture avec `Ctrl/Cmd + Clic`. |
+| **Contrôles Précis du Zoom** | Implémenté | Zoom avant/arrière, réinitialisation à 100%, curseur dans la barre d'état et échelle d'interface. |
+| **4 Outils PDF Hors Ligne** | Implémenté | Fusionner PDF (*Merge*), Fractionner PDF (*Split*), Pivoter les Pages (*Rotate*) et Images vers PDF (*Images to PDF*) propulsés par Rust `lopdf` et `image`. |
+| **Paquet DMG macOS Binaire Universel** | Implémenté | DMG Universal Binary (`x86_64` Intel + `arm64` Apple Silicon M1/M2/M3/M4) officiel avec fond de glisser-déposer et sécurité de volume (`check_running_from_dmg`). |
 
 ---
 
-## 2. Éditeur de Documents et Typographie Scientifique Avancée
+## 2. Plan de Version 1.1.0 (Onglets Multi-Documents et Efficacité Opérationnelle)
 
-### 2.1. Notation Mathématique KaTeX Hors Ligne
-- Intégration du moteur KaTeX embarqué à 100% sans connexion réseau.
-- Insertion interactive de formules en ligne et en blocs équations centrés.
-- Numérotation automatique des équations alignée sur la marge droite selon le chapitre : `(1.1)`, `(1.2)`.
-- Prise en charge des matrices, du calcul différentiel et des symboles de physique et chimie.
+Le jalon **v1.1.0** est axé sur la rédaction multitâche fluide et la compression locale de fichiers PDF :
 
-### 2.2. Extension de la Règle Interactive : Retraits et Règle Verticale
-- Nouveaux repères sur la règle horizontale :
-  - **Repère de Retrait de Première Ligne** : Définit l'alinéa du paragraphe (ex. 1 cm ou 1,27 cm).
-  - **Repère de Retrait Suspendu (Hanging Indent)** : Standard pour les références bibliographiques (APA, IEEE, Chicago).
-- **Règle Verticale** sur le bord gauche :
-  - Mesure exacte de la hauteur de page en centimètres.
-  - Ajustement direct des marges supérieure et inférieure par glisser-déposer sur le canevas.
+### 2.1. Barre d'Onglets Multi-Documents (Multi-Document Tab Bar)
+- **Objectif et Bénéfices** : Évite les allers-retours avec `Alt+Tab` entre les fenêtres de l'OS en permettant d'ouvrir, modifier et naviguer entre plusieurs documents `.baku` simultanément au sein d'une seule fenêtre.
+- **Positionnement Ergonomique** : Située sous la barre d'outils Ribbon et au-dessus de la règle et de la feuille de travail.
+- **Conception Flat 2D** : Onglets compacts (hauteur 30-32 px) ; onglet actif à fond blanc pur (`#FFFFFF`) avec liseré bleu supérieur (`#2563EB`) ; onglets inactifs en gris neutre (`#F3F2F1`) avec troncature élégante.
+- **Défilement Horizontal Adaptatif** : Disposition proportionnelle jusqu'à 5 onglets ; défilement horizontal fluide au trackpad ou à la molette au-delà de 5 documents avec boutons chevrons `<` et `>`.
+- **Isolation des Données et Sécurité** : Historiques d'annulation (`Ctrl+Z` / `Ctrl+Y`) indépendants par onglet, indicateur visuel de modifications non enregistrées (point bleu) et confirmation avant fermeture.
+- **Virtualisation Mémoire RAM** : Les onglets d'arrière-plan restent de simples structures Delta JSON en mémoire sans monter d'éléments DOM, garantissant une utilisation réduite de RAM (~50-80 Mo).
+- **Raccourcis Clavier** : `Ctrl+Tab` pour l'onglet suivant, `Ctrl+Shift+Tab` pour l'onglet précédent et `Ctrl+W` pour fermer l'onglet.
 
-### 2.3. Tableaux Scientifiques Avancés
+### 2.2. Compresseur de Fichiers PDF Hors Ligne (Offline PDF Compressor)
+- Réduction de taille opérée localement en Rust sans dégrader la lisibilité du texte vectoriel.
+- Préréglages immédiats : moins de 500 Ko (candidatures et bourses), moins de 1 Mo (dépôts académiques), moins de 2 Mo et réglage manuel du DPI (150, 96, 72 DPI).
+- Estimation comparative de la taille avant et après enregistrement.
+
+---
+
+## 3. Plan de Version 1.2.0 (Normes Académiques et Typographie Scientifique)
+
+Le jalon **v1.2.0** instaure les règles formelles de thèse universitaire et la typographie mathématique :
+
+### 3.1. Double Numérotation des Pages de Thèse Automatique
+- Première page de chaque chapitre centrée en bas ; pages suivantes positionnées dans le coin supérieur droit.
+- Réinitialisation isolée de la numérotation par section sans altérer les séquences précédentes.
+
+### 3.2. Formules Mathématiques KaTeX Hors Ligne
+- Moteur KaTeX embarqué 100% hors ligne.
+- Insertion d'équations en ligne (`Inline Math`) et en bloc (`Block Equation`).
+- Numérotation séquentielle des formules dans la marge droite : `(1.1)`, `(1.2)`.
+
+### 3.3. Tableaux Scientifiques Avancés (Style Booktabs)
 - Fusion de cellules horizontale et verticale.
-- Style de bordures pour publications scientifiques (Style Booktabs) : aucun trait vertical, bordures horizontales contrastées.
-- Alignement sur la virgule décimale pour les données chiffrées.
-- Répétition automatique de la ligne d'en-tête lors des sauts de page.
-- Numérotation séquentielle des légendes : `Tableau 1.1 : Titre du tableau`.
+- Lignes de démarcation épurées sans séparateurs verticaux (ligne supérieure épaisse, ligne d'en-tête fine, ligne inférieure épaisse).
+- Alignement décimal des données numériques et répétition automatique des en-têtes sur plusieurs pages.
 
-### 2.4. Correcteur Orthographique et Césure Hors Ligne
-- Dictionnaire local intégré pour repérer les fautes de frappe.
-- Soulignement rouge discret pour les termes inconnus.
-- Suggestions contextuelles via le menu clic droit.
-- Césure automatique pour texte justifié garantissant un espacement homogène entre les mots.
+### 3.4. Règle Verticale et Retraits de Paragraphe
+- Curseurs sur la règle horizontale pour Retrait de Première Ligne et Retrait Suspendu (normes APA/IEEE).
+- Règle verticale à gauche pour mesurer la hauteur exacte et ajuster visuellement les marges haute et basse.
 
----
+### 3.5. Correcteur Orthographique et Guide Rédactionnel Hors Ligne
+- Dictionnaire local intégré avec alertes visuelles, suggestions au clic droit et césure automatique des mots pour les textes justifiés.
 
-## 3. Structuration Automatisée des Documents Académiques
-
-### 3.1. Règles de Double Numérotation des Pages de Thèse
-- Automatisation des normes universitaires :
-  - Première page de chaque chapitre (comportant le titre) numérotée en **bas au centre**.
-  - Pages suivantes du même chapitre numérotées en **haut à droite**.
-- Numérotation de section indépendante sans modifier les sections antérieures.
-
-### 3.2. Table des Matières Automatique et Dynamique
-- Génération instantanée selon la hiérarchie des titres (Titre 1, Titre 2, Titre 3).
-- Points de suite automatiques reliant les intitulés aux numéros de page.
-- Bouton de mise à jour globale en un clic lors des révisions textuelles.
-
-### 3.3. Liste Dynamique des Tableaux et Figures
-- Détection continue des légendes d'illustrations et de tableaux.
-- Production automatisée de listes de figures et tableaux synchronisées en temps réel.
-
-### 3.4. Gestionnaire de Citations et Bibliographie Hors Ligne
-- Saisie manuelle de références ou importation de fichiers BibTeX (`.bib`) et RIS.
-- Formatage automatisé des citations selon les normes APA 7e édition, IEEE, Harvard et Vancouver.
-- Génération de la bibliographie finale ordonnée avec retrait suspendu standard.
+### 3.6. Automatisation de la Structure du Document
+- Table des matières dynamique avec points de conduite (*dot leaders*) et mise à jour rapide.
+- Listes synchronisées des figures et des tableaux avec numéros de pages en temps réel.
+- Gestionnaire de citations hors ligne avec import BibTeX (`.bib`) et formats APA 7, IEEE, Harvard et Vancouver.
 
 ---
 
-## 4. Extension des Outils PDF Hors Ligne
+## 4. Plan de Version 1.3.0 (Déploiement Multiplateforme Complet et Navigation)
 
-En complément des 4 outils existants, la version 1.5 ajoute 6 utilitaires hors ligne supplémentaires :
+Le jalon **v1.3.0** étend la compatibilité native à Windows et Linux et ajoute une navigation latérale :
 
-### 4.1. Compresseur de Fichiers PDF Hors Ligne
-- Réduction locale de la taille des PDF optimisée en Rust sans compromettre la netteté du texte.
-- Préréglages immédiats : moins de 500 Ko, moins de 1 Mo, moins de 2 Mo et réglage manuel de la résolution DPI.
-- Comparaison visuelle de taille avant enregistrement.
+### 4.1. Distribution pour Microsoft Windows
+- Installateur NSIS guidé (`.exe`) 64 bits et ARM64 pour Windows 10 et 11 avec association de fichiers `.baku`.
+- Édition portable autonome (`Baku_Portable.exe`) pour ordinateurs d'université et postes restreints.
+- Publication sur le gestionnaire de paquets officiel (`winget install Baku.BakuPDF`).
 
-### 4.2. Signature Numérique et Paraphe Hors Ligne
-- Tracé direct de signature avec curseur/stylet ou importation d'image PNG transparente.
-- Positionnement avec aperçu dynamique sur n'importe quelle page.
-- Signature par coordonnées par lot sur documents multi-pages.
-- Horodatage et paraphes hors ligne.
+### 4.2. Distribution pour GNU/Linux
+- Paquet universel autonome `AppImage` pour Ubuntu, Fedora, Arch Linux, Debian et openSUSE.
+- Paquet natif Debian/Ubuntu (`.deb`) avec dépendances `webkit2gtk-4.1`.
+- Prise en charge de Flatpak (Flathub) et paquet AUR (`baku-bin`).
 
-### 4.3. Protection par Mot de Passe et Chiffrement AES-256
-- Mot de passe d'ouverture avec chiffrement standard local AES-256.
-- Mot de passe d'autorisations pour restreindre l'impression, la copie de texte et l'annotation.
-- Déverrouillage et suppression de mot de passe pour les propriétaires légitimes.
+### 4.3. Distribution Avancée macOS
+- Installation simplifiée via Homebrew Cask (`brew install --cask baku-pdf`).
+- Signature officielle Apple Developer ID et notarisation complète pour un lancement sans blocage Gatekeeper.
 
-### 4.4. Gestionnaire Visuel de Pages
-- Grille de vignettes miniatures pour chaque page du document.
-- Réorganisation des pages par glisser-déposer.
-- Suppression de pages uniques ou de plages sélectionnées.
-- Insertion de pages vierges et intégration de pages issues d'autres PDF.
-
-### 4.5. Numérotation Bates et Tamponneur de PDF Externes
-- Ajout de pagination sur des PDF externes non numérotés.
-- Emplacement configurable : haut droit, bas droit ou bas centre.
-- Préfixe personnalisable (ex. : `Annexe Page 1 sur 10`, `Pièce 1`).
-
-### 4.6. Outil de Filigrane Hors Ligne
-- Filigrane diagonal (45 degrés) ou horizontal.
-- Textes rapides : `BROUILLON`, `CONFIDENTIEL`, `COPIE OFFICIELLE`, `SPÉCIMEN`.
-- Réglage de l'opacité, de la police, de la couleur et de la plage de pages.
+### 4.4. Barre Latérale de Navigation du Document
+- Volet repliable à gauche avec onglets pour la hiérarchie des titres (Chapitres et Sections), les miniatures de pages et la recherche textuelle.
 
 ---
 
-## 5. Collection Élargie de Modèles Standards
+## 5. Plan de Version 1.4.0 (Outils PDF Hors Ligne et Sécurité des Documents)
 
-### 5.1. Publications Scientifiques et Revues
-- **Article de Revue Académique (Mise en Page Double Colonne)** : En-tête pleine largeur, résumé bilingue et structure IMRAD formelle.
-- **Article de Conférence IEEE** : Marges et typographie normalisées avec figures en double colonne.
+Le jalon **v1.4.0** introduit des outils autonomes pour les fichiers PDF et le respect de la vie privée :
 
-### 5.2. Gestion Universitaire et Projets de Recherche
-- **Dossier de Candidature à une Bourse Étudiante** : Fiche de validation, budget prévisionnel et calendrier de réalisation.
-- **Rapport de Stage Professionnel** : Journal hebdomadaire d'activités et bilan d'évaluation.
-- **Projet de Thèse de Master et Doctorat** : Cadre méthodologique détaillé et hypothèses de recherche.
+### 5.1. Signature Numérique et Paraphe Hors Ligne
+- Dessin au stylet/curseur ou import de signatures PNG transparentes avec glisser-déposer.
+- Signature par lot à coordonnées fixes sur documents volumineux et horodatage local.
 
-### 5.3. Administration Publique et Entreprise
-- **Note de Service et Ordre de Mission** : Format administratif institutionnel avec références légales.
-- **Arrêté Officiel et Décision Administrative** : Structure formelle Vu, Considérant et Décide.
-- **Procès-Verbal de Livraison et Réception** : Modèle contractuel avec clauses de certification.
+### 5.2. Nettoyeur de Métadonnées Confidentielles
+- Suppression des noms d'auteurs, identifiants de machine et historiques de modification pour l'évaluation en double aveugle (*Blind Review*).
 
-### 5.4. Exportation et Importation de Paquets de Modèles (.bakutpl)
-- Partage de modèles personnalisés sous forme de fichiers portables `.bakutpl`.
-- Importation directe dans la galerie de modèles locale d'autres postes de travail.
+### 5.3. Organiseur Visuel de Pages PDF
+- Grille de vignettes pour réorganiser les pages, suppression de plages de pages et insertion de nouvelles pages ou d'autres PDF.
 
----
+### 5.4. Filigrane Textuel Hors Ligne
+- Application de filigranes diagonaux ou horizontaux avec modèles (`BROUILLON`, `CONFIDENTIEL`, `COPIE OFFICIELLE`) et réglage d'opacité.
 
-## 6. Support Multiplateforme et Distribution des Binaires
+### 5.5. Chiffrement et Mot de Passe PDF
+- Chiffrement standard AES-256 local avec mot de passe d'ouverture et mot de passe de permissions (restriction d'impression et de copie).
 
-### 6.1. Distribution Windows
-- **Installateur Guidé NSIS (`.exe`)** : Paquets 64 bits (`x64`) et ARM64 pour Windows 10 et 11 avec association de fichiers `.baku`.
-- **Édition Portable Autonome (`Baku_Portable.exe`)** : Exécution directe sans droits d'administrateur.
-- **Gestionnaire de Paquets Microsoft (`winget`)** : Publication dans le catalogue officiel `winget-pkgs`.
-
-### 6.2. Distribution Linux
-- **Paquet Universel `AppImage`** : Exécutable unique sans dépendances externes complexes.
-- **Paquet Debian / Ubuntu (`.deb`)** : Binaire natif avec dépendances intégrées.
-- **Flathub et Arch User Repository (AUR)** : Manifeste Flatpak et paquet communautaire `baku-bin` dans l'AUR.
-
-### 6.3. Distribution Avancée macOS
-- **Homebrew Cask** : Installation en ligne de commande (`brew install --cask baku-pdf`).
-- **Signature de Code et Notarisation Apple** : Certificat Apple Developer ID pour ouverture directe sans blocage de Gatekeeper.
+### 5.6. Folio et Numérotation Externe (Bates Numbering)
+- Estampillage de numéros de pages sur des documents PDF tiers avec préfixes personnalisés.
 
 ---
 
-## 7. Architecture Interne, Performances et Documents Volumineux
+## 6. Plan de Version 1.5.0 (Sommet de l'Écosystème et Hautes Performances)
 
-### 7.1. Rendu Virtuel des Pages dans le DOM
-- Affichage restreint aux seules pages présentes dans le champ visuel de l'écran plus un tampon de 1 à 2 pages.
-- Navigation fluide sur des manuscrits de plus de 500 pages tout en conservant une consommation de mémoire stable.
-- Latence de frappe inférieure à 8 millisecondes.
+Le jalon **v1.5.0** marque l'apogée fonctionnelle de l'écosystème Baku PDF :
 
-### 7.2. Moteur d'Exportation PDF Vectoriel Natif en Rust
-- Exportation basée sur des bibliothèques Rust (`printpdf` et `lopdf`) associées au composant WebView.
-- Génération de texte vectoriel sélectionnable avec réduction de taille jusqu'à 60%.
-- Sous-ensemble de polices (*Font Subsetting*) automatique n'embarquant que les glyphes utilisés.
+### 6.1. Paquets de Modèles Portables (.bakutpl)
+- Exportation et importation de modèles personnalisés sous la forme de fichiers empaquetés `.bakutpl`.
 
-### 7.3. Sauvegarde Automatique Toutes les 60 Secondes et Récupération d'Urgence
-- Sauvegardes locales régulières dans un stockage temporaire dédié.
-- Fenêtre de restauration immédiate lors de la réouverture consécutive à une coupure imprévue.
-- Historique des instantanés locaux pour revenir aux versions de 15, 30 ou 60 minutes antérieures.
+### 6.2. Collection Élargie de Modèles Spécifiques
+- Formats d'articles de revues scientifiques (colonnes doubles) et actes de colloques IEEE.
+- Projets de recherche étudiante, rapports de stage en entreprise et thèses de doctorat.
+- Formats administratifs officiels (notes de service, arrêtés et procès-verbaux).
 
----
+### 6.3. Rendu Virtuel Infini des Feuilles DOM (500+ Pages)
+- Affichage exclusif des pages dans le champ visuel (*viewport*) avec une latence de frappe inférieure à 8 ms sur des manuscrits denses.
 
-## 8. Interface Utilisateur, Navigation et Accessibilité
+### 6.4. Moteur d'Exportation PDF Natif en Rust
+- Génération vectorielle pure avec bibliothèques Rust (`printpdf`/`lopdf`) et incorporation partielle des polices, réduisant le fichier de 60%.
 
-### 8.1. Volet Latéral de Navigation et Plan
-- Panneau escamotable à gauche affichant l'arborescence des chapitres, les vignettes de pages et les résultats de recherche contextuelle.
+### 6.5. Mode Sombre et Clair Adaptatif Complet
+- Thème sombre à contraste élevé conforme aux directives d'accessibilité WCAG AAA, avec page claire ou inversée et synchronisation avec l'OS.
 
-### 8.2. Thèmes Sombre et Clair Adaptatifs
-- Vrai thème sombre haute lisibilité conforme aux normes d'accessibilité WCAG AAA.
-- Option feuille physique blanche sur fond sombre ou inversion nocturne de lecture.
-- Bascule automatique selon le thème du système d'exploitation.
+### 6.6. Mode Sans Distraction (Zen) et Affichage Double Page
+- Masquage total de l'interface (`F11` / `Cmd+Shift+F`) et disposition de deux pages côte à côte sur écrans larges.
 
-### 8.3. Mode Zen Sans Distraction
-- Masquage instantané de tous les bandeaux et menus via le raccourci `F11` ou `Cmd+Shift+F`.
+### 6.7. Importateur Word (.docx) et Exportations Standards
+- Analyseur natif Rust de fichiers Word `.docx` avec préservation de mise en page et conversion vers `.docx`, texte brut (`.txt`) et Markdown (`.md`).
 
-### 8.4. Affichage en Double Page
-- Visualisation de deux pages côte à côte sur les écrans larges.
+### 6.8. Spécification Enrichie du Format .baku v2.0
+- Conteneur de pièces jointes binaires compressées sans perte pour les images haute résolution avec rétrocompatibilité totale v1.0.0.
 
-### 8.5. Barre d'Onglets Multi-Documents (Multi-Document Tab Bar)
-- **Objectif et Confort de Travail** :
-  - Supprime les allers-retours entre fenêtres du système (Alt+Tab / Cmd+`) lors de la rédaction nécessitant plusieurs documents de travail simultanés.
-  - Ouverture et modification de plusieurs fichiers `.baku` au sein d'une seule fenêtre d'application.
-- **Positionnement Ergonomique** :
-  - Située stratégiquement **sous le ruban d'outils et directement au-dessus de la règle et du canevas**.
-  - Respecte le sens naturel de travail : choisir les outils dans le ruban -> sélectionner le document dans les onglets -> rédiger sur la feuille.
-  - Exploite toute la largeur de l'écran sans encombrer la barre d'état inférieure.
-- **Design Visuel Flat 2D** :
-  - Profil compact et épuré (hauteur de 30 à 32 px).
-  - **Onglet Actif** : Fond blanc (`#FFFFFF`) uni avec le document, liseré supérieur bleu distinctif (`#2563EB`), texte en gras, bouton de fermeture `x` et indicateur de modifications en attente.
-  - **Onglet Inactif** : Gris neutre (`#F3F2F1`) avec délimitations soignées.
-  - Raccourcissement par points de suspension pour les titres longs et bouton `+` pour ouvrir de nouveaux documents.
-- **Défilement Horizontal et Navigation** :
-  - Affichage proportionnel pour 1 à 5 documents ouverts.
-  - Défilement horizontal fluide au-delà de 5 onglets avec boutons fléchés `<` et `>` sur les bords.
-- **Isolation d'État et Sécurité des Données** :
-  - Modèle Delta JSON distinct par onglet conservant la position du curseur et le niveau de défilement exact.
-  - Historiques d'Annulation (`Ctrl/Cmd+Z`) et Rétablissement (`Ctrl+Y` / `Cmd+Shift+Z`) étanches d'un document à l'autre.
-  - Indicateur visuel de modifications non enregistrées et confirmation avant fermeture.
-- **Optimisation de la RAM** :
-  - Les documents en arrière-plan sont maintenus sous forme de structures JSON légères sans surcharger l'arbre DOM.
+### 6.9. Enregistrement Automatique et Récupération après Incident
+- Sauvegarde en arrière-plan toutes les 60 secondes avec invite de restauration en cas d'arrêt imprévu et historique des versions.
 
 ---
 
-## 9. Interopérabilité des Formats et Compatibilité des Fichiers
+## 7. Matrice des Priorités Techniques et Résumé des Jalons (v1.1.0 – v1.5.0)
 
-### 9.1. Importation et Conversion de Fichiers Word (.docx) Hors Ligne
-- Analyseur natif en Rust pour charger les fichiers Word en préservant le formatage de base.
+### 7.1. Calendrier des Jalons Progressifs
 
-### 9.2. Exportation vers Formats Courants
-- Export vers `.docx`, texte brut (`.txt`) et Markdown académique (`.md`).
-
-### 9.3. Spécification du Format Natif .baku v2.0
-- Conteneur de pièces jointes binaires compressées pour illustrations haute définition.
-- Rétrocompatibilité totale avec les fichiers créés en version 1.0.0.
-
----
-
-## 10. Sécurité des Documents et Nettoyage des Métadonnées
-
-### 10.1. Nettoyeur de Métadonnées
-- Suppression des noms d'auteurs, des chemins de dossiers et des horodatages internes pour évaluation en double aveugle (*Blind Review*).
-
-### 10.2. Verrouillage en Lecture Seule
-- Protection des documents approuvés contre les modifications accidentelles.
-
----
-
-## 11. Étapes de Déploiement Progressif et Matrice des Priorités (v1.1.0 – v1.5.0)
-
-Pour livrer les nouvelles fonctionnalités de manière rapide, stable et parfaitement éprouvée sans attendre l'achèvement simultané de tous les chantiers, les développements sont organisés en cinq paliers successifs :
-
-### 11.1. Calendrier des Jalons Progressifs
-
-| Version | Axe Prioritaire | Modules Inclus | Objectif Temporel |
+| Version | Axe Prioritaire | Modules Intégrés | Échéance |
 | :--- | :--- | :--- | :--- |
-| **v1.1.0** | Onglets de Documents et Fluidité de Travail | Barre d'Onglets Multi-Documents (Section 8.5) et Compresseur de PDF Hors Ligne (Section 4.1). | Prochaine Version |
-| **v1.2.0** | Normes Académiques et Typographie | Double Numérotation des Pages de Thèse (Section 3.1), Formules KaTeX (Section 2.1), Tableaux Booktabs (Section 2.3) et Règle Verticale (Section 2.2). | Étape 2 |
-| **v1.3.0** | Distribution Multiplateforme Complète | Installateur Windows NSIS (`.exe`) et Version Portable (Section 6.1), Paquet Universal Linux AppImage et Debian `.deb` (Section 6.2). | Étape 3 |
-| **v1.4.0** | Utilitaires PDF et Sécurité Documentaire | Signature Numérique et Paraphe (Section 4.2), Nettoyeur de Métadonnées (Section 10.1), Gestionnaire Visuel de Pages (Section 4.4) et Filigrane (Section 4.6). | Étape 4 |
-| **v1.5.0** | Aboutissement de l'Écosystème et Performance | Paquets de Modèles Portables `.bakutpl` (Section 5.4), Rendu Virtuel DOM pour 500+ Pages (Section 7.1), Mode Sombre Complet (Section 8.2) et Import Word `.docx` (Section 9.1). | Sommet du Jalon |
+| **v1.1.0** | Onglets et Efficacité | Barre d'Onglets Multi-Documents (Section 2.1) et Compresseur PDF (Section 2.2). | Prochaine Version |
+| **v1.2.0** | Normes Académiques et Typographie | Double Numérotation (Section 3.1), Formules KaTeX (Section 3.2), Tableaux Booktabs (Section 3.3), Règle Verticale (Section 3.4), Orthographe (Section 3.5) et Structure (Section 3.6). | Étape 2 |
+| **v1.3.0** | Distribution Multiplateforme | Installateurs Windows (`.exe`/portable) (Section 4.1), Linux AppImage/Debian (Section 4.2), macOS (Section 4.3) et Barre Latérale (Section 4.4). | Étape 3 |
+| **v1.4.0** | Outils PDF et Sécurité | Signature Numérique (Section 5.1), Nettoyeur Métadonnées (Section 5.2), Organiseur Pages (Section 5.3), Filigrane (Section 5.4), Chiffrement (Section 5.5) et Numérotation Externe (Section 5.6). | Étape 4 |
+| **v1.5.0** | Sommet de l'Écosystème | Paquets `.bakutpl` (Section 6.1), Modèles Supplémentaires (Section 6.2), DOM Virtuel 500+ Pages (Section 6.3), Moteur PDF Rust (Section 6.4), Mode Sombre (Section 6.5), Mode Zen (Section 6.6), Import Word (Section 6.7), `.baku` v2.0 (Section 6.8) et Auto-Sauvegarde (Section 6.9). | Sommet du Jalon |
 
-### 11.2. Matrice Technique des Priorités de Développement
+### 7.2. Matrice Technique des Priorités de Développement
 
-| Module de Fonction | Composant Cible | Version Cible | Priorité | Complexité Estimée |
+| Module Fonctionnel | Composant Cible | Version Cible | Priorité | Complexité Estimée |
 | :--- | :--- | :--- | :--- | :--- |
-| Barre d'Onglets Multi-Documents | Frontend Éditeur et Moteur d'État | v1.1.0 | Très Haute | Moyenne |
+| Barre d'Onglets Multi-Documents | Frontend Editor et Moteur d'État | v1.1.0 | Très Haute | Moyenne |
 | Compresseur de Fichiers PDF Hors Ligne | Backend Rust (`lopdf` / `image`) | v1.1.0 | Très Haute | Moyenne |
-| Double Numérotation des Pages de Thèse | Moteur de Pages Frontend | v1.2.0 | Haute | Moyenne |
-| Notation Mathématique KaTeX Hors Ligne | Moteur d'Analyse Frontend | v1.2.0 | Haute | Faible |
-| Règle Verticale et Retraits de Paragraphes | Moteur de Règle Frontend | v1.2.0 | Moyenne | Moyenne |
-| Tableaux Scientifiques Avancés (Booktabs) | Moteur de Pages Frontend | v1.2.0 | Moyenne | Moyenne |
-| Installateurs Windows (.exe) et Linux (AppImage) | Tauri Bundler et Flux CI | v1.3.0 | Très Haute | Moyenne |
-| Volet Latéral de Navigation et Vignettes | UI Frontend et Virtualiseur DOM | v1.3.0 | Haute | Moyenne |
-| Signature Numérique et Paraphe Hors Ligne | Backend Rust et Calque Canevas | v1.4.0 | Moyenne | Moyenne |
-| Nettoyeur de Métadonnées (Évaluation Aveugle) | Backend Rust et Pipeline PDF | v1.4.0 | Moyenne | Faible |
-| Gestionnaire Visuel de Pages | Frontend UI et Backend Rust | v1.4.0 | Moyenne | Moyenne |
-| Thèmes Adaptatifs Sombre et Clair | Moteur de Thèmes CSS | v1.5.0 | Moyenne | Faible |
+| Double Numérotation des Pages de Thèse | Moteur de Feuilles Frontend | v1.2.0 | Haute | Moyenne |
+| Notation Mathématique KaTeX Hors Ligne | Parseur Frontend | v1.2.0 | Haute | Faible |
+| Règle Verticale et Retraits de Paragraphe | Moteur de Règle Frontend | v1.2.0 | Moyenne | Moyenne |
+| Tableaux Scientifiques Avancés (Booktabs) | Moteur de Feuilles Frontend | v1.2.0 | Moyenne | Moyenne |
+| Installateurs Windows (.exe) et Linux (AppImage) | Tauri Bundler et CI | v1.3.0 | Très Haute | Moyenne |
+| Barre Latérale de Navigation et Miniatures | UI Frontend et DOM Virtuel | v1.3.0 | Haute | Moyenne |
+| Signature Numérique et Paraphe Hors Ligne | Backend Rust et Canvas Overlay | v1.4.0 | Moyenne | Moyenne |
+| Nettoyeur de Métadonnées (Double Aveugle) | Backend Rust et Pipeline PDF | v1.4.0 | Moyenne | Faible |
+| Organiseur Visuel de Pages | Frontend UI et Backend Rust | v1.4.0 | Moyenne | Moyenne |
+| Mode Sombre Adaptatif | Moteur de Thèmes CSS | v1.5.0 | Moyenne | Faible |
 | Paquets de Modèles Portables (.bakutpl) | Stockage Frontend et JSON | v1.5.0 | Moyenne | Faible |
-| Rendu Virtuel des Pages DOM (500+ Pages) | Virtualiseur DOM Frontend | v1.5.0 | Haute | Élevée |
-| Importation Word (.docx) Hors Ligne | Analyseur Rust DOCX | v1.5.0 / Futur | Future | Élevée |
+| Virtualisation DOM des Feuilles (500+ Pages) | Virtualiseur DOM Frontend | v1.5.0 | Haute | Haute |
+| Importateur Word (.docx) Hors Ligne | Parseur Rust DOCX | v1.5.0 / Futur | Futur | Haute |
 
 ---
 
-## Échanges Communautaires et Contributions
+## 8. Contributions Communautaires et Discussions des Fonctionnalités
 
-- Suggestions de fonctionnalités : [.github/ISSUE_TEMPLATE/feature_request.md](../.github/ISSUE_TEMPLATE/feature_request.md)
-- Signalement de bugs : [.github/ISSUE_TEMPLATE/bug_report.md](../.github/ISSUE_TEMPLATE/bug_report.md)
-- Guide de contribution : [CONTRIBUTING.md](../CONTRIBUTING.md)
-- Architecture technique : [ARCHITECTURE.md](../ARCHITECTURE.md)\n
+- Suggestions d'améliorations : [.github/ISSUE_TEMPLATE/feature_request.md](../.github/ISSUE_TEMPLATE/feature_request.md)
+- Signalement d'anomalies : [.github/ISSUE_TEMPLATE/bug_report.md](../.github/ISSUE_TEMPLATE/bug_report.md)
+- Guide de collaboration : [CONTRIBUTING.md](../CONTRIBUTING.md)
+- Architecture technique : [ARCHITECTURE.md](../ARCHITECTURE.md)

@@ -16,374 +16,320 @@
   <hr />
 </div>
 
-# Baku PDF Roadmap (v1.1.0 – v1.5.0 Release Pipeline)
+# Baku PDF Update Roadmap (Versions v1.1.0 – v1.5.0)
 
-This document outlines the current feature baseline of **Baku PDF v1.0.0** alongside planned features, performance enhancements, and module expansions scheduled for staged release from **Baku PDF v1.1.0 through v1.5.0**. This iterative update pipeline focuses on enhancing advanced academic writing workflows, introducing advanced offline PDF manipulation utilities, delivering full multi-platform distribution (Windows, macOS, Linux), and optimizing rendering throughput for large documents.
+This document provides a comprehensive audit of the baseline features available in **Baku PDF v1.0.0**, followed by the structured technical roadmap of planned enhancements, performance optimizations, and architectural expansions organized by version from **v1.1.0 through v1.5.0**. Each staged release is engineered to be measurable, incrementally tested, and strictly adherent to Baku's founding principles:
 
-Core development principles of Baku PDF remain strictly preserved:
-- **100% Offline (Offline-First)**: All processing executes locally on the user machine without cloud servers.
-- **Absolute Privacy**: Zero telemetry, tracking analytics, or outbound network transmissions.
-- **Minimal Resource Footprint**: Rapid launch and conservative RAM footprint (~50-80 MB).
-- **Minimalist 2D Flat Design**: Clean, functional, and distraction-free interface.
-- **Standardized Formatting**: Adherence to strict scientific and formal administrative styling guidelines.
+Core architectural principles:
+- **100% Offline (Local-First)**: Strictly local on-device computation without cloud servers.
+- **Absolute Privacy**: Zero telemetry, tracking analytics, or external network transmission.
+- **Minimal Resource Footprint**: Instant startup and low memory footprint (~50-80 MB RAM).
+- **Minimalist Flat 2D Design**: Distraction-free, purpose-driven desktop user experience.
+- **Strict Formatting Compliance**: Adherence to standard academic and formal administrative guidelines.
 
 ---
 
 ## Table of Contents
 
-1. [Baseline Available Features (v1.0.0 Status)](#1-baseline-available-features-v100-status)
-2. [Advanced Scientific Typography & Document Editor](#2-advanced-scientific-typography--document-editor)
-3. [Automated Academic Document Structure](#3-automated-academic-document-structure)
-4. [Expanded Offline PDF Extra Tools](#4-expanded-offline-pdf-extra-tools)
-5. [Extended Standard Templates Collection](#5-extended-standard-templates-collection)
-6. [Multi-Platform Support & Binary Packaging](#6-multi-platform-support--binary-packaging)
-7. [Core Architecture, Performance & Heavy Document Handling](#7-core-architecture-performance--heavy-document-handling)
-8. [User Interface, Navigation & Accessibility](#8-user-interface-navigation--accessibility)
-9. [Format Interoperability & File Compatibility](#9-format-interoperability--file-compatibility)
-10. [Document Security & Metadata Sanitization](#10-document-security--metadata-sanitization)
-11. [Staged Release Pipeline & Priority Matrix (v1.1.0 – v1.5.0)](#11-staged-release-pipeline--priority-matrix-v110--v150)
+1. [Baseline Feature Inventory (v1.0.0 Release Status)](#1-baseline-feature-inventory-v100-release-status)
+2. [Release Plan Version 1.1.0 (Multi-Document Tabs & Workflow Efficiency)](#2-release-plan-version-110-multi-document-tabs--workflow-efficiency)
+3. [Release Plan Version 1.2.0 (Academic Standards & Scientific Typography)](#3-release-plan-version-120-academic-standards--scientific-typography)
+4. [Release Plan Version 1.3.0 (Full Cross-Platform Distribution & Navigation)](#4-release-plan-version-130-full-cross-platform-distribution--navigation)
+5. [Release Plan Version 1.4.0 (Offline PDF Utilities & Document Security)](#5-release-plan-version-140-offline-pdf-utilities--document-security)
+6. [Release Plan Version 1.5.0 (Milestone Peak & Large-Scale Performance)](#6-release-plan-version-150-milestone-peak--large-scale-performance)
+7. [Technical Priority Matrix & Staged Milestone Summary (v1.1.0 – v1.5.0)](#7-technical-priority-matrix--staged-milestone-summary-v110--v150)
+8. [Community Contributions & Feature Discussion](#8-community-contributions--feature-discussion)
 
 ---
 
-## 1. Baseline Available Features (v1.0.0 Status)
+## 1. Baseline Feature Inventory (v1.0.0 Release Status)
 
-Following a comprehensive audit of the Baku PDF codebase, the following modules **have been fully implemented in version 1.0.0**:
+Based on a comprehensive codebase audit, the following modules are **fully implemented and production-ready in version 1.0.0**:
 
 | Feature Module | v1.0.0 Status | Implementation Details |
 | :--- | :--- | :--- |
-| **Interactive Horizontal Ruler** | Implemented | Top visual centimeter ruler with margin sliders (`ruler-marker-left`, `ruler-marker-right`), dashed snap guidelines, and toggle controls in both ribbon and View menu. |
-| **8 Built-In Standard Templates** | Implemented | Full 5-page Thesis/Final Project, Academic Paper, Lab Report, Official Service Letter, **Job Application Letter**, Meeting Minutes, **ATS Resume / CV**, and Internal Memo. |
-| **Custom Template Authoring System** | Implemented | Save as Template (`#action-save-as-template`), Create New Template (`#btn-create-new-template`), editor authoring mode banner, and My Custom Templates filter in Gallery. |
-| **Page Numbering & Section Breaks** | Implemented | Page number configuration modal (`#modal-page-number`) supporting Arabic (`1, 2, 3`), lowercase Roman (`i, ii, iii`), uppercase Roman (`I, II, III`), prefix/suffix options, and Section Break insertion. |
-| **Different First Page Header/Footer** | Implemented | Different First Page toggle (`diffFirst`) in Header/Footer editor to isolate or omit running heads on title pages. |
-| **Standalone Hyperlink Modal** | Implemented | 2D Flat modal (`#modal-link-overlay`) with Display Text, URL field, Remove Link action, `Ctrl+K` / `Cmd+K` shortcut, and `Ctrl/Cmd + Click` external link opening. |
-| **Zoom & Scaling Controls** | Implemented | Zoom In, Zoom Out, Reset 100%, bottom status bar percentage slider, and application UI scale settings in Preferences. |
-| **4 Offline PDF Extra Tools** | Implemented | Merge PDF, Split PDF, Rotate PDF, and Images to PDF powered by Rust libraries `lopdf` and `image`. |
-| **macOS Universal DMG Installer** | Implemented | Official Universal Binary DMG (`x86_64` Intel + `arm64` Apple Silicon M1-M4) package (`Baku_1.0.0_Universal_Installer.dmg` / `Baku_1.0.0_Installer.dmg`) featuring drag-and-drop installer background and temporary DMG volume execution guard (`check_running_from_dmg`). |
+| **Interactive Horizontal Ruler** | Production | Top visual metric ruler in centimeters, draggable left/right margin sliders (`ruler-marker-left`, `ruler-marker-right`), dashed snap guidelines, and toolbar/view menu toggles. |
+| **8 Built-In Standard Templates** | Production | Includes comprehensive 5-page Thesis/Final Project, Academic Paper, Lab Report, Official Letter, **Job Application Letter**, Meeting Minutes, **ATS Standard Resume**, and Internal Memo. |
+| **Custom Template Authoring System** | Production | "Save As Template..." action (`#action-save-as-template`), "Create New Template" (`#btn-create-new-template`), editor authoring mode banner, and "My Custom Templates" gallery filter. |
+| **Page Numbering & Section Breaks** | Production | Numbering configuration modal (`#modal-page-number`) supporting Arabic (`1, 2, 3`), lowercase Roman (`i, ii, iii`), uppercase Roman (`I, II, III`), custom prefix/suffix, and section breaks. |
+| **Different First Page Header & Footer** | Production | *Different First Page* toggle (`diffFirst`) in Header/Footer editor to isolate cover/title pages from running headers. |
+| **Dedicated Link Insertion Modal** | Production | Dedicated Flat 2D modal (`#modal-link-overlay`) with Display Text, Target URL, Unlink button, `Ctrl+K` / `Cmd+K` shortcut, and `Ctrl/Cmd + Click` external browser launch. |
+| **Precise Zoom & Scaling Controls** | Production | Zoom In, Zoom Out, Reset 100%, status bar slider, and application UI scale settings. |
+| **4 Standalone Offline PDF Tools** | Production | Merge PDF, Split PDF, Rotate PDF, and Images to PDF powered by Rust `lopdf` and `image` crates. |
+| **macOS Universal Binary DMG Bundle** | Production | Official Universal DMG (`x86_64` Intel + `arm64` Apple Silicon M1/M2/M3/M4) installer (`Baku_1.0.0_Universal_Installer.dmg` / `Baku_1.0.0_Installer.dmg`) with drag-and-drop backdrop and read-only volume protection (`check_running_from_dmg`). |
 
-These modules serve as the stable foundation of version 1.0.0 and provide the integration baseline for the upcoming version 1.5 enhancements below.
-
----
-
-## 2. Advanced Scientific Typography & Document Editor
-
-### 2.1. Offline KaTeX Mathematical Notation & Equations
-- Integrated KaTeX formula parser bundled 100% offline within the application package.
-- Interactive mathematical equation insertion for both inline math and centered block equations.
-- Automatic equation numbering aligned to the right page margin indexed by chapter: `(1.1)`, `(1.2)`, etc.
-- Support for calculus notation, matrices, linear algebra symbols, and standard physics/chemistry expressions.
-
-### 2.2. Interactive Ruler Expansion: Indentations & Vertical Ruler
-- Enhanced horizontal ruler markers:
-  - **First Line Indent Marker**: Configures paragraph indentation (e.g., 1 cm or 1.27 cm / 0.5 in).
-  - **Hanging Indent Marker**: Configures subsequent line indentation (standard for APA, IEEE, and Chicago bibliography formats).
-- **Vertical Ruler** on the left canvas boundary:
-  - Measures real page height in centimeters.
-  - Visual draggable markers to adjust top and bottom margins directly on the interactive canvas.
-
-### 2.3. Advanced Scientific Tables
-- Horizontal cell merging (Merge Columns) and vertical cell merging (Merge Rows).
-- Scientific publication border styling (Booktabs Style): clean tables without vertical gridlines (thick top line, thin header separator, thick bottom closing line).
-- Decimal alignment for numeric data columns.
-- Automatic table header repetition across multi-page breaks (Repeat Header Row across Pages).
-- Automatic table caption numbering: `Table 1.1: Caption Text`.
-
-### 2.4. Offline Spell Checker & Indonesian PUEBI/KBBI Hyphenation
-- Integrated offline dictionary for typographic error detection.
-- Subtle red underline marker for unrecognized terms.
-- Contextual right-click correction suggestions (e.g., *analisa* -> *analisis*, *praktek* -> *praktik*).
-- Automatic Indonesian phonological hyphenation for justified text, preventing irregular word spacing.
+These baseline features form the stable core of version 1.0.0 and serve as the foundation for the staged milestone releases detailed below.
 
 ---
 
-## 3. Automated Academic Document Structure
+## 2. Release Plan Version 1.1.0 (Multi-Document Tabs & Workflow Efficiency)
 
-### 3.1. Dual-Positioning Academic Thesis Page Numbering Rules
-- Automation of standard Indonesian and international thesis page numbering rules:
-  - First page of every new chapter (containing the chapter title) automatically displays the page number at the **bottom-center**.
-  - Subsequent continuation pages within that chapter automatically place the page number at the **top-right**.
-- Isolated per-section numbering (Restart Numbering per Section) without affecting preceding sections.
+The **v1.1.0** milestone is dedicated to parallel document editing and high-efficiency offline PDF file compression:
 
-### 3.2. Dynamic Auto Table of Contents
-- Instant Table of Contents generation based on document heading hierarchy (Heading 1 = Chapter, Heading 2 = Section, Heading 3 = Subsection).
-- Automatic dot leaders connecting headings to right-aligned page numbers.
-- One-click update button (Update Entire Table) upon page shifts or heading revisions.
+### 2.1. Multi-Document Tab Bar
+- **Purpose & Workflow Benefits**:
+  - Eliminates the need to switch between OS windows (Alt+Tab / Cmd+`) when cross-referencing multiple files (e.g., Chapter draft, advisor revision notes, formatting guidelines).
+  - Enables opening, editing, and managing multiple `.baku` documents concurrently within a unified desktop window.
+- **Ergonomic Positioning**:
+  - Located directly **below the Ribbon Toolbar and immediately above the Editor Canvas and Ruler**.
+  - Follows natural top-to-bottom user hierarchy: Formatting Tools -> Document Context Tabs -> Document Content Canvas.
+  - Utilizes 100% horizontal application width without crowding the bottom status bar (which hosts page count, word count, language, and zoom controls).
+- **Visual Design & Flat 2D Styling**:
+  - Compact slim tab bar (30–32 px height) maximizing vertical writing space.
+  - **Active Tab**: Clean white background (`#FFFFFF`) blending seamlessly with the ruler and sheet, accented with a 2px top blue stripe (`#2563EB`), bold text, close button `x`, and unsaved indicator.
+  - **Inactive Tab**: Neutral light gray (`#F3F2F1`) with subtle borders and smooth hover transitions.
+  - Fixed maximum tab width with ellipsis truncation (`text-overflow: ellipsis`) for long filenames.
+  - Quick action plus button `+` to create a new blank document or open an existing file.
+- **Horizontal Scroll Navigation**:
+  - **Proportional Layout**: Up to 5 opened documents display side-by-side proportionally.
+  - **Adaptive Smooth Scrolling (> 5 Documents)**: Overflowing tab lists can be scrolled horizontally via trackpad or mouse wheel.
+  - **Navigation Chevrons**: Left `<` and right `>` navigation buttons automatically appear upon overflow for mouse-driven traversal.
+- **State Isolation & Data Safety (Session Persistence)**:
+  - **Per-Document Delta Isolation**: Each tab maintains independent Delta JSON structures, scroll positions, and cursor selections.
+  - **Isolated Undo/Redo Stacks**: Independent undo history (`Ctrl/Cmd+Z`) and redo (`Ctrl+Y` / `Cmd+Shift+Z`) per document.
+  - **Unsaved Indicator (*Unsaved Dot*)**: A blue accent dot or asterisk `*` indicates modified, unsaved content.
+  - **Safe Close Confirmation**: Closing an unsaved tab triggers an immediate confirmation modal preventing data loss.
+- **Memory Efficiency (Local-First RAM Optimization)**:
+  - Background tab virtualization: Inactive tabs remain lightweight Delta objects in RAM without mounting DOM tree elements.
+  - Only the active document attaches to the Quill editor canvas, maintaining ~50-80 MB RAM usage with zero input lag.
+- **Keyboard Shortcuts**:
+  - `Ctrl+Tab` / `Cmd+Option+Right`: Switch to next tab.
+  - `Ctrl+Shift+Tab` / `Cmd+Option+Left`: Switch to previous tab.
+  - `Ctrl+W` / `Cmd+W`: Close current tab with dirty state confirmation.
 
-### 3.3. Dynamic List of Figures & List of Tables
-- Automatic tracking of all table and figure captions across the document.
-- Instant generation of List of Figures and List of Tables pages synchronized with real-time page numbers.
-
-### 3.4. Offline Citation & Bibliography Manager
-- Manual reference entry or direct import from BibTeX (`.bib`) and RIS files.
-- Automated in-text citation formatting:
-  - APA 7th Edition: `(Maulana, 2026)`
-  - IEEE Style: `[1]`
-  - Harvard Style: `(Maulana 2026, p. 45)`
-  - Vancouver Style
-- Automatic bibliography generation at the document end, alphabetically or numerically sorted with standard hanging indents.
-
----
-
-## 4. Expanded Offline PDF Extra Tools
-
-Complementing the existing 4 tools (Merge, Split, Rotate, Images to PDF), version 1.5 introduces 6 new offline PDF manipulation utilities:
-
-### 4.1. Offline PDF Compressor
-- Local PDF file size reduction utilizing optimized Rust routines without compromising text clarity.
-- Instant preset reduction targets:
-  - **Under 500 KB**: Standard for civil service (CPNS), state-owned enterprise (BUMN), and scholarship portals.
-  - **Under 1 MB**: Standard for academic portals and university thesis repositories.
-  - **Under 2 MB**: Standard for general publication submissions.
+### 2.2. Offline PDF File Compressor
+- Local PDF size reduction powered by Rust without compromising typography or vector sharpness.
+- Instant target presets:
+  - **Under 500 KB**: Civil service, corporate, and scholarship portal upload compliance.
+  - **Under 1 MB**: University academic portals and repository requirements.
+  - **Under 2 MB**: General publication standard.
   - **Custom Target**: Manual image DPI downsampling selection (150 DPI, 96 DPI, 72 DPI).
-- Visual file size comparison before and after compression prior to saving.
-
-### 4.2. Offline Digital Signature & Stamp
-- Direct signature drawing via mouse cursor/stylus or transparent PNG signature image import.
-- Drag-and-drop signature placement with real-time preview on any page.
-- Batch coordinate signing across multi-page documents.
-- Offline date stamp and initial/paraph stamping.
-
-### 4.3. PDF Password Protection & Encryption
-- Document open password protection (User Password) using industry-standard offline AES-256 encryption.
-- Permissions password configuration (Owner Password):
-  - Restrict document printing.
-  - Restrict text copying and content extraction.
-  - Restrict annotation modifications.
-- Offline password decryption utility for legitimate file owners.
-
-### 4.4. Visual Page Organizer & Reorder
-- Visual thumbnail grid interface representing each page of the PDF document.
-- Drag-and-drop page reordering.
-- One-click deletion of single pages or selected page ranges.
-- Blank page insertion and external PDF page splicing at target positions.
-
-### 4.5. External PDF Bates Numbering & Page Stamper
-- Page numbering for external third-party PDF files lacking pagination.
-- Configurable placement: top-right, bottom-right, or bottom-center.
-- Configurable prefix text (e.g., `Appendix Page 1 of 10`, `Page 1`, or legal Bates stamps).
-
-### 4.6. Offline Watermark Tool
-- Diagonal (45-degree angle) or horizontal watermark text application.
-- Text presets: `DRAFT`, `OFFICIAL COPY`, `CONFIDENTIAL`, `SAMPLE`, `RESTRICTED`.
-- Opacity, font size, color, and target page range selection.
+- Visual before-and-after size estimation before saving.
 
 ---
 
-## 5. Extended Standard Templates Collection
+## 3. Release Plan Version 1.2.0 (Academic Standards & Scientific Typography)
 
-Expanding upon the 8 templates available in v1.0.0, v1.5 introduces specialized document presets:
+The **v1.2.0** milestone focuses on strict academic formatting compliance, mathematical typography, and structured document elements:
 
-### 5.1. Scientific Publications & Journals
-- **SINTA Standard Academic Journal (Two-Column Layout)**:
-  - Precise two-column body layout with a full-width title header block.
-  - Bilingual abstract section (Bahasa Indonesia & English) with keywords.
-  - Standard IMRAD structure: Introduction, Methods, Results and Discussion, Conclusion.
-- **IEEE Conference Proceedings Paper**:
-  - Exact margin dimensions, Times New Roman 10pt/8pt typography, and two-column figure alignment.
+### 3.1. Automated Dual-Positioning Academic Page Numbering Rules
+- Automated page number positioning compliant with academic thesis guidelines:
+  - First page of every new Chapter (carrying chapter title) automatically displays page numbers at **bottom-center**.
+  - Subsequent continuation pages within that chapter automatically switch to **top-right**.
+- Isolated section restarts (*Restart Numbering per Section*) without breaking preceding pagination sequences.
 
-### 5.2. Academic Grants & Student Administration
-- **PKM Student Creativity Grant Proposal (Kemendikbudristek)**:
-  - Structured strictly according to the latest national guidelines: endorsement sheet, standard budget allocation table, and project timeline schedule.
-- **Field Internship / Industrial Apprenticeship Report (PKL)**:
-  - Weekly activity logbook, host institution profile, and evaluation reporting structure.
-- **Postgraduate Master Thesis & Doctoral Dissertation Proposal**:
-  - Rigorous scientific methodology framework, conceptual theoretical foundation, and research hypothesis sections.
+### 3.2. Offline Mathematical Formula Notation (KaTeX)
+- Fully offline bundled KaTeX formula engine.
+- Interactive mathematical block insertion (`Inline Math` and `Block Equation`).
+- Chapter-based formula numbering at the right margin: `(1.1)`, `(1.2)`, etc.
+- Support for calculus, linear algebra, matrices, and standard scientific symbols.
 
-### 5.3. Government & Corporate Administration
-- **Official Memo & Assignment Letter (SPT)**:
-  - Standard government header format, legal foundation premises, and assignment mandates.
-- **Official Decree (SK)**:
-  - Formal decree structure: Considering, Bearing in Mind, Observing, and Deciding clauses.
-- **Official Handover Report (BAST)**:
-  - Standardized physical deliverable and document transfer template with witness attestation clauses.
+### 3.3. Advanced Scientific Tables (Booktabs Style)
+- Horizontal (*Merge Columns*) and vertical (*Merge Rows*) cell merging.
+- Publication-grade *Booktabs Style* borders: clean tables without vertical rules (thick top rule, thin header rule, thick bottom rule).
+- Decimal alignment for numeric data columns.
+- Automatic header repetition across page splits (*Repeat Header Row across Pages*).
+- Automatic table caption numbering: `Table 1.1: Caption`.
 
-### 5.4. Portable Template Package Export/Import (.bakutpl)
-- Enhances custom template authoring by packaging custom templates into portable `.bakutpl` files.
-- Direct import of `.bakutpl` packages from colleagues into the local template gallery.
+### 3.4. Vertical Ruler & Advanced Paragraph Indentation
+- Interactive horizontal ruler expansion:
+  - **First Line Indent Slider**: Sets paragraph opening indentation (e.g., 1 cm or 1.27 cm).
+  - **Hanging Indent Slider**: Sets continuation margins for reference bibliographies (APA/IEEE standard).
+- **Vertical Ruler** on the left margin:
+  - Visual measurement of actual page height (cm).
+  - Draggable markers for top and bottom page margins.
+
+### 3.5. Offline Spellcheck & Language Guide
+- Integrated offline dictionary for typographical verification.
+- Soft underline indicators for unrecognized words.
+- Contextual right-click spelling suggestions for standardized vocabulary.
+- Phonology-based automatic hyphenation for justified text to prevent uneven word spacing.
+
+### 3.6. Automated Academic Document Structure
+- **Dynamic Table of Contents (Auto TOC)**: Instant TOC generation from heading hierarchy with automatic dot leaders and single-click update.
+- **Dynamic List of Tables & Figures**: Automated tracking of figure and table captions synchronized in real time with page numbers.
+- **Offline Citation & Bibliography Manager**: Manual citation entry or BibTeX (`.bib`) / RIS import supporting APA 7th, IEEE, Harvard, and Vancouver formats.
 
 ---
 
-## 6. Multi-Platform Support & Binary Packaging
+## 4. Release Plan Version 1.3.0 (Full Cross-Platform Distribution & Navigation)
 
-### 6.1. Windows OS Distribution
+The **v1.3.0** milestone expands native installation packages to Windows and Linux ecosystems alongside document outline navigation:
+
+### 4.1. Windows Operating System Distribution
 - **Guided NSIS Installer (`.exe`)**:
   - 64-bit (`x64`) and ARM64 packages for Windows 10 and Windows 11.
-  - Start Menu shortcuts, Desktop icons, and native `.baku` file association.
-  - Clean uninstaller removing all registry hooks.
+  - Start Menu shortcuts, Desktop icons, and `.baku` file association registration.
+  - Clean uninstaller without residual registry clutter.
 - **Standalone Portable Edition (`Baku_Portable.exe`)**:
-  - Direct execution requiring zero administrator privileges, ideal for lab or restricted workstations.
-- **Microsoft Package Manager (`winget`) Support**:
-  - Official manifest submission to `winget-pkgs`:
+  - Zero-installation executable suitable for university computer labs and restricted environments.
+- **Microsoft Package Manager (`winget`)**:
+  - Official manifest submission:
     ```cmd
     winget install Baku.BakuPDF
     ```
 
-### 6.2. Linux OS Distribution
+### 4.2. Linux Operating System Distribution
 - **Universal `AppImage` Package**:
-  - Single standalone portable binary compatible across distributions (Ubuntu, Fedora, Arch Linux, Debian, openSUSE).
-- **Debian / Ubuntu Package (`.deb`)**:
-  - Native binary with resolved `webkit2gtk-4.1` dependencies.
-- **Flathub & Arch User Repository (AUR) Support**:
-  - Flatpak sandbox manifest.
-  - Community `baku-bin` package on Arch Linux AUR.
+  - Single standalone binary running across Ubuntu, Fedora, Arch Linux, Debian, and openSUSE.
+- **Native Debian / Ubuntu Package (`.deb`)**:
+  - Bundled with complete `webkit2gtk-4.1` dependency declarations.
+- **Flathub & Arch User Repository (AUR)**:
+  - Sandboxed Flatpak manifest and `baku-bin` package on AUR.
 
-### 6.3. Advanced macOS Distribution
-- **Homebrew Cask Distribution**:
-  - Convenient terminal installation for macOS developers:
+### 4.3. Advanced macOS Distribution
+- **Homebrew Cask Support**:
+  - Terminal-based installation:
     ```bash
     brew install --cask baku-pdf
     ```
-- **Apple Code Signing & Notarization**:
-  - Apple Developer ID certificate integration and automated notarization to guarantee seamless launch without Gatekeeper intervention.
+- **Apple Developer ID Code Signing & Notarization**:
+  - Official Apple notarization allowing frictionless launch without Gatekeeper warnings.
+
+### 4.4. Document Navigation Sidebar
+- Collapsible left-hand navigation panel:
+  - **Headings Outline Tab**: Interactive heading tree (Chapters and Subsections) with instant scrolling.
+  - **Page Thumbnails Tab**: Scaled vertical miniature previews of every page.
+  - **Search Results Tab**: Real-time keyword occurrence list with jump-to-result capability.
 
 ---
 
-## 7. Core Architecture, Performance & Heavy Document Handling
+## 5. Release Plan Version 1.4.0 (Offline PDF Utilities & Document Security)
 
-### 7.1. Infinite Virtual DOM Page Rendering
-- Render only the paper pages currently positioned within the user viewport plus a 1-2 page pre-fetch buffer.
-- Enables smooth navigation and editing of 500+ page manuscripts (such as full doctoral dissertations or textbooks) with flat memory usage.
-- Typing input latency remains sub-8ms regardless of document length.
+The **v1.4.0** milestone introduces advanced standalone PDF tools and privacy sanitization:
 
-### 7.2. Pure Rust Native PDF Vector Export Engine
-- Core PDF export engine transitioning to native Rust libraries (`printpdf` and `lopdf`) alongside WebView printing.
-- Output produces pure searchable, selectable vector text with file sizes up to 60% more compact.
-- Automated font subsetting: only glyphs actually present in the text are embedded into the PDF.
+### 5.1. Offline Digital Signature & Stamp
+- Direct stylus/mouse signing or transparent PNG signature import.
+- Drag-and-drop placement on any page with visual preview.
+- Batch coordinate signing across multi-page documents.
+- Offline date stamp and initial approval markers.
 
-### 7.3. 60-Second Auto-Save & Crash Auto-Recovery
-- Periodic automatic background snapshotting every 60 seconds into an isolated local storage cache.
-- Sudden system shutdowns or application terminations trigger an instant recovery prompt on next launch.
-- Local revision snapshot history enabling rollback to 15, 30, or 60-minute historical states.
+### 5.2. Document Metadata Sanitizer
+- Cleans hidden metadata before publishing or submitting PDF documents:
+  - Strips author names, computer hardware identifiers, and local directory paths.
+  - Removes hidden revision timestamps.
+- Essential for academic double-blind peer review (*Blind Review*) and confidential filings.
 
----
+### 5.3. Visual Page Organizer & Reorder
+- Visual thumbnail grid for all PDF pages.
+- Drag-and-drop page reordering.
+- Quick single-click page deletion or range removal.
+- Blank page insertion and inter-PDF page merging.
 
-## 8. User Interface, Navigation & Accessibility
+### 5.4. Offline PDF Watermark Tool
+- Diagonal (45-degree) or horizontal textual watermark stamping.
+- Built-in presets: `DRAFT`, `CONFIDENTIAL`, `OFFICIAL COPY`, `RESTRICTED`, `SAMPLE`.
+- Customizable opacity, font size, color, and target page ranges.
 
-### 8.1. Document Outline & Navigator Sidebar
-- Collapsible left navigation panel on the editor canvas:
-  - **Headings Outline Tab**: Tree view of Chapters and Subsections; clicking any heading jumps instantly to that page.
-  - **Page Thumbnails Tab**: Vertical miniature preview cards for every document page.
-  - **Search Results Tab**: Contextual snippets matched during Find & Replace operations.
+### 5.5. PDF Password Protection & Encryption
+- Industry-standard offline AES-256 User Password encryption.
+- Owner/Permissions Password to restrict printing, text extraction, and annotations.
+- Decryption tool for authorized password holders.
 
-### 8.2. Adaptive Dark & Light Modes
-- True dark theme engineered with high-contrast ratios conforming to WCAG AAA standards.
-- Dark mode paper sheet representation options:
-  - *Physical White Page on Dark Canvas* (exact print preview representation).
-  - *Inverted Dark Page* (night-time reading comfort mode minimizing eye fatigue).
-- Automatic synchronization with host operating system appearance.
-
-### 8.3. Zen Distraction-Free Writing Mode
-- Hide menu bar, ribbon toolbar, and sidebar panels with a single shortcut (`F11` or `Cmd+Shift+F`).
-- Centered page sheet surrounded by a subdued background for deep writing focus.
-
-### 8.4. Two-Page Spread View & Advanced Zoom Presets
-- **Two-Page Spread View**: Side-by-side horizontal dual page rendering on widescreen monitors.
-- **Advanced Zoom Presets**: One-click Fit to Width and Fit to Page presets complementing the percentage zoom slider.
-
-### 8.5. Multi-Document Tab Bar
-- **Purpose & Workflow Benefits**:
-  - Eliminates operating system window swapping (Alt+Tab / Cmd+`) when working across multiple reference manuscripts simultaneously (e.g., Chapter I draft, supervisor review notes, and formatting guide).
-  - Open and edit multiple `.baku` documents in a single integrated application window.
-- **Ergonomic Positioning**:
-  - Strategically positioned **directly beneath the Ribbon Toolbar and directly above the Ruler and Editor Canvas**.
-  - Respects natural top-to-bottom user workflow: select formatting tools in Ribbon -> select file context in Tab Bar -> edit page on Canvas.
-  - Leverages the full horizontal width of the application window without overcrowding the bottom status bar (which already houses page count, word count, language indicator, and zoom slider).
-- **2D Flat Visual Design & Aesthetics**:
-  - Compact slim tab bar (height: 30-32 px) preserving vertical canvas space.
-  - **Active Tab**: Clean solid white background (`#FFFFFF`) blending seamlessly into the ruler and paper canvas, marked with a distinctive blue top accent line (`#2563EB`), bold title text, close `x` button, and unsaved state dot.
-  - **Inactive Tab**: Neutral muted gray (`#F3F2F1`) with subtle divider borders and smooth hover feedback.
-  - Tab width capped with ellipsis truncation (`text-overflow: ellipsis`) keeping long file names neat and legible.
-  - Quick action `+` button on the far right of the tab bar to create or open additional documents.
-- **Navigation & Horizontal Scroll Mechanism**:
-  - **Proportional Display**: When 1 to 5 documents are open, tabs display proportionally across the available width.
-  - **Adaptive Horizontal Scroll (> 5 Documents)**: When more than 5 tabs are open, the bar scrolls horizontally with smooth trackpad or mouse wheel gestures.
-  - **Navigation Guide Controls**: Left `<` and right `>` arrow scroll buttons appear automatically at the edges when tab contents overflow for convenient mouse navigation.
-- **State Management & Session Persistence**:
-  - **Isolated Per-Document State**: Each tab maintains its independent Delta JSON document model, cursor coordinate, and exact scroll position. Users will never be bounced back to page 1 when switching tabs.
-  - **Isolated Undo/Redo Stacks**: Independent undo (`Ctrl/Cmd+Z`) and redo (`Ctrl+Y` / `Cmd+Shift+Z`) histories per tab, preventing accidental edits across different files.
-  - **Unsaved Document Indicator**: Blue accent dot or asterisk `*` automatically signifies uncommitted modifications.
-  - **Safe Close Confirmation**: Clicking `x` on a dirty tab triggers a confirmation prompt to save changes before closing.
-- **Local-First RAM Optimization**:
-  - Tab virtualization: Inactive tabs are held as lightweight JSON/Delta models in RAM without instantiating DOM sheet elements.
-  - Only the currently active document is mounted to the Quill canvas, maintaining Baku PDF's lightweight footprint (~50-80 MB) and eliminating UI stutter.
-- **Keyboard Shortcuts**:
-  - `Ctrl+Tab` / `Cmd+Option+Right`: Switch to next document tab.
-  - `Ctrl+Shift+Tab` / `Cmd+Option+Left`: Switch to previous document tab.
-  - `Ctrl+W` / `Cmd+W`: Close active document tab with save prompt.
+### 5.6. External PDF Page Numbering (Bates Numbering)
+- Stamping page numbers onto third-party PDF files.
+- Configurable placement: top-right, bottom-right, or bottom-center.
+- Custom prefix/suffix configuration (e.g., `Appendix Page 1 of 10`, `Case No. 1024-B`).
 
 ---
 
-## 9. Format Interoperability & File Compatibility
+## 6. Release Plan Version 1.5.0 (Milestone Peak & Large-Scale Performance)
 
-### 9.1. Offline Word (.docx) Import & Conversion
-- Pure native Rust `.docx` parser to inspect and import existing Word manuscripts offline.
-- Preserves fundamental formatting: bold, italic, underline, tables, paragraph spacing, and lists.
-- Automatically converts document margins and paper dimensions to Baku PDF standards.
+The **v1.5.0** milestone marks the peak evolution of the Baku PDF ecosystem, introducing massive document virtualization, template packages, and seamless interoperability:
 
-### 9.2. Export to Standard Formats
-- Export to Microsoft Word (`.docx`) for academic supervisors or agencies requiring Word formats.
-- Export to plain text (`.txt`) and academic Markdown (`.md`).
+### 6.1. Standalone Portable Template Packages (.bakutpl)
+- Export custom templates into portable `.bakutpl` bundles.
+- Import `.bakutpl` packages from external machines directly into the local template gallery.
 
-### 9.3. Native .baku Specification v2.0
-- Lossless compressed binary attachment container within `.baku` JSON structures for embedded high-resolution graphics.
-- Internal storage for bibliography registries and per-section pagination schemas.
-- Full backward compatibility: version 1.0.0 `.baku` documents open flawlessly in version 1.5.
+### 6.2. Expanded Standard Document Templates Collection
+- **Scholarly & Journal Publication Templates**:
+  - Two-column SINTA academic journal format (bilingual abstract, IMRAD structure).
+  - IEEE standard conference paper format.
+- **Academic Grant & Administration Templates**:
+  - Student creativity research proposals (PKM).
+  - Industrial internship reporting framework.
+  - Postgraduate thesis and dissertation proposals.
+- **Governmental & Institutional Correspondence**:
+  - Official assignment directives and service memos.
+  - Official decrees and executive orders.
+  - Handover certification records (BAST).
+
+### 6.3. Infinite Virtual DOM Page Rendering (500+ Pages)
+- Viewport-only page element mounting with 1-2 page pre-buffers.
+- Effortlessly handles 500+ page manuscripts (textbooks, dissertations) without memory spikes.
+- Typing latency maintained strictly under 8 milliseconds regardless of document length.
+
+### 6.4. Pure Native Rust PDF Exporter Engine
+- Transition to pure Rust native PDF generation (`printpdf` and `lopdf`) alongside WebView printing.
+- Produces clean vector text (fully selectable and searchable) with up to 60% smaller file size.
+- Automatic font subsetting embedding only glyphs in use.
+
+### 6.5. Adaptive Dark and Light Themes
+- True Dark Theme engineered with high contrast meeting WCAG AAA accessibility standards.
+- Dark mode paper representation: *Light Sheet in Dark Room* or *Inverted Dark Sheet*.
+- Seamless automatic synchronization with OS theme settings.
+
+### 6.6. Distraction-Free Mode (Zen Mode) & Two-Page Spread Layout
+- **Zen Mode**: Hides ribbons and sidebars (`F11` / `Cmd+Shift+F`), leaving only the centered page.
+- **Two-Page Spread View**: Displays two consecutive pages side-by-side on widescreen displays.
+- **Advanced Fit Options**: *Fit to Width* and *Fit to Page*.
+
+### 6.7. Offline Word (.docx) Import, Conversion & Standard Document Export
+- Local pure Rust `.docx` parser preserving text styles, tables, and lists.
+- Export back to Microsoft Word (`.docx`), plain text (`.txt`), and scientific Markdown (`.md`).
+
+### 6.8. Enhanced .baku File Specification (v2.0)
+- Compressed binary attachments within `.baku` JSON structures for high-resolution graphics.
+- Embedded bibliographies and per-section numbering data.
+- Full backward compatibility with v1.0.0 documents.
+
+### 6.9. Periodic Auto-Save & Crash Auto-Recovery
+- Automatic background saving every 60 seconds to sandboxed storage.
+- Auto-recovery prompt on startup following system interruption or unexpected power loss.
+- Local revision snapshot history across 15, 30, and 60-minute intervals.
 
 ---
 
-## 10. Document Security & Metadata Sanitization
+## 7. Technical Priority Matrix & Staged Milestone Summary (v1.1.0 – v1.5.0)
 
-### 10.1. Metadata Sanitizer
-- Automatic stripping of hidden metadata prior to exporting public PDFs:
-  - Removes author names, machine hostnames, and local file paths.
-  - Clears hidden modification timestamps.
-- Critical for double-blind academic journal peer reviews and sensitive institutional documents.
+To deliver new features swiftly, predictably, and with uncompromised stability, development is structured across five sequential milestones:
 
-### 10.2. Read-Only Document Locking Mode
-- Lock `.baku` files to Read-Only mode to prevent accidental modifications to approved or finalized manuscripts.
+### 7.1. Staged Milestone Roadmap
 
----
-
-## 11. Staged Release Pipeline & Priority Matrix (v1.1.0 – v1.5.0)
-
-To deliver new features quickly, reliably, and thoroughly tested without waiting for all modules simultaneously, development is organized into five iterative release milestones:
-
-### 11.1. Staged Milestone Roadmap
-
-| Release Version | Core Milestone Focus | Feature Modules Included | Target Timeline |
+| Version | Core Focus | Included Feature Modules | Target Schedule |
 | :--- | :--- | :--- | :--- |
-| **v1.1.0** | Document Tabs & Workflow Efficiency | Multi-Document Tab Bar (Section 8.5) and Offline PDF Compressor (Section 4.1). | Upcoming Next Release |
-| **v1.2.0** | Academic Standards & Scientific Typography | Dual-Positioning Academic Page Numbers (Section 3.1), Offline KaTeX Notation (Section 2.1), Advanced Booktabs Tables (Section 2.3), and Vertical Ruler (Section 2.2). | Stage 2 |
-| **v1.3.0** | Full Cross-Platform Distribution | Windows Guided NSIS Installer (`.exe`) & Portable Edition (Section 6.1) and Universal Linux AppImage & Debian `.deb` (Section 6.2). | Stage 3 |
-| **v1.4.0** | Offline PDF Utilities & Security | Offline Digital Signatures & Stamps (Section 4.2), Document Metadata Sanitizer (Section 10.1), Visual Page Organizer (Section 4.4), and Offline Watermarking (Section 4.6). | Stage 4 |
-| **v1.5.0** | Ecosystem Milestone & Performance | Portable Template Packages `.bakutpl` (Section 5.4), Virtual DOM Infinite Rendering for 500+ Pages (Section 7.1), Full Adaptive Dark Mode (Section 8.2), and Offline Word `.docx` Import (Section 9.1). | Milestone Peak |
+| **v1.1.0** | Document Tabs & Workflow Efficiency | Multi-Document Tab Bar (Section 2.1) and Offline PDF Compressor (Section 2.2). | Immediate Next Release |
+| **v1.2.0** | Academic Standards & Scientific Typography | Dual-Positioning Academic Page Numbers (Section 3.1), KaTeX Notation (Section 3.2), Booktabs Tables (Section 3.3), Vertical Ruler (Section 3.4), Spellcheck (Section 3.5), and Structure Tools (Section 3.6). | Milestone Phase 2 |
+| **v1.3.0** | Full Cross-Platform Distribution | Windows NSIS (`.exe`) & Portable (Section 4.1), Linux AppImage & Debian `.deb` (Section 4.2), macOS Distribution (Section 4.3), and Navigation Sidebar (Section 4.4). | Milestone Phase 3 |
+| **v1.4.0** | Offline PDF Utilities & Security | Digital Signatures (Section 5.1), Metadata Sanitizer (Section 5.2), Page Organizer (Section 5.3), Watermark Tool (Section 5.4), Password Encryption (Section 5.5), and Bates Numbering (Section 5.6). | Milestone Phase 4 |
+| **v1.5.0** | Milestone Peak & Ecosystem Expansion | Portable Template Packages `.bakutpl` (Section 6.1), Additional Templates (Section 6.2), Virtual DOM 500+ Pages (Section 6.3), Rust PDF Engine (Section 6.4), Dark Mode (Section 6.5), Zen Mode (Section 6.6), Word `.docx` Import (Section 6.7), `.baku` v2.0 (Section 6.8), and Auto-Recovery (Section 6.9). | Milestone Peak |
 
-### 11.2. Technical Development Priority Matrix
+### 7.2. Technical Development Priority Matrix
 
-| Feature Module | Target Component | Target Version | Priority | Complexity Estimate |
+| Feature Module | Target Component | Target Version | Priority | Estimated Complexity |
 | :--- | :--- | :--- | :--- | :--- |
-| Multi-Document Tab Bar | Frontend Editor & State Engine | v1.1.0 | Very High | Medium |
-| Offline PDF Compressor | Rust Backend (`lopdf` / `image`) | v1.1.0 | Very High | Medium |
+| Multi-Document Tab Bar | Frontend Editor & State Engine | v1.1.0 | Highest | Medium |
+| Offline PDF File Compressor | Rust Backend (`lopdf` / `image`) | v1.1.0 | Highest | Medium |
 | Dual-Positioning Academic Page Numbers | Frontend Sheet Engine | v1.2.0 | High | Medium |
-| Offline KaTeX Mathematical Notation | Frontend Parser Engine | v1.2.0 | High | Low |
+| Offline KaTeX Formula Notation | Frontend Parser Engine | v1.2.0 | High | Low |
 | Vertical Ruler & Paragraph Indentation | Frontend Ruler Engine | v1.2.0 | Medium | Medium |
 | Advanced Scientific Tables (Booktabs) | Frontend Sheet Engine | v1.2.0 | Medium | Medium |
-| Windows (.exe) & Linux (AppImage) Installers | Tauri Bundler & CI Workflow | v1.3.0 | Very High | Medium |
+| Windows (.exe) & Linux (AppImage) Installers | Tauri Bundler & CI Workflow | v1.3.0 | Highest | Medium |
 | Document Outline & Thumbnails Sidebar | Frontend UI & DOM Virtualizer | v1.3.0 | High | Medium |
-| Offline Digital Signature & Stamp | Rust Backend & Canvas Overlay | v1.4.0 | Medium | Medium |
+| Offline Digital Signatures & Stamps | Rust Backend & Canvas Overlay | v1.4.0 | Medium | Medium |
 | Document Metadata Sanitizer (Blind Review) | Rust Backend & PDF Pipeline | v1.4.0 | Medium | Low |
 | Visual Page Organizer & Reorder | Frontend UI & Rust Backend | v1.4.0 | Medium | Medium |
-| Adaptive Dark Mode | CSS Theme Engine | v1.5.0 | Medium | Low |
+| Full Adaptive Dark / Light Mode | CSS Theme Engine | v1.5.0 | Medium | Low |
 | Portable Template Packages (.bakutpl) | Frontend Data Store & JSON | v1.5.0 | Medium | Low |
 | Infinite Virtual DOM Page Rendering (500+ Pages) | Frontend DOM Virtualizer | v1.5.0 | High | High |
-| Offline Word (.docx) Import | Rust DOCX Parser | v1.5.0 / Future | Future | High |
+| Offline Word (.docx) Import & Parser | Rust DOCX Parser | v1.5.0 / Later | Future | High |
 
 ---
 
-## Contributing & Feature Discussion
+## 8. Community Contributions & Feature Discussion
 
-This roadmap is open to feedback and suggestions from the community:
-- Submit feature suggestions via [.github/ISSUE_TEMPLATE/feature_request.md](../.github/ISSUE_TEMPLATE/feature_request.md).
-- Report bugs via [.github/ISSUE_TEMPLATE/bug_report.md](../.github/ISSUE_TEMPLATE/bug_report.md).
-- Review our full contribution guide in [CONTRIBUTING.md](../CONTRIBUTING.md).
-- Explore the technical architecture in [ARCHITECTURE.md](../ARCHITECTURE.md).
+This roadmap is open to community collaboration and technical feedback:
+- Propose feature enhancements: [.github/ISSUE_TEMPLATE/feature_request.md](../.github/ISSUE_TEMPLATE/feature_request.md)
+- Report technical issues: [.github/ISSUE_TEMPLATE/bug_report.md](../.github/ISSUE_TEMPLATE/bug_report.md)
+- Read contribution guidelines: [CONTRIBUTING.md](../CONTRIBUTING.md)
+- Inspect technical architecture: [ARCHITECTURE.md](../ARCHITECTURE.md)
