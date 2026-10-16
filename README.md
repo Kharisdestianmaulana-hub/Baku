@@ -18,6 +18,7 @@
   <p><strong>Lightweight, Local-First Standardized Desktop Word Processor for Academic, Official, and Formal Documents</strong></p>
 
   <p>
+    <a href="https://github.com/Kharisdestianmaulana-hub/Baku/releases/tag/v1.1.0"><img src="https://img.shields.io/badge/Release-v1.1.0-blue?style=flat" alt="Release v1.1.0" /></a>
     <a href="https://tauri.app"><img src="https://img.shields.io/badge/Tauri-v1.6-24C8D8?style=flat&logo=tauri&logoColor=white" alt="Tauri" /></a>
     <a href="https://www.rust-lang.org"><img src="https://img.shields.io/badge/Rust-2021%20Edition-DEA584?style=flat&logo=rust&logoColor=white" alt="Rust" /></a>
     <img src="https://img.shields.io/badge/Frontend-Vanilla%20JS%20%7C%20CSS3%20%7C%20HTML5-F7DF1E?style=flat" alt="Vanilla JS" />
@@ -34,7 +35,7 @@
 - [Key Features](#key-features)
 - [Offline PDF Extra Tools (100% Local)](#offline-pdf-extra-tools-100-local)
 - [Built-In Standard Templates](#built-in-standard-templates)
-- [Upcoming Release Roadmap (v1.1.0 – v1.5.0 & Beyond)](#upcoming-release-roadmap-v110--v150--beyond)
+- [Upcoming Release Roadmap (v1.2.0 – v1.5.0)](#upcoming-release-roadmap-v120--v150)
 - [Architecture & Tech Stack](#architecture--tech-stack)
 - [System Requirements & Installation](#system-requirements--installation)
 - [Complete Documentation](#complete-documentation)
@@ -66,39 +67,54 @@ Powered by **Tauri** and **Rust** with a pure vanilla web frontend, Baku PDF is 
    - Strict standard format lock (*Strict Standard Lock*) to prevent accidental margin and paper size modifications.
    - Export and import standalone `.baku` template files.
 
-3. **Smart Multi-Page & Multi-Section Engine**:
+3. **Multi-Document Tab Bar (New in v1.1.0)**:
+   - Open, edit, and switch between multiple `.baku` documents in parallel within a single application window.
+   - Independent undo/redo history stacks and document states isolated in RAM.
+   - Features an unsaved changes dot indicator, new tab button (+), close button (x), and horizontal overflow scroll buttons.
+   - Comprehensive keyboard shortcuts:
+     - `Option + [1-9]` (macOS) / `Alt + [1-9]` (Windows/Linux) for direct tab jumps.
+     - `Ctrl + Tab` / `Ctrl + Shift + Tab` (or `Cmd + Shift + ]` / `[`) for sequential cycling.
+     - `Cmd + W` / `Ctrl + W` for closing active tabs with custom confirmation dialogs.
+
+4. **Smart Multi-Page & Multi-Section Engine**:
    - Instant 60 FPS Page Breaks (Ctrl/Cmd + Enter) engineered without layout thrashing bottlenecks.
    - High-performance Section Breaks (Ctrl/Cmd + Shift + Enter) allowing independent numbering restarts and varying formatting between chapters.
    - Comprehensive numbering formats: Arabic numerals (1, 2, 3), Lowercase Roman (i, ii, iii), Uppercase Roman (I, II, III), and Alphabetical (A, B, C / a, b, c).
    - Flexible page number positioning: Header or Footer, aligned left, center, or right.
    - Different First Page toggle to suppress numbers on formal title and cover pages.
 
-4. **Interactive Visual Ruler**:
+5. **Interactive Visual Ruler**:
    - Millimeter, centimeter, and inch horizontal ruler with dynamic margin overlays.
    - Three draggable visual markers: First Line Indent, Left Indent, and Right Margin.
    - Synchronized in real time with the active cursor and paragraph.
 
-5. **Typography Styles Gallery & Precision Layout**:
+6. **Typography Styles Gallery & Precision Layout**:
    - Standard style presets: Normal, Document Title, Subtitle, Chapter / Heading 1, Sub-heading / Heading 2, Sub-sub-heading / Heading 3, Blockquote, and Monospace / Code.
    - Font size combobox (8pt to 72pt), line height dropdown (1.0, 1.15, 1.5, 2.0, custom), and color pickers.
    - Academic margin standards (4-4-3-3 cm, 4-3-4-3 cm, 3-3-3-3 cm, 2.54 cm normal, custom) and paper presets (A4, F4/Folio 215x330mm, Letter, Legal).
 
-6. **Integrated Document Utilities**:
+7. **Integrated Document Utilities**:
    - **Change Case**: Sentence case, lowercase, UPPERCASE, Capitalize Each Word, and tOGGLE cASE.
    - **Real-Time Document Statistics**: Live count of words, characters (with and without spaces), paragraphs, and estimated reading time.
    - **Custom Table Editor**: Interactive table grid creator with a floating toolbar for adding/removing rows and columns and cell alignment.
    - **Image Handling**: Local image insertion, alignment (left, center, right), proportional resizing, and deletion dialog.
    - **Special Characters & Typographic Symbols**: Integrated symbol picker modal.
 
-7. **WYSIWYG PDF Export & Native Printing**:
+8. **WYSIWYG PDF Export & Native Printing**:
    - Pixel-perfect PDF generation matching on-screen canvas margins and page boundaries.
    - Direct system print dialog integrated with local printers and copy quantity controls.
+
+9. **Stutter-Free Canvas Scrolling & Flexible Sidebar UI (New in v1.1.0)**:
+   - Smooth canvas scrolling interpolation free of jarring stutter.
+   - Ergonomic collapsed sidebar layout with vertical icon-over-label alignment and repositioned bottom-left Settings button.
+   - Sidebar collapse state persists across sessions.
 
 ---
 
 ## Offline PDF Extra Tools (100% Local)
 
 Baku PDF includes standalone PDF utility tools running entirely on your machine without cloud dependencies:
+- **Compress PDF [New in v1.1.0]**: Reduce PDF file sizes locally with 3 preset modes (Standard, Maximum, Low/Light) without internet connectivity.
 - **Merge PDF**: Combine two or more PDF files into a single unified document with custom sequencing.
 - **Split PDF**: Extract specific page ranges (e.g., 1-3, 5, 8-10) or separate every page into individual files.
 - **Rotate PDF**: Correct skewed or inverted pages (rotate 90, 180, or 270 degrees clockwise).
@@ -121,12 +137,10 @@ Baku PDF includes standalone PDF utility tools running entirely on your machine 
 
 ---
 
-## Upcoming Release Roadmap (v1.1.0 – v1.5.0 & Beyond)
+## Upcoming Release Roadmap (v1.2.0 – v1.5.0)
 
-We maintain a transparent, community-driven development roadmap detailing upcoming features, technical expansions, and platform releases for versions v1.1.0 through v1.5.0 and future milestones:
+With the official release of **Baku PDF v1.1.0** (introducing the Multi-Document Tab Bar and Offline PDF Compressor), our development roadmap now focuses on subsequent milestones from v1.2.0 to v1.5.0:
 
-- **Multi-Document Tab Bar**: Open, edit, and switch between multiple `.baku` documents in one window with isolated state and smooth horizontal scrolling.
-- **Offline PDF Compressor**: Preset targets (<500 KB, <1 MB, <2 MB) and customizable image DPI downsampling without server uploads.
 - **Cross-Platform Installers**: Windows NSIS installer (`.exe`), standalone portable edition, and Linux universal `AppImage` / Debian `.deb`.
 - **Dual-Positioning Academic Page Numbers**: Automatic chapter opening page numbers at bottom-center and continuing pages at top-right.
 - **Offline Scientific Tools**: KaTeX offline formulas, advanced booktabs tables, visual page organizer, and digital signatures.

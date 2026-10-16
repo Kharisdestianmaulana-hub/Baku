@@ -18,6 +18,7 @@
   <p><strong>Processador de Texto Padronizado, Ultraleve e 100% Local para Documentos Acadêmicos e Oficiais</strong></p>
 
   <p>
+    <a href="https://github.com/Kharisdestianmaulana-hub/Baku/releases/tag/v1.1.0"><img src="https://img.shields.io/badge/Release-v1.1.0-blue?style=flat" alt="Release v1.1.0" /></a>
     <a href="https://tauri.app"><img src="https://img.shields.io/badge/Tauri-v1.6-24C8D8?style=flat&logo=tauri&logoColor=white" alt="Tauri" /></a>
     <a href="https://www.rust-lang.org"><img src="https://img.shields.io/badge/Rust-2021%20Edition-DEA584?style=flat&logo=rust&logoColor=white" alt="Rust" /></a>
     <img src="https://img.shields.io/badge/Frontend-Vanilla%20JS%20%7C%20CSS3%20%7C%20HTML5-F7DF1E?style=flat" alt="Vanilla JS" />
@@ -33,7 +34,7 @@
 - [Sobre o Baku PDF](#sobre-o-baku-pdf)
 - [Principais Funcionalidades](#principais-funcionalidades)
 - [Ferramentas Extras de PDF (100% Offline)](#ferramentas-extras-de-pdf-100-offline)
-- [Roteiro de Próximos Lançamentos (v1.1.0 – v1.5.0 e Posteriores)](#roteiro-de-próximos-lançamentos-v110--v150-e-posteriores)
+- [Roteiro de Próximos Lançamentos (v1.2.0 – v1.5.0)](#roteiro-de-próximos-lançamentos-v120--v150)
 - [Arquitetura e Tecnologias](#arquitetura-e-tecnologias)
 - [Requisitos e Instalação](#requisitos-e-instalação)
 - [Documentação Completa](#documentação-completa)
@@ -63,38 +64,50 @@ Desenvolvido com **Tauri** e **Rust** e contando com uma interface em JavaScript
    - Bloqueio de padrão estrito (*Strict Standard Lock*) para evitar modificações acidentais de margens e tamanhos de folha.
    - Exportação e importação de modelos no formato `.baku`.
 
-3. **Mecanismo Inteligente de Múltiplas Páginas e Seções**:
+3. **Barra de Abas Multidocumento (Novo na v1.1.0)**:
+   - Abra, edite e alterne entre múltiplos documentos `.baku` em paralelo em uma única janela.
+   - Histórico de desfazer/refazer independente e estado de documento isolado na memória RAM.
+   - Indicador de alterações não salvas (ponto visual), botão de nova aba (+), botão de fechar (x) e rolagem horizontal.
+   - Atalhos de teclado completos (`Option/Alt + [1-9]`, `Ctrl + Tab`, `Cmd/Ctrl + W`).
+
+4. **Mecanismo Inteligente de Múltiplas Páginas e Seções**:
    - Quebra de Página (*Page Break*, Ctrl/Cmd + Enter) suave a 60 FPS.
    - Quebra de Seção (*Section Break*, Ctrl/Cmd + Shift + Enter) para reiniciar a numeração de páginas ou alterar cabeçalhos entre capítulos.
    - Vários formatos de numeração: arábicos, romanos (minúsculos/maiúsculos) e letras.
    - Opção de primeira página diferente para capas e páginas de rosto.
 
-4. **Régua Visual Interativa**:
+5. **Régua Visual Interativa**:
    - Régua horizontal com unidades em milímetros, centímetros e polegadas.
    - Três marcadores interativos: recuo da primeira linha, recuo esquerdo e margem direita.
    - Sincronização em tempo real com o parágrafo selecionado.
 
-5. **Tipografia Rigorosa e Estilos Predefinidos**:
+6. **Tipografia Rigorosa e Estilos Predefinidos**:
    - Estilos rápidos: Normal, Título do Documento, Subtítulo, Títulos 1 a 3, Citação e Código monoespaçado.
    - Seletor de tamanho de fonte (8pt a 72pt), entrelinhas (1.0, 1.15, 1.5, 2.0) e cores.
    - Predefinições de margens acadêmicas (4-4-3-3 cm, 4-3-4-3 cm, 3-3-3-3 cm, 2.54 cm normal) e papéis (A4, Folio/F4, Carta, Ofício).
 
-6. **Utilitários Integrados**:
+7. **Utilitários Integrados**:
    - **Alternar Maiúsculas/Minúsculas**: Primeira letra da frase, minúsculas, MAIÚSCULAS, Primeira Letra Maiúscula e Inverter.
    - **Estatísticas em Tempo Real**: Contagem de palavras, caracteres (com/sem espaços), parágrafos e tempo estimado de leitura.
    - **Editor de Tabelas**: Criação visual de tabelas com barra flutuante para adicionar/remover linhas e colunas.
    - **Inserção de Imagens**: Alinhamento, redimensionamento proporcional e exclusão segura.
    - **Seletor de Símbolos**: Símbolos tipográficos, matemáticos e caracteres especiais.
 
-7. **Exportação WYSIWYG e Impressão Nativa**:
+8. **Exportação WYSIWYG e Impressão Nativa**:
    - Geração de PDF com fidelidade idêntica ao que é exibido em tela.
    - Diálogo de impressão conectado aos drivers de impressão locais do sistema.
+
+9. **Rolagem Fluida da Área de Trabalho & Barra Lateral Flexível (Novo na v1.1.0)**:
+   - Interpolação de rolagem de tela sem interrupções ou travamentos.
+   - Layout compacto vertical na barra lateral recolhida e botão de Configurações reposicionado no canto inferior esquerdo.
+   - Estado recolhido da barra lateral persistido na memória do aplicativo.
 
 ---
 
 ## Ferramentas Extras de PDF (100% Offline)
 
 O Baku PDF inclui ferramentas complementares para manipular arquivos PDF localmente:
+- **Comprimir PDF (Compress PDF) [Novo na v1.1.0]**: Reduza o tamanho de PDFs localmente com 3 predefinições (Padrão, Máximo, Leve) sem conexão com a internet.
 - **Juntar PDF (Merge PDF)**: Reúna múltiplos arquivos PDF em um único documento organizado.
 - **Dividir PDF (Split PDF)**: Extraia páginas ou intervalos específicos (ex: 1-3, 5, 8-10).
 - **Girar PDF (Rotate PDF)**: Corrija a rotação das páginas em 90, 180 ou 270 graus.
@@ -102,12 +115,10 @@ O Baku PDF inclui ferramentas complementares para manipular arquivos PDF localme
 
 ---
 
-## Roteiro de Próximos Lançamentos (v1.1.0 – v1.5.0 e Posteriores)
+## Roteiro de Próximos Lançamentos (v1.2.0 – v1.5.0)
 
-Mantemos um roteiro público e transparente detalhando as novas funcionalidades planejadas, melhorias de desempenho e pacotes de distribuição para a versão 1.5 e lançamentos futuros:
+Com o lançamento oficial do **Baku PDF v1.1.0** (que introduz a barra de abas multidocumento e o compressor de PDF offline), nosso roteiro se concentra nas etapas seguintes de v1.2.0 a v1.5.0:
 
-- **Barra de Abas Multidocumento**: Abra, edite e alterne entre múltiplos documentos `.baku` em uma única janela integrada com isolamento de estado e rolagem horizontal suave.
-- **Compressor de Arquivos PDF Offline**: Alvos predefinidos (<500 KB, <1 MB, <2 MB) e resolução DPI personalizável sem envio para a nuvem.
 - **Instaladores Multiplataforma**: Instalador NSIS para Windows (`.exe`), edição portátil independente e pacotes Linux `AppImage` e Debian `.deb`.
 - **Numeração Dupla de Páginas para Teses**: Numeração automática no centro inferior na página inicial de cada capítulo e no canto superior direito nas páginas seguintes.
 - **Recursos Científicos Offline**: Fórmulas KaTeX offline, tabelas no estilo booktabs, organizador visual de páginas e assinaturas digitais.

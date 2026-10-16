@@ -18,6 +18,7 @@
   <p><strong>Pengolah Kata Desktop Berstandar Baku, Super Ringan, dan 100% Privat</strong></p>
 
   <p>
+    <a href="https://github.com/Kharisdestianmaulana-hub/Baku/releases/tag/v1.1.0"><img src="https://img.shields.io/badge/Release-v1.1.0-blue?style=flat" alt="Release v1.1.0" /></a>
     <a href="https://tauri.app"><img src="https://img.shields.io/badge/Tauri-v1.6-24C8D8?style=flat&logo=tauri&logoColor=white" alt="Tauri" /></a>
     <a href="https://www.rust-lang.org"><img src="https://img.shields.io/badge/Rust-2021%20Edition-DEA584?style=flat&logo=rust&logoColor=white" alt="Rust" /></a>
     <img src="https://img.shields.io/badge/Frontend-Vanilla%20JS%20%7C%20CSS3%20%7C%20HTML5-F7DF1E?style=flat" alt="Vanilla JS" />
@@ -34,7 +35,7 @@
 - [Fitur Utama](#fitur-utama)
 - [Alat Ekstra PDF (100% Luring)](#alat-ekstra-pdf-100-luring)
 - [Daftar Templat Baku Bawaan](#daftar-templat-baku-bawaan)
-- [Peta Jalan Pembaruan Mendatang (v1.1.0 – v1.5.0 & Selanjutnya)](#peta-jalan-pembaruan-mendatang-v110--v150--selanjutnya)
+- [Peta Jalan Pembaruan Mendatang (v1.2.0 – v1.5.0)](#peta-jalan-pembaruan-mendatang-v120--v150)
 - [Arsitektur & Spesifikasi Teknis](#arsitektur--spesifikasi-teknis)
 - [Persyaratan Sistem & Instalasi](#persyaratan-sistem--instalasi)
 - [Dokumentasi Lengkap](#dokumentasi-lengkap)
@@ -66,39 +67,54 @@ Dibangun dengan **Tauri** dan **Rust** serta lapisan tampilan web vanilla murni,
    - Opsi penguncian standar baku (*Strict Standard Lock*) untuk menjamin margin dan ukuran kertas tidak sengaja berubah.
    - Ekspor dan impor berkas templat mandiri `.baku`.
 
-3. **Multi-Halaman & Multi-Seksi Cerdas**:
+3. **Bilah Tab Multi-Dokumen (Baru di v1.1.0)**:
+   - Buka, sunting, dan beralih di antara banyak dokumen `.baku` secara paralel dalam satu jendela aplikasi.
+   - Setiap tab memiliki tumpukan riwayat Undo/Redo dan status dokumen terisolasi di memori RAM.
+   - Dilengkapi indikator titik perubahan belum tersimpan (*unsaved changes dot indicator*), tombol tambah tab baru (+), tombol tutup tab (x), dan tombol geser horizontal.
+   - Dukungan pintasan papan ketik lengkap:
+     - `Option + [1-9]` (macOS) / `Alt + [1-9]` (Windows/Linux) untuk langsung melompat ke tab 1 sampai 9.
+     - `Ctrl + Tab` / `Ctrl + Shift + Tab` (atau `Cmd + Shift + ]` / `[`) untuk berpindah tab berurutan.
+     - `Cmd + W` / `Ctrl + W` untuk menutup tab aktif dengan dialog pengaman kustom.
+
+4. **Multi-Halaman & Multi-Seksi Cerdas**:
    - Pemisah Halaman (*Page Break*, Ctrl/Cmd + Enter) instan berkinerja tinggi 60 FPS tanpa jeda input.
    - Pemisah Seksi (*Section Break*, Ctrl/Cmd + Shift + Enter) untuk memulai penomoran bab baru atau mengubah format nomor di tengah dokumen.
    - Format penomoran dokumen fleksibel: Angka Arab (1, 2, 3), Romawi Kecil (i, ii, iii), Romawi Besar (I, II, III), dan Huruf (A, B, C / a, b, c).
    - Posisi nomor halaman: Header atau Footer, rata kiri, tengah, atau kanan.
    - Opsi Beda Halaman Pertama (*Different First Page*) untuk menyembunyikan nomor pada halaman sampul/judul resmi.
 
-4. **Penggaris Visual Interaktif (Interactive Visual Ruler)**:
+5. **Penggaris Visual Interaktif (Interactive Visual Ruler)**:
    - Penggaris horizontal berskala presisi milimeter/sentimeter/inci dengan panduan visual margin aktif.
    - Tiga penanda seret interaktif: Indentasi Baris Pertama (*First Line Indent*), Indentasi Kiri (*Left Indent*), dan Margin Kanan (*Right Margin*).
    - Sinkronisasi instan terhadap paragraf aktif di kanvas editor.
 
-5. **Galeri Gaya Tipografi & Tata Huruf Presisi**:
+6. **Galeri Gaya Tipografi & Tata Huruf Presisi**:
    - Palet gaya format dokumen standar: Normal, Judul Dokumen, Subjudul, Bab / Judul 1, Sub-bab / Judul 2, Sub-sub-bab / Judul 3, Kutipan Langsung (*Blockquote*), dan Monospace / Kode.
    - Pemilih ukuran huruf presisi (8pt hingga 72pt), pemilih tinggi baris (*Line Height*: 1.0, 1.15, 1.5, 2.0, kustom), dan pemilih palet warna teks/latar.
    - Pengaturan margin halaman baku (4-4-3-3 cm, 4-3-4-3 cm, 3-3-3-3 cm, 2.54 cm normal, dan kustom) serta ukuran kertas (A4, F4/Folio 215x330mm, Letter, Legal).
 
-6. **Alat Bantu Dokumen Lengkap**:
+7. **Alat Bantu Dokumen Lengkap**:
    - **Ubah Kapitalisasi (Change Case)**: Kalimat awal (*Sentence case*), huruf kecil semua (*lowercase*), HURUF BESAR (*UPPERCASE*), Huruf Kapital Tiap Kata (*Capitalize Each Word*), dan Huruf Balik (*tOGGLE cASE*).
    - **Statistik Dokumen Real-time**: Hitungan jumlah kata, karakter dengan/tanpa spasi, jumlah paragraf, dan estimasi waktu baca.
    - **Penyunting Tabel Kustom**: Pembuat tabel matriks baris x kolom dengan toolbar mengambang (*floating toolbar*) untuk menambah/menghapus baris/kolom dan perataan teks sel.
    - **Penyunting Gambar**: Unggah gambar lokal, perataan (kiri, tengah, kanan), penyesuaian ukuran proporsional, serta penghapusan aman.
    - **Pemilih Simbol Khusus**: Dialog pemilih simbol tipografi, aksara, matematika, dan karakter resmi.
 
-7. **Ekspor & Cetak WYSIWYG**:
+8. **Ekspor & Cetak WYSIWYG**:
    - Ekspor PDF WYSIWYG dengan keakuratan tata letak piksel terhadap kanvas editor.
    - Dialog Cetak langsung terintegrasi dengan daftar printer sistem operasi lokal dan pencetakan multi-eksemplar.
+
+9. **Pengguliran Kanvas Halus & UI Sidebar Fleksibel (Baru di v1.1.0)**:
+   - Interpolasi pengguliran kanvas halus bebas lonjakan kasar (*stutter-free scrolling*).
+   - Tata letak bertumpuk vertikal baru pada sidebar saat ditutup (ikon di atas, label di bawah) dan pemindahan tombol Pengaturan ke pojok kiri bawah.
+   - Status buka/tutup sidebar tersimpan secara otomatis (*persistent*).
 
 ---
 
 ## Alat Ekstra PDF (100% Luring)
 
 Baku PDF menyediakan utilitas pengolahan PDF mandiri langsung di perangkat Anda tanpa bantuan server luar:
+- **Kompres PDF (Compress PDF) [Baru di v1.1.0]**: Perkecil ukuran berkas PDF secara lokal dengan 3 preset (Standar, Maksimal, Ringan) tanpa koneksi internet.
 - **Gabungkan PDF (Merge PDF)**: Satukan dua atau lebih berkas PDF menjadi satu dokumen utuh dengan urutan yang dapat diatur.
 - **Pisahkan PDF (Split PDF)**: Ekstrak halaman atau rentang halaman tertentu (misalnya: 1-3, 5, 8-10) atau pisahkan setiap halaman menjadi berkas tersendiri.
 - **Putar Halaman (Rotate PDF)**: Perbaiki orientasi halaman PDF yang miring atau terbalik (rotasi 90 derajat, 180 derajat, atau 270 derajat).
@@ -121,12 +137,10 @@ Baku PDF menyediakan utilitas pengolahan PDF mandiri langsung di perangkat Anda 
 
 ---
 
-## Peta Jalan Pembaruan Mendatang (v1.1.0 – v1.5.0 & Selanjutnya)
+## Peta Jalan Pembaruan Mendatang (v1.2.0 – v1.5.0)
 
-Kami memelihara dokumen rencana kerja pengembangan terbuka yang merinci fitur-fitur baru, peningkatan arsitektur, dan rilis multi-platform untuk rilis bertahap v1.1.0 hingga v1.5.0 serta pembaruan selanjutnya:
+Dengan resmi dirilisnya **Baku PDF v1.1.0** (yang mencakup Bilah Tab Multi-Dokumen dan Kompresor PDF Luring), peta jalan pengembangan kami berikutnya berfokus pada tahapan rilis v1.2.0 hingga v1.5.0:
 
-- **Bilah Tab Multi-Dokumen**: Buka, sunting, dan beralih di antara banyak dokumen `.baku` dalam satu jendela aplikasi dengan isolasi status pengetikan dan pengguliran horizontal halus.
-- **Kompresor Ukuran Berkas PDF Luring**: Preset target instan (<500 KB, <1 MB, <2 MB) dan setelan resolusi DPI gambar tanpa server awan.
 - **Paket Distribusi Windows & Linux**: Installer NSIS Windows (`.exe`), edisi portabel tanpa instalasi, serta paket Linux `AppImage` dan Debian `.deb`.
 - **Aturan Penomoran Halaman Skripsi Baku**: Penomoran halaman otomatis di tengah bawah untuk lembar judul bab dan sudut kanan atas untuk halaman lanjutan.
 - **Fitur Ilmiah Luring Lanjutan**: Notasi matematika KaTeX luring, tabel ilmiah gaya booktabs, penyusun urutan halaman visual, dan tanda tangan digital luring.

@@ -32,7 +32,7 @@ Core architectural principles:
 ## Table of Contents
 
 1. [Baseline Feature Inventory (v1.0.0 Release Status)](#1-baseline-feature-inventory-v100-release-status)
-2. [Release Plan Version 1.1.0 (Multi-Document Tabs & Workflow Efficiency)](#2-release-plan-version-110-multi-document-tabs--workflow-efficiency)
+2. [Version 1.1.0 Features (Status: Completed & Released)](#2-version-110-features-status-completed--released)
 3. [Release Plan Version 1.2.0 (Academic Standards & Scientific Typography)](#3-release-plan-version-120-academic-standards--scientific-typography)
 4. [Release Plan Version 1.3.0 (Full Cross-Platform Distribution & Navigation)](#4-release-plan-version-130-full-cross-platform-distribution--navigation)
 5. [Release Plan Version 1.4.0 (Offline PDF Utilities & Document Security)](#5-release-plan-version-140-offline-pdf-utilities--document-security)
@@ -62,7 +62,10 @@ These baseline features form the stable core of version 1.0.0 and serve as the f
 
 ---
 
-## 2. Release Plan Version 1.1.0 (Multi-Document Tabs & Workflow Efficiency)
+## 2. Version 1.1.0 Features (Status: Completed & Released)
+
+> [!NOTE]
+> All features listed under Version 1.1.0 have been fully implemented and officially released on October 16, 2026.
 
 The **v1.1.0** milestone is dedicated to parallel document editing and high-efficiency offline PDF file compression:
 
@@ -296,10 +299,10 @@ To deliver new features swiftly, predictably, and with uncompromised stability, 
 
 ### 7.1. Staged Milestone Roadmap
 
-| Version | Core Focus | Included Feature Modules | Target Schedule |
+| Versi / Version | Core Focus | Included Feature Modules | Target Schedule |
 | :--- | :--- | :--- | :--- |
-| **v1.1.0** | Document Tabs & Workflow Efficiency | Multi-Document Tab Bar (Section 2.1) and Offline PDF Compressor (Section 2.2). | Immediate Next Release |
-| **v1.2.0** | Academic Standards & Scientific Typography | Dual-Positioning Academic Page Numbers (Section 3.1), KaTeX Notation (Section 3.2), Booktabs Tables (Section 3.3), Vertical Ruler (Section 3.4), Spellcheck (Section 3.5), and Structure Tools (Section 3.6). | Milestone Phase 2 |
+| **v1.1.0** | Document Tabs & Workflow Efficiency | Multi-Document Tab Bar (Section 2.1) and Offline PDF Compressor (Section 2.2). | Completed & Released (Oct 16, 2026) |
+| **v1.2.0** | Academic Standards & Scientific Typography | Dual-Positioning Academic Page Numbers (Section 3.1), KaTeX Notation (Section 3.2), Booktabs Tables (Section 3.3), Vertical Ruler (Section 3.4), Spellcheck (Section 3.5), and Structure Tools (Section 3.6). | Next Immediate Release (Phase 2) |
 | **v1.3.0** | Full Cross-Platform Distribution | Windows NSIS (`.exe`) & Portable (Section 4.1), Linux AppImage & Debian `.deb` (Section 4.2), macOS Distribution (Section 4.3), and Navigation Sidebar (Section 4.4). | Milestone Phase 3 |
 | **v1.4.0** | Offline PDF Utilities & Security | Digital Signatures (Section 5.1), Metadata Sanitizer (Section 5.2), Page Organizer (Section 5.3), Watermark Tool (Section 5.4), Password Encryption (Section 5.5), and Bates Numbering (Section 5.6). | Milestone Phase 4 |
 | **v1.5.0** | Milestone Peak & Ecosystem Expansion | Portable Template Packages `.bakutpl` (Section 6.1), Additional Templates (Section 6.2), Virtual DOM 500+ Pages (Section 6.3), Rust PDF Engine (Section 6.4), Dark Mode (Section 6.5), Zen Mode (Section 6.6), Word `.docx` Import (Section 6.7), `.baku` v2.0 (Section 6.8), and Auto-Recovery (Section 6.9). | Milestone Peak |
@@ -308,8 +311,8 @@ To deliver new features swiftly, predictably, and with uncompromised stability, 
 
 | Feature Module | Target Component | Target Version | Priority | Estimated Complexity |
 | :--- | :--- | :--- | :--- | :--- |
-| Multi-Document Tab Bar | Frontend Editor & State Engine | v1.1.0 | Highest | Medium |
-| Offline PDF File Compressor | Rust Backend (`lopdf` / `image`) | v1.1.0 | Highest | Medium |
+| Multi-Document Tab Bar | Frontend Editor & State Engine | v1.1.0 | Released | Medium |
+| Offline PDF File Compressor | Rust Backend (`lopdf` / `image`) | v1.1.0 | Released | Medium |
 | Dual-Positioning Academic Page Numbers | Frontend Sheet Engine | v1.2.0 | High | Medium |
 | Offline KaTeX Formula Notation | Frontend Parser Engine | v1.2.0 | High | Low |
 | Vertical Ruler & Paragraph Indentation | Frontend Ruler Engine | v1.2.0 | Medium | Medium |

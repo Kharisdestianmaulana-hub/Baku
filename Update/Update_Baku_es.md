@@ -32,7 +32,7 @@ Principios arquitectónicos esenciales:
 ## Índice del Documento
 
 1. [Inventario de Funciones de Línea Base (Estado de Versión v1.0.0)](#1-inventario-de-funciones-de-línea-base-estado-de-versión-v100)
-2. [Plan de Versión 1.1.0 (Pestañas Multidocumento y Eficiencia Operativa)](#2-plan-de-versión-110-pestañas-multidocumento-y-eficiencia-operativa)
+2. [Funciones de la Versión 1.1.0 (Estado: Completado y Publicado)](#2-funciones-de-la-versión-110-estado-completado-y-publicado)
 3. [Plan de Versión 1.2.0 (Normas Académicas y Tipografía Científica)](#3-plan-de-versión-120-normas-académicas-y-tipografía-científica)
 4. [Plan de Versión 1.3.0 (Distribución Multiplataforma Completa y Navegación)](#4-plan-de-versión-130-distribución-multiplataforma-completa-y-navegación)
 5. [Plan de Versión 1.4.0 (Utilidades PDF Fuera de Línea y Seguridad)](#5-plan-de-versión-140-utilidades-pdf-fuera-de-línea-y-seguridad)
@@ -60,7 +60,10 @@ A partir de la auditoría del código fuente, los siguientes módulos están **c
 
 ---
 
-## 2. Plan de Versión 1.1.0 (Pestañas Multidocumento y Eficiencia Operativa)
+## 2. Funciones de la Versión 1.1.0 (Estado: Completado y Publicado)
+
+> [!NOTE]
+> Todas las funciones de la Versión 1.1.0 se han implementado por completo y se han lanzado oficialmente el 16 de octubre de 2026.
 
 La etapa **v1.1.0** se enfoca en la productividad de redacción simultánea y la compresión local de documentos PDF:
 
@@ -201,8 +204,8 @@ La etapa **v1.5.0** representa el punto culminante del desarrollo de Baku PDF:
 
 | Versión | Enfoque Central | Módulos Integrados | Previsión |
 | :--- | :--- | :--- | :--- |
-| **v1.1.0** | Pestañas de Documentos y Eficiencia | Barra de Pestañas Multidocumento (Sección 2.1) y Compresor de PDF (Sección 2.2). | Próximo Lanzamiento |
-| **v1.2.0** | Normas Académicas y Tipografía | Numeración Doble de Tesis (Sección 3.1), Fórmulas KaTeX (Sección 3.2), Tablas Booktabs (Sección 3.3), Regla Vertical (Sección 3.4), Corrector (Sección 3.5) y Estructura (Sección 3.6). | Fase 2 |
+| **v1.1.0** | Pestañas de Documentos y Eficiencia | Barra de Pestañas Multidocumento (Sección 2.1) y Compresor de PDF (Sección 2.2). | Completado y Publicado (16 Oct 2026) |
+| **v1.2.0** | Normas Académicas y Tipografía | Numeración Doble de Tesis (Sección 3.1), Fórmulas KaTeX (Sección 3.2), Tablas Booktabs (Sección 3.3), Regla Vertical (Sección 3.4), Corrector (Sección 3.5) y Estructura (Sección 3.6). | Próximo Lanzamiento (Fase 2) |
 | **v1.3.0** | Distribución Multiplataforma | Instaladores Windows (`.exe`/portátil) (Sección 4.1), Linux AppImage/Debian (Sección 4.2), macOS (Sección 4.3) y Panel Lateral (Sección 4.4). | Fase 3 |
 | **v1.4.0** | Utilidades PDF y Seguridad | Firma Digital (Sección 5.1), Higienizador de Metadados (Sección 5.2), Organizador de Páginas (Sección 5.3), Marca de Agua (Sección 5.4), Cifrado (Sección 5.5) y Foliado (Sección 5.6). | Fase 4 |
 | **v1.5.0** | Hito Cumbre del Ecosistema | Paquetes `.bakutpl` (Sección 6.1), Plantillas Extras (Sección 6.2), DOM Virtual 500+ Páginas (Sección 6.3), Motor PDF Rust (Sección 6.4), Modo Oscuro (Sección 6.5), Modo Zen (Sección 6.6), Importador Word (Sección 6.7), `.baku` v2.0 (Sección 6.8) y Autoguardado (Sección 6.9). | Hito Cumbre |
@@ -211,8 +214,8 @@ La etapa **v1.5.0** representa el punto culminante del desarrollo de Baku PDF:
 
 | Módulo de Función | Componente Objetivo | Versión Objetivo | Prioridad | Complejidad Estimada |
 | :--- | :--- | :--- | :--- | :--- |
-| Barra de Pestañas Multidocumento | Frontend Editor y Motor de Estado | v1.1.0 | Muy Alta | Media |
-| Compresor de Archivos PDF Fuera de Línea | Backend Rust (`lopdf` / `image`) | v1.1.0 | Muy Alta | Media |
+| Barra de Pestañas Multidocumento | Frontend Editor y Motor de Estado | v1.1.0 | Publicado | Media |
+| Compresor de Archivos PDF Fuera de Línea | Backend Rust (`lopdf` / `image`) | v1.1.0 | Publicado | Media |
 | Reglas de Numeración de Tesis de Doble Posición | Motor de Hojas Frontend | v1.2.0 | Alta | Media |
 | Notación Matemática KaTeX Fuera de Línea | Parser Frontend | v1.2.0 | Alta | Baja |
 | Regla Vertical y Sangrías de Párrafo | Motor de Regla Frontend | v1.2.0 | Media | Media |

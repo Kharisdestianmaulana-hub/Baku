@@ -32,7 +32,7 @@ Prinsip utama pengembangan Baku PDF:
 ## Daftar Isi Dokumen
 
 1. [Status Fitur Fondasi Saat Ini (Rilis v1.0.0)](#1-status-fitur-fondasi-saat-ini-rilis-v100)
-2. [Rencana Pembaruan Versi 1.1.0 (Tab Multi-Dokumen & Efisiensi Kerja)](#2-rencana-pembaruan-versi-110-tab-multi-dokumen--efisiensi-kerja)
+2. [Fitur Versi 1.1.0 (Status: Selesai Dirilis)](#2-fitur-versi-110-status-selesai-dirilis)
 3. [Rencana Pembaruan Versi 1.2.0 (Standar Akademik & Tipografi Ilmiah)](#3-rencana-pembaruan-versi-120-standar-akademik--tipografi-ilmiah)
 4. [Rencana Pembaruan Versi 1.3.0 (Distribusi Multi-Platform Penuh & Navigasi)](#4-rencana-pembaruan-versi-130-distribusi-multi-platform-penuh--navigasi)
 5. [Rencana Pembaruan Versi 1.4.0 (Utilitas PDF Luring & Keamanan Dokumen)](#5-rencana-pembaruan-versi-140-utilitas-pdf-luring--keamanan-dokumen)
@@ -62,7 +62,10 @@ Fitur-fitur di atas merupakan fondasi stabil versi 1.0.0 dan **tidak lagi dicant
 
 ---
 
-## 2. Rencana Pembaruan Versi 1.1.0 (Tab Multi-Dokumen & Efisiensi Kerja)
+## 2. Fitur Versi 1.1.0 (Status: Selesai Dirilis)
+
+> [!NOTE]
+> Seluruh fitur pada Versi 1.1.0 di bawah ini telah selesai diimplementasikan secara penuh dan resmi dirilis pada 16 Oktober 2026.
 
 Tahap pembaruan **v1.1.0** difokuskan pada produktivitas pengetikan naskah paralel dan penyusutan berkas PDF hasil ekspor agar siap diunggah ke berbagai portal publik:
 
@@ -303,8 +306,8 @@ Untuk menghadirkan fitur-fitur baru secara cepat, teruji, dan stabil tanpa menun
 
 | Versi Rilis | Fokus Utama Rilis | Modul Fitur yang Disertakan | Target Rilis |
 | :--- | :--- | :--- | :--- |
-| **v1.1.0** | Tab Dokumen & Efisiensi Kerja | Bilah Tab Multi-Dokumen (Sub-bab 2.1) dan Kompresor Ukuran Berkas PDF Luring (Sub-bab 2.2). | Rilis Terdekat |
-| **v1.2.0** | Standar Akademik & Tipografi Ilmiah | Aturan Nomor Halaman Skripsi Ganda (Sub-bab 3.1), Notasi KaTeX Luring (Sub-bab 3.2), Tabel Ilmiah Booktabs (Sub-bab 3.3), Penggaris Vertikal (Sub-bab 3.4), PUEBI (Sub-bab 3.5), dan Struktur Dokumen Otomatis (Sub-bab 3.6). | Tahap 2 |
+| **v1.1.0** | Tab Dokumen & Efisiensi Kerja | Bilah Tab Multi-Dokumen (Sub-bab 2.1) dan Kompresor Ukuran Berkas PDF Luring (Sub-bab 2.2). | Selesai Dirilis (16 Okt 2026) |
+| **v1.2.0** | Standar Akademik & Tipografi Ilmiah | Aturan Nomor Halaman Skripsi Ganda (Sub-bab 3.1), Notasi KaTeX Luring (Sub-bab 3.2), Tabel Ilmiah Booktabs (Sub-bab 3.3), Penggaris Vertikal (Sub-bab 3.4), PUEBI (Sub-bab 3.5), dan Struktur Dokumen Otomatis (Sub-bab 3.6). | Rilis Berikutnya (Tahap 2) |
 | **v1.3.0** | Distribusi Multi-Platform Penuh | Installer Windows NSIS (`.exe`) & Portable (Sub-bab 4.1), Paket Universal Linux AppImage & Debian `.deb` (Sub-bab 4.2), Distribusi macOS (Sub-bab 4.3), dan Bilah Samping Navigasi (Sub-bab 4.4). | Tahap 3 |
 | **v1.4.0** | Utilitas PDF Luring & Keamanan | Tanda Tangan & Paraf Digital Luring (Sub-bab 5.1), Pembersih Metadata Dokumen (Sub-bab 5.2), Penyusun Halaman Visual (Sub-bab 5.3), Cap Watermark Luring (Sub-bab 5.4), Enkripsi Sandi PDF (Sub-bab 5.5), dan Bates Numbering (Sub-bab 5.6). | Tahap 4 |
 | **v1.5.0** | Puncak Milestone Ekosistem | Paket Templat Mandiri `.bakutpl` (Sub-bab 6.1), Koleksi Templat Tambahan (Sub-bab 6.2), Virtualisasi DOM 500+ Halaman (Sub-bab 6.3), Mesin PDF Rust (Sub-bab 6.4), Mode Gelap (Sub-bab 6.5), Zen Mode (Sub-bab 6.6), Impor Word `.docx` (Sub-bab 6.7), Spesifikasi `.baku` v2.0 (Sub-bab 6.8), dan Pemulihan Crash (Sub-bab 6.9). | Puncak Milestone |
@@ -313,8 +316,8 @@ Untuk menghadirkan fitur-fitur baru secara cepat, teruji, dan stabil tanpa menun
 
 | Modul Fitur | Target Komponen | Target Versi | Prioritas | Estimasi Kompleksitas |
 | :--- | :--- | :--- | :--- | :--- |
-| Bilah Tab Multi-Dokumen (Multi-Document Tabs) | Frontend Editor & State Engine | v1.1.0 | Sangat Tinggi | Menengah |
-| Kompresor Ukuran Berkas PDF | Rust Backend (`lopdf` / `image`) | v1.1.0 | Sangat Tinggi | Menengah |
+| Bilah Tab Multi-Dokumen (Multi-Document Tabs) | Frontend Editor & State Engine | v1.1.0 | Selesai Dirilis | Menengah |
+| Kompresor Ukuran Berkas PDF | Rust Backend (`lopdf` / `image`) | v1.1.0 | Selesai Dirilis | Menengah |
 | Aturan Posisi Nomor Halaman Bab Baku | Frontend Sheet Engine | v1.2.0 | Tinggi | Menengah |
 | Notasi Matematika KaTeX Luring | Frontend Parser Engine | v1.2.0 | Tinggi | Rendah |
 | Penggaris Vertikal & Indentasi Paragraf | Frontend Ruler Engine | v1.2.0 | Sedang | Menengah |

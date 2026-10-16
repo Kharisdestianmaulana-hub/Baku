@@ -32,7 +32,7 @@ Principes fondamentaux de conception :
 ## Sommaire du Document
 
 1. [Inventaire des Fonctionnalités Initiales (Statut de Version v1.0.0)](#1-inventaire-des-fonctionnalités-initiales-statut-de-version-v100)
-2. [Plan de Version 1.1.0 (Onglets Multi-Documents et Efficacité Opérationnelle)](#2-plan-de-version-110-onglets-multi-documents-et-efficacité-opérationnelle)
+2. [Fonctionnalités de la Version 1.1.0 (Statut : Déployé et Publié)](#2-fonctionnalités-de-la-version-110-statut--déployé-et-publié)
 3. [Plan de Version 1.2.0 (Normes Académiques et Typographie Scientifique)](#3-plan-de-version-120-normes-académiques-et-typographie-scientifique)
 4. [Plan de Version 1.3.0 (Déploiement Multiplateforme Complet et Navigation)](#4-plan-de-version-130-déploiement-multiplateforme-complet-et-navigation)
 5. [Plan de Version 1.4.0 (Outils PDF Hors Ligne et Sécurité des Documents)](#5-plan-de-version-140-outils-pdf-hors-ligne-et-sécurité-des-documents)
@@ -60,7 +60,10 @@ L'audit complet du code source confirme que les modules suivants sont **intégra
 
 ---
 
-## 2. Plan de Version 1.1.0 (Onglets Multi-Documents et Efficacité Opérationnelle)
+## 2. Fonctionnalités de la Version 1.1.0 (Statut : Déployé et Publié)
+
+> [!NOTE]
+> Toutes les fonctionnalités de la Version 1.1.0 ont été intégralement implémentées et publiées officiellement le 16 octobre 2026.
 
 Le jalon **v1.1.0** est axé sur la rédaction multitâche fluide et la compression locale de fichiers PDF :
 
@@ -201,8 +204,8 @@ Le jalon **v1.5.0** marque l'apogée fonctionnelle de l'écosystème Baku PDF :
 
 | Version | Axe Prioritaire | Modules Intégrés | Échéance |
 | :--- | :--- | :--- | :--- |
-| **v1.1.0** | Onglets et Efficacité | Barre d'Onglets Multi-Documents (Section 2.1) et Compresseur PDF (Section 2.2). | Prochaine Version |
-| **v1.2.0** | Normes Académiques et Typographie | Double Numérotation (Section 3.1), Formules KaTeX (Section 3.2), Tableaux Booktabs (Section 3.3), Règle Verticale (Section 3.4), Orthographe (Section 3.5) et Structure (Section 3.6). | Étape 2 |
+| **v1.1.0** | Onglets et Efficacité | Barre d'Onglets Multi-Documents (Section 2.1) et Compresseur PDF (Section 2.2). | Déployé et Publié (16 oct. 2026) |
+| **v1.2.0** | Normes Académiques et Typographie | Double Numérotation (Section 3.1), Formules KaTeX (Section 3.2), Tableaux Booktabs (Section 3.3), Règle Verticale (Section 3.4), Orthographe (Section 3.5) et Structure (Section 3.6). | Prochaine Version (Étape 2) |
 | **v1.3.0** | Distribution Multiplateforme | Installateurs Windows (`.exe`/portable) (Section 4.1), Linux AppImage/Debian (Section 4.2), macOS (Section 4.3) et Barre Latérale (Section 4.4). | Étape 3 |
 | **v1.4.0** | Outils PDF et Sécurité | Signature Numérique (Section 5.1), Nettoyeur Métadonnées (Section 5.2), Organiseur Pages (Section 5.3), Filigrane (Section 5.4), Chiffrement (Section 5.5) et Numérotation Externe (Section 5.6). | Étape 4 |
 | **v1.5.0** | Sommet de l'Écosystème | Paquets `.bakutpl` (Section 6.1), Modèles Supplémentaires (Section 6.2), DOM Virtuel 500+ Pages (Section 6.3), Moteur PDF Rust (Section 6.4), Mode Sombre (Section 6.5), Mode Zen (Section 6.6), Import Word (Section 6.7), `.baku` v2.0 (Section 6.8) et Auto-Sauvegarde (Section 6.9). | Sommet du Jalon |
@@ -211,8 +214,8 @@ Le jalon **v1.5.0** marque l'apogée fonctionnelle de l'écosystème Baku PDF :
 
 | Module Fonctionnel | Composant Cible | Version Cible | Priorité | Complexité Estimée |
 | :--- | :--- | :--- | :--- | :--- |
-| Barre d'Onglets Multi-Documents | Frontend Editor et Moteur d'État | v1.1.0 | Très Haute | Moyenne |
-| Compresseur de Fichiers PDF Hors Ligne | Backend Rust (`lopdf` / `image`) | v1.1.0 | Très Haute | Moyenne |
+| Barre d'Onglets Multi-Documents | Frontend Editor et Moteur d'État | v1.1.0 | Publié | Moyenne |
+| Compresseur de Fichiers PDF Hors Ligne | Backend Rust (`lopdf` / `image`) | v1.1.0 | Publié | Moyenne |
 | Double Numérotation des Pages de Thèse | Moteur de Feuilles Frontend | v1.2.0 | Haute | Moyenne |
 | Notation Mathématique KaTeX Hors Ligne | Parseur Frontend | v1.2.0 | Haute | Faible |
 | Règle Verticale et Retraits de Paragraphe | Moteur de Règle Frontend | v1.2.0 | Moyenne | Moyenne |

@@ -32,7 +32,7 @@ Diretrizes essenciais de desenvolvimento:
 ## Índice do Documento
 
 1. [Inventário de Recursos da Linha de Base (Status da Versão v1.0.0)](#1-inventário-de-recursos-da-linha-de-base-status-da-versão-v100)
-2. [Plano de Lançamento Versão 1.1.0 (Abas Multidocumento e Eficiência Operacional)](#2-plano-de-lançamento-versão-110-abas-multidocumento-e-eficiência-operacional)
+2. [Recursos da Versão 1.1.0 (Status: Concluído e Lançado)](#2-recursos-da-versão-110-status-concluído-e-lançado)
 3. [Plano de Lançamento Versão 1.2.0 (Padrões Acadêmicos e Tipografia Científica)](#3-plano-de-lançamento-versão-120-padrões-acadêmicos-e-tipografia-científica)
 4. [Plano de Lançamento Versão 1.3.0 (Distribuição Multiplataforma Completa e Navegação)](#4-plano-de-lançamento-versão-130-distribuição-multiplataforma-completa-e-navegação)
 5. [Plano de Lançamento Versão 1.4.0 (Utilitários PDF Offline e Segurança de Documentos)](#5-plano-de-lançamento-versão-140-utilitários-pdf-offline-e-segurança-de-documentos)
@@ -60,7 +60,10 @@ Conforme auditoria do código-fonte, os seguintes módulos **estão 100% impleme
 
 ---
 
-## 2. Plano de Lançamento Versão 1.1.0 (Abas Multidocumento e Eficiência Operacional)
+## 2. Recursos da Versão 1.1.0 (Status: Concluído e Lançado)
+
+> [!NOTE]
+> Todos os recursos da Versão 1.1.0 foram totalmente implementados e lançados oficialmente em 16 de outubro de 2026.
 
 A etapa **v1.1.0** foca na produtividade com múltiplos documentos abertos e compressão local de arquivos PDF:
 
@@ -201,8 +204,8 @@ A etapa **v1.5.0** representa o marco ápice de maturidade do Baku PDF:
 
 | Versão | Foco Principal | Módulos Integrados | Previsão |
 | :--- | :--- | :--- | :--- |
-| **v1.1.0** | Abas de Documentos e Eficiência | Barra de Abas Multidocumento (Seção 2.1) e Compressor de PDF (Seção 2.2). | Próximo Lançamento |
-| **v1.2.0** | Padrões Acadêmicos e Tipografia | Numeração Dupla de Páginas (Seção 3.1), Fórmulas KaTeX (Seção 3.2), Tabelas Booktabs (Seção 3.3), Régua Vertical (Seção 3.4), Ortografia (Seção 3.5) e Estrutura (Seção 3.6). | Fase 2 |
+| **v1.1.0** | Abas de Documentos e Eficiência | Barra de Abas Multidocumento (Seção 2.1) e Compressor de PDF (Seção 2.2). | Concluído e Lançado (16 Out 2026) |
+| **v1.2.0** | Padrões Acadêmicos e Tipografia | Numeração Dupla de Páginas (Seção 3.1), Fórmulas KaTeX (Seção 3.2), Tabelas Booktabs (Seção 3.3), Régua Vertical (Seção 3.4), Ortografia (Seção 3.5) e Estrutura (Seção 3.6). | Próximo Lançamento (Fase 2) |
 | **v1.3.0** | Distribuição Multiplataforma | Instaladores Windows (`.exe`/portátil) (Seção 4.1), Linux AppImage/Debian (Seção 4.2), macOS (Seção 4.3) e Painel Lateral (Seção 4.4). | Fase 3 |
 | **v1.4.0** | Utilitários PDF e Segurança | Assinatura Digital (Seção 5.1), Higienizador de Metadados (Seção 5.2), Organizador de Páginas (Seção 5.3), Marca d'Água (Seção 5.4), Criptografia (Seção 5.5) e Numeração (Seção 5.6). | Fase 4 |
 | **v1.5.0** | Marco do Ecossistema e Performance | Pacotes `.bakutpl` (Seção 6.1), Modelos Extras (Seção 6.2), DOM Virtual 500+ Páginas (Seção 6.3), Motor PDF Rust (Seção 6.4), Modo Escuro (Seção 6.5), Modo Zen (Seção 6.6), Importador Word (Seção 6.7), `.baku` v2.0 (Seção 6.8) e Salvamento Automático (Seção 6.9). | Ápice do Marco |
@@ -211,8 +214,8 @@ A etapa **v1.5.0** representa o marco ápice de maturidade do Baku PDF:
 
 | Módulo | Componente Alvo | Versão Alvo | Prioridade | Complexidade Estimada |
 | :--- | :--- | :--- | :--- | :--- |
-| Barra de Abas Multidocumento | Frontend Editor e Motor de Estado | v1.1.0 | Altíssima | Média |
-| Compressor de Arquivos PDF Offline | Backend Rust (`lopdf` / `image`) | v1.1.0 | Altíssima | Média |
+| Barra de Abas Multidocumento | Frontend Editor e Motor de Estado | v1.1.0 | Lançado | Média |
+| Compressor de Arquivos PDF Offline | Backend Rust (`lopdf` / `image`) | v1.1.0 | Lançado | Média |
 | Numeração Dupla de Páginas para Teses | Motor de Folhas Frontend | v1.2.0 | Alta | Média |
 | Notação Matemática KaTeX Offline | Analisador Frontend | v1.2.0 | Alta | Baixa |
 | Régua Vertical e Recuos de Parágrafo | Motor de Régua Frontend | v1.2.0 | Média | Média |

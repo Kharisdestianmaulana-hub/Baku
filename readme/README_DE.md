@@ -18,6 +18,7 @@
   <p><strong>Leichtgewichtige, Lokale Textverarbeitung mit Standardformaten für Wissenschaft und Behörden</strong></p>
 
   <p>
+    <a href="https://github.com/Kharisdestianmaulana-hub/Baku/releases/tag/v1.1.0"><img src="https://img.shields.io/badge/Release-v1.1.0-blue?style=flat" alt="Release v1.1.0" /></a>
     <a href="https://tauri.app"><img src="https://img.shields.io/badge/Tauri-v1.6-24C8D8?style=flat&logo=tauri&logoColor=white" alt="Tauri" /></a>
     <a href="https://www.rust-lang.org"><img src="https://img.shields.io/badge/Rust-2021%20Edition-DEA584?style=flat&logo=rust&logoColor=white" alt="Rust" /></a>
     <img src="https://img.shields.io/badge/Frontend-Vanilla%20JS%20%7C%20CSS3%20%7C%20HTML5-F7DF1E?style=flat" alt="Vanilla JS" />
@@ -33,7 +34,7 @@
 - [Über Baku PDF](#über-baku-pdf)
 - [Hauptfunktionen](#hauptfunktionen)
 - [PDF-Zusatzwerkzeuge (100% Offline)](#pdf-zusatzwerkzeuge-100-offline)
-- [Roadmap Zukünftiger Veröffentlichungen (v1.1.0 – v1.5.0 & Zukünftige)](#roadmap-zukünftiger-veröffentlichungen-v110--v150--zukünftige)
+- [Roadmap Zukünftiger Veröffentlichungen (v1.2.0 – v1.5.0)](#roadmap-zukünftiger-veröffentlichungen-v120--v150)
 - [Architektur und Technologie-Stack](#architektur-und-technologie-stack)
 - [Systemvoraussetzungen und Installation](#systemvoraussetzungen-und-installation)
 - [Vollständige Dokumentation](#vollständige-dokumentation)
@@ -63,38 +64,50 @@ Entwickelt mit **Tauri** und **Rust** sowie einem schlanken Vanilla-Web-Frontend
    - Strenge Standardsperre (*Strict Standard Lock*) zum Schutz vor unbeabsichtigten Änderungen an Seitenrändern und Blattformaten.
    - Import und Export eigenständiger Vorlagendateien im `.baku`-Format.
 
-3. **Intelligente Seiten- und Abschnittsverwaltung**:
+3. **Multi-Dokument-Tab-Leiste (Neu in v1.1.0)**:
+   - Paralleles Öffnen, Bearbeiten und Umschalten mehrerer `.baku`-Dokumente in einem Anwendungsfenster.
+   - Unabhängige Undo/Redo-Verlaufsspeicher und isolierter Dokumentstatus im Arbeitsspeicher.
+   - Anzeige für ungespeicherte Änderungen (Punkt-Indikator), Neuer-Tab-Button (+), Schließen-Button (x) und horizontales Scrollen.
+   - Vollständige Tastenkombinationen (`Option/Alt + [1-9]`, `Ctrl + Tab`, `Cmd/Ctrl + W`).
+
+4. **Intelligente Seiten- und Abschnittsverwaltung**:
    - Seitenumbrüche (*Page Break*, Strg/Cmd + Eingabe) mit flüssigen 60 FPS ohne Rendering-Verzögerungen.
    - Abschnittsumbrüche (*Section Break*, Strg/Cmd + Umschalt + Eingabe) für unabhängige Nummerierungen und getrennte Kapitelkopfzeilen.
    - Vielfältige Seitennummerierungsformate: arabische Zahlen, römische Zahlen (Klein-/Großbuchstaben) und Buchstaben.
    - Erste Seite anders definieren, um Titelseiten ohne Nummerierung zu halten.
 
-4. **Interaktives Visuelles Lineal**:
+5. **Interaktives Visuelles Lineal**:
    - Horizontales Lineal mit Millimeter-, Zentimeter- und Zollskalierung.
    - Drei interaktive Markierungen: Erstzeileneinzug, Linker Einzug und Rechter Rand.
    - Echtzeit-Synchronisation mit dem Absatz unter dem Textcursor.
 
-5. **Präzise Typografie und Formatvorlagen**:
+6. **Präzise Typografie und Formatvorlagen**:
    - Schnellstile: Standard, Dokumenttitel, Untertitel, Überschriften 1 bis 3, Zitatblock und Festbreitenschrift.
    - Schriftgrößenauswahl (8pt bis 72pt), Zeilenabstand (1.0, 1.15, 1.5, 2.0) und Farbpaletten.
    - Standardränder (4-4-3-3 cm, 4-3-4-3 cm, 3-3-3-3 cm, 2.54 cm normal) und Papierformate (A4, Folio/F4, Letter, Legal).
 
-6. **Integrierte Dokumentwerkzeuge**:
+7. **Integrierte Dokumentwerkzeuge**:
    - **Groß-/Kleinschreibung ändern**: Satzanfang groß, kleinbuchstaben, GROSSBUCHSTABEN, Ersten Buchstaben Groß und Umkehren.
    - **Echtzeit-Statistiken**: Zähler für Wörter, Zeichen, Absätze und geschätzte Lesezeit.
    - **Tabelleneditor**: Interaktives Raster mit schwebender Werkzeugleiste zum Hinzufügen/Löschen von Zeilen und Spalten.
    - **Bildverwaltung**: Lokales Einfügen, Ausrichtung, proportionale Größenänderung und sicheres Löschen.
    - **Sonderzeichendialog**: Schnellauswahl typografischer und wissenschaftlicher Symbole.
 
-7. **WYSIWYG-PDF-Export und Nativer Druck**:
+8. **WYSIWYG-PDF-Export und Nativer Druck**:
    - Pixelgenaue PDF-Ausgabe exakt wie auf der Bearbeitungsfläche dargestellt.
    - Direkte Integration in das lokale Drucksystem des Betriebssystems.
+
+9. **Ruckelfreies Scrollen & Flexible Seitenleisten-UI (Neu in v1.1.0)**:
+   - Weiche und flüssige Bildlauf-Interpolation auf der Arbeitsfläche.
+   - Ergonomisches vertikales Layout der eingeklappten Seitenleiste und Verlagerung des Einstellungsbuttons in die linke untere Ecke.
+   - Einklapp-Zustand der Seitenleiste bleibt dauerhaft gespeichert.
 
 ---
 
 ## PDF-Zusatzwerkzeuge (100% Offline)
 
 Baku PDF beinhaltet autarke Werkzeuge zur PDF-Bearbeitung ohne Internetverbindung:
+- **PDF komprimieren (Compress PDF) [Neu in v1.1.0]**: Reduzieren Sie die Dateigröße von PDFs lokal mit 3 Profilen (Standard, Maximal, Leicht) ohne Server-Upload.
 - **PDF zusammenführen (Merge PDF)**: Kombinieren Sie mehrere PDF-Dateien in ein geordnetes Gesamtdokument.
 - **PDF teilen (Split PDF)**: Extrahieren Sie Seitenbereiche (z. B. 1–3, 5, 8–10) oder trennen Sie Einzelseiten auf.
 - **PDF drehen (Rotate PDF)**: Korrigieren Sie die Seitenausrichtung um 90, 180 oder 270 Grad.
@@ -102,12 +115,10 @@ Baku PDF beinhaltet autarke Werkzeuge zur PDF-Bearbeitung ohne Internetverbindun
 
 ---
 
-## Roadmap Zukünftiger Veröffentlichungen (v1.1.0 – v1.5.0 & Zukünftige)
+## Roadmap Zukünftiger Veröffentlichungen (v1.2.0 – v1.5.0)
 
-Wir pflegen eine transparente, öffentlich einsehbare Entwicklungs-Roadmap mit allen geplanten Funktionen, Leistungsoptimierungen und Plattformversionen:
+Mit der offiziellen Veröffentlichung von **Baku PDF v1.1.0** (einschließlich der Multi-Dokument-Tab-Leiste und des Offline-PDF-Kompressors) konzentriert sich unsere Roadmap auf die Folgeschritte v1.2.0 bis v1.5.0:
 
-- **Multi-Dokument-Tab-Leiste**: Gleichzeitiges Öffnen, Bearbeiten und Umschalten mehrerer `.baku`-Dokumente in einem Anwendungsfenster mit getrenntem Status und horizontalem Scrollen.
-- **Offline-PDF-Kompressor**: Voreinstellungen (<500 KB, <1 MB, <2 MB) und anpassbare DPI-Werte ohne Serververbindung.
 - **Plattformübergreifende Installer**: Windows NSIS-Installer (`.exe`), eigenständige portable Version sowie Linux `AppImage` und Debian `.deb`.
 - **Duale Seitennummerierung für Abschlussarbeiten**: Automatische Platzierung unten mittig für Kapiteleröffnungsseiten und oben rechts für Folgeseiten.
 - **Erweiterte wissenschaftliche Offline-Tools**: KaTeX-Formeln, Tabellen im Booktabs-Stil, visuelle Seitensortierung und digitale Signaturen.

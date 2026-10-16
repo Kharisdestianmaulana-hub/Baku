@@ -32,7 +32,7 @@ Wesentliche Architekturprinzipien:
 ## Inhaltsverzeichnis des Dokuments
 
 1. [Bestandsaufnahme der Basisfunktionen (Status der Version v1.0.0)](#1-bestandsaufnahme-der-basisfunktionen-status-der-version-v100)
-2. [Release-Plan Version 1.1.0 (Multi-Dokument-Tabs und Arbeitseffizienz)](#2-release-plan-version-110-multi-dokument-tabs-und-arbeitseffizienz)
+2. [Funktionen der Version 1.1.0 (Status: Abgeschlossen & Veröffentlicht)](#2-funktionen-der-version-110-status-abgeschlossen--veröffentlicht)
 3. [Release-Plan Version 1.2.0 (Akademische Standards und Wissenschaftliche Typografie)](#3-release-plan-version-120-akademische-standards-und-wissenschaftliche-typografie)
 4. [Release-Plan Version 1.3.0 (Plattformübergreifende Distribution und Navigation)](#4-release-plan-version-130-plattformübergreifende-distribution-und-navigation)
 5. [Release-Plan Version 1.4.0 (Offline-PDF-Werkzeuge und Dokumentensicherheit)](#5-release-plan-version-140-offline-pdf-werkzeuge-und-dokumentensicherheit)
@@ -60,7 +60,10 @@ Basierend auf einem detaillierten Code-Audit sind folgende Module in der **Versi
 
 ---
 
-## 2. Release-Plan Version 1.1.0 (Multi-Dokument-Tabs und Arbeitseffizienz)
+## 2. Funktionen der Version 1.1.0 (Status: Abgeschlossen & Veröffentlicht)
+
+> [!NOTE]
+> Alle Funktionen der Version 1.1.0 wurden vollständig implementiert und am 16. Oktober 2026 offiziell veröffentlicht.
 
 Der Meilenstein **v1.1.0** konzentriert sich auf paralleles Verfassen von Dokumenten und lokale Dateigrößenreduktion:
 
@@ -199,8 +202,8 @@ Der Meilenstein **v1.5.0** stellt den Höhepunkt des Baku PDF Ökosystems dar:
 
 | Version | Hauptfokus | Integrierte Module | Zeitplan |
 | :--- | :--- | :--- | :--- |
-| **v1.1.0** | Dokument-Tabs und Effizienz | Multi-Dokument-Tab-Leiste (Abschnitt 2.1) und PDF-Komprimierer (Abschnitt 2.2). | Nächste Version |
-| **v1.2.0** | Standards und Typografie | Duale Seitennummerierung (Abschnitt 3.1), KaTeX (Abschnitt 3.2), Booktabs (Abschnitt 3.3), Vertikales Lineal (Abschnitt 3.4), Rechtschreibung (Abschnitt 3.5) und Struktur (Abschnitt 3.6). | Phase 2 |
+| **v1.1.0** | Dokument-Tabs und Effizienz | Multi-Dokument-Tab-Leiste (Abschnitt 2.1) und PDF-Komprimierer (Abschnitt 2.2). | Abgeschlossen & Veröffentlicht (16. Okt. 2026) |
+| **v1.2.0** | Standards und Typografie | Duale Seitennummerierung (Abschnitt 3.1), KaTeX (Abschnitt 3.2), Booktabs (Abschnitt 3.3), Vertikales Lineal (Abschnitt 3.4), Rechtschreibung (Abschnitt 3.5) und Struktur (Abschnitt 3.6). | Nächste Version (Phase 2) |
 | **v1.3.0** | Plattformübergreifend | Windows-Installationsprogramm (Abschnitt 4.1), Linux AppImage/Debian (Abschnitt 4.2), macOS (Abschnitt 4.3) und Navigationsleiste (Abschnitt 4.4). | Phase 3 |
 | **v1.4.0** | PDF-Tools und Sicherheit | Digitale Signatur (Abschnitt 5.1), Metadaten-Sanitizer (Abschnitt 5.2), Seitenorganisator (Abschnitt 5.3), Wasserzeichen (Abschnitt 5.4), Verschlüsselung (Abschnitt 5.5) und Bates-Nummerierung (Abschnitt 5.6). | Phase 4 |
 | **v1.5.0** | Ökosystem-Höhepunkt | `.bakutpl`-Pakete (Abschnitt 6.1), Zusatzvorlagen (Abschnitt 6.2), Virtuelles DOM 500+ Seiten (Abschnitt 6.3), Rust-PDF-Engine (Abschnitt 6.4), Dark Mode (Abschnitt 6.5), Zen-Modus (Abschnitt 6.6), Word-Import (Abschnitt 6.7), `.baku` v2.0 (Abschnitt 6.8) und Notfallwiederherstellung (Abschnitt 6.9). | Meilenstein-Höhepunkt |
@@ -209,8 +212,8 @@ Der Meilenstein **v1.5.0** stellt den Höhepunkt des Baku PDF Ökosystems dar:
 
 | Funktionsmodul | Zielkomponente | Zielversion | Priorität | Geschätzte Komplexität |
 | :--- | :--- | :--- | :--- | :--- |
-| Multi-Dokument-Tab-Leiste | Frontend Editor und State Engine | v1.1.0 | Sehr Hoch | Mittel |
-| Offline-PDF-Dateikomprimierer | Backend Rust (`lopdf` / `image`) | v1.1.0 | Sehr Hoch | Mittel |
+| Multi-Dokument-Tab-Leiste | Frontend Editor und State Engine | v1.1.0 | Veröffentlicht | Mittel |
+| Offline-PDF-Dateikomprimierer | Backend Rust (`lopdf` / `image`) | v1.1.0 | Veröffentlicht | Mittel |
 | Duale Seitennummerierung für Abschlussarbeiten | Frontend Sheet Engine | v1.2.0 | Hoch | Mittel |
 | Mathematische Formelnotation mit KaTeX | Frontend Parser | v1.2.0 | Hoch | Niedrig |
 | Vertikales Lineal und Absatzeinzüge | Frontend Ruler Engine | v1.2.0 | Mittel | Mittel |
