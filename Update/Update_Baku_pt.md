@@ -16,9 +16,9 @@
   <hr />
 </div>
 
-# Roteiro de Atualização do Baku PDF Versão 1.5 (Recursos e Planejamento)
+# Roteiro de Atualização do Baku PDF (Versões v1.1.0 – v1.5.0)
 
-Este documento estabelece o panorama de recursos da versão **Baku PDF v1.0.0**, bem como a lista de novos recursos planejados, otimizações de desempenho e expansão de módulos para o lançamento do **Baku PDF v1.5**. Esta versão foca no aprimoramento da produção científica, ferramentas adicionais de manipulação de PDF totalmente offline, suporte multiplataforma nativo (Windows, macOS, Linux) e renderização veloz para documentos extensos.
+Este documento estabelece o panorama de recursos da versão **Baku PDF v1.0.0**, bem como a lista de novos recursos planejados em lançamentos graduais de **Baku PDF v1.1.0 a v1.5.0**. Este ciclo escalonado foca no aprimoramento da produção científica, ferramentas adicionais de manipulação de PDF totalmente offline, suporte multiplataforma nativo (Windows, macOS, Linux) e renderização veloz para documentos extensos.
 
 Diretrizes essenciais de desenvolvimento:
 - **100% Offline (Offline-First)**: Processamento estritamente local, sem dependência de servidores em nuvem.
@@ -41,7 +41,7 @@ Diretrizes essenciais de desenvolvimento:
 8. [Interface do Usuário, Navegação e Acessibilidade](#8-interface-do-usuário-navegação-e-acessibilidade)
 9. [Interoperabilidade de Formatos e Compatibilidade de Arquivos](#9-interoperabilidade-de-formatos-e-compatibilidade-de-arquivos)
 10. [Segurança de Documentos e Higienização de Metadados](#10-segurança-de-documentos-e-higienização-de-metadados)
-11. [Matriz de Prioridades de Desenvolvimento v1.5](#11-matriz-de-prioridades-de-desenvolvimento-v15)
+11. [Fases de Lançamento Gradual e Matriz de Prioridades (v1.1.0 – v1.5.0)](#11-fases-de-lançamento-gradual-e-matriz-de-prioridades-v110--v150)
 
 ---
 
@@ -280,21 +280,39 @@ Além das 4 ferramentas existentes, a versão 1.5 introduz 6 novos utilitários 
 
 ---
 
-## 11. Matriz de Prioridades de Desenvolvimento v1.5
+## 11. Fases de Lançamento Gradual e Matriz de Prioridades (v1.1.0 – v1.5.0)
 
-| Módulo | Componente Alvo | Prioridade | Complexidade Estimada |
+Para disponibilizar novos recursos com agilidade e alta estabilidade sem aguardar a conclusão simultânea de todos os módulos, o ciclo de desenvolvimento foi estruturado em cinco etapas:
+
+### 11.1. Plano de Lançamentos Graduais
+
+| Versão | Foco Principal | Módulos Integrados | Previsão |
 | :--- | :--- | :--- | :--- |
-| Barra de Abas Multidocumento | Frontend Editor e Motor de Estado | Altíssima | Média |
-| Compressor de Arquivos PDF Offline | Backend Rust (`lopdf` / `image`) | Altíssima | Média |
-| Instaladores Windows (.exe) e Linux (AppImage) | Tauri Bundler e CI | Altíssima | Média |
-| Numeração Dupla de Páginas para Teses | Motor de Folhas Frontend | Alta | Média |
-| Painel Lateral de Navegação e Miniaturas | UI Frontend e DOM Virtual | Alta | Média |
-| Notação Matemática KaTeX Offline | Analisador Frontend | Alta | Baixa |
-| Régua Vertical e Recuos de Parágrafo | Motor de Régua Frontend | Média | Média |
-| Gerenciador de Citações e Bibliografia | Estrutura de Dados Frontend | Média | Média |
-| Assinatura Digital e Rubrica Offline | Backend Rust e Canvas Overlay | Média | Média |
-| Modo Escuro Adaptativo | Motor de Temas CSS | Média | Baixa |
-| Importador Word (.docx) Offline | Parser Rust DOCX | Futuro | Alta |
+| **v1.1.0** | Abas de Documentos e Eficiência | Barra de Abas Multidocumento (Seção 8.5) e Compressor de PDF Offline (Seção 4.1). | Próximo Lançamento |
+| **v1.2.0** | Padrões Acadêmicos e Tipografia | Numeração Dupla de Páginas (Seção 3.1), Fórmulas KaTeX (Seção 2.1), Tabelas Booktabs (Seção 2.3) e Régua Vertical (Seção 2.2). | Fase 2 |
+| **v1.3.0** | Distribuição Multiplataforma | Instalador Windows NSIS (`.exe`) e Edição Portátil (Seção 6.1), Pacote Universal Linux AppImage e Debian `.deb` (Seção 6.2). | Fase 3 |
+| **v1.4.0** | Utilitários PDF e Segurança | Assinatura Digital e Rubrica (Seção 4.2), Higienizador de Metadados (Seção 10.1), Organizador de Páginas (Seção 4.4) e Marca d'Água (Seção 4.6). | Fase 4 |
+| **v1.5.0** | Marco do Ecossistema e Performance | Pacotes de Modelos Portáteis `.bakutpl` (Seção 5.4), Renderização Virtual DOM para 500+ Páginas (Seção 7.1), Modo Escuro Adaptativo (Seção 8.2) e Importação Word `.docx` (Seção 9.1). | Ápice do Marco |
+
+### 11.2. Matriz Técnica de Prioridades de Desenvolvimento
+
+| Módulo | Componente Alvo | Versão Alvo | Prioridade | Complexidade Estimada |
+| :--- | :--- | :--- | :--- | :--- |
+| Barra de Abas Multidocumento | Frontend Editor e Motor de Estado | v1.1.0 | Altíssima | Média |
+| Compressor de Arquivos PDF Offline | Backend Rust (`lopdf` / `image`) | v1.1.0 | Altíssima | Média |
+| Numeração Dupla de Páginas para Teses | Motor de Folhas Frontend | v1.2.0 | Alta | Média |
+| Notação Matemática KaTeX Offline | Analisador Frontend | v1.2.0 | Alta | Baixa |
+| Régua Vertical e Recuos de Parágrafo | Motor de Régua Frontend | v1.2.0 | Média | Média |
+| Tabelas Científicas Avançadas (Booktabs) | Motor de Folhas Frontend | v1.2.0 | Média | Média |
+| Instaladores Windows (.exe) e Linux (AppImage) | Tauri Bundler e CI | v1.3.0 | Altíssima | Média |
+| Painel Lateral de Navegação e Miniaturas | UI Frontend e DOM Virtual | v1.3.0 | Alta | Média |
+| Assinatura Digital e Rubrica Offline | Backend Rust e Canvas Overlay | v1.4.0 | Média | Média |
+| Higienizador de Metadados (Avaliação Cega) | Backend Rust e PDF Pipeline | v1.4.0 | Média | Baixa |
+| Organizador Visual de Páginas | Frontend UI e Backend Rust | v1.4.0 | Média | Média |
+| Modo Escuro Adaptativo | Motor de Temas CSS | v1.5.0 | Média | Baixa |
+| Pacotes de Modelos Portáteis (.bakutpl) | Armazenamento Frontend e JSON | v1.5.0 | Média | Baixa |
+| Virtualização DOM de Páginas (500+ Páginas) | Virtualizador DOM Frontend | v1.5.0 | Alta | Alta |
+| Importador Word (.docx) Offline | Parser Rust DOCX | v1.5.0 / Futuro | Futuro | Alta |
 
 ---
 

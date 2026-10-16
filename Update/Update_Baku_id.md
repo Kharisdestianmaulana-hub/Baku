@@ -16,9 +16,9 @@
   <hr />
 </div>
 
-# Rencana Pembaruan Baku PDF Versi 1.5 (Roadmap & Feature List)
+# Rencana Pembaruan Baku PDF (Roadmap v1.1.0 – v1.5.0)
 
-Dokumen ini memuat analisis status fitur saat ini pada rilis **Baku PDF v1.0.0** serta daftar rencana fitur baru, peningkatan performa, dan ekspansi modul untuk rilis **Baku PDF v1.5**. Pembaruan ini difokuskan pada penyempurnaan ekosistem penulisan akademik lanjutan, penambahan alat manipulasi PDF luring tingkat lanjut, dukungan multi-platform penuh (Windows, macOS, Linux), serta efisiensi perenderan dokumen naskah tebal.
+Dokumen ini memuat analisis status fitur saat ini pada rilis **Baku PDF v1.0.0** serta daftar rencana fitur baru, peningkatan performa, dan ekspansi modul yang dirilis secara bertahap mulai dari **Baku PDF v1.1.0 hingga v1.5.0**. Pembaruan bertahap ini difokuskan pada penyempurnaan ekosistem penulisan akademik lanjutan, penambahan alat manipulasi PDF luring tingkat lanjut, dukungan multi-platform penuh (Windows, macOS, Linux), serta efisiensi perenderan dokumen naskah tebal.
 
 Prinsip utama pengembangan Baku PDF tetap dipertahankan:
 - **100% Luring (Offline-First)**: Seluruh pemrosesan berjalan di komputer lokal tanpa server awan.
@@ -41,7 +41,7 @@ Prinsip utama pengembangan Baku PDF tetap dipertahankan:
 8. [Antarmuka Pengguna, Navigasi, & Aksesibilitas](#8-antarmuka-pengguna-navigasi--aksesibilitas)
 9. [Interoperabilitas Format & Kompatibilitas Berkas](#9-interoperabilitas-format--kompatibilitas-berkas)
 10. [Keamanan Dokumen & Pembersihan Metadata](#10-keamanan-dokumen--pembersihan-metadata)
-11. [Matriks Prioritas Pengembangan v1.5](#11-matriks-prioritas-pengembangan-v15)
+11. [Tahapan Rilis Bertahap & Matriks Prioritas (v1.1.0 – v1.5.0)](#11-tahapan-rilis-bertahap--matriks-prioritas-v110--v150)
 
 ---
 
@@ -344,21 +344,39 @@ Melengkapi 8 templat yang sudah tersedia pada v1.0.0, v1.5 menghadirkan templat 
 
 ---
 
-## 11. Matriks Prioritas Pengembangan v1.5
+## 11. Tahapan Rilis Bertahap & Matriks Prioritas (v1.1.0 – v1.5.0)
 
-| Modul Fitur | Target Komponen | Prioritas | Estimasi Kompleksitas |
+Untuk menghadirkan fitur-fitur baru secara cepat, teruji, dan stabil tanpa menunggu seluruh modul selesai sekaligus, pembaruan Baku PDF dibagi ke dalam lima gelombang rilis bertahap:
+
+### 11.1. Rencana Gelombang Rilis Bertahap
+
+| Versi Rilis | Fokus Utama Rilis | Modul Fitur yang Disertakan | Target Rilis |
 | :--- | :--- | :--- | :--- |
-| Bilah Tab Multi-Dokumen (Multi-Document Tabs) | Frontend Editor & State Engine | Sangat Tinggi | Menengah |
-| Kompresor Ukuran Berkas PDF | Rust Backend (`lopdf` / `image`) | Sangat Tinggi | Menengah |
-| Installer Windows (.exe) & Linux (AppImage) | Tauri Bundler & CI Workflow | Sangat Tinggi | Menengah |
-| Aturan Posisi Nomor Halaman Bab Baku | Frontend Sheet Engine | Tinggi | Menengah |
-| Panel Navigasi Outline & Thumbnail | Frontend UI & DOM Virtualizer | Tinggi | Menengah |
-| Notasi Matematika KaTeX Luring | Frontend Parser Engine | Tinggi | Rendah |
-| Penggaris Vertikal & Indentasi Paragraf | Frontend Ruler Engine | Sedang | Menengah |
-| Pengelola Sitasi & Daftar Pustaka | Frontend Library & Data Store | Sedang | Menengah |
-| Tanda Tangan & Paraf Digital Luring | Rust Backend & Canvas Overlay | Sedang | Menengah |
-| Mode Gelap Adaptif (Dark Mode) | CSS Theme Engine | Sedang | Rendah |
-| Impor Dokumen Word (.docx) Luring | Rust DOCX Parser | Masa Depan | Tinggi |
+| **v1.1.0** | Tab Dokumen & Efisiensi Kerja | Bilah Tab Multi-Dokumen (Sub-bab 8.5) dan Kompresor Ukuran Berkas PDF Luring (Sub-bab 4.1). | Rilis Terdekat |
+| **v1.2.0** | Standar Akademik & Tipografi Ilmiah | Aturan Nomor Halaman Skripsi Ganda (Sub-bab 3.1), Notasi KaTeX Luring (Sub-bab 2.1), Tabel Ilmiah Booktabs (Sub-bab 2.3), dan Penggaris Vertikal (Sub-bab 2.2). | Tahap 2 |
+| **v1.3.0** | Distribusi Multi-Platform Penuh | Installer Windows NSIS (`.exe`) & Portable (Sub-bab 6.1) serta Paket Universal Linux AppImage & Debian `.deb` (Sub-bab 6.2). | Tahap 3 |
+| **v1.4.0** | Utilitas PDF Luring & Keamanan | Tanda Tangan & Paraf Digital Luring (Sub-bab 4.2), Pembersih Metadata Dokumen (Sub-bab 10.1), Penyusun Halaman Visual (Sub-bab 4.4), dan Cap Watermark Luring (Sub-bab 4.6). | Tahap 4 |
+| **v1.5.0** | Puncak Milestone Ekosistem | Paket Templat Mandiri `.bakutpl` (Sub-bab 5.4), Virtualisasi Lembar Kertas DOM 500+ Halaman (Sub-bab 7.1), Mode Gelap Adaptif (Sub-bab 8.2), dan Impor Word `.docx` (Sub-bab 9.1). | Puncak Milestone |
+
+### 11.2. Matriks Prioritas Teknis Pengembangan
+
+| Modul Fitur | Target Komponen | Target Versi | Prioritas | Estimasi Kompleksitas |
+| :--- | :--- | :--- | :--- | :--- |
+| Bilah Tab Multi-Dokumen (Multi-Document Tabs) | Frontend Editor & State Engine | v1.1.0 | Sangat Tinggi | Menengah |
+| Kompresor Ukuran Berkas PDF | Rust Backend (`lopdf` / `image`) | v1.1.0 | Sangat Tinggi | Menengah |
+| Aturan Posisi Nomor Halaman Bab Baku | Frontend Sheet Engine | v1.2.0 | Tinggi | Menengah |
+| Notasi Matematika KaTeX Luring | Frontend Parser Engine | v1.2.0 | Tinggi | Rendah |
+| Penggaris Vertikal & Indentasi Paragraf | Frontend Ruler Engine | v1.2.0 | Sedang | Menengah |
+| Pemformatan Tabel Ilmiah (Booktabs) | Frontend Sheet Engine | v1.2.0 | Sedang | Menengah |
+| Installer Windows (.exe) & Linux (AppImage) | Tauri Bundler & CI Workflow | v1.3.0 | Sangat Tinggi | Menengah |
+| Panel Navigasi Outline & Thumbnail | Frontend UI & DOM Virtualizer | v1.3.0 | Tinggi | Menengah |
+| Tanda Tangan & Paraf Digital Luring | Rust Backend & Canvas Overlay | v1.4.0 | Sedang | Menengah |
+| Pembersih Jejak Metadata Dokumen | Rust Backend & PDF Pipeline | v1.4.0 | Sedang | Rendah |
+| Penyusun & Pemilah Halaman Visual | Frontend UI & Rust Backend | v1.4.0 | Sedang | Menengah |
+| Mode Gelap Adaptif (Dark Mode) | CSS Theme Engine | v1.5.0 | Sedang | Rendah |
+| Ekspor/Impor Paket Templat (.bakutpl) | Frontend Data Store & JSON | v1.5.0 | Sedang | Rendah |
+| Virtualisasi DOM Halaman (500+ Halaman) | Frontend DOM Virtualizer | v1.5.0 | Tinggi | Tinggi |
+| Impor Dokumen Word (.docx) Luring | Rust DOCX Parser | v1.5.0 / Lanjutan | Masa Depan | Tinggi |
 
 ---
 

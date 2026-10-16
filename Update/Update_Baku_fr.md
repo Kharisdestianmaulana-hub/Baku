@@ -16,9 +16,9 @@
   <hr />
 </div>
 
-# Feuille de Route Baku PDF Version 1.5 (Plan de Développement et Fonctionnalités)
+# Feuille de Route Baku PDF (Cycle de Versions v1.1.0 – v1.5.0)
 
-Ce document dresse le bilan des fonctionnalités initiales de **Baku PDF v1.0.0** et présente l'ensemble des nouvelles fonctionnalités planifiées, des optimisations de performances et des extensions de modules pour la version **Baku PDF v1.5**. Cette mise à jour est axée sur la rédaction académique avancée, l'ajout d'outils de manipulation de PDF hors ligne, le support multiplateforme complet (Windows, macOS, Linux) et le rendu ultra-rapide des documents volumineux.
+Ce document dresse le bilan des fonctionnalités initiales de **Baku PDF v1.0.0** et présente l'ensemble des nouvelles fonctionnalités planifiées déployées par étapes successives de **Baku PDF v1.1.0 à v1.5.0**. Ce cycle progressif est axé sur la rédaction académique avancée, l'ajout d'outils de manipulation de PDF hors ligne, le support multiplateforme complet (Windows, macOS, Linux) et le rendu ultra-rapide des documents volumineux.
 
 Principes fondamentaux préservés :
 - **100% Hors Ligne (Offline-First)** : Tous les traitements sont exécutés localement sur la machine de l'utilisateur sans aucun serveur distant.
@@ -41,7 +41,7 @@ Principes fondamentaux préservés :
 8. [Interface Utilisateur, Navigation et Accessibilité](#8-interface-utilisateur-navigation-et-accessibilité)
 9. [Interopérabilité des Formats et Compatibilité des Fichiers](#9-interopérabilité-des-formats-et-compatibilité-des-fichiers)
 10. [Sécurité des Documents et Nettoyage des Métadonnées](#10-sécurité-des-documents-et-nettoyage-des-métadonnées)
-11. [Matrice des Priorités de Développement v1.5](#11-matrice-des-priorités-de-développement-v15)
+11. [Étapes de Déploiement Progressif et Matrice des Priorités (v1.1.0 – v1.5.0)](#11-étapes-de-déploiement-progressif-et-matrice-des-priorités-v110--v150)
 
 ---
 
@@ -280,21 +280,39 @@ En complément des 4 outils existants, la version 1.5 ajoute 6 utilitaires hors 
 
 ---
 
-## 11. Matrice des Priorités de Développement v1.5
+## 11. Étapes de Déploiement Progressif et Matrice des Priorités (v1.1.0 – v1.5.0)
 
-| Module de Fonction | Composant Cible | Priorité | Complexité Estimée |
+Pour livrer les nouvelles fonctionnalités de manière rapide, stable et parfaitement éprouvée sans attendre l'achèvement simultané de tous les chantiers, les développements sont organisés en cinq paliers successifs :
+
+### 11.1. Calendrier des Jalons Progressifs
+
+| Version | Axe Prioritaire | Modules Inclus | Objectif Temporel |
 | :--- | :--- | :--- | :--- |
-| Barre d'Onglets Multi-Documents | Frontend Éditeur et Moteur d'État | Très Haute | Moyenne |
-| Compresseur de Fichiers PDF Hors Ligne | Backend Rust (`lopdf` / `image`) | Très Haute | Moyenne |
-| Installateurs Windows (.exe) et Linux (AppImage) | Tauri Bundler et Flux CI | Très Haute | Moyenne |
-| Double Numérotation des Pages de Thèse | Moteur de Pages Frontend | Haute | Moyenne |
-| Volet Latéral de Navigation et Vignettes | UI Frontend et Virtualiseur DOM | Haute | Moyenne |
-| Notation Mathématique KaTeX Hors Ligne | Moteur d'Analyse Frontend | Haute | Faible |
-| Règle Verticale et Retraits de Paragraphes | Moteur de Règle Frontend | Moyenne | Moyenne |
-| Gestionnaire de Citations et Bibliographie | Bibliothèque de Données Frontend | Moyenne | Moyenne |
-| Signature Numérique et Paraphe Hors Ligne | Backend Rust et Calque Canevas | Moyenne | Moyenne |
-| Thèmes Adaptatifs Sombre et Clair | Moteur de Thèmes CSS | Moyenne | Faible |
-| Importation Word (.docx) Hors Ligne | Analyseur Rust DOCX | Future | Élevée |
+| **v1.1.0** | Onglets de Documents et Fluidité de Travail | Barre d'Onglets Multi-Documents (Section 8.5) et Compresseur de PDF Hors Ligne (Section 4.1). | Prochaine Version |
+| **v1.2.0** | Normes Académiques et Typographie | Double Numérotation des Pages de Thèse (Section 3.1), Formules KaTeX (Section 2.1), Tableaux Booktabs (Section 2.3) et Règle Verticale (Section 2.2). | Étape 2 |
+| **v1.3.0** | Distribution Multiplateforme Complète | Installateur Windows NSIS (`.exe`) et Version Portable (Section 6.1), Paquet Universal Linux AppImage et Debian `.deb` (Section 6.2). | Étape 3 |
+| **v1.4.0** | Utilitaires PDF et Sécurité Documentaire | Signature Numérique et Paraphe (Section 4.2), Nettoyeur de Métadonnées (Section 10.1), Gestionnaire Visuel de Pages (Section 4.4) et Filigrane (Section 4.6). | Étape 4 |
+| **v1.5.0** | Aboutissement de l'Écosystème et Performance | Paquets de Modèles Portables `.bakutpl` (Section 5.4), Rendu Virtuel DOM pour 500+ Pages (Section 7.1), Mode Sombre Complet (Section 8.2) et Import Word `.docx` (Section 9.1). | Sommet du Jalon |
+
+### 11.2. Matrice Technique des Priorités de Développement
+
+| Module de Fonction | Composant Cible | Version Cible | Priorité | Complexité Estimée |
+| :--- | :--- | :--- | :--- | :--- |
+| Barre d'Onglets Multi-Documents | Frontend Éditeur et Moteur d'État | v1.1.0 | Très Haute | Moyenne |
+| Compresseur de Fichiers PDF Hors Ligne | Backend Rust (`lopdf` / `image`) | v1.1.0 | Très Haute | Moyenne |
+| Double Numérotation des Pages de Thèse | Moteur de Pages Frontend | v1.2.0 | Haute | Moyenne |
+| Notation Mathématique KaTeX Hors Ligne | Moteur d'Analyse Frontend | v1.2.0 | Haute | Faible |
+| Règle Verticale et Retraits de Paragraphes | Moteur de Règle Frontend | v1.2.0 | Moyenne | Moyenne |
+| Tableaux Scientifiques Avancés (Booktabs) | Moteur de Pages Frontend | v1.2.0 | Moyenne | Moyenne |
+| Installateurs Windows (.exe) et Linux (AppImage) | Tauri Bundler et Flux CI | v1.3.0 | Très Haute | Moyenne |
+| Volet Latéral de Navigation et Vignettes | UI Frontend et Virtualiseur DOM | v1.3.0 | Haute | Moyenne |
+| Signature Numérique et Paraphe Hors Ligne | Backend Rust et Calque Canevas | v1.4.0 | Moyenne | Moyenne |
+| Nettoyeur de Métadonnées (Évaluation Aveugle) | Backend Rust et Pipeline PDF | v1.4.0 | Moyenne | Faible |
+| Gestionnaire Visuel de Pages | Frontend UI et Backend Rust | v1.4.0 | Moyenne | Moyenne |
+| Thèmes Adaptatifs Sombre et Clair | Moteur de Thèmes CSS | v1.5.0 | Moyenne | Faible |
+| Paquets de Modèles Portables (.bakutpl) | Stockage Frontend et JSON | v1.5.0 | Moyenne | Faible |
+| Rendu Virtuel des Pages DOM (500+ Pages) | Virtualiseur DOM Frontend | v1.5.0 | Haute | Élevée |
+| Importation Word (.docx) Hors Ligne | Analyseur Rust DOCX | v1.5.0 / Futur | Future | Élevée |
 
 ---
 

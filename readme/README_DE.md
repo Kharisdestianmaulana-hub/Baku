@@ -33,7 +33,7 @@
 - [Über Baku PDF](#über-baku-pdf)
 - [Hauptfunktionen](#hauptfunktionen)
 - [PDF-Zusatzwerkzeuge (100% Offline)](#pdf-zusatzwerkzeuge-100-offline)
-- [Roadmap Zukünftiger Veröffentlichungen (v1.5 & Zukünftige)](#roadmap-zukünftiger-veröffentlichungen-v15--zukünftige)
+- [Roadmap Zukünftiger Veröffentlichungen (v1.1.0 – v1.5.0 & Zukünftige)](#roadmap-zukünftiger-veröffentlichungen-v110--v150--zukünftige)
 - [Architektur und Technologie-Stack](#architektur-und-technologie-stack)
 - [Systemvoraussetzungen und Installation](#systemvoraussetzungen-und-installation)
 - [Vollständige Dokumentation](#vollständige-dokumentation)
@@ -102,7 +102,7 @@ Baku PDF beinhaltet autarke Werkzeuge zur PDF-Bearbeitung ohne Internetverbindun
 
 ---
 
-## Roadmap Zukünftiger Veröffentlichungen (v1.5 & Zukünftige)
+## Roadmap Zukünftiger Veröffentlichungen (v1.1.0 – v1.5.0 & Zukünftige)
 
 Wir pflegen eine transparente, öffentlich einsehbare Entwicklungs-Roadmap mit allen geplanten Funktionen, Leistungsoptimierungen und Plattformversionen:
 
@@ -172,7 +172,7 @@ Zur Unterstützung offener Zusammenarbeit bieten wir eine ausführliche Dokument
 | [CHANGELOG.md](../CHANGELOG.md) | Versionsverlauf und Veröffentlichungshinweise. |
 | [SECURITY.md](../SECURITY.md) | Sicherheitsrichtlinie und vertrauliche Meldung von Sicherheitslücken. |
 | [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md) | Verhaltenskodex und Standards der Entwickler-Community. |
-| [Roadmap (v1.5+)](../Update/Update_Baku_de.md) | Mehrsprachige Roadmap und geplante Funktionsspezifikationen zukünftiger Versionen. |
+| [Roadmap (v1.1.0 – v1.5.0)](../Update/Update_Baku_de.md) | Mehrsprachige Roadmap und geplante Funktionsspezifikationen zukünftiger Versionen. |
 
 ---
 

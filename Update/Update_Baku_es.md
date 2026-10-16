@@ -16,9 +16,9 @@
   <hr />
 </div>
 
-# Plan de Desarrollo de Baku PDF Versión 1.5 (Hoja de Ruta y Funcionalidades)
+# Plan de Desarrollo de Baku PDF (Hoja de Ruta v1.1.0 – v1.5.0)
 
-Este documento detalla la línea base de funcionalidades en el lanzamiento de **Baku PDF v1.0.0**, así como las nuevas características planificadas, mejoras de rendimiento y expansión de módulos para la versión **Baku PDF v1.5**. Esta actualización se enfoca en perfeccionar la redacción académica avanzada, incorporar herramientas adicionales de manipulación de PDF fuera de línea, soporte multiplataforma completo (Windows, macOS, Linux) y optimización de renderizado para documentos extensos.
+Este documento detalla la línea base de funcionalidades en el lanzamiento de **Baku PDF v1.0.0**, así como las nuevas características planificadas, mejoras de rendimiento y expansión de módulos organizadas en un plan de entregas escalonadas desde **Baku PDF v1.1.0 hasta v1.5.0**. Este plan escalonado se enfoca en perfeccionar la redacción académica avanzada, incorporar herramientas adicionales de manipulación de PDF fuera de línea, soporte multiplataforma completo (Windows, macOS, Linux) y optimización de renderizado para documentos extensos.
 
 Principios rectores de desarrollo:
 - **100% Fuera de Línea (Offline-First)**: Todo el procesamiento se realiza localmente sin servidores en la nube.
@@ -41,7 +41,7 @@ Principios rectores de desarrollo:
 8. [Interfaz de Usuario, Navegación y Accesibilidad](#8-interfaz-de-usuario-navegación-y-accesibilidad)
 9. [Interoperabilidad de Formatos y Compatibilidad de Archivos](#9-interoperabilidad-de-formatos-y-compatibilidad-de-archivos)
 10. [Seguridad del Documento y Limpieza de Metadatos](#10-seguridad-del-documento-y-limpieza-de-metadatos)
-11. [Matriz de Prioridades de Desarrollo v1.5](#11-matriz-de-prioridades-de-desarrollo-v15)
+11. [Fases de Lanzamiento Escalonado y Matriz de Prioridades (v1.1.0 – v1.5.0)](#11-fases-de-lanzamiento-escalonado-y-matriz-de-prioridades-v110--v150)
 
 ---
 
@@ -280,21 +280,39 @@ Junto a las 4 herramientas iniciales (Unir, Dividir, Rotar, Imágenes a PDF), la
 
 ---
 
-## 11. Matriz de Prioridades de Desarrollo v1.5
+## 11. Fases de Lanzamiento Escalonado y Matriz de Prioridades (v1.1.0 – v1.5.0)
 
-| Módulo de Función | Componente Objetivo | Prioridad | Estimación de Complejidad |
+Para ofrecer nuevas funciones de manera rápida, confiable y probada sin esperar a que todos los módulos estén listos al mismo tiempo, el desarrollo se organiza en cinco fases de entrega:
+
+### 11.1. Plan de Lanzamientos Escalonados
+
+| Versión | Enfoque Principal | Módulos Incluidos | Plazo Objetivo |
 | :--- | :--- | :--- | :--- |
-| Barra de Pestañas Multidocumento | Frontend Editor y Motor de Estado | Muy Alta | Media |
-| Compresor de Archivos PDF Fuera de Línea | Backend Rust (`lopdf` / `image`) | Muy Alta | Media |
-| Instaladores Windows (.exe) y Linux (AppImage) | Empaquetador Tauri y Flujo CI | Muy Alta | Media |
-| Reglas de Numeración de Tesis de Doble Posición | Motor de Páginas Frontend | Alta | Media |
-| Panel Lateral de Navegación y Miniaturas | UI Frontend y Virtualizador DOM | Alta | Media |
-| Notación Matemática KaTeX Fuera de Línea | Analizador Frontend | Alta | Baja |
-| Regla Vertical y Sangrías de Párrafo | Motor de Regla Frontend | Media | Media |
-| Gestor de Citas y Bibliografía | Biblioteca de Datos Frontend | Media | Media |
-| Firma Digital y Rúbrica Fuera de Línea | Backend Rust y Superposición Canvas | Media | Media |
-| Modo Oscuro Adaptativo | Motor de Temas CSS | Media | Baja |
-| Importación de Word (.docx) Fuera de Línea | Analizador Rust DOCX | Futuro | Alta |
+| **v1.1.0** | Pestañas de Documentos y Flujo de Trabajo | Barra de Pestañas Multidocumento (Sección 8.5) y Compresor de PDF Fuera de Línea (Sección 4.1). | Próximo Lanzamiento |
+| **v1.2.0** | Estándares Académicos y Tipografía Científica | Reglas de Numeración de Tesis de Doble Posición (Sección 3.1), Fórmulas KaTeX (Sección 2.1), Tablas Booktabs (Sección 2.3) y Regla Vertical (Sección 2.2). | Fase 2 |
+| **v1.3.0** | Distribución Multiplataforma Completa | Instalador NSIS para Windows (`.exe`) y Edición Portátil (Sección 6.1), Paquete Universal Linux AppImage y Debian `.deb` (Sección 6.2). | Fase 3 |
+| **v1.4.0** | Utilidades PDF y Seguridad Documental | Firma Digital y Rúbrica (Sección 4.2), Limpiador de Metadatos (Sección 10.1), Organizador Visual de Páginas (Sección 4.4) y Marca de Agua (Sección 4.6). | Fase 4 |
+| **v1.5.0** | Hito del Ecosistema y Alto Rendimiento | Paquetes de Plantillas Portátiles `.bakutpl` (Sección 5.4), Renderizado Virtual DOM para 500+ Páginas (Sección 7.1), Modo Oscuro Completo (Sección 8.2) e Importación Word `.docx` (Sección 9.1). | Cúspide del Hito |
+
+### 11.2. Matriz Técnica de Prioridades de Desarrollo
+
+| Módulo de Función | Componente Objetivo | Versión Objetivo | Prioridad | Estimación de Complejidad |
+| :--- | :--- | :--- | :--- | :--- |
+| Barra de Pestañas Multidocumento | Frontend Editor y Motor de Estado | v1.1.0 | Muy Alta | Media |
+| Compresor de Archivos PDF Fuera de Línea | Backend Rust (`lopdf` / `image`) | v1.1.0 | Muy Alta | Media |
+| Reglas de Numeración de Tesis de Doble Posición | Motor de Páginas Frontend | v1.2.0 | Alta | Media |
+| Notación Matemática KaTeX Fuera de Línea | Analizador Frontend | v1.2.0 | Alta | Baja |
+| Regla Vertical y Sangrías de Párrafo | Motor de Regla Frontend | v1.2.0 | Media | Media |
+| Tablas Científicas Avanzadas (Booktabs) | Motor de Páginas Frontend | v1.2.0 | Media | Media |
+| Instaladores Windows (.exe) y Linux (AppImage) | Empaquetador Tauri y Flujo CI | v1.3.0 | Muy Alta | Media |
+| Panel Lateral de Navegación y Miniaturas | UI Frontend y Virtualizador DOM | v1.3.0 | Alta | Media |
+| Firma Digital y Rúbrica Fuera de Línea | Backend Rust y Superposición Canvas | v1.4.0 | Media | Media |
+| Limpiador de Metadatos (Revisión Ciega) | Backend Rust y Flujo PDF | v1.4.0 | Media | Baja |
+| Organizador Visual de Páginas | Frontend UI y Backend Rust | v1.4.0 | Media | Media |
+| Modo Oscuro Adaptativo | Motor de Temas CSS | v1.5.0 | Media | Baja |
+| Paquetes de Plantillas Portátiles (.bakutpl) | Almacén de Datos Frontend y JSON | v1.5.0 | Media | Baja |
+| Renderizado Virtual de Páginas (500+ Páginas) | Virtualizador DOM Frontend | v1.5.0 | Alta | Alta |
+| Importación de Word (.docx) Fuera de Línea | Analizador Rust DOCX | v1.5.0 / Futuro | Futuro | Alta |
 
 ---
 

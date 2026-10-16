@@ -16,9 +16,9 @@
   <hr />
 </div>
 
-# Baku PDF Version 1.5 Roadmap & Funktionsübersicht
+# Baku PDF Roadmap (Release-Pipeline v1.1.0 – v1.5.0)
 
-Dieses Dokument fasst den aktuellen Funktionsstand von **Baku PDF v1.0.0** zusammen und stellt die geplanten neuen Funktionen, Leistungsverbesserungen und Modulerweiterungen für das Release **Baku PDF v1.5** vor. Diese Aktualisierung konzentriert sich auf anspruchsvolle akademische Schreibprozesse, zusätzliche Offline-PDF-Werkzeuge, vollständige plattformübergreifende Distribution (Windows, macOS, Linux) sowie hocheffizientes Rendering umfangreicher Manuskripte.
+Dieses Dokument fasst den aktuellen Funktionsstand von **Baku PDF v1.0.0** zusammen und stellt die geplanten neuen Funktionen vor, die in gestaffelten Veröffentlichungen von **Baku PDF v1.1.0 bis v1.5.0** bereitgestellt werden. Diese schrittweise Release-Pipeline konzentriert sich auf anspruchsvolle akademische Schreibprozesse, zusätzliche Offline-PDF-Werkzeuge, vollständige plattformübergreifende Distribution (Windows, macOS, Linux) sowie hocheffizientes Rendering umfangreicher Manuskripte.
 
 Kernprinzipien der Baku PDF-Entwicklung bleiben gewahrt:
 - **100% Offline (Offline-First)**: Sämtliche Berechnungen laufen lokal auf dem Rechner des Anwenders ohne externe Cloud-Server.
@@ -41,7 +41,7 @@ Kernprinzipien der Baku PDF-Entwicklung bleiben gewahrt:
 8. [Benutzeroberfläche, Navigation & Barrierefreiheit](#8-benutzeroberfläche-navigation--barrierefreiheit)
 9. [Formatinteroperabilität & Dateikompatibilität](#9-formatinteroperabilität--dateikompatibilität)
 10. [Dokumentensicherheit & Metadatenbereinigung](#10-dokumentensicherheit--metadatenbereinigung)
-11. [Prioritätenmatrix für Version 1.5](#11-prioritätenmatrix-für-version-15)
+11. [Gestaffelte Release-Phasen & Prioritätenmatrix (v1.1.0 – v1.5.0)](#11-gestaffelte-release-phasen--prioritätenmatrix-v110--v150)
 
 ---
 
@@ -280,21 +280,39 @@ Neben den 4 bestehenden Werkzeugen führt Version 1.5 weitere 6 Offline-PDF-Dien
 
 ---
 
-## 11. Prioritätenmatrix für Version 1.5
+## 11. Gestaffelte Release-Phasen & Prioritätenmatrix (v1.1.0 – v1.5.0)
 
-| Funktionsmodul | Zielkomponente | Priorität | Geschätzte Komplexität |
+Um neue Kernfunktionen schnell, stabil und fundiert getestet bereitzustellen, ohne auf die zeitgleiche Fertigstellung aller Bausteine zu warten, gliedert sich die Entwicklung in fünf aufeinanderfolgende Phasen:
+
+### 11.1. Gestaffelter Meilenstein-Plan
+
+| Release | Hauptfokus | Enthaltene Funktionsmodule | Zeitplan |
 | :--- | :--- | :--- | :--- |
-| Multi-Dokument-Tab-Leiste | Frontend Editor & State Engine | Sehr Hoch | Mittel |
-| Offline-PDF-Kompressor | Rust Backend (`lopdf` / `image`) | Sehr Hoch | Mittel |
-| Windows- (.exe) & Linux- (AppImage) Installer | Tauri Bundler & CI-Workflow | Sehr Hoch | Mittel |
-| Duale Seitennummerierung für Abschlussarbeiten | Frontend Sheet Engine | Hoch | Mittel |
-| Dokumentenstruktur & Miniaturbildleiste | Frontend UI & DOM-Virtualisierer | Hoch | Mittel |
-| Offline KaTeX Mathematische Notation | Frontend Parser Engine | Hoch | Gering |
-| Vertikales Lineal & Absatzeinzüge | Frontend Ruler Engine | Mittel | Mittel |
-| Literatur- & Zitationsverwaltung | Frontend Datenbibliothek | Mittel | Mittel |
-| Digitale Signatur & Paraphe Offline | Rust Backend & Canvas Overlay | Mittel | Mittel |
-| Adaptiver Dunkelmodus | CSS Theme Engine | Mittel | Gering |
-| Offline Word-Import (.docx) | Rust DOCX Parser | Zukunft | Hoch |
+| **v1.1.0** | Dokument-Tabs & Arbeitseffizienz | Multi-Dokument-Tab-Leiste (Abschnitt 8.5) und Offline-PDF-Kompressor (Abschnitt 4.1). | Nächstes Release |
+| **v1.2.0** | Akademische Standards & Typografie | Duale Seitennummerierung (Abschnitt 3.1), KaTeX-Formeln (Abschnitt 2.1), Booktabs-Tabellen (Abschnitt 2.3) und Vertikales Lineal (Abschnitt 2.2). | Phase 2 |
+| **v1.3.0** | Plattformübergreifende Distribution | Windows NSIS-Installer (`.exe`) & Portable Edition (Abschnitt 6.1), Linux AppImage & Debian `.deb` (Abschnitt 6.2). | Phase 3 |
+| **v1.4.0** | PDF-Dienstprogramme & Sicherheit | Digitale Signatur & Paraphe (Abschnitt 4.2), Metadaten-Bereiniger (Abschnitt 10.1), Visuelle Seitenorganisation (Abschnitt 4.4) und Wasserzeichen (Abschnitt 4.6). | Phase 4 |
+| **v1.5.0** | Ökosystem-Meilenstein & Skalierung | Portable Vorlagenpakete `.bakutpl` (Abschnitt 5.4), Virtuelles DOM-Rendering für 500+ Seiten (Abschnitt 7.1), Vollständiger Dunkelmodus (Abschnitt 8.2) und Word-Import `.docx` (Abschnitt 9.1). | Meilenstein-Gipfel |
+
+### 11.2. Technische Entwicklungsprioritäten
+
+| Funktionsmodul | Zielkomponente | Zielversion | Priorität | Geschätzte Komplexität |
+| :--- | :--- | :--- | :--- | :--- |
+| Multi-Dokument-Tab-Leiste | Frontend Editor & State Engine | v1.1.0 | Sehr Hoch | Mittel |
+| Offline-PDF-Kompressor | Rust Backend (`lopdf` / `image`) | v1.1.0 | Sehr Hoch | Mittel |
+| Duale Seitennummerierung für Abschlussarbeiten | Frontend Sheet Engine | v1.2.0 | Hoch | Mittel |
+| Offline KaTeX Mathematische Notation | Frontend Parser Engine | v1.2.0 | Hoch | Gering |
+| Vertikales Lineal & Absatzeinzüge | Frontend Ruler Engine | v1.2.0 | Mittel | Mittel |
+| Wissenschaftliche Tabellen (Booktabs) | Frontend Sheet Engine | v1.2.0 | Mittel | Mittel |
+| Windows- (.exe) & Linux- (AppImage) Installer | Tauri Bundler & CI-Workflow | v1.3.0 | Sehr Hoch | Mittel |
+| Dokumentenstruktur & Miniaturbildleiste | Frontend UI & DOM-Virtualisierer | v1.3.0 | Hoch | Mittel |
+| Digitale Signatur & Paraphe Offline | Rust Backend & Canvas Overlay | v1.4.0 | Mittel | Mittel |
+| Metadaten-Bereinigung (Blind Review) | Rust Backend & PDF Pipeline | v1.4.0 | Mittel | Gering |
+| Visuelle Seitenorganisation & Neuanordnung | Frontend UI & Rust Backend | v1.4.0 | Mittel | Mittel |
+| Adaptiver Dunkelmodus | CSS Theme Engine | v1.5.0 | Mittel | Gering |
+| Portable Vorlagenpakete (.bakutpl) | Frontend Datenbibliothek & JSON | v1.5.0 | Mittel | Gering |
+| Virtuelles DOM-Seitenrendering (500+ Seiten) | Frontend DOM-Virtualisierer | v1.5.0 | Hoch | Hoch |
+| Offline Word-Import (.docx) | Rust DOCX Parser | v1.5.0 / Zukunft | Zukunft | Hoch |
 
 ---
 

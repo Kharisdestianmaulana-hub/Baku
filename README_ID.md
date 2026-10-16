@@ -34,7 +34,7 @@
 - [Fitur Utama](#fitur-utama)
 - [Alat Ekstra PDF (100% Luring)](#alat-ekstra-pdf-100-luring)
 - [Daftar Templat Baku Bawaan](#daftar-templat-baku-bawaan)
-- [Peta Jalan Pembaruan Mendatang (v1.5 & Selanjutnya)](#peta-jalan-pembaruan-mendatang-v15--selanjutnya)
+- [Peta Jalan Pembaruan Mendatang (v1.1.0 – v1.5.0 & Selanjutnya)](#peta-jalan-pembaruan-mendatang-v110--v150--selanjutnya)
 - [Arsitektur & Spesifikasi Teknis](#arsitektur--spesifikasi-teknis)
 - [Persyaratan Sistem & Instalasi](#persyaratan-sistem--instalasi)
 - [Dokumentasi Lengkap](#dokumentasi-lengkap)
@@ -121,9 +121,9 @@ Baku PDF menyediakan utilitas pengolahan PDF mandiri langsung di perangkat Anda 
 
 ---
 
-## Peta Jalan Pembaruan Mendatang (v1.5 & Selanjutnya)
+## Peta Jalan Pembaruan Mendatang (v1.1.0 – v1.5.0 & Selanjutnya)
 
-Kami memelihara dokumen rencana kerja pengembangan terbuka yang merinci fitur-fitur baru, peningkatan arsitektur, dan rilis multi-platform untuk versi 1.5 serta pembaruan selanjutnya:
+Kami memelihara dokumen rencana kerja pengembangan terbuka yang merinci fitur-fitur baru, peningkatan arsitektur, dan rilis multi-platform untuk rilis bertahap v1.1.0 hingga v1.5.0 serta pembaruan selanjutnya:
 
 - **Bilah Tab Multi-Dokumen**: Buka, sunting, dan beralih di antara banyak dokumen `.baku` dalam satu jendela aplikasi dengan isolasi status pengetikan dan pengguliran horizontal halus.
 - **Kompresor Ukuran Berkas PDF Luring**: Preset target instan (<500 KB, <1 MB, <2 MB) dan setelan resolusi DPI gambar tanpa server awan.
@@ -203,7 +203,7 @@ Kami menyediakan dokumentasi teknis dan panduan komunitas lengkap untuk mendukun
 | [CHANGELOG.md](CHANGELOG.md) | Riwayat pembaruan dan catatan rilis versi. |
 | [SECURITY.md](SECURITY.md) | Kebijakan keamanan dan pelaporan celah kerentanan. |
 | [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Norma komunitas dan standar interaksi kontributor. |
-| [Peta Jalan Pembaruan (v1.5+)](Update/Update_Baku_id.md) | Peta jalan multi-bahasa dan daftar rencana fitur untuk versi pembaruan mendatang. |
+| [Peta Jalan Pembaruan (v1.1.0 – v1.5.0)](Update/Update_Baku_id.md) | Peta jalan multi-bahasa dan daftar rencana fitur untuk versi pembaruan mendatang. |
 
 ---
 

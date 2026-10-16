@@ -33,7 +33,7 @@
 - [À Propos de Baku PDF](#à-propos-de-baku-pdf)
 - [Fonctionnalités Principales](#fonctionnalités-principales)
 - [Outils PDF Additionnels (100% Hors Ligne)](#outils-pdf-additionnels-100-hors-ligne)
-- [Feuille de Route des Prochaines Versions (v1.5 et Ultérieures)](#feuille-de-route-des-prochaines-versions-v15-et-ultérieures)
+- [Feuille de Route des Prochaines Versions (v1.1.0 – v1.5.0 et Ultérieures)](#feuille-de-route-des-prochaines-versions-v110--v150-et-ultérieures)
 - [Architecture et Pile Technologique](#architecture-et-pile-technologique)
 - [Prérequis et Installation](#prérequis-et-installation)
 - [Documentation Complète](#documentation-complète)
@@ -102,7 +102,7 @@ Baku PDF comprend des utilitaires autonomes pour traiter vos fichiers PDF sans r
 
 ---
 
-## Feuille de Route des Prochaines Versions (v1.5 et Ultérieures)
+## Feuille de Route des Prochaines Versions (v1.1.0 – v1.5.0 et Ultérieures)
 
 Nous maintenons une feuille de route de développement transparente détaillant les fonctionnalités planifiées, les optimisations de performances et les déploiements multiplateformes :
 
@@ -172,7 +172,7 @@ Nous mettons à disposition une suite documentaire complète pour accompagner la
 | [CHANGELOG.md](../CHANGELOG.md) | Historique des modifications et notes de version. |
 | [SECURITY.md](../SECURITY.md) | Politique de sécurité et signalement des vulnérabilités. |
 | [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md) | Règles de vie communautaire et code de conduite. |
-| [Feuille de Route (v1.5+)](../Update/Update_Baku_fr.md) | Feuille de route multilingue et spécifications des futures fonctionnalités. |
+| [Feuille de Route (v1.1.0 – v1.5.0)](../Update/Update_Baku_fr.md) | Feuille de route multilingue et spécifications des futures fonctionnalités. |
 
 ---
 

@@ -33,8 +33,7 @@
 - [Sobre o Baku PDF](#sobre-o-baku-pdf)
 - [Principais Funcionalidades](#principais-funcionalidades)
 - [Ferramentas Extras de PDF (100% Offline)](#ferramentas-extras-de-pdf-100-offline)
-- [Modelos Padronizados Integrados](#modelos-padronizados-integrados)
-- [Roteiro de Próximos Lançamentos (v1.5 e Posteriores)](#roteiro-de-próximos-lançamentos-v15-e-posteriores)
+- [Roteiro de Próximos Lançamentos (v1.1.0 – v1.5.0 e Posteriores)](#roteiro-de-próximos-lançamentos-v110--v150-e-posteriores)
 - [Arquitetura e Tecnologias](#arquitetura-e-tecnologias)
 - [Requisitos e Instalação](#requisitos-e-instalação)
 - [Documentação Completa](#documentação-completa)
@@ -103,7 +102,7 @@ O Baku PDF inclui ferramentas complementares para manipular arquivos PDF localme
 
 ---
 
-## Roteiro de Próximos Lançamentos (v1.5 e Posteriores)
+## Roteiro de Próximos Lançamentos (v1.1.0 – v1.5.0 e Posteriores)
 
 Mantemos um roteiro público e transparente detalhando as novas funcionalidades planejadas, melhorias de desempenho e pacotes de distribuição para a versão 1.5 e lançamentos futuros:
 
@@ -173,7 +172,7 @@ Disponibilizamos documentação técnica e diretrizes comunitárias para apoiar 
 | [CHANGELOG.md](../CHANGELOG.md) | Histórico de versões e notas de lançamento. |
 | [SECURITY.md](../SECURITY.md) | Política de segurança e canal de divulgação responsável de falhas. |
 | [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md) | Código de conduta e diretrizes da comunidade. |
-| [Roteiro de Versões (v1.5+)](../Update/Update_Baku_pt.md) | Roteiro multilíngue e especificações de recursos futuros. |
+| [Roteiro de Versões (v1.1.0 – v1.5.0)](../Update/Update_Baku_pt.md) | Roteiro multilíngue e especificações de recursos futuros. |
 
 ---
 

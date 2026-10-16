@@ -16,9 +16,9 @@
   <hr />
 </div>
 
-# Baku PDF Version 1.5 Roadmap & Upcoming Features
+# Baku PDF Roadmap (v1.1.0 – v1.5.0 Release Pipeline)
 
-This document outlines the current feature baseline of **Baku PDF v1.0.0** alongside planned features, performance enhancements, and module expansions scheduled for the **Baku PDF v1.5** release. This update focuses on enhancing advanced academic writing workflows, introducing advanced offline PDF manipulation utilities, delivering full multi-platform distribution (Windows, macOS, Linux), and optimizing rendering throughput for large documents.
+This document outlines the current feature baseline of **Baku PDF v1.0.0** alongside planned features, performance enhancements, and module expansions scheduled for staged release from **Baku PDF v1.1.0 through v1.5.0**. This iterative update pipeline focuses on enhancing advanced academic writing workflows, introducing advanced offline PDF manipulation utilities, delivering full multi-platform distribution (Windows, macOS, Linux), and optimizing rendering throughput for large documents.
 
 Core development principles of Baku PDF remain strictly preserved:
 - **100% Offline (Offline-First)**: All processing executes locally on the user machine without cloud servers.
@@ -41,7 +41,7 @@ Core development principles of Baku PDF remain strictly preserved:
 8. [User Interface, Navigation & Accessibility](#8-user-interface-navigation--accessibility)
 9. [Format Interoperability & File Compatibility](#9-format-interoperability--file-compatibility)
 10. [Document Security & Metadata Sanitization](#10-document-security--metadata-sanitization)
-11. [Version 1.5 Development Priority Matrix](#11-version-15-development-priority-matrix)
+11. [Staged Release Pipeline & Priority Matrix (v1.1.0 – v1.5.0)](#11-staged-release-pipeline--priority-matrix-v110--v150)
 
 ---
 
@@ -344,21 +344,39 @@ Expanding upon the 8 templates available in v1.0.0, v1.5 introduces specialized 
 
 ---
 
-## 11. Version 1.5 Development Priority Matrix
+## 11. Staged Release Pipeline & Priority Matrix (v1.1.0 – v1.5.0)
 
-| Feature Module | Target Component | Priority | Complexity Estimate |
+To deliver new features quickly, reliably, and thoroughly tested without waiting for all modules simultaneously, development is organized into five iterative release milestones:
+
+### 11.1. Staged Milestone Roadmap
+
+| Release Version | Core Milestone Focus | Feature Modules Included | Target Timeline |
 | :--- | :--- | :--- | :--- |
-| Multi-Document Tab Bar | Frontend Editor & State Engine | Very High | Medium |
-| Offline PDF Compressor | Rust Backend (`lopdf` / `image`) | Very High | Medium |
-| Windows (.exe) & Linux (AppImage) Installers | Tauri Bundler & CI Workflow | Very High | Medium |
-| Dual-Positioning Academic Page Numbering | Frontend Sheet Engine | High | Medium |
-| Document Outline & Thumbnails Sidebar | Frontend UI & DOM Virtualizer | High | Medium |
-| Offline KaTeX Mathematical Notation | Frontend Parser Engine | High | Low |
-| Vertical Ruler & Paragraph Indentation | Frontend Ruler Engine | Medium | Medium |
-| Citation & Bibliography Manager | Frontend Library & Data Store | Medium | Medium |
-| Offline Digital Signature & Stamp | Rust Backend & Canvas Overlay | Medium | Medium |
-| Adaptive Dark Mode | CSS Theme Engine | Medium | Low |
-| Offline Word (.docx) Import | Rust DOCX Parser | Future | High |
+| **v1.1.0** | Document Tabs & Workflow Efficiency | Multi-Document Tab Bar (Section 8.5) and Offline PDF Compressor (Section 4.1). | Upcoming Next Release |
+| **v1.2.0** | Academic Standards & Scientific Typography | Dual-Positioning Academic Page Numbers (Section 3.1), Offline KaTeX Notation (Section 2.1), Advanced Booktabs Tables (Section 2.3), and Vertical Ruler (Section 2.2). | Stage 2 |
+| **v1.3.0** | Full Cross-Platform Distribution | Windows Guided NSIS Installer (`.exe`) & Portable Edition (Section 6.1) and Universal Linux AppImage & Debian `.deb` (Section 6.2). | Stage 3 |
+| **v1.4.0** | Offline PDF Utilities & Security | Offline Digital Signatures & Stamps (Section 4.2), Document Metadata Sanitizer (Section 10.1), Visual Page Organizer (Section 4.4), and Offline Watermarking (Section 4.6). | Stage 4 |
+| **v1.5.0** | Ecosystem Milestone & Performance | Portable Template Packages `.bakutpl` (Section 5.4), Virtual DOM Infinite Rendering for 500+ Pages (Section 7.1), Full Adaptive Dark Mode (Section 8.2), and Offline Word `.docx` Import (Section 9.1). | Milestone Peak |
+
+### 11.2. Technical Development Priority Matrix
+
+| Feature Module | Target Component | Target Version | Priority | Complexity Estimate |
+| :--- | :--- | :--- | :--- | :--- |
+| Multi-Document Tab Bar | Frontend Editor & State Engine | v1.1.0 | Very High | Medium |
+| Offline PDF Compressor | Rust Backend (`lopdf` / `image`) | v1.1.0 | Very High | Medium |
+| Dual-Positioning Academic Page Numbers | Frontend Sheet Engine | v1.2.0 | High | Medium |
+| Offline KaTeX Mathematical Notation | Frontend Parser Engine | v1.2.0 | High | Low |
+| Vertical Ruler & Paragraph Indentation | Frontend Ruler Engine | v1.2.0 | Medium | Medium |
+| Advanced Scientific Tables (Booktabs) | Frontend Sheet Engine | v1.2.0 | Medium | Medium |
+| Windows (.exe) & Linux (AppImage) Installers | Tauri Bundler & CI Workflow | v1.3.0 | Very High | Medium |
+| Document Outline & Thumbnails Sidebar | Frontend UI & DOM Virtualizer | v1.3.0 | High | Medium |
+| Offline Digital Signature & Stamp | Rust Backend & Canvas Overlay | v1.4.0 | Medium | Medium |
+| Document Metadata Sanitizer (Blind Review) | Rust Backend & PDF Pipeline | v1.4.0 | Medium | Low |
+| Visual Page Organizer & Reorder | Frontend UI & Rust Backend | v1.4.0 | Medium | Medium |
+| Adaptive Dark Mode | CSS Theme Engine | v1.5.0 | Medium | Low |
+| Portable Template Packages (.bakutpl) | Frontend Data Store & JSON | v1.5.0 | Medium | Low |
+| Infinite Virtual DOM Page Rendering (500+ Pages) | Frontend DOM Virtualizer | v1.5.0 | High | High |
+| Offline Word (.docx) Import | Rust DOCX Parser | v1.5.0 / Future | Future | High |
 
 ---
 

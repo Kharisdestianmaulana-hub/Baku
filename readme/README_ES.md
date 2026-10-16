@@ -33,7 +33,7 @@
 - [Acerca de Baku PDF](#acerca-de-baku-pdf)
 - [Características Principales](#características-principales)
 - [Herramientas Extra PDF (100% Fuera de Línea)](#herramientas-extra-pdf-100-fuera-de-línea)
-- [Hoja de Ruta de Próximas Versiones (v1.5 y Superior)](#hoja-de-ruta-de-próximas-versiones-v15-y-superior)
+- [Hoja de Ruta de Próximas Versiones (v1.1.0 – v1.5.0 y Superior)](#hoja-de-ruta-de-próximas-versiones-v110--v150-y-superior)
 - [Arquitectura y Pila Tecnológica](#arquitectura-y-pila-tecnológica)
 - [Requisitos del Sistema e Instalación](#requisitos-del-sistema-e-instalación)
 - [Documentación Completa](#documentación-completa)
@@ -104,7 +104,7 @@ Baku PDF incluye utilidades independientes para trabajar con documentos PDF sin 
 
 ---
 
-## Hoja de Ruta de Próximas Versiones (v1.5 y Superior)
+## Hoja de Ruta de Próximas Versiones (v1.1.0 – v1.5.0 y Superior)
 
 Mantenemos una hoja de ruta de desarrollo abierta y transparente que detalla las nuevas funciones planificadas, mejoras de rendimiento y versiones para diversas plataformas:
 
@@ -174,7 +174,7 @@ Ofrecemos documentación técnica y guías comunitarias para respaldar el desarr
 | [CHANGELOG.md](../CHANGELOG.md) | Historial de versiones y notas de lanzamiento. |
 | [SECURITY.md](../SECURITY.md) | Política de seguridad y reporte responsable de vulnerabilidades. |
 | [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md) | Normas de convivencia comunitaria y código de conducta. |
-| [Hoja de Ruta (v1.5+)](../Update/Update_Baku_es.md) | Hoja de ruta multilingüe y especificaciones de funciones para futuras versiones. |
+| [Hoja de Ruta (v1.1.0 – v1.5.0)](../Update/Update_Baku_es.md) | Hoja de ruta multilingüe y especificaciones de funciones para futuras versiones. |
 
 ---
 
