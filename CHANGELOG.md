@@ -9,6 +9,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Bahasa Indonesia
 
+### [1.1.0] - 2026-10-16
+
+#### Ditambahkan (Added)
+- **Bilah Tab Multi-Dokumen (Multi-Document Tab Bar)**:
+  - Bilah tab dokumen ergonomis tepat di bawah toolbar Ribbon dan di atas penggaris canvas.
+  - Penyuntingan paralel banyak berkas dokumen `.baku` secara bersamaan dalam satu jendela aplikasi tanpa perlu Alt+Tab.
+  - Virtualisasi memori dokumen di RAM dengan tumpukan riwayat Undo/Redo (*history stack*) yang terisolasi per dokumen.
+  - Penanda visual titik perubahan belum tersimpan (*unsaved changes dot indicator*) pada tab aktif dan tidak aktif.
+  - Tombol penutup tab independen, tombol buat dokumen baru (+), serta tombol geser horisontal mulus untuk navigasi dokumen banyak.
+  - Pintasan papan ketik lengkap: `Ctrl+Tab` / `Ctrl+Shift+Tab` (atau `Cmd+Shift+]`/`[` di macOS) untuk beralih tab dokumen, `Alt+1` s.d. `8` (`Option+1`..`8` di macOS) untuk melompat langsung ke Tab 1–8, `Alt+9` (`Option+9` di macOS) untuk melompat ke tab terakhir, dan `Ctrl+W` (`Cmd+W`) untuk menutup tab aktif.
+- **Kompresor PDF Luring (Offline PDF Compressor)**:
+  - Utilitas pengecilan ukuran berkas PDF secara lokal di perangkat pengguna melalui pustaka Rust `lopdf` tanpa transmisi data ke server eksternal.
+  - Pilihan preset kompresi: Standar (Keseimbangan Optimal), Maksimal (Ukuran Berkas Terkecil), dan Ringan (Kualitas Tinggi).
+  - Penghapusan objek yatim piatu (*orphan objects*), kompresi aliran objek (*stream compression*), dan penomoran ulang objek (*object renumbering*) secara atomik dan aman.
+  - Terintegrasi langsung pada grid Alat Ekstra PDF dan tombol pintas di bilah Ribbon (Tab Alat).
+
 ### [1.0.0] - 2026-10-14
 
 #### Ditambahkan (Added)
@@ -62,6 +78,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ## English
+
+### [1.1.0] - 2026-10-16
+
+#### Added
+- **Multi-Document Tab Bar**:
+  - Ergonomic document tab bar positioned below the Ribbon toolbar and above the canvas ruler.
+  - Parallel editing of multiple `.baku` documents simultaneously in a single application window without Alt+Tab.
+  - In-RAM document virtualization with isolated Undo/Redo history stacks per document tab.
+  - Visual unsaved changes dot indicator for tracking modified documents.
+  - Independent tab close buttons, quick new document (+) button, and smooth horizontal scroll chevrons for navigating many open documents.
+  - Full keyboard shortcuts: `Ctrl+Tab` / `Ctrl+Shift+Tab` (or `Cmd+Shift+]`/`[` on macOS) to cycle open tabs, `Alt+1`..`8` (`Option+1`..`8` on macOS) to jump directly to tabs 1–8, `Alt+9` (`Option+9` on macOS) to jump to the last tab, and `Ctrl+W` (`Cmd+W`) to close the active tab.
+- **Offline PDF Compressor**:
+  - Local PDF file size reduction running directly on user devices via the Rust `lopdf` engine without external server uploads.
+  - Compression presets: Standard (Optimal Balance), Maximum (Smallest Size), and Light (High Quality).
+  - Prunes orphan objects, recompresses object streams, and renumbers object identifiers atomically and safely.
+  - Integrated into the Extra PDF Tools workspace grid and accessible via quick action button on the Ribbon (Tools tab).
 
 ### [1.0.0] - 2026-10-14
 

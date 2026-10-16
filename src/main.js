@@ -16,8 +16,14 @@ let closeAfterSave = false;
 let isClosing = false;
 let pendingHomeNav = false;
 let homeAfterSave = false;
+let pendingCloseTabIndex = null;
+let closeTabAfterSaveIndex = null;
 let currentZoom = 1.0;
 const RECENT_DOCS_KEY = 'baku_recent_docs';
+
+// Pelacakan Tab Multi-Dokumen
+let openTabs = [];
+let activeTabIndex = -1;
 
 // Deteksi platform macOS untuk styling & penyesuaian native menu bar
 const isMac = (typeof window.isMacPlatform !== 'undefined' ? window.isMacPlatform : (typeof navigator !== 'undefined' && /Mac|iPhone|iPod|iPad/i.test(navigator.platform || navigator.userAgent)));
@@ -63,6 +69,12 @@ function updateWindowTitle() {
 
 function setDirty(state) {
     isDirty = state;
+    if (activeTabIndex >= 0 && openTabs[activeTabIndex]) {
+        openTabs[activeTabIndex].isDirty = state;
+        if (typeof updateTabDirtyUI === 'function') {
+            updateTabDirtyUI(activeTabIndex);
+        }
+    }
     updateWindowTitle();
 }
 
@@ -775,38 +787,15 @@ const actionExit = document.getElementById('action-exit');
 
 // Navigasi
 btnNewDoc.addEventListener('click', () => {
-    // LANGSUNG BUKA EDITOR, LEWATI MODAL!
-    
-    // Reset Data Dokumen
-    currentDocName = 'Dokumen_Baru';
-    currentFilePath = null;
-    closeAfterSave = false;
-    
-    // Reset Kertas ke A4 Default
-    paperConfig = { width: 210, height: 297, marginTop: 25.4, marginBottom: 25.4, marginLeft: 25.4, marginRight: 25.4 };
-    numberingConfig = { "doc": { show: false, format: "arabic", start: 1, align: "center", prefix: "", suffix: "" } };
-    headerFooterConfig = { "doc": { header: { text: "", align: "center", diffFirst: false, firstText: "" }, footer: { text: "", align: "center", diffFirst: false, firstText: "" } } };
-    
-    // Update tampilan form ukuran kertas di Settings
-    document.getElementById('input-paper-size').value = 'A4';
-    document.getElementById('margin-top').value = 25.4;
-    document.getElementById('margin-bottom').value = 25.4;
-    document.getElementById('margin-left').value = 25.4;
-    document.getElementById('margin-right').value = 25.4;
-    
-    applyPageSetup();
+    const defaultPaper = { width: 210, height: 297, marginTop: 25.4, marginBottom: 25.4, marginLeft: 25.4, marginRight: 25.4 };
+    const defaultNum = { "doc": { show: false, format: "arabic", start: 1, align: "center", prefix: "", suffix: "" } };
+    const defaultHf = { "doc": { header: { text: "", align: "center", diffFirst: false, firstText: "" }, footer: { text: "", align: "center", diffFirst: false, firstText: "" } } };
 
-    // Pindah ke editor
     sidebar.style.display = 'none';
     viewHome.classList.remove('active');
     viewEditor.classList.add('active');
 
-    // Beri jeda sejenak untuk membiarkan Webview2 menggambar layar
-    setTimeout(() => {
-        quill.setContents([{ insert: '\n' }]);
-        quill.focus();
-        setDirty(false); // Dokumen baru kosong belum memiliki perubahan
-    }, 150);
+    openOrSwitchToDocument(window.t ? window.t('Dokumen Baru') : 'Dokumen Baru', null, [{ insert: '\n' }], defaultPaper, defaultNum, defaultHf, false);
 });
 
 btnCancelModal.addEventListener('click', () => {
@@ -859,19 +848,13 @@ btnCreateModal.addEventListener('click', async () => {
     sidebar.style.display = 'none';
     viewHome.classList.remove('active');
     viewEditor.classList.add('active');
-    updateWindowTitle();
 
-    // Beri jeda sejenak untuk membiarkan Webview2 menggambar layar
-    setTimeout(() => {
-        quill.setContents([{ insert: '\n' }]);
-        quill.focus();
-        setDirty(false);
-        // Hapus jejak log crash
-        localStorage.removeItem('DEBUG_CRASH');
-    }, 150);
+    openOrSwitchToDocument(docName, currentFilePath, [{ insert: '\n' }], paperConfig, numberingConfig, headerFooterConfig, false);
+    localStorage.removeItem('DEBUG_CRASH');
 });
 
 function goToHome() {
+    captureCurrentTabState();
     pendingHomeNav = false;
     homeAfterSave = false;
     setDirty(false);
@@ -901,25 +884,31 @@ function goToHome() {
     updateWindowTitle();
 }
 
+function showUnsavedModal(customMessage) {
+    const modalUnsaved = document.getElementById('modal-unsaved');
+    const modalDesc = document.getElementById('modal-unsaved-desc');
+    if (modalDesc) {
+        modalDesc.textContent = customMessage || window.t('Anda memiliki perubahan yang belum disimpan pada dokumen ini. Apakah Anda ingin menyimpannya sebelum keluar?');
+    }
+    if (modalUnsaved) {
+        modalUnsaved.style.display = 'flex';
+        modalUnsaved.classList.remove('hidden');
+    }
+}
+
 actionHome.addEventListener('click', () => {
     // Jika masih ada dokumen aktif di editor dengan perubahan yang belum disimpan
     if (viewEditor && viewEditor.classList.contains('active') && isDirty) {
         pendingHomeNav = true;
-        const modalUnsaved = document.getElementById('modal-unsaved');
-        if (modalUnsaved) {
-            modalUnsaved.style.display = 'flex';
-            modalUnsaved.classList.remove('hidden');
-        }
+        showUnsavedModal();
     } else {
         goToHome();
     }
 });
 
 actionExit.addEventListener('click', () => {
-    const modalUnsaved = document.getElementById('modal-unsaved');
-    if (viewEditor && viewEditor.classList.contains('active') && isDirty && modalUnsaved) {
-        modalUnsaved.style.display = 'flex';
-        modalUnsaved.classList.remove('hidden');
+    if (viewEditor && viewEditor.classList.contains('active') && isDirty) {
+        showUnsavedModal();
     } else {
         isClosing = true;
         if (window.__TAURI__) {
@@ -1025,6 +1014,357 @@ let headerFooterConfig = {
         footer: { text: "", align: "center", diffFirst: false, firstText: "" }
     }
 };
+
+// ============================================================
+// FITUR: MULTI-DOCUMENT TAB BAR SYSTEM
+// ============================================================
+function generateTabId() {
+    return 'tab_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+}
+
+function captureCurrentTabState() {
+    if (activeTabIndex >= 0 && openTabs[activeTabIndex]) {
+        const tab = openTabs[activeTabIndex];
+        tab.title = currentDocName;
+        tab.filePath = currentFilePath;
+        tab.isDirty = isDirty;
+        if (quill) {
+            tab.content = quill.getContents();
+            if (quill.history && quill.history.stack) {
+                tab.undoStack = Array.isArray(quill.history.stack.undo) ? [...quill.history.stack.undo] : [];
+                tab.redoStack = Array.isArray(quill.history.stack.redo) ? [...quill.history.stack.redo] : [];
+            }
+        }
+        tab.paperConfig = JSON.parse(JSON.stringify(paperConfig));
+        tab.numberingConfig = JSON.parse(JSON.stringify(numberingConfig));
+        tab.headerFooterConfig = JSON.parse(JSON.stringify(headerFooterConfig));
+        tab.lastSelection = quill ? (quill.getSelection() || lastSelection) : lastSelection;
+        tab.zoom = currentZoom;
+    }
+}
+
+function restoreTabState(tabIndex) {
+    if (tabIndex < 0 || tabIndex >= openTabs.length) return;
+    activeTabIndex = tabIndex;
+    const tab = openTabs[tabIndex];
+
+    currentDocName = tab.title || 'Dokumen_Baru';
+    currentFilePath = tab.filePath || null;
+    isDirty = !!tab.isDirty;
+
+    if (tab.paperConfig) {
+        paperConfig = JSON.parse(JSON.stringify(tab.paperConfig));
+        const inputPaperSize = document.getElementById('input-paper-size');
+        if (inputPaperSize) {
+            inputPaperSize.value = paperConfig.width === 210 && paperConfig.height === 297 ? 'A4' : 
+                                  paperConfig.width === 215.9 && paperConfig.height === 279.4 ? 'Letter' : 
+                                  paperConfig.width === 215.9 && paperConfig.height === 355.6 ? 'Legal' : 
+                                  paperConfig.width === 210 && paperConfig.height === 330 ? 'F4' : (paperConfig.format || 'A4');
+        }
+        const inputMarginT = document.getElementById('margin-top');
+        if (inputMarginT) inputMarginT.value = paperConfig.marginTop;
+        const inputMarginB = document.getElementById('margin-bottom');
+        if (inputMarginB) inputMarginB.value = paperConfig.marginBottom;
+        const inputMarginL = document.getElementById('margin-left');
+        if (inputMarginL) inputMarginL.value = paperConfig.marginLeft;
+        const inputMarginR = document.getElementById('margin-right');
+        if (inputMarginR) inputMarginR.value = paperConfig.marginRight;
+        applyPageSetup();
+    }
+
+    if (tab.numberingConfig) {
+        numberingConfig = JSON.parse(JSON.stringify(tab.numberingConfig));
+    }
+    if (tab.headerFooterConfig) {
+        headerFooterConfig = JSON.parse(JSON.stringify(tab.headerFooterConfig));
+    }
+
+    if (quill && tab.content) {
+        quill.setContents(tab.content, 'silent');
+        if (quill.history && quill.history.stack) {
+            quill.history.stack.undo = Array.isArray(tab.undoStack) ? [...tab.undoStack] : [];
+            quill.history.stack.redo = Array.isArray(tab.redoStack) ? [...tab.redoStack] : [];
+        }
+        if (tab.lastSelection) {
+            try { quill.setSelection(tab.lastSelection); } catch (_) {}
+        }
+    }
+
+    if (tab.zoom && typeof applyZoom === 'function') {
+        applyZoom(tab.zoom);
+    }
+
+    updateWindowTitle();
+    renderTabsUI();
+
+    setTimeout(() => {
+        if (typeof syncPageBreakHeights === 'function') syncPageBreakHeights();
+        if (typeof updateCanvasHeight === 'function') updateCanvasHeight(true);
+        if (typeof renderVisualRuler === 'function') renderVisualRuler();
+    }, 50);
+}
+
+function openOrSwitchToDocument(title, filePath, content, pConfig, numConfig, hfConfig, dirty = false) {
+    if (filePath) {
+        const existingIdx = openTabs.findIndex(t => t.filePath === filePath);
+        if (existingIdx !== -1) {
+            captureCurrentTabState();
+            restoreTabState(existingIdx);
+            return;
+        }
+    }
+
+    // Jika tab tunggal saat ini kosong dan belum diedit, timpa tab tersebut
+    if (openTabs.length === 1 && !openTabs[0].isDirty && !openTabs[0].filePath && quill && quill.getLength() <= 1) {
+        openTabs[0].title = title || 'Dokumen_Baru';
+        openTabs[0].filePath = filePath || null;
+        openTabs[0].content = content || [{ insert: '\n' }];
+        openTabs[0].paperConfig = pConfig ? JSON.parse(JSON.stringify(pConfig)) : JSON.parse(JSON.stringify(paperConfig));
+        openTabs[0].numberingConfig = numConfig ? JSON.parse(JSON.stringify(numConfig)) : JSON.parse(JSON.stringify(numberingConfig));
+        openTabs[0].headerFooterConfig = hfConfig ? JSON.parse(JSON.stringify(hfConfig)) : JSON.parse(JSON.stringify(headerFooterConfig));
+        openTabs[0].isDirty = dirty;
+        openTabs[0].undoStack = [];
+        openTabs[0].redoStack = [];
+        restoreTabState(0);
+        return;
+    }
+
+    captureCurrentTabState();
+
+    const newTab = {
+        id: generateTabId(),
+        title: title || 'Dokumen_Baru',
+        filePath: filePath || null,
+        isDirty: !!dirty,
+        content: content || [{ insert: '\n' }],
+        undoStack: [],
+        redoStack: [],
+        paperConfig: pConfig ? JSON.parse(JSON.stringify(pConfig)) : JSON.parse(JSON.stringify(paperConfig)),
+        numberingConfig: numConfig ? JSON.parse(JSON.stringify(numConfig)) : JSON.parse(JSON.stringify(numberingConfig)),
+        headerFooterConfig: hfConfig ? JSON.parse(JSON.stringify(hfConfig)) : JSON.parse(JSON.stringify(headerFooterConfig)),
+        lastSelection: { index: 0, length: 0 },
+        zoom: 1.0
+    };
+
+    openTabs.push(newTab);
+    restoreTabState(openTabs.length - 1);
+}
+
+function executeCloseTab(index) {
+    if (index < 0 || index >= openTabs.length) return;
+    openTabs.splice(index, 1);
+
+    if (openTabs.length === 0) {
+        activeTabIndex = -1;
+        renderTabsUI();
+        goToHome();
+    } else {
+        if (index === activeTabIndex) {
+            const nextIdx = Math.min(index, openTabs.length - 1);
+            restoreTabState(nextIdx);
+        } else if (index < activeTabIndex) {
+            activeTabIndex--;
+            renderTabsUI();
+        } else {
+            renderTabsUI();
+        }
+    }
+}
+
+function closeTab(index) {
+    if (index < 0 || index >= openTabs.length) return;
+    const tabToClose = openTabs[index];
+
+    if (index === activeTabIndex) {
+        captureCurrentTabState();
+    }
+
+    if (tabToClose.isDirty) {
+        pendingCloseTabIndex = index;
+        const docName = tabToClose.title || window.t('Dokumen');
+        const descText = `${window.t('Dokumen')} "${docName}" ${window.t('memiliki perubahan yang belum disimpan. Simpan sebelum menutup?')}`;
+        showUnsavedModal(descText);
+        return;
+    }
+
+    executeCloseTab(index);
+}
+
+function renderTabsUI() {
+    const tabsListEl = document.getElementById('document-tabs-list');
+    const scrollLeftBtn = document.getElementById('btn-tabs-scroll-left');
+    const scrollRightBtn = document.getElementById('btn-tabs-scroll-right');
+    if (!tabsListEl) return;
+
+    tabsListEl.innerHTML = '';
+
+    openTabs.forEach((tab, idx) => {
+        const tabEl = document.createElement('div');
+        tabEl.className = 'document-tab-item' + (idx === activeTabIndex ? ' active' : '');
+        tabEl.setAttribute('role', 'tab');
+        let hint = '';
+        if (idx < 8) {
+            hint = isMac ? ` (Option+${idx + 1})` : ` (Alt+${idx + 1})`;
+        } else if (idx === openTabs.length - 1 && openTabs.length > 1) {
+            hint = isMac ? ' (Option+9)' : ' (Alt+9)';
+        }
+        tabEl.title = (tab.filePath || tab.title) + hint;
+
+        const dotEl = document.createElement('span');
+        dotEl.className = 'tab-unsaved-dot' + (tab.isDirty ? '' : ' hidden');
+        dotEl.id = `tab-dot-${idx}`;
+        tabEl.appendChild(dotEl);
+
+        const titleEl = document.createElement('span');
+        titleEl.className = 'tab-title-text';
+        titleEl.textContent = tab.title || (window.t ? window.t('Dokumen Baru') : 'Dokumen Baru');
+        tabEl.appendChild(titleEl);
+
+        const closeBtn = document.createElement('button');
+        closeBtn.type = 'button';
+        closeBtn.className = 'tab-close-btn';
+        closeBtn.title = window.t ? window.t('Tutup Tab') : 'Tutup Tab';
+        closeBtn.setAttribute('aria-label', window.t ? window.t('Tutup Tab') : 'Tutup Tab');
+        closeBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+        
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeTab(idx);
+        });
+        tabEl.appendChild(closeBtn);
+
+        tabEl.addEventListener('click', () => {
+            if (idx !== activeTabIndex) {
+                captureCurrentTabState();
+                restoreTabState(idx);
+            }
+        });
+
+        tabEl.addEventListener('mousedown', (e) => {
+            if (e.button === 1) {
+                e.preventDefault();
+                closeTab(idx);
+            }
+        });
+
+        tabsListEl.appendChild(tabEl);
+
+        if (idx === activeTabIndex) {
+            tabEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+        }
+    });
+
+    setTimeout(() => {
+        const canScroll = tabsListEl.scrollWidth > tabsListEl.clientWidth + 4;
+        if (scrollLeftBtn) scrollLeftBtn.classList.toggle('hidden', !canScroll);
+        if (scrollRightBtn) scrollRightBtn.classList.toggle('hidden', !canScroll);
+    }, 30);
+}
+
+function updateTabDirtyUI(index) {
+    const dot = document.getElementById(`tab-dot-${index}`);
+    if (dot && openTabs[index]) {
+        dot.classList.toggle('hidden', !openTabs[index].isDirty);
+    }
+}
+
+// Inisialisasi tombol dan event scroll tab bar
+const btnTabNewDoc = document.getElementById('btn-tab-new-doc');
+if (btnTabNewDoc) {
+    btnTabNewDoc.addEventListener('click', () => {
+        actionNew();
+    });
+}
+
+const btnScrollLeft = document.getElementById('btn-tabs-scroll-left');
+const btnScrollRight = document.getElementById('btn-tabs-scroll-right');
+if (btnScrollLeft && btnScrollRight) {
+    btnScrollLeft.addEventListener('click', () => {
+        const list = document.getElementById('document-tabs-list');
+        if (list) list.scrollBy({ left: -150, behavior: 'smooth' });
+    });
+    btnScrollRight.addEventListener('click', () => {
+        const list = document.getElementById('document-tabs-list');
+        if (list) list.scrollBy({ left: 150, behavior: 'smooth' });
+    });
+}
+
+// Pintasan Papan Ketik Navigasi Tab
+window.addEventListener('keydown', (e) => {
+    if (!viewEditor || !viewEditor.classList.contains('active')) return;
+
+    // 1. Pindah ke tab berikutnya (Ctrl+Tab, Ctrl+PageDown, atau Cmd+Shift+])
+    const isNextTab = ((e.ctrlKey || e.metaKey) && e.key === 'Tab' && !e.shiftKey) ||
+                      (e.ctrlKey && e.key === 'PageDown') ||
+                      (e.metaKey && e.shiftKey && (e.key === ']' || e.key === '}'));
+
+    // 2. Pindah ke tab sebelumnya (Ctrl+Shift+Tab, Ctrl+PageUp, atau Cmd+Shift+[)
+    const isPrevTab = ((e.ctrlKey || e.metaKey) && e.key === 'Tab' && e.shiftKey) ||
+                      (e.ctrlKey && e.key === 'PageUp') ||
+                      (e.metaKey && e.shiftKey && (e.key === '[' || e.key === '{'));
+
+    if (isNextTab && openTabs.length > 1) {
+        e.preventDefault();
+        e.stopPropagation();
+        captureCurrentTabState();
+        const nextIndex = (activeTabIndex + 1) % openTabs.length;
+        restoreTabState(nextIndex);
+        return;
+    }
+
+    if (isPrevTab && openTabs.length > 1) {
+        e.preventDefault();
+        e.stopPropagation();
+        captureCurrentTabState();
+        const prevIndex = (activeTabIndex - 1 + openTabs.length) % openTabs.length;
+        restoreTabState(prevIndex);
+        return;
+    }
+
+    // 3. Pindah langsung ke Tab ke-N (Alt+1 s.d. 8 / Option+1..8 = Tab 1-8, Alt+9 / Option+9 = Tab Terakhir)
+    if (e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && openTabs.length > 0) {
+        let targetIndex = -1;
+        const code = e.code || '';
+        const digitMatch = code.match(/^(?:Digit|Numpad)([1-9])$/);
+        
+        let num = null;
+        if (digitMatch) {
+            num = parseInt(digitMatch[1], 10);
+        } else if (e.key >= '1' && e.key <= '9') {
+            num = parseInt(e.key, 10);
+        }
+
+        if (num !== null) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (num >= 1 && num <= 8) {
+                const requestedIdx = num - 1; // 0-indexed
+                if (requestedIdx < openTabs.length) {
+                    targetIndex = requestedIdx;
+                }
+            } else if (num === 9) {
+                targetIndex = openTabs.length - 1; // Tab Terakhir
+            }
+
+            if (targetIndex !== -1 && targetIndex !== activeTabIndex) {
+                captureCurrentTabState();
+                restoreTabState(targetIndex);
+            }
+            return;
+        }
+    }
+
+    // 4. Menutup tab aktif (Ctrl+W atau Cmd+W)
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'w' || e.key === 'W')) {
+        if (openTabs.length > 0) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeTab(activeTabIndex);
+            return;
+        }
+    }
+}, true);
 
 const modalPageSetup = document.getElementById('modal-page-setup');
 const inputMarginPreset = document.getElementById('input-margin-preset');
@@ -2462,7 +2802,50 @@ document.getElementById('action-zoom-reset').addEventListener('click', () => {
 });
 
 
-// --- MOUSE WHEEL SHORTCUTS (ZOOM TO POINTER & HORIZONTAL SCROLL) ---
+// --- MOUSE WHEEL SHORTCUTS & SMOOTH SCROLLING ---
+let smoothScrollTargetY = null;
+let smoothScrollTargetX = null;
+let smoothScrollRafId = null;
+let isSmoothScrolling = false;
+
+function stepSmoothScroll() {
+    if (!canvasArea) return;
+    let keepRunning = false;
+
+    if (smoothScrollTargetY !== null) {
+        const currentY = canvasArea.scrollTop;
+        const diffY = smoothScrollTargetY - currentY;
+        if (Math.abs(diffY) > 0.5) {
+            canvasArea.scrollTop = currentY + (diffY * 0.18);
+            keepRunning = true;
+        } else {
+            canvasArea.scrollTop = smoothScrollTargetY;
+            smoothScrollTargetY = null;
+        }
+    }
+
+    if (smoothScrollTargetX !== null) {
+        const currentX = canvasArea.scrollLeft;
+        const diffX = smoothScrollTargetX - currentX;
+        if (Math.abs(diffX) > 0.5) {
+            canvasArea.scrollLeft = currentX + (diffX * 0.18);
+            if (typeof syncRulerPosition === 'function') syncRulerPosition();
+            keepRunning = true;
+        } else {
+            canvasArea.scrollLeft = smoothScrollTargetX;
+            smoothScrollTargetX = null;
+            if (typeof syncRulerPosition === 'function') syncRulerPosition();
+        }
+    }
+
+    if (keepRunning) {
+        smoothScrollRafId = requestAnimationFrame(stepSmoothScroll);
+    } else {
+        smoothScrollRafId = null;
+        isSmoothScrolling = false;
+    }
+}
+
 canvasArea.addEventListener('wheel', (e) => {
     // Ctrl / Cmd + Scroll (atau Trackpad pinch) = Zoom In/Out ke Titik Kursor Mouse
     if (e.ctrlKey || e.metaKey) {
@@ -2506,17 +2889,73 @@ canvasArea.addEventListener('wheel', (e) => {
             delta = e.deltaY;
         }
 
-        // Normalisasi untuk delta bernilai kecil (seperti putaran roda per baris)
-        if (Math.abs(delta) > 0 && Math.abs(delta) < 20) {
-            delta = (delta > 0 ? 1 : -1) * 60;
+        if (e.deltaMode === 1) {
+            delta *= 36;
+        } else if (Math.abs(delta) < 40) {
+            delta = (delta > 0 ? 1 : -1) * 70;
+        } else {
+            delta *= 1.2;
         }
 
         if (delta !== 0) {
-            canvasArea.scrollLeft += delta;
-            if (typeof syncRulerPosition === 'function') syncRulerPosition();
+            const maxScrollLeft = Math.max(0, canvasArea.scrollWidth - canvasArea.clientWidth);
+            if (smoothScrollTargetX === null) {
+                smoothScrollTargetX = canvasArea.scrollLeft;
+            }
+            smoothScrollTargetX = Math.max(0, Math.min(maxScrollLeft, smoothScrollTargetX + delta));
+            isSmoothScrolling = true;
+            if (!smoothScrollRafId) {
+                smoothScrollRafId = requestAnimationFrame(stepSmoothScroll);
+            }
+        }
+    }
+    // Normal vertical scroll (interpolasi halus bebas jeda)
+    else {
+        if (Math.abs(e.deltaY) > 0) {
+            e.preventDefault();
+            let delta = e.deltaY;
+            if (e.deltaMode === 1) {
+                delta *= 36;
+            } else if (e.deltaMode === 2) {
+                delta *= canvasArea.clientHeight;
+            } else {
+                if (Math.abs(delta) < 40) {
+                    delta = (delta > 0 ? 1 : -1) * 70;
+                } else {
+                    delta *= 1.2;
+                }
+            }
+
+            const maxScrollTop = Math.max(0, canvasArea.scrollHeight - canvasArea.clientHeight);
+            if (smoothScrollTargetY === null) {
+                smoothScrollTargetY = canvasArea.scrollTop;
+            }
+            smoothScrollTargetY = Math.max(0, Math.min(maxScrollTop, smoothScrollTargetY + delta));
+            isSmoothScrolling = true;
+            if (!smoothScrollRafId) {
+                smoothScrollRafId = requestAnimationFrame(stepSmoothScroll);
+            }
         }
     }
 }, { passive: false });
+
+// Sinkronisasi posisi target saat pengguna berinteraksi langsung dengan scrollbar fisik atau mouse
+canvasArea.addEventListener('mousedown', () => {
+    if (smoothScrollRafId) {
+        cancelAnimationFrame(smoothScrollRafId);
+        smoothScrollRafId = null;
+    }
+    isSmoothScrolling = false;
+    smoothScrollTargetY = null;
+    smoothScrollTargetX = null;
+});
+
+canvasArea.addEventListener('scroll', () => {
+    if (!isSmoothScrolling) {
+        smoothScrollTargetY = canvasArea.scrollTop;
+        smoothScrollTargetX = canvasArea.scrollLeft;
+    }
+});
 
 // --- INTERAKSI KANVAS & FOKUS OTOMATIS KE DOKUMEN ---
 
@@ -3293,6 +3732,12 @@ async function performSaveToFile(filePathToSave) {
     // Tandai dokumen bersih setelah berhasil disimpan
     setDirty(false);
     updateRecentDocs(filePathToSave, currentDocName);
+    if (activeTabIndex >= 0 && openTabs[activeTabIndex]) {
+        openTabs[activeTabIndex].filePath = filePathToSave;
+        openTabs[activeTabIndex].title = currentDocName;
+        openTabs[activeTabIndex].isDirty = false;
+        renderTabsUI();
+    }
     
     // 3. Ubah status menjadi "Tersimpan"
     if (saveState) {
@@ -3311,6 +3756,13 @@ async function performSaveToFile(filePathToSave) {
         homeAfterSave = false;
         pendingHomeNav = false;
         goToHome();
+        return;
+    }
+
+    if (closeTabAfterSaveIndex !== null) {
+        const idxToClose = closeTabAfterSaveIndex;
+        closeTabAfterSaveIndex = null;
+        executeCloseTab(idxToClose);
         return;
     }
 
@@ -3368,6 +3820,7 @@ async function actionSave() {
                 closeAfterSave = false;
                 homeAfterSave = false;
                 pendingHomeNav = false;
+                closeTabAfterSaveIndex = null;
                 return; // User membatalkan dialog save
             }
             currentFilePath = filePathToSave;
@@ -3377,6 +3830,10 @@ async function actionSave() {
         await performSaveToFile(filePathToSave);
     } catch (e) {
         console.error("Gagal menyimpan dokumen:", e);
+        closeAfterSave = false;
+        homeAfterSave = false;
+        pendingHomeNav = false;
+        closeTabAfterSaveIndex = null;
         const saveState = document.getElementById('status-save-state');
         if (saveState) saveState.style.display = 'none';
         alert(window.t('Gagal menyimpan dokumen: ') + (e.message || e));
@@ -3584,38 +4041,15 @@ async function actionOpen() {
         const fileData = JSON.parse(jsonString);
 
         if (fileData.content && fileData.paperConfig) {
-            currentFilePath = filePath;
-            currentDocName = extractDocNameFromPath(filePath) || fileData.docName || 'Dokumen_Baru';
-            
-            
-            paperConfig = fileData.paperConfig;
-            numberingConfig = fileData.numberingConfig || { "doc": { show: false, format: "arabic", start: 1, align: "center", prefix: "", suffix: "" } };
-            headerFooterConfig = fileData.headerFooterConfig || { "doc": { header: { text: "", align: "center", diffFirst: false, firstText: "" }, footer: { text: "", align: "center", diffFirst: false, firstText: "" } } };
-            
-            // Restore form pengaturan kertas
-            document.getElementById('input-paper-size').value = paperConfig.width === 210 && paperConfig.height === 297 ? 'A4' : 
-                                                                paperConfig.width === 215.9 && paperConfig.height === 279.4 ? 'Letter' : 
-                                                                paperConfig.width === 215.9 && paperConfig.height === 355.6 ? 'Legal' : 
-                                                                paperConfig.width === 210 && paperConfig.height === 330 ? 'F4' : 'A4';
-            document.getElementById('margin-top').value = paperConfig.marginTop;
-            document.getElementById('margin-bottom').value = paperConfig.marginBottom;
-            document.getElementById('margin-left').value = paperConfig.marginLeft;
-            document.getElementById('margin-right').value = paperConfig.marginRight;
-            applyPageSetup();
+            const docName = extractDocNameFromPath(filePath) || fileData.docName || 'Dokumen_Baru';
 
             // Pindah ke layar editor
             document.getElementById('sidebar').style.display = 'none';
             document.getElementById('view-home').classList.remove('active');
             document.getElementById('view-editor').classList.add('active');
-            updateWindowTitle();
-            
-            setTimeout(() => {
-                quill.setContents(fileData.content);
-                quill.focus();
-                setDirty(false);
-                updateRecentDocs(filePath, currentDocName);
-                if (typeof renderVisualRuler === 'function') renderVisualRuler();
-            }, 150);
+
+            openOrSwitchToDocument(docName, filePath, fileData.content, fileData.paperConfig, fileData.numberingConfig, fileData.headerFooterConfig, false);
+            updateRecentDocs(filePath, docName);
         } else {
             alert(window.t('File .baku tidak valid atau rusak.'));
         }
@@ -3872,37 +4306,15 @@ async function openSpecificFile(filePath) {
         const fileData = JSON.parse(jsonString);
 
         if (fileData.content && fileData.paperConfig) {
-            currentFilePath = filePath;
-            currentDocName = extractDocNameFromPath(filePath) || fileData.docName || 'Dokumen_Baru';
-            
-            
-            paperConfig = fileData.paperConfig;
-            numberingConfig = fileData.numberingConfig || { "doc": { show: false, format: "arabic", start: 1, align: "center", prefix: "", suffix: "" } };
-            headerFooterConfig = fileData.headerFooterConfig || { "doc": { header: { text: "", align: "center", diffFirst: false, firstText: "" }, footer: { text: "", align: "center", diffFirst: false, firstText: "" } } };
-            
-            // Restore form pengaturan kertas
-            document.getElementById('input-paper-size').value = paperConfig.width === 210 && paperConfig.height === 297 ? 'A4' : 
-                                                                paperConfig.width === 215.9 && paperConfig.height === 279.4 ? 'Letter' : 
-                                                                paperConfig.width === 215.9 && paperConfig.height === 355.6 ? 'Legal' : 
-                                                                paperConfig.width === 210 && paperConfig.height === 330 ? 'F4' : 'A4';
-            document.getElementById('margin-top').value = paperConfig.marginTop;
-            document.getElementById('margin-bottom').value = paperConfig.marginBottom;
-            document.getElementById('margin-left').value = paperConfig.marginLeft;
-            document.getElementById('margin-right').value = paperConfig.marginRight;
-            applyPageSetup();
+            const docName = extractDocNameFromPath(filePath) || fileData.docName || 'Dokumen_Baru';
 
             // Pindah ke layar editor
             document.getElementById('sidebar').style.display = 'none';
             document.getElementById('view-home').classList.remove('active');
             document.getElementById('view-editor').classList.add('active');
-            updateWindowTitle();
-            
-            setTimeout(() => {
-                quill.setContents(fileData.content);
-                setDirty(false);
-                updateRecentDocs(filePath, currentDocName);
-                if (typeof renderVisualRuler === 'function') renderVisualRuler();
-            }, 150);
+
+            openOrSwitchToDocument(docName, filePath, fileData.content, fileData.paperConfig, fileData.numberingConfig, fileData.headerFooterConfig, false);
+            updateRecentDocs(filePath, docName);
         }
     } catch (e) {
         console.error(e);
@@ -3943,12 +4355,10 @@ if (window.__TAURI__) {
             return;
         }
         // HANYA cegat penutupan jika pengguna sedang berada di dalam editor dan ada perubahan belum disimpan
-        if (viewEditor && viewEditor.classList.contains('active') && isDirty) {
+        const anyDirty = (openTabs && openTabs.some(t => t.isDirty)) || isDirty;
+        if (viewEditor && viewEditor.classList.contains('active') && anyDirty) {
             event.preventDefault(); // Blokir penutupan paksa
-            if (modalUnsaved) {
-                modalUnsaved.style.display = 'flex';
-                modalUnsaved.classList.remove('hidden');
-            }
+            showUnsavedModal();
         } else {
             isClosing = true;
         }
@@ -3964,12 +4374,27 @@ document.getElementById('btn-unsaved-cancel').addEventListener('click', () => {
     closeAfterSave = false;
     homeAfterSave = false;
     pendingHomeNav = false;
+    pendingCloseTabIndex = null;
+    closeTabAfterSaveIndex = null;
 });
 
 document.getElementById('btn-unsaved-discard').addEventListener('click', () => {
     if (modalUnsaved) {
         modalUnsaved.classList.add('hidden');
         modalUnsaved.style.display = 'none';
+    }
+    if (pendingCloseTabIndex !== null) {
+        const idx = pendingCloseTabIndex;
+        pendingCloseTabIndex = null;
+        closeTabAfterSaveIndex = null;
+        if (idx >= 0 && idx < openTabs.length) {
+            openTabs[idx].isDirty = false;
+            if (idx === activeTabIndex) {
+                isDirty = false;
+            }
+            executeCloseTab(idx);
+        }
+        return;
     }
     if (pendingHomeNav) {
         goToHome();
@@ -3983,19 +4408,29 @@ document.getElementById('btn-unsaved-discard').addEventListener('click', () => {
     }
 });
 
-document.getElementById('btn-unsaved-save').addEventListener('click', () => {
+document.getElementById('btn-unsaved-save').addEventListener('click', async () => {
     if (modalUnsaved) {
         modalUnsaved.classList.add('hidden');
         modalUnsaved.style.display = 'none';
     }
+    if (pendingCloseTabIndex !== null) {
+        const idx = pendingCloseTabIndex;
+        pendingCloseTabIndex = null;
+        closeTabAfterSaveIndex = idx;
+        if (idx !== activeTabIndex) {
+            restoreTabState(idx);
+        }
+        await actionSave();
+        return;
+    }
     if (pendingHomeNav) {
         homeAfterSave = true;
-        actionSave();
+        await actionSave();
         return;
     }
     // Jalankan simpan, tandai agar tutup setelah selesai
     closeAfterSave = true;
-    actionSave();
+    await actionSave();
 });
 
 // --- LOGIKA RIBBON TABS ---
@@ -6354,6 +6789,16 @@ function initExtraPdfTools() {
             filters: [{ name: window.t('Gambar (JPG, PNG, WEBP)'), extensions: ['jpg', 'jpeg', 'png', 'webp'] }],
             multiple: true,
             allowReorder: true
+        },
+        compress: {
+            title: 'Kompres PDF',
+            desc: 'Pilih berkas PDF yang ingin dikompresi ukurannya.',
+            dropLabel: 'Seret & lepas berkas PDF ke sini',
+            badgeClass: 'bg-orange',
+            badgeIcon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>',
+            filters: [{ name: window.t('Dokumen PDF'), extensions: ['pdf'] }],
+            multiple: false,
+            allowReorder: false
         }
     };
 
@@ -6376,6 +6821,7 @@ function initExtraPdfTools() {
     const paneSplit = document.getElementById('options-split');
     const paneRotate = document.getElementById('options-rotate');
     const paneImg2Pdf = document.getElementById('options-img2pdf');
+    const paneCompress = document.getElementById('options-compress');
     const statusBanner = document.getElementById('pdf-status-banner');
     const statusMessage = document.getElementById('pdf-status-message');
     const btnCloseModal = document.getElementById('btn-close-pdf-modal');
@@ -6408,6 +6854,7 @@ function initExtraPdfTools() {
         if (paneSplit) paneSplit.classList.toggle('hidden', toolId !== 'split');
         if (paneRotate) paneRotate.classList.toggle('hidden', toolId !== 'rotate');
         if (paneImg2Pdf) paneImg2Pdf.classList.toggle('hidden', toolId !== 'img2pdf');
+        if (paneCompress) paneCompress.classList.toggle('hidden', toolId !== 'compress');
         if (optionsSection) optionsSection.classList.toggle('hidden', toolId === 'merge');
 
         if (statusBanner) {
@@ -6454,6 +6901,7 @@ function initExtraPdfTools() {
         else if (currentToolId === 'split') canExecute = currentQueue.length === 1;
         else if (currentToolId === 'rotate') canExecute = currentQueue.length === 1;
         else if (currentToolId === 'img2pdf') canExecute = currentQueue.length >= 1;
+        else if (currentToolId === 'compress') canExecute = currentQueue.length === 1;
 
         if (btnExecute) btnExecute.disabled = !canExecute;
 
@@ -6619,6 +7067,10 @@ function initExtraPdfTools() {
         }
         if (currentToolId === 'img2pdf' && currentQueue.length < 1) {
             alert(window.t('Pilih minimal 1 gambar untuk dikonversi.'));
+            return;
+        }
+        if (currentToolId === 'compress' && currentQueue.length !== 1) {
+            alert(window.t('Pilih 1 berkas PDF untuk dikompresi.'));
             return;
         }
 
@@ -6806,6 +7258,37 @@ function initExtraPdfTools() {
                 await window.__TAURI__.fs.writeBinaryFile(outputPath, outBytes);
                 closePdfTool(true);
                 showSuccessModal(outputPath);
+            } else if (currentToolId === 'compress') {
+                const presetRadio = document.querySelector('input[name="compress-preset"]:checked');
+                const quality = presetRadio ? presetRadio.value : 'standard';
+
+                const origName = currentQueue[0].name.replace(/\.pdf$/i, '');
+                const defaultOut = origName + '_Terkompresi.pdf';
+                const outputPath = await window.__TAURI__.dialog.save({
+                    title: window.t('Simpan PDF Hasil Kompresi'),
+                    defaultPath: defaultOut,
+                    filters: [{ name: window.t('Dokumen PDF'), extensions: ['pdf'] }]
+                });
+                if (!outputPath) {
+                    resetProcessingState();
+                    return;
+                }
+
+                if (statusBanner) {
+                    statusBanner.className = 'pdf-status-banner info';
+                    if (statusMessage) statusMessage.textContent = window.t('Sedang mengompresi PDF...');
+                    statusBanner.classList.remove('hidden');
+                }
+
+                await window.__TAURI__.tauri.invoke('compress_pdf_file', {
+                    inputPath: currentQueue[0].path,
+                    outputPath: outputPath,
+                    targetProfile: quality,
+                    targetDpi: null
+                });
+
+                closePdfTool(true);
+                showSuccessModal(outputPath);
             }
         } catch (err) {
             console.error('Gagal memproses alat PDF:', err);
@@ -6834,6 +7317,15 @@ function initExtraPdfTools() {
             if (toolId) openPdfTool(toolId);
         });
     });
+
+    const ribbonBtnCompress = document.getElementById('ribbon-btn-compress-pdf');
+    if (ribbonBtnCompress) {
+        ribbonBtnCompress.addEventListener('click', () => {
+            const menuTools = document.getElementById('menu-extra-tools');
+            if (menuTools) menuTools.click();
+            openPdfTool('compress');
+        });
+    }
 
     if (btnBrowse) btnBrowse.addEventListener('click', browseFiles);
     if (btnAddMore) btnAddMore.addEventListener('click', browseFiles);
@@ -7370,18 +7862,7 @@ function initTemplatesFeature() {
         const viewEditorEl = document.getElementById('view-editor');
         if (viewEditorEl) viewEditorEl.classList.add('active');
 
-        setTimeout(() => {
-            if (quill && activePreviewTemplate.content) {
-                quill.setContents(activePreviewTemplate.content);
-                quill.focus();
-                setDirty(false);
-                setTimeout(() => {
-                    if (typeof syncPageBreakHeights === 'function') syncPageBreakHeights();
-                    if (typeof updateCanvasHeight === 'function') updateCanvasHeight(true);
-                }, 50);
-            }
-            updateWindowTitle();
-        }, 150);
+        openOrSwitchToDocument(newDocName, null, activePreviewTemplate.content, activePreviewTemplate.paperConfig, activePreviewTemplate.numberingConfig, activePreviewTemplate.headerFooterConfig, false);
     }
 
     async function importTemplate() {

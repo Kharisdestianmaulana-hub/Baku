@@ -52,6 +52,7 @@ const DICT_EN = {
     "Kembalikan Zoom 100%": "Reset Zoom 100%",
     "Tentang Baku PDF": "About Baku PDF",
     "Versi 1.0.0": "Version 1.0.0",
+    "Versi 1.1.0": "Version 1.1.0",
     "Baku PDF adalah aplikasi pembuat dan penyunting dokumen ringan yang berfokus pada efisiensi. Dikembangkan untuk memenuhi standar format penulisan baku (seperti skripsi, laporan, makalah) dengan proses ekspor PDF secara *WYSIWYG* yang akurat tanpa server.": "Baku PDF is a lightweight document creation and editing application focused on efficiency. Developed to meet standard writing formatting (like thesis, reports, papers) with accurate, serverless *WYSIWYG* PDF export.",
     "Ditenagai oleh:": "Powered by:",
 
@@ -501,6 +502,31 @@ const DICT_EN = {
     "Pilih Folder Tujuan Penyimpanan": "Select Destination Folder",
     "Dokumen PDF": "PDF Document",
     "Gambar (JPG, PNG, WEBP)": "Images (JPG, PNG, WEBP)",
+
+    // === KOMPRES PDF (OFFLINE COMPRESSOR) ===
+    "Kompres PDF": "Compress PDF",
+    "Kompres Berkas PDF": "Compress PDF File",
+    "Perkecil ukuran berkas PDF secara luring tanpa mengorbankan keterbacaan teks dan dokumen.": "Reduce PDF file size offline without sacrificing text and document readability.",
+    "Pilih berkas PDF yang ingin dikompresi ukurannya.": "Select a PDF file whose size you want to compress.",
+    "Tingkat Kompresi:": "Compression Level:",
+    "Standar (Keseimbangan Optimal)": "Standard (Optimal Balance)",
+    "Maksimal (Ukuran Berkas Terkecil)": "Maximum (Smallest File Size)",
+    "Ringan (Kualitas Tinggi)": "Light (High Quality)",
+    "Hasil Kompresi:": "Compression Result:",
+    "Pilih 1 berkas PDF untuk dikompresi.": "Please select 1 PDF file to compress.",
+    "Simpan PDF Hasil Kompresi": "Save Compressed PDF",
+    "Ukuran Asli:": "Original Size:",
+    "Ukuran Baru:": "New Size:",
+    "Penghematan:": "Savings:",
+    "Sedang mengompresi PDF...": "Compressing PDF...",
+    "Kompresi Selesai": "Compression Finished",
+
+    // === MULTI-DOCUMENT TAB BAR ===
+    "Dokumen Baru": "New Document",
+    "Tutup Tab": "Close Tab",
+    "Geser Kiri": "Scroll Left",
+    "Geser Kanan": "Scroll Right",
+    "Dokumen memiliki perubahan yang belum disimpan. Simpan sebelum menutup?": "Document has unsaved changes. Save before closing?",
 
     // === GALERI TEMPLAT DOKUMEN (TEMPLATES GALLERY) ===
     "Baku & Siap Pakai": "Standard & Ready to Use",

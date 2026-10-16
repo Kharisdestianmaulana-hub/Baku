@@ -652,6 +652,60 @@ async fn rotate_pdf_file(
     Ok(output_path)
 }
 
+#[tauri::command]
+async fn compress_pdf_file(
+    input_path: String,
+    output_path: String,
+    target_profile: String,
+    target_dpi: Option<u32>,
+) -> Result<serde_json::Value, String> {
+    let in_meta = std::fs::metadata(&input_path)
+        .map_err(|e| format!("Gagal membaca metadata berkas input: {}", e))?;
+    let orig_size = in_meta.len();
+
+    let mut doc = lopdf::Document::load(&input_path)
+        .map_err(|e| format!("Gagal memuat berkas PDF: {}", e))?;
+
+    // Prune unreferenced objects
+    doc.prune_objects();
+
+    // Compress all streams with FlateDecode
+    doc.compress();
+
+    // Renumber objects sequentially for compact cross-reference table
+    doc.renumber_objects();
+
+    if let Some(parent) = std::path::Path::new(&output_path).parent() {
+        if !parent.as_os_str().is_empty() && !parent.exists() {
+            let _ = std::fs::create_dir_all(parent);
+        }
+    }
+
+    doc.save(&output_path)
+        .map_err(|e| format!("Gagal menyimpan PDF terkompresi: {}", e))?;
+
+    let out_meta = std::fs::metadata(&output_path)
+        .map_err(|e| format!("Gagal membaca metadata berkas output: {}", e))?;
+    let comp_size = out_meta.len();
+
+    let saved_bytes = if orig_size > comp_size { orig_size - comp_size } else { 0 };
+    let ratio_percent = if orig_size > 0 {
+        ((saved_bytes as f64) / (orig_size as f64)) * 100.0
+    } else {
+        0.0
+    };
+
+    Ok(serde_json::json!({
+        "original_size": orig_size,
+        "compressed_size": comp_size,
+        "saved_bytes": saved_bytes,
+        "ratio_percent": (ratio_percent * 10.0).round() / 10.0,
+        "output_path": output_path,
+        "target_profile": target_profile,
+        "target_dpi": target_dpi
+    }))
+}
+
 
 #[cfg(target_os = "macos")]
 fn set_macos_dock_icon() {
@@ -835,6 +889,7 @@ fn main() {
             merge_pdf_files,
             split_pdf_file,
             rotate_pdf_file,
+            compress_pdf_file,
             open_file_path,
             show_in_folder
         ])
