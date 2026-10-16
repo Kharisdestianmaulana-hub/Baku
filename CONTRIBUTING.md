@@ -110,6 +110,23 @@ Agar konsistensi dan kualitas proyek tetap terjaga, harap patuhi pedoman berikut
 
 ---
 
+### 6. Kebijakan Penomoran Versi (Semantic Versioning)
+
+Baku PDF menerapkan standar penomoran versi 3 angka **Semantic Versioning** (`v[MAJOR].[MINOR].[PATCH]`):
+- **MAJOR (Angka Pertama)**: Rilis versi utama atau perombakan arsitektural besar (contoh: transisi `v1.0.0` ke `v2.0.0`).
+- **MINOR (Angka Kedua)**: Penambahan fitur baru yang signifikan dan banyak tanpa merusak alur kerja sebelumnya (contoh: `v1.0.0` ke `v1.1.0`).
+- **PATCH (Angka Ketiga)**: Perbaikan kutu (*bug fixes*), penambalan keamanan, pembaruan dependensi, atau koreksi tampilan kecil (contoh: `v1.0.0` ke `v1.0.1`).
+
+Saat menaikkan versi, seluruh berkas konfigurasi berikut wajib disinkronkan secara konsisten:
+1. `package.json` (`"version": "X.Y.Z"`)
+2. `package-lock.json` (`"version": "X.Y.Z"`)
+3. `src-tauri/tauri.conf.json` (`"version": "X.Y.Z"` pada blok `"package"`)
+4. `src-tauri/Cargo.toml` (`version = "X.Y.Z"` pada blok `[package]`)
+5. `src/index.html` dan `src/i18n.js` (dialog Informasi Tentang Baku PDF)
+6. `CHANGELOG.md` (pencatatan catatan rilis resmi)
+
+---
+
 ## English Version
 
 ### 1. How to Contribute
@@ -192,6 +209,23 @@ To maintain software integrity and clean architecture:
    - `fix: resolve page break cursor positioning on click`
    - `docs: update contributing guide`
 4. Push your branch and open a **Pull Request** against `main`. Provide a concise explanation of changes and include screenshots for UI updates.
+
+---
+
+### 6. Semantic Versioning Policy
+
+Baku PDF strictly adheres to 3-digit **Semantic Versioning** (`v[MAJOR].[MINOR].[PATCH]`):
+- **MAJOR (First Digit)**: Major milestone releases or large architectural overhauls (e.g., transition from `v1.0.0` to `v2.0.0`).
+- **MINOR (Middle Digit)**: Feature releases introducing significant new capabilities while maintaining backwards compatibility (e.g., `v1.0.0` to `v1.1.0`).
+- **PATCH (Third Digit)**: Bug fixes, security patches, dependency updates, or small polish adjustments (e.g., `v1.0.0` to `v1.0.1`).
+
+When bumping the application version, all corresponding configuration files must be synchronized consistently:
+1. `package.json` (`"version": "X.Y.Z"`)
+2. `package-lock.json` (`"version": "X.Y.Z"`)
+3. `src-tauri/tauri.conf.json` (`"version": "X.Y.Z"` under `"package"`)
+4. `src-tauri/Cargo.toml` (`version = "X.Y.Z"` under `[package]`)
+5. `src/index.html` and `src/i18n.js` (About Baku PDF dialog)
+6. `CHANGELOG.md` (official release log entries)
 
 ---
 

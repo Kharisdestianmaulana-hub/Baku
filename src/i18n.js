@@ -51,7 +51,7 @@ const DICT_EN = {
     "Perkecil": "Zoom Out",
     "Kembalikan Zoom 100%": "Reset Zoom 100%",
     "Tentang Baku PDF": "About Baku PDF",
-    "Versi 1.0.0-beta": "Version 1.0.0-beta",
+    "Versi 1.0.0": "Version 1.0.0",
     "Baku PDF adalah aplikasi pembuat dan penyunting dokumen ringan yang berfokus pada efisiensi. Dikembangkan untuk memenuhi standar format penulisan baku (seperti skripsi, laporan, makalah) dengan proses ekspor PDF secara *WYSIWYG* yang akurat tanpa server.": "Baku PDF is a lightweight document creation and editing application focused on efficiency. Developed to meet standard writing formatting (like thesis, reports, papers) with accurate, serverless *WYSIWYG* PDF export.",
     "Ditenagai oleh:": "Powered by:",
 
